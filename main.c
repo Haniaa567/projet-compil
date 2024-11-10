@@ -8,21 +8,22 @@ int main() {
     initialisation();
 
     // Insertion de quelques identifiants/constantes
-    insererIDFCONST("variable1", "IDF", "int", "10", 0);
-    insererIDFCONST("constant1", "CONST", "float", "3.14", 1);
+    rechercher("variable1", "IDF", "int", "10", 0);
+    rechercher("constant1", "CONST", "float", "3.14", 0);
 
     // Insertion de mots-clés
-    insererKeywords("if", "KEYWORD", "condition", "", 0);
-    insererKeywords("else", "KEYWORD", "condition", "", 1);
+    rechercher("if", "KEYWORD", "condition", "", 1);
+    rechercher("else", "KEYWORD", "condition", "", 1);
 
     // Insertion de séparateurs
-    insererseparateur(";", "SEPARATOR", "", "", 0);
-    insererseparateur(",", "SEPARATOR", "", "", 1);
+    rechercher(";", "SEPARATOR", "", "", 2);
+    rechercher(",", "SEPARATOR", "", "", 2);
 
     // Recherche de quelques entités
+    /*
     rechercherIDFCONST("variable1", "IDF", "int", "10");
     rechercherKeywords("if", "KEYWORD", "condition", "");
-    rechercherseparateur(";", "SEPARATOR", "", "");
+    rechercherseparateur(";", "SEPARATOR", "", "");*/
 
     // Affichage des tables pour vérifier les insertions
     afficher(0); // Table des identifiants/constantes

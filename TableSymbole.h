@@ -16,7 +16,7 @@ typedef struct
 { 
    int state; 
    char name[20];
-   char code[20];
+   //char code[20];
    char type[20];
 } elt;
 //Les tableaux tab, tabs, et tabm stockent respectivement les identifiants/constantes, les séparateurs et les mots-clés.(il a crée trois ts)
@@ -54,7 +54,7 @@ void insererKeywords(char entite[], char code[],char type[],char val[],int i)
  
        tabm[i].state=1;
        strcpy(tabm[i].name,entite);
-       strcpy(tabm[i].code,code);
+       //strcpy(tabm[i].code,code);
 	   strcpy(tabm[i].type,type);
  
  }
@@ -62,7 +62,7 @@ void insererseparateur(char entite[], char code[],char type[],char val[],int i)
 {
       tabs[i].state=1;
       strcpy(tabs[i].name,entite);
-      strcpy(tabs[i].code,code);
+      strcpy(tabs[i].type,type);
 
 }
 //etape4:les fonctions de recherche ces fonctions recherchent les entites dans chacune de leur tabs si elle trouve une case vide elle insére sinon elle retoutne une erreur
@@ -74,7 +74,7 @@ void rechercherIDFCONST (char entite[], char code[],char type[],char val[])
 int j,i;
 
 
-  /*verifier si la case dans la tables des IDF et CONST est libre*/
+  //verifier si la case dans la tables des IDF et CONST est libre
         for (i=0;((i<1000)&&(tab[i].state==1))&&(strcmp(entite,tab[i].name)!=0);i++); 
         if(tab[i].state==0)
         { 
@@ -100,7 +100,7 @@ void rechercherKeywords (char entite[], char code[],char type[],char val[])
 int j,i;
 
 
- /*verifier si la case dans la tables des mots clés est libre si 1 on affiche un message d'erreur si 0  on insére*/
+ //verifier si la case dans la tables des mots clés est libre si 1 on affiche un message d'erreur si 0  on insére
        
        for (i=0;((i<40)&&(tabm[i].state==1))&&(strcmp(entite,tabm[i].name)!=0);i++); 
         if(tabm[i].state==0){
@@ -132,6 +132,56 @@ int j,i;
 
   }
 
+
+
+void rechercher(char entite[], char code[], char type[], char val[], int choix) {
+    int j, i;
+    
+    switch(choix) {
+        case 0: // rechercherIDFCONST
+            /*verifier si la case dans la tables des IDF et CONST est libre*/
+            for (i=0;((i<1000)&&(tab[i].state==1))&&(strcmp(entite,tab[i].name)!=0);i++); 
+            if(tab[i].state==0)
+            { 
+                insererIDFCONST(entite,code,type,val,i); 
+            }
+            else if (strcmp(entite,tab[i].name)==0){
+                printf("entite (%s) existe deja\n",entite);
+            }
+            else if (i>=1000)
+            { 
+                printf("La table des symboles des idfs est pleine");
+            }
+            break;
+            
+        case 1: // rechercherKeywords
+            /*verifier si la case dans la tables des mots clés est libre si 1 on affiche un message d'erreur si 0  on insére*/
+            for (i=0;((i<40)&&(tabm[i].state==1))&&(strcmp(entite,tabm[i].name)!=0);i++); 
+            if(tabm[i].state==0){
+                insererKeywords(entite,code,type,val,i);
+            }
+            else if (strcmp(entite,tabm[i].name)==0){
+                printf("entite (%s) existe deja\n",entite);
+            }
+            else if (i>=40){
+                printf ("La table des mots cles est pleine");
+            }
+            break;
+            
+        case 2: // rechercherseparateur
+            //verifier si la case dans la tables des séparateurs est libre si 1 on affiche un message d'erreur si 0 on insére
+            for (i=0;((i<40)&&(tabs[i].state==1))&&(strcmp(entite,tabs[i].name)!=0);i++); 
+            if(i<40)
+                insererseparateur(entite,code,type,val,i);
+            else
+                printf("entite (%s) existe deja\n",entite);
+            break;
+            
+        default:
+            printf("Choix invalide. Utilisez 1 pour IDF/CONST, 2 pour Keywords, ou 3 pour separateur\n");
+            break;
+    }
+}
 //Etape 5:l'affichage des tables de symboles
 
 
@@ -156,12 +206,12 @@ void afficher(int y) {
     case 1:
     printf("\n/***************Table des symboles mots cles*************/\n");
     printf("___________________________________________________\n");
-    printf("\t| Nom_Entite |  Code_Entite | Type_Entite |\n");
+    printf("\t| Nom_Entite | Type_Entite |\n");
     printf("___________________________________________________\n");
     
     for(i=0;i<40;i++){
         if(tabm[i].state==1){ 
-            printf("\t|%10s |%12s | |%12s | \n",tabm[i].name, tabm[i].code, tabm[i].type);       
+            printf("\t|%10s  | |%12s | \n",tabm[i].name, tabm[i].type);       
         }
     }
     break;
@@ -174,7 +224,7 @@ void afficher(int y) {
     
     for(i=0;i<40;i++){
         if(tabs[i].state==1) { 
-            printf("\t|%10s |%12s | \n",tabs[i].name,tabs[i].code );   
+            printf("\t|%10s |%12s | \n",tabs[i].name,tabs[i].type);   
         }
     } 
     break;
