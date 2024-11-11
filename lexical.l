@@ -14,6 +14,9 @@
     YYSTYPE yylval;
     
 %}
+
+%option yylineno
+
 IDENTIFIER [A-Z][a-zA-Z0-9_]*
 INT_NUMBER_S \([-+]?[0-9]+\)
 INT_NUMBER [0-9]+
@@ -74,16 +77,18 @@ WRITE            { rechercher(yytext,"mot cle","","",1);printf("WRITE\n");col +=
 {INT_NUMBER_S}    {  yylval.entier=atoi(yytext);rechercher(yytext,"CONSTANT","INTEGER",(yytext),0);printf("NUMBER_S: %s\n", yytext); col += strlen(yytext);
                                 if(atoi(yytext)>-32768 && atoi(yytext)<32767){
                                         printf("INT_NUMBER_S: %s\n", yytext); col += strlen(yytext);
-                                        yylval.ent=atoi(yytext);  
-                                                return entier;}
+                                        yylval.entier=atoi(yytext);  
+                                                //return entier;
+                                                }
                                             else{
                                     printf ("Erreur Lexicale a la ligne %d a la colonne %d : l'entier n'est pas supporter par contre programme \n ",nb_ligne, col);}  printf("NUMBER: %s\n", yytext);col += strlen(yytext); 
                     }    /* Entier signé entre parenthèses */
 {INT_NUMBER}        { yylval.entier=atoi(yytext);rechercher(yytext,"CONSTANT","INTEGER",(yytext),0);
                                 if(atoi(yytext)>-32768 && atoi(yytext)<32767){
                                     printf("INT_NUMBER: %s\n", yytext); col += strlen(yytext);
-                                        yylval.ent=atoi(yytext);  
-                                                return entier;}
+                                        yylval.entier=atoi(yytext);  
+                                                //return entier;
+                                                }
                                             else{
                                     printf ("Erreur Lexicale a la ligne %d a la colonne %d : l'entier n'est pas supporter par contre programme \n ",nb_ligne, col);}  printf("NUMBER: %s\n", yytext);col += strlen(yytext); 
                     }      /* Entier non signé */
@@ -107,6 +112,7 @@ WRITE            { rechercher(yytext,"mot cle","","",1);printf("WRITE\n");col +=
 %%
 
 int main() {
+    nb_ligne=1;col=1;
     initialisation();
     yyin = fopen("programme.txt", "r");
     if (yyin == NULL) {
@@ -118,3 +124,7 @@ int main() {
     afficher(0);afficher(1);afficher(2);
     return 0;
 }
+int yywrap() {
+    return 1;
+}
+
