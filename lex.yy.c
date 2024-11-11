@@ -163,8 +163,27 @@ extern FILE *yyin, *yyout;
 #define EOB_ACT_END_OF_FILE 1
 #define EOB_ACT_LAST_MATCH 2
     
-    #define YY_LESS_LINENO(n)
-    #define YY_LINENO_REWIND_TO(ptr)
+    /* Note: We specifically omit the test for yy_rule_can_match_eol because it requires
+     *       access to the local variable yy_act. Since yyless() is a macro, it would break
+     *       existing scanners that call yyless() from OUTSIDE yylex.
+     *       One obvious solution it to make yy_act a global. I tried that, and saw
+     *       a 5% performance hit in a non-yylineno scanner, because yy_act is
+     *       normally declared as a register variable-- so it is not worth it.
+     */
+    #define  YY_LESS_LINENO(n) \
+            do { \
+                yy_size_t yyl;\
+                for ( yyl = n; yyl < yyleng; ++yyl )\
+                    if ( yytext[yyl] == '\n' )\
+                        --yylineno;\
+            }while(0)
+    #define YY_LINENO_REWIND_TO(dst) \
+            do {\
+                const char *p;\
+                for ( p = yy_cp-1; p >= (dst); --p)\
+                    if ( *p == '\n' )\
+                        --yylineno;\
+            }while(0)
     
 /* Return all but the first "n" matched characters back to the input stream. */
 #define yyless(n) \
@@ -507,6 +526,13 @@ static const flex_int16_t yy_chk[195] =
 
     } ;
 
+/* Table of booleans, true if rule could match eol. */
+static const flex_int32_t yy_rule_can_match_eol[47] =
+    {   0,
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+    0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+    0, 0, 0, 0, 0, 0, 0,     };
+
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
 
@@ -527,8 +553,8 @@ char *yytext;
     #include <stdlib.h>
     #include <string.h>
     #include "TableSymbole.h"
-    int col;
-    int nb_ligne;
+    int col=1;
+    int nb_ligne=1;
     // Définition de YYSTYPE
     typedef union {
         int	entier;
@@ -537,8 +563,8 @@ char *yytext;
     } YYSTYPE;
     YYSTYPE yylval;
     
-#line 540 "lex.yy.c"
-#line 541 "lex.yy.c"
+#line 566 "lex.yy.c"
+#line 567 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -755,9 +781,9 @@ YY_DECL
 		}
 
 	{
-#line 25 "lexical.l"
+#line 28 "lexical.l"
 
-#line 760 "lex.yy.c"
+#line 786 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -803,6 +829,16 @@ yy_find_action:
 
 		YY_DO_BEFORE_ACTION;
 
+		if ( yy_act != YY_END_OF_BUFFER && yy_rule_can_match_eol[yy_act] )
+			{
+			yy_size_t yyl;
+			for ( yyl = 0; yyl < yyleng; ++yyl )
+				if ( yytext[yyl] == '\n' )
+					
+    yylineno++;
+;
+			}
+
 do_action:	/* This label is used only to access EOF actions. */
 
 		switch ( yy_act )
@@ -816,223 +852,239 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 26 "lexical.l"
+#line 29 "lexical.l"
 { rechercher(yytext,"mot cle","","",1);afficher(1); printf("VAR_GLOBAL\n");col += strlen(yytext); }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 27 "lexical.l"
+#line 30 "lexical.l"
 { rechercher(yytext,"mot cle","","",1);printf("DECLARATION\n");col += strlen(yytext); }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 28 "lexical.l"
+#line 31 "lexical.l"
 { printf("INSTRUCTION\n");col += strlen(yytext); }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 30 "lexical.l"
+#line 33 "lexical.l"
 { rechercher(yytext,"mot cle","","",1);printf("INTEGER\n");col += strlen(yytext); }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 31 "lexical.l"
+#line 34 "lexical.l"
 { rechercher(yytext,"mot cle","","",1);printf("FLOAT\n");col += strlen(yytext); }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 32 "lexical.l"
+#line 35 "lexical.l"
 { rechercher(yytext,"mot cle","","",1);printf("CHAR\n");col += strlen(yytext); }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 33 "lexical.l"
+#line 36 "lexical.l"
 { rechercher(yytext,"mot cle","","",1);printf("CONST\n");col += strlen(yytext); }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 35 "lexical.l"
+#line 38 "lexical.l"
 { rechercher(yytext,"mot cle","","",1);printf("IF\n"); col += strlen(yytext);}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 36 "lexical.l"
+#line 39 "lexical.l"
 { rechercher(yytext,"mot cle","","",1);printf("ELSE\n");col += strlen(yytext); }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 37 "lexical.l"
+#line 40 "lexical.l"
 { rechercher(yytext,"mot cle","","",1);printf("FOR\n"); col += strlen(yytext);}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 38 "lexical.l"
+#line 41 "lexical.l"
 { rechercher(yytext,"mot cle","","",1);printf("READ\n"); col += strlen(yytext);}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 39 "lexical.l"
+#line 42 "lexical.l"
 { rechercher(yytext,"mot cle","","",1);printf("WRITE\n");col += strlen(yytext); }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 41 "lexical.l"
+#line 44 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("AND\n"); col += strlen(yytext);}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 42 "lexical.l"
+#line 45 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("OR\n"); col += strlen(yytext);}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 43 "lexical.l"
+#line 46 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("NOT\n"); col += strlen(yytext);}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 45 "lexical.l"
+#line 48 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("EQ\n"); col += strlen(yytext);}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 46 "lexical.l"
+#line 49 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("NEQ\n"); col += strlen(yytext);}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 47 "lexical.l"
+#line 50 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("GEQ\n"); col += strlen(yytext);}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 48 "lexical.l"
+#line 51 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("LEQ\n"); col += strlen(yytext);}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 49 "lexical.l"
+#line 52 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("GT\n"); col += strlen(yytext); }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 50 "lexical.l"
+#line 53 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("LT\n"); col += strlen(yytext);}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 52 "lexical.l"
+#line 55 "lexical.l"
 { /* Ignorer les commentaires */ col += strlen(yytext); }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 54 "lexical.l"
+#line 57 "lexical.l"
 { /* Ignorer les espaces */col += strlen(yytext); }
 	YY_BREAK
 case 24:
 /* rule 24 can match eol */
 YY_RULE_SETUP
-#line 56 "lexical.l"
-{ nb_ligne++; col += strlen(yytext);}
+#line 59 "lexical.l"
+{ nb_ligne++; col =1;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 58 "lexical.l"
+#line 61 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("EQUALS\n");col += strlen(yytext); }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 59 "lexical.l"
+#line 62 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("PLUS\n");col += strlen(yytext); }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 60 "lexical.l"
+#line 63 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("MINUS\n");col += strlen(yytext); }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 61 "lexical.l"
+#line 64 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("MULTIPLY\n");col += strlen(yytext); }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 62 "lexical.l"
+#line 65 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("DIVIDE\n"); col += strlen(yytext);}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 64 "lexical.l"
+#line 67 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("LBRACE\n");col += strlen(yytext); }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 65 "lexical.l"
+#line 68 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("RBRACE\n"); col += strlen(yytext);}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 66 "lexical.l"
+#line 69 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("LPAREN\n"); col += strlen(yytext);}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 67 "lexical.l"
+#line 70 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("RPAREN\n");col += strlen(yytext); }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 68 "lexical.l"
+#line 71 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("LBRACKET\n"); col += strlen(yytext);}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 69 "lexical.l"
+#line 72 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("RBRACKET\n");col += strlen(yytext); }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 70 "lexical.l"
+#line 73 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("SEMICOLON\n"); col += strlen(yytext);}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 71 "lexical.l"
+#line 74 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("COMMA\n"); col += strlen(yytext);}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 72 "lexical.l"
+#line 75 "lexical.l"
 { rechercher(yytext,"sep",0,"",2);printf("COLON\n");col += strlen(yytext); }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 74 "lexical.l"
-{  yylval.entier=atoi(yytext);rechercher(yytext,"CONSTANT","INTEGER",(yytext),0);printf("NUMBER_S: %s\n", yytext); col += strlen(yytext);}    /* Entier signé entre parenthèses */
+#line 77 "lexical.l"
+{  yylval.entier=atoi(yytext);rechercher(yytext,"CONSTANT","INTEGER",(yytext),0);printf("NUMBER_S: %s\n", yytext); col += strlen(yytext);
+                                if(atoi(yytext)>-32768 && atoi(yytext)<32767){
+                                        printf("INT_NUMBER_S: %s\n", yytext); col += strlen(yytext);
+                                        yylval.entier=atoi(yytext);  
+                                                //return entier;
+                                                }
+                                            else{
+                                    printf ("Erreur Lexicale a la ligne %d a la colonne %d : l'entier n'est pas supporter par contre programme \n ",nb_ligne, col);}  printf("NUMBER: %s\n", yytext);col += strlen(yytext); 
+                    }    /* Entier signé entre parenthèses */
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 75 "lexical.l"
-{ yylval.entier=atoi(yytext);rechercher(yytext,"CONSTANT","INTEGER",(yytext),0);printf("NUMBER: %s\n", yytext);col += strlen(yytext); }      /* Entier non signé */
+#line 86 "lexical.l"
+{ yylval.entier=atoi(yytext);rechercher(yytext,"CONSTANT","INTEGER",(yytext),0);
+                                if(atoi(yytext)>-32768 && atoi(yytext)<32767){
+                                    printf("INT_NUMBER: %s\n", yytext); col += strlen(yytext);
+                                        yylval.entier=atoi(yytext);  
+                                                //return entier;
+                                                }
+                                            else{
+                                    printf ("Erreur Lexicale a la ligne %d a la colonne %d : l'entier n'est pas supporter par contre programme \n ",nb_ligne, col);}  printf("NUMBER: %s\n", yytext);col += strlen(yytext); 
+                    }      /* Entier non signé */
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 77 "lexical.l"
+#line 96 "lexical.l"
 { yylval.real=atof(yytext);rechercher(yytext,"CONSTANT","FLOAT",(yytext),0);printf("FLOAT_NUMBER_S: %s\n", yytext); col += strlen(yytext);} /* Réel signé entre parenthèses */
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 78 "lexical.l"
+#line 97 "lexical.l"
 {  yylval.real=atof(yytext);rechercher(yytext,"CONSTANT","FLOAT",(yytext),0);printf("FLOAT_NUMBER_S: %s\n", yytext);col += strlen(yytext); } /* Réel non signé */
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 79 "lexical.l"
+#line 98 "lexical.l"
 {  yylval.character=yytext[0];rechercher(yytext,"CONSTANT","CHAR",(yytext),0);printf("CHARACTERE: %s\n", yytext);col += strlen(yytext); } 
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 80 "lexical.l"
+#line 99 "lexical.l"
 {  rechercher(yytext,"IDF","","",0); col += strlen(yytext);
                 if (yyleng<9) { 
                     printf("IDENTIFIER: %s\n", yytext);
@@ -1046,15 +1098,15 @@ YY_RULE_SETUP
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 91 "lexical.l"
+#line 110 "lexical.l"
 { printf("Erreur lexicale : %s \nligne %d Colonne %d\n",yytext ,yylineno, col);col= col +strlen(yytext); }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 93 "lexical.l"
+#line 112 "lexical.l"
 ECHO;
 	YY_BREAK
-#line 1057 "lex.yy.c"
+#line 1109 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1422,6 +1474,10 @@ static int yy_get_next_buffer (void)
 
 	*--yy_cp = (char) c;
 
+    if ( c == '\n' ){
+        --yylineno;
+    }
+
 	(yytext_ptr) = yy_bp;
 	(yy_hold_char) = *yy_cp;
 	(yy_c_buf_p) = yy_cp;
@@ -1498,6 +1554,11 @@ static int yy_get_next_buffer (void)
 	c = *(unsigned char *) (yy_c_buf_p);	/* cast for 8-bit char's */
 	*(yy_c_buf_p) = '\0';	/* preserve yytext */
 	(yy_hold_char) = *++(yy_c_buf_p);
+
+	if ( c == '\n' )
+		
+    yylineno++;
+;
 
 	return c;
 }
@@ -1965,6 +2026,9 @@ static int yy_init_globals (void)
      * This function is called from yylex_destroy(), so don't allocate here.
      */
 
+    /* We do not touch yylineno unless the option is enabled. */
+    yylineno =  1;
+    
     (yy_buffer_stack) = NULL;
     (yy_buffer_stack_top) = 0;
     (yy_buffer_stack_max) = 0;
@@ -2059,10 +2123,11 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 93 "lexical.l"
+#line 112 "lexical.l"
 
 
 int main() {
+    nb_ligne=1;col=1;
     initialisation();
     yyin = fopen("programme.txt", "r");
     if (yyin == NULL) {
@@ -2074,4 +2139,8 @@ int main() {
     afficher(0);afficher(1);afficher(2);
     return 0;
 }
+int yywrap() {
+    return 1;
+}
+
 
