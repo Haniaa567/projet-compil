@@ -65,8 +65,8 @@ instruction_section:
 
 // Rule for different types of declarations
 declaration:
-    type variable_list SEMICOLON { printf("Variable declaration\n"); }
-    | CONST type IDENTIFIER EQUALS expression SEMICOLON { printf("Constant declaration: %s\n", $3); }
+    type variable_list SEMICOLON 
+    | CONST type IDENTIFIER EQUALS expression SEMICOLON 
 ;
 
 // Rule for a list of variables separated by commas
@@ -98,7 +98,7 @@ statement:
 
 // Define assignment statement (assigning an expression to an identifier)
 assignment:
-    IDENTIFIER EQUALS expression SEMICOLON { printf("Assignment to %s\n", $1); }
+    IDENTIFIER EQUALS expression SEMICOLON 
 ;
 
 // Define conditional statement with optional else block
@@ -157,7 +157,7 @@ factor:
 
 // Define string literals for WRITE statements
 string_literal:
-    STRING_LITERAL { printf("String literal: %s\n", $1); }
+    STRING_LITERAL 
 ;
 
 %%
