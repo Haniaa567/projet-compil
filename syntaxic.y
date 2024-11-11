@@ -2,7 +2,6 @@
     // Import necessary libraries for I/O and symbol table management
     #include <stdio.h>
     #include <stdlib.h>
-    
 
 
     // Declare external functions for lexical analysis and parsing
@@ -31,11 +30,20 @@
 %token AND OR NOT EQ NEQ GEQ LEQ GT LT
 %token EQUALS PLUS MINUS MULTIPLY DIVIDE
 %token LBRACE RBRACE LPAREN RPAREN LBRACKET RBRACKET SEMICOLON COMMA COLON
+%token STRING_LITERAL
+
+%start program
 
 // Specify types of non-terminal symbols used in rules (to support typed tokens in actions)
 %type <entier> expression term factor
 %type <entier> declaration assignment condition loop io_statement
-%type <entier> variable_list
+%type <entier> variable_list variable
+
+%left AND OR
+%left PLUS MINUS
+%left MULTIPLY DIVIDE
+%left EQ NEQ GEQ LEQ GT LT
+
 
 %%
 
@@ -75,8 +83,14 @@ declaration:
 
 // Rule for a list of variables separated by commas
 variable_list:
-    IDENTIFIER                          // Single identifier
-    | variable_list COMMA IDENTIFIER    // Multiple identifiers separated by commas
+    variable                    // A single variable (simple or array)
+    | variable_list COMMA variable  // Multiple variables separated by commas
+;
+
+// Rule for a variable, which can be either simple or an array
+variable:
+    IDENTIFIER                  // Single identifier (simple variable)
+    | IDENTIFIER LBRACKET INT_NUMBER RBRACKET // Array variable
 ;
 
 // Define valid types for variables (int, float, char)
@@ -133,14 +147,16 @@ term:
 // Define factor, which is a single variable, constant, or parenthesized expression
 factor:
     IDENTIFIER                // Variable
-    | INT_NUMBER              // Integer constant
-    | FLOAT_NUMBER            // Float constant
+    | INT_NUMBER              // Unsigned integer constant
+    | FLOAT_NUMBER            // Unsigned float constant
+    | INT_NUMBER_S            // Signed integer constant in parentheses
+    | FLOAT_NUMBER_S          // Signed float constant in parentheses
     | LPAREN expression RPAREN // Parenthesized expression
 ;
 
-// Define string literals (placeholders for handling text in WRITE statements)
+// Define string literals for WRITE statements
 string_literal:
-    /* Handle string literals for WRITE statements */
+    STRING_LITERAL { printf("String literal: %s\n", $1); }
 ;
 
 %%
