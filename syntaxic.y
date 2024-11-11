@@ -2,7 +2,8 @@
     // Import necessary libraries for I/O and symbol table management
     #include <stdio.h>
     #include <stdlib.h>
-   
+    
+
 
     // Declare external functions for lexical analysis and parsing
     extern int yylex();
