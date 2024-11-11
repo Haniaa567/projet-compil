@@ -1,4 +1,5 @@
 %{
+    
     // Import necessary libraries for I/O and symbol table management
     #include <stdio.h>
     #include <stdlib.h>
