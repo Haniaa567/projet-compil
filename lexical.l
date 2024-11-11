@@ -3,11 +3,18 @@
     #include <stdlib.h>
     #include <string.h>
     #include "TableSymbole.h"
-    int col;
-    int nb_ligne;
+    int col=1;
+    int nb_ligne=1;
+    // Définition de YYSTYPE
+    typedef union {
+        int	entier;
+        float real;	
+        char character;
+    } YYSTYPE;
+    YYSTYPE yylval;
     
 %}
-IDENTIFIER [A-Z][a-zA-Z0-9_]{0,7}
+IDENTIFIER [A-Z][a-zA-Z0-9_]*
 INT_NUMBER_S \([-+]?[0-9]+\)
 INT_NUMBER [0-9]+
 FLOAT_NUMBER_S \([-|+][0-9]+\.[0-9]+\) 
@@ -46,7 +53,7 @@ WRITE            { rechercher(yytext,"mot cle","","",1);printf("WRITE\n");col +=
 
 [ \t]+             { /* Ignorer les espaces */col += strlen(yytext); }
 
-\n                 { nb_ligne++; col += strlen(yytext);}
+\n                 { nb_ligne++; col =1;}
 
 "="                { rechercher(yytext,"sep",0,"",2);printf("EQUALS\n");col += strlen(yytext); }
 "+"                { rechercher(yytext,"sep",0,"",2);printf("PLUS\n");col += strlen(yytext); }
@@ -64,13 +71,36 @@ WRITE            { rechercher(yytext,"mot cle","","",1);printf("WRITE\n");col +=
 ","                { rechercher(yytext,"sep",0,"",2);printf("COMMA\n"); col += strlen(yytext);}
 ":"                { rechercher(yytext,"sep",0,"",2);printf("COLON\n");col += strlen(yytext); }
 
-{INT_NUMBER_S}    {  printf("NUMBER_S: %s\n", yytext); col += strlen(yytext);}    /* Entier signé entre parenthèses */
-{INT_NUMBER}             { printf("NUMBER: %s\n", yytext);col += strlen(yytext); }      /* Entier non signé */
+{INT_NUMBER_S}    {  yylval.entier=atoi(yytext);rechercher(yytext,"CONSTANT","INTEGER",(yytext),0);printf("NUMBER_S: %s\n", yytext); col += strlen(yytext);
+                                if(atoi(yytext)>-32768 && atoi(yytext)<32767){
+                                        printf("INT_NUMBER_S: %s\n", yytext); col += strlen(yytext);
+                                        yylval.ent=atoi(yytext);  
+                                                return entier;}
+                                            else{
+                                    printf ("Erreur Lexicale a la ligne %d a la colonne %d : l'entier n'est pas supporter par contre programme \n ",nb_ligne, col);}  printf("NUMBER: %s\n", yytext);col += strlen(yytext); 
+                    }    /* Entier signé entre parenthèses */
+{INT_NUMBER}        { yylval.entier=atoi(yytext);rechercher(yytext,"CONSTANT","INTEGER",(yytext),0);
+                                if(atoi(yytext)>-32768 && atoi(yytext)<32767){
+                                    printf("INT_NUMBER: %s\n", yytext); col += strlen(yytext);
+                                        yylval.ent=atoi(yytext);  
+                                                return entier;}
+                                            else{
+                                    printf ("Erreur Lexicale a la ligne %d a la colonne %d : l'entier n'est pas supporter par contre programme \n ",nb_ligne, col);}  printf("NUMBER: %s\n", yytext);col += strlen(yytext); 
+                    }      /* Entier non signé */
 
-{FLOAT_NUMBER_S} { printf("FLOAT_NUMBER_S: %s\n", yytext); col += strlen(yytext);} /* Réel signé entre parenthèses */
-{FLOAT_NUMBER}     {  printf("FLOAT_NUMBER: %s\n", yytext);col += strlen(yytext); } /* Réel non signé */
-{CHARACTERE}        {  printf("CHARACTERE: %s\n", yytext);col += strlen(yytext); } 
-{IDENTIFIER} {  printf("IDENTIFIER: %s\n", yytext); col += strlen(yytext);}
+{FLOAT_NUMBER_S} { yylval.real=atof(yytext);rechercher(yytext,"CONSTANT","FLOAT",(yytext),0);printf("FLOAT_NUMBER_S: %s\n", yytext); col += strlen(yytext);} /* Réel signé entre parenthèses */
+{FLOAT_NUMBER}     {  yylval.real=atof(yytext);rechercher(yytext,"CONSTANT","FLOAT",(yytext),0);printf("FLOAT_NUMBER_S: %s\n", yytext);col += strlen(yytext); } /* Réel non signé */
+{CHARACTERE}        {  yylval.character=yytext[0];rechercher(yytext,"CONSTANT","CHAR",(yytext),0);printf("CHARACTERE: %s\n", yytext);col += strlen(yytext); } 
+{IDENTIFIER} {  rechercher(yytext,"IDF","","",0); col += strlen(yytext);
+                if (yyleng<9) { 
+                    printf("IDENTIFIER: %s\n", yytext);
+                    //return IDENTIFIER;
+                }
+                else{
+
+                printf ("Erreur Lexicale a la ligne %d a la colonne %d : IDF trop long \n ",nb_ligne, col);
+                }
+            }    
 
 .                  { printf("Erreur lexicale : %s \nligne %d Colonne %d\n",yytext ,yylineno, col);col= col +strlen(yytext); }
 
@@ -85,5 +115,6 @@ int main() {
     } else {
         yylex();
     }
+    afficher(0);afficher(1);afficher(2);
     return 0;
 }
