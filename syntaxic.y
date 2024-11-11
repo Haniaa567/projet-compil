@@ -1,9 +1,7 @@
 %{
-    
     // Import necessary libraries for I/O and symbol table management
     #include <stdio.h>
     #include <stdlib.h>
-
 
     // Declare external functions for lexical analysis and parsing
     extern int yylex();
@@ -33,24 +31,15 @@
 %token LBRACE RBRACE LPAREN RPAREN LBRACKET RBRACKET SEMICOLON COMMA COLON
 %token STRING_LITERAL
 
-%start program
-
 // Specify types of non-terminal symbols used in rules (to support typed tokens in actions)
 %type <entier> expression term factor
 %type <entier> declaration assignment condition loop io_statement
 %type <entier> variable_list variable
 
-%left AND OR
-%left PLUS MINUS
-%left MULTIPLY DIVIDE
-%left EQ NEQ GEQ LEQ GT LT
-
-
 %%
 
 // Define the starting rule for the program structure
 program:
-    // Structure includes three main sections: global variables, declarations, and instructions
     VAR_GLOBAL LBRACE global_var_section RBRACE
     DECLARATION LBRACE declaration_section RBRACE
     INSTRUCTION LBRACE instruction_section RBRACE
@@ -76,9 +65,7 @@ instruction_section:
 
 // Rule for different types of declarations
 declaration:
-    // Single or multiple variable declarations with a type
     type variable_list SEMICOLON { printf("Variable declaration\n"); }
-    // Constant declaration with a fixed value
     | CONST type IDENTIFIER EQUALS expression SEMICOLON { printf("Constant declaration: %s\n", $3); }
 ;
 
@@ -128,7 +115,20 @@ loop:
 // Define input/output statements (read and write)
 io_statement:
     READ LPAREN IDENTIFIER RPAREN SEMICOLON            // Read statement for a variable
-    | WRITE LPAREN string_literal RPAREN SEMICOLON      // Write statement with a string literal
+    | WRITE LPAREN io_expr_list RPAREN SEMICOLON       // Write statement with multiple expressions
+;
+
+// Define a list of expressions for the WRITE statement
+io_expr_list:
+    io_expr                                       // Single expression
+    | io_expr_list COMMA io_expr                  // Multiple expressions separated by commas
+;
+
+// Define expressions in WRITE (string literals, identifiers, etc.)
+io_expr:
+    string_literal                                // String literal
+    | IDENTIFIER                                  // Variable
+    | expression                                  // Expression
 ;
 
 // Define expressions (arithmetic operations)
