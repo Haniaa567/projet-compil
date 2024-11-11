@@ -55,14 +55,14 @@ void insererKeywords(char entite[], char code[],char type[],char val[],int i)
        tabm[i].state=1;
        strcpy(tabm[i].name,entite);
        //strcpy(tabm[i].code,code);
-	   strcpy(tabm[i].type,type);
+	   strcpy(tabm[i].type,code);
  
  }
 void insererseparateur(char entite[], char code[],char type[],char val[],int i)
 {
       tabs[i].state=1;
       strcpy(tabs[i].name,entite);
-      strcpy(tabs[i].type,type);
+      strcpy(tabs[i].type,code);
 
 }
 //etape4:les fonctions de recherche ces fonctions recherchent les entites dans chacune de leur tabs si elle trouve une case vide elle insére sinon elle retoutne une erreur
