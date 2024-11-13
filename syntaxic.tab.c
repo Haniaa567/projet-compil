@@ -170,8 +170,6 @@
     // Déclaration de la fonction `yyerror` pour la gestion des erreurs de syntaxe.
     void yyerror(const char *s);
 
-    int nb_ligne = 1;
-    int col = 1;
 
 
 /* Enabling traces.  */
@@ -194,14 +192,14 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 16 "syntaxic.y"
+#line 14 "syntaxic.y"
 {
     int entier;
     float real;
     char character;
 }
 /* Line 193 of yacc.c.  */
-#line 205 "syntaxic.tab.c"
+#line 203 "syntaxic.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -214,7 +212,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 218 "syntaxic.tab.c"
+#line 216 "syntaxic.tab.c"
 
 #ifdef short
 # undef short
@@ -519,11 +517,11 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    34,    34,    41,    42,    47,    48,    53,    54,    59,
-      60,    65,    66,    71,    72,    77,    78,    79,    84,    85,
-      86,    87,    92,    97,    98,   103,   108,   109,   114,   115,
-     120,   121,   126,   127,   128,   133,   134,   135,   140,   141,
-     142,   143,   144,   145,   150
+       0,    32,    32,    39,    40,    45,    46,    51,    52,    57,
+      58,    63,    64,    69,    70,    75,    76,    77,    82,    83,
+      84,    85,    90,    95,    96,   101,   106,   107,   112,   113,
+     118,   119,   124,   125,   126,   131,   132,   133,   138,   139,
+     140,   141,   142,   143,   148
 };
 #endif
 
@@ -1496,7 +1494,7 @@ yyreduce:
     {
       
 /* Line 1267 of yacc.c.  */
-#line 1500 "syntaxic.tab.c"
+#line 1498 "syntaxic.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1710,7 +1708,7 @@ yyreturn:
 }
 
 
-#line 153 "syntaxic.y"
+#line 151 "syntaxic.y"
 
 
 // Main function to start the parser
