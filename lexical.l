@@ -3,6 +3,7 @@
     #include <stdlib.h>
     #include <string.h>
     #include "TableSymbole.h"
+    #include "syntaxic.tab.h"
     extern int col=1;
     extern int nb_ligne=1;
     

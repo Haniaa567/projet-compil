@@ -132,7 +132,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 12 "syntaxic.y"
+#line 16 "syntaxic.y"
 {
     int entier;
     float real;
