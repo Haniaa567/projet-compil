@@ -1,87 +1,76 @@
 %{
-    // Import necessary libraries for I/O and symbol table management
     #include <stdio.h>
     #include <stdlib.h>
 
-    // Declare external functions for lexical analysis and parsing
     extern int yylex();
     extern int yyparse();
 
-    // Define a function to handle errors encountered during parsing
     void yyerror(const char *s);
 
-    // Variables to track line and column numbers
     int nb_ligne = 1;
     int col = 1;
 %}
 
-// Define the types for YYSTYPE (union members) to hold values for different tokens
 %union {
     int entier;
     float real;
     char character;
 }
 
-// Declare tokens (these correspond to keywords and operators from the Flex file)
 %token VAR_GLOBAL DECLARATION INSTRUCTION
 %token INTEGER FLOAT CHAR CONST IF ELSE FOR READ WRITE
 %token IDENTIFIER INT_NUMBER_S INT_NUMBER FLOAT_NUMBER_S FLOAT_NUMBER CHARACTERE
-%token AND OR NOT EQ NEQ GEQ LEQ GT LT
+%token AND OR NOT EQ NEQ GEQ LT 
 %token EQUALS PLUS MINUS MULTIPLY DIVIDE
 %token LBRACE RBRACE LPAREN RPAREN LBRACKET RBRACKET SEMICOLON COMMA COLON
 %token STRING_LITERAL
 
-// Specify types of non-terminal symbols used in rules (to support typed tokens in actions)
-%type <entier> expression term factor
-%type <entier> declaration assignment condition loop io_statement
-%type <entier> variable_list variable
-
 %%
 
-// Define the starting rule for the program structure
+// Starting rule for the program structure
 program:
     VAR_GLOBAL LBRACE global_var_section RBRACE
     DECLARATION LBRACE declaration_section RBRACE
     INSTRUCTION LBRACE instruction_section RBRACE
 ;
 
-// Section for global variables (multiple declarations can be listed here)
+// Section for global variables (converted to right-recursive)
 global_var_section:
-    /* Allow repeating declarations in the global section */
-    | global_var_section declaration
+    declaration
+    | declaration global_var_section
 ;
 
-// Section for declarations (handles variable, array, and constant declarations)
+// Section for declarations (converted to right-recursive)
 declaration_section:
-    /* Declarations are defined and can repeat */
-    | declaration_section declaration
+    declaration
+    | declaration declaration_section
 ;
 
-// Section for instructions (statements like assignments, conditionals, loops)
+// Section for instructions (converted to right-recursive)
 instruction_section:
-    /* List of instructions that make up the program */
-    | instruction_section statement
+    statement
+    | statement instruction_section
 ;
 
 // Rule for different types of declarations
 declaration:
-    type variable_list SEMICOLON 
-    | CONST type IDENTIFIER EQUALS expression SEMICOLON 
+    type variable_list SEMICOLON
+    | CONST type IDENTIFIER EQUALS expression SEMICOLON
 ;
 
-// Rule for a list of variables separated by commas
+// Rule for a list of variables separated by commas (converted to right-recursive)
 variable_list:
-    variable                    // A single variable (simple or array)
-    | variable_list COMMA variable  // Multiple variables separated by commas
+    variable
+    | variable COMMA variable_list
 ;
 
 // Rule for a variable, which can be either simple or an array
 variable:
-    IDENTIFIER                  // Single identifier (simple variable)
-    | IDENTIFIER LBRACKET INT_NUMBER RBRACKET // Array variable
+    IDENTIFIER
+    | IDENTIFIER LBRACKET INT_NUMBER RBRACKET
 ;
 
-// Define valid types for variables (int, float, char)
+// Define valid types for variables
 type:
     INTEGER
     | FLOAT
@@ -90,15 +79,15 @@ type:
 
 // Define possible statements in the instruction section
 statement:
-    assignment          // Assignment statement
-    | condition         // Conditional statement (if-else)
-    | loop              // Loop statement (for loop)
-    | io_statement      // Input/output statement (read/write)
+    assignment
+    | condition
+    | loop
+    | io_statement
 ;
 
-// Define assignment statement (assigning an expression to an identifier)
+// Define assignment statement
 assignment:
-    IDENTIFIER EQUALS expression SEMICOLON 
+    IDENTIFIER EQUALS expression SEMICOLON
 ;
 
 // Define conditional statement with optional else block
@@ -107,65 +96,64 @@ condition:
     | IF LPAREN expression RPAREN LBRACE instruction_section RBRACE ELSE LBRACE instruction_section RBRACE SEMICOLON
 ;
 
-// Define loop statement with initialization, step, and end conditions
+// Define loop statement
 loop:
     FOR LPAREN assignment COLON expression COLON expression RPAREN LBRACE instruction_section RBRACE SEMICOLON
 ;
 
-// Define input/output statements (read and write)
+// Define input/output statements
 io_statement:
-    READ LPAREN IDENTIFIER RPAREN SEMICOLON            // Read statement for a variable
-    | WRITE LPAREN io_expr_list RPAREN SEMICOLON       // Write statement with multiple expressions
+    READ LPAREN IDENTIFIER RPAREN SEMICOLON
+    | WRITE LPAREN io_expr_list RPAREN SEMICOLON
 ;
 
-// Define a list of expressions for the WRITE statement
+// Define a list of expressions for the WRITE statement (converted to right-recursive)
 io_expr_list:
-    io_expr                                       // Single expression
-    | io_expr_list COMMA io_expr                  // Multiple expressions separated by commas
+    io_expr
+    | io_expr COMMA io_expr_list
 ;
 
-// Define expressions in WRITE (string literals, identifiers, etc.)
+// Define expressions in WRITE (prioritizes expression interpretation)
 io_expr:
-    string_literal                                // String literal
-    | IDENTIFIER                                  // Variable
-    | expression                                  // Expression
+    expression         // Handles identifiers and arithmetic expressions
+    | string_literal   // Handles direct string output
 ;
 
-// Define expressions (arithmetic operations)
+// Define expressions (arithmetic operations, converted to right-recursive)
 expression:
-    expression PLUS term      // Addition
-    | expression MINUS term   // Subtraction
-    | term                    // Single term (used for recursion)
+    term
+    | term PLUS expression
+    | term MINUS expression
 ;
 
-// Define term as multiplication/division operations or a factor
+// Define term as multiplication/division operations or a factor (converted to right-recursive)
 term:
-    term MULTIPLY factor      // Multiplication
-    | term DIVIDE factor      // Division
-    | factor                  // Single factor (used for recursion)
+    factor
+    | factor MULTIPLY term
+    | factor DIVIDE term
 ;
 
 // Define factor, which is a single variable, constant, or parenthesized expression
 factor:
-    IDENTIFIER                // Variable
-    | INT_NUMBER              // Unsigned integer constant
-    | FLOAT_NUMBER            // Unsigned float constant
-    | INT_NUMBER_S            // Signed integer constant in parentheses
-    | FLOAT_NUMBER_S          // Signed float constant in parentheses
-    | LPAREN expression RPAREN // Parenthesized expression
+    IDENTIFIER
+    | INT_NUMBER
+    | FLOAT_NUMBER
+    | INT_NUMBER_S
+    | FLOAT_NUMBER_S
+    | LPAREN expression RPAREN
 ;
 
 // Define string literals for WRITE statements
 string_literal:
-    STRING_LITERAL 
+    STRING_LITERAL
 ;
 
 %%
 
 // Main function to start the parser
 int main() {
-    yyparse(); // Start parsing process
-    return 0;  // Return 0 on successful parsing
+    yyparse();
+    return 0;
 }
 
 // Function to handle errors during parsing
