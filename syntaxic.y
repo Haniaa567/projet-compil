@@ -1,11 +1,9 @@
 %{
     #include <stdio.h>
     #include <stdlib.h>
+    #include "TableSymbole.h"
 
-    extern int yylex();
-    extern int yyparse();
 
-    void yyerror(const char *s);
 
     int nb_ligne = 1;
     int col = 1;
@@ -20,7 +18,7 @@
 %token VAR_GLOBAL DECLARATION INSTRUCTION
 %token INTEGER FLOAT CHAR CONST IF ELSE FOR READ WRITE
 %token IDENTIFIER INT_NUMBER_S INT_NUMBER FLOAT_NUMBER_S FLOAT_NUMBER CHARACTERE
-%token AND OR NOT EQ NEQ GEQ LT 
+%token AND OR NOT EQ NEQ GEQ LT LEQ GT
 %token EQUALS PLUS MINUS MULTIPLY DIVIDE
 %token LBRACE RBRACE LPAREN RPAREN LBRACKET RBRACKET SEMICOLON COMMA COLON
 %token STRING_LITERAL
@@ -152,11 +150,20 @@ string_literal:
 
 // Main function to start the parser
 int main() {
-    yyparse();
+    initialisation();
+    
+    yyparse(); 
+    printf("\n");
+    afficher(0);afficher(1);afficher(2);
     return 0;
+}
+int yywrap() {
+    return 1;
 }
 
 // Function to handle errors during parsing
-void yyerror(const char *s) {
-    fprintf(stderr, "Error: %s at line %d, column %d\n", s, nb_ligne, col);
-}
+
+int yyerror ( char*  msg )  
+{
+    printf ("Erreur Syntaxique a la ligne %d a la colonne %d \n", nb_ligne,col);
+} 

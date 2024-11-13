@@ -116,6 +116,7 @@ WRITE            { rechercher(yytext,"mot cle","","",1); printf("WRITE\n"); col 
 %%
 
 int main() {
+    nb_ligne=1;col=1;
     initialisation();
     yyin = fopen("programme.txt", "r");
     if (yyin == NULL) {
