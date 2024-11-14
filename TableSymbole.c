@@ -410,7 +410,7 @@ char* getCode(char entite[]){
 }
 
 //insertion tableau dans tab
-void insererTableauElement(char entite[], int index, char val[]) {
+void insererTableauElement(char entite[], int index, char val[],char type) {
     int i;
     char nomComplet[30];
     
@@ -423,7 +423,7 @@ void insererTableauElement(char entite[], int index, char val[]) {
     if (i < 1000 && tab[i].state == 0) {
         tab[i].state = 1;
         strcpy(tab[i].name, nomComplet);
-        strcpy(tab[i].type, "char*");  // ou le type du tableau
+        strcpy(tab[i].type,type);  
         strcpy(tab[i].val, val);
         printf("Insertion de l'élément %s avec la valeur %s\n", nomComplet, val);
     } else if (strcmp(nomComplet, tab[i].name) == 0) {
