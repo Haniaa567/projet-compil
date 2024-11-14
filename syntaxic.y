@@ -121,20 +121,39 @@ io_expr:
 
 // Define expressions (arithmetic operations, converted to right-recursive)
 expression:
+    comparison_expr                    // Start with comparison expressions
+    | comparison_expr AND expression   // Logical AND
+    | comparison_expr OR expression    // Logical OR
+;
+
+// Define comparison expressions (includes comparison operators)
+comparison_expr:
     term
-    | term PLUS expression
-    | term MINUS expression
+    | term GT comparison_expr           // Greater than
+    | term LT comparison_expr           // Less than
+    | term GEQ comparison_expr          // Greater than or equal to
+    | term LEQ comparison_expr          // Less than or equal to
+    | term EQ comparison_expr           // Equal
+    | term NEQ comparison_expr          // Not equal
 ;
 
 // Define term as multiplication/division operations or a factor (converted to right-recursive)
 term:
     factor
-    | factor MULTIPLY term
-    | factor DIVIDE term
+    | factor PLUS term                  // Addition
+    | factor MINUS term                 // substraction
 ;
 
-// Define factor, which is a single variable, constant, or parenthesized expression
+// Define factor as multiplication/division or a primary element
 factor:
+    primary
+    | primary MULTIPLY factor           // Multiplication, right-recursive
+    | primary DIVIDE factor             // Division, right-recursive
+;
+
+
+// Define primary elements: identifiers, numbers, and parenthesized expressions
+primary:
     IDENTIFIER
     | INT_NUMBER
     | FLOAT_NUMBER
@@ -167,6 +186,6 @@ int yywrap() {
 
 void yyerror(const char *s) {
     fprintf(stderr, "Error: %s at line %d, column %d\n", s, nb_ligne, col);
-    
+
 }
 
