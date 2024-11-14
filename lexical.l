@@ -21,7 +21,7 @@ CHARACTERE \'[^ \t\n$%&#']\'
 
 
 %%
-VAR_GLOBAL       { rechercher(yytext,"mot cle","","",1); afficher(1); printf("VAR_GLOBAL\n"); col += strlen(yytext); return VAR_GLOBAL; }
+VAR_GLOBAL       { rechercher(yytext,"mot cle","","",1);  printf("VAR_GLOBAL\n"); col += strlen(yytext); return VAR_GLOBAL; }
 DECLARATION      { rechercher(yytext,"mot cle","","",1); printf("DECLARATION\n"); col += strlen(yytext); return DECLARATION; }
 INSTRUCTION      { printf("INSTRUCTION\n"); col += strlen(yytext); return INSTRUCTION; }
 
