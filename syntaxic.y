@@ -3,10 +3,12 @@
     #include <stdlib.h>
     #include "TableSymbole.h"
 
+    // Déclaration de la fonction `yylex` pour que le compilateur la reconnaisse.
+    int yylex();
 
+    // Déclaration de la fonction `yyerror` pour la gestion des erreurs de syntaxe.
+    void yyerror(const char *s);
 
-    int nb_ligne = 1;
-    int col = 1;
 %}
 
 %union {
@@ -22,7 +24,7 @@
 %token EQUALS PLUS MINUS MULTIPLY DIVIDE
 %token LBRACE RBRACE LPAREN RPAREN LBRACKET RBRACKET SEMICOLON COMMA COLON
 %token STRING_LITERAL
-
+//%start program
 %%
 
 // Starting rule for the program structure
@@ -163,7 +165,7 @@ int yywrap() {
 
 // Function to handle errors during parsing
 
-int yyerror ( char*  msg )  
-{
-    printf ("Erreur Syntaxique a la ligne %d a la colonne %d \n", nb_ligne,col);
-} 
+void yyerror(const char *s) {
+    fprintf(stderr, "Erreur de syntaxe : %s\n", s);
+}
+

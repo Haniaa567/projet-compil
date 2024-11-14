@@ -164,10 +164,12 @@
     #include <stdlib.h>
     #include "TableSymbole.h"
 
+    // Déclaration de la fonction `yylex` pour que le compilateur la reconnaisse.
+    int yylex();
 
+    // Déclaration de la fonction `yyerror` pour la gestion des erreurs de syntaxe.
+    void yyerror(const char *s);
 
-    int nb_ligne = 1;
-    int col = 1;
 
 
 /* Enabling traces.  */
@@ -190,14 +192,14 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 12 "syntaxic.y"
+#line 14 "syntaxic.y"
 {
     int entier;
     float real;
     char character;
 }
 /* Line 193 of yacc.c.  */
-#line 201 "syntaxic.tab.c"
+#line 203 "syntaxic.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -210,7 +212,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 214 "syntaxic.tab.c"
+#line 216 "syntaxic.tab.c"
 
 #ifdef short
 # undef short
@@ -515,11 +517,11 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    30,    30,    37,    38,    43,    44,    49,    50,    55,
-      56,    61,    62,    67,    68,    73,    74,    75,    80,    81,
-      82,    83,    88,    93,    94,    99,   104,   105,   110,   111,
-     116,   117,   122,   123,   124,   129,   130,   131,   136,   137,
-     138,   139,   140,   141,   146
+       0,    32,    32,    39,    40,    45,    46,    51,    52,    57,
+      58,    63,    64,    69,    70,    75,    76,    77,    82,    83,
+      84,    85,    90,    95,    96,   101,   106,   107,   112,   113,
+     118,   119,   124,   125,   126,   131,   132,   133,   138,   139,
+     140,   141,   142,   143,   148
 };
 #endif
 
@@ -1492,7 +1494,7 @@ yyreduce:
     {
       
 /* Line 1267 of yacc.c.  */
-#line 1496 "syntaxic.tab.c"
+#line 1498 "syntaxic.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1706,7 +1708,7 @@ yyreturn:
 }
 
 
-#line 149 "syntaxic.y"
+#line 151 "syntaxic.y"
 
 
 // Main function to start the parser
@@ -1724,8 +1726,8 @@ int yywrap() {
 
 // Function to handle errors during parsing
 
-int yyerror ( char*  msg )  
-{
-    printf ("Erreur Syntaxique a la ligne %d a la colonne %d \n", nb_ligne,col);
-} 
+void yyerror(const char *s) {
+    fprintf(stderr, "Erreur de syntaxe : %s\n", s);
+}
+
 

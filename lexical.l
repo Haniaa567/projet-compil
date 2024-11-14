@@ -3,8 +3,8 @@
     #include <stdlib.h>
     #include <string.h>
     #include "TableSymbole.h"
-    extern int col=1;
-    extern int nb_ligne=1;
+    #include "syntaxic.tab.h"
+    
     
     extern YYSTYPE yylval;
     

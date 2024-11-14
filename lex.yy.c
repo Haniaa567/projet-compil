@@ -1,5 +1,6 @@
+#line 1 "lex.yy.c"
 
-#line 2 "lex.yy.c"
+#line 3 "lex.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -547,13 +548,13 @@ char *yytext;
     #include <stdlib.h>
     #include <string.h>
     #include "TableSymbole.h"
-    extern int col=1;
-    extern int nb_ligne=1;
+    #include "syntaxic.tab.h"
+    
     
     extern YYSTYPE yylval;
     
-#line 555 "lex.yy.c"
 #line 556 "lex.yy.c"
+#line 557 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -772,7 +773,7 @@ YY_DECL
 	{
 #line 23 "lexical.l"
 
-#line 775 "lex.yy.c"
+#line 776 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1054,7 +1055,7 @@ YY_RULE_SETUP
 #line 75 "lexical.l"
 ECHO;
 	YY_BREAK
-#line 1057 "lex.yy.c"
+#line 1058 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
