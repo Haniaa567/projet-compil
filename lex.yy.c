@@ -849,7 +849,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 24 "lexical.l"
-{ rechercher(yytext,"mot cle","","",1); afficher(1); printf("VAR_GLOBAL\n"); col += strlen(yytext); return VAR_GLOBAL; }
+{ rechercher(yytext,"mot cle","","",1);  printf("VAR_GLOBAL\n"); col += strlen(yytext); return VAR_GLOBAL; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
