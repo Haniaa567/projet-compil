@@ -3,11 +3,11 @@ VAR_GLOBAL {
     FLOAT XYZ;     
 }
 DECLARATION {
-    CONST INTEGER TEST = 123;    
-    FLOAT NUM = 12.34;          
-    INTEGER NUM2 = (+123);      
-    FLOAT NUM3 = (+12.34);      
-    CHAR CAR = 'A';            
+    CONST INTEGER TEST = (+12.34);    
+    FLOAT NUM  ;          
+    INTEGER NUM2;      
+    FLOAT NUM3 ;      
+    CHAR CAR ;            
 }
 INSTRUCTION {
     ABC = 10;
