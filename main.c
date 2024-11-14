@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "TableSymbole.h"
+#include "TableSymbole.c"
+
+// Prototype de la fonction pour insérer un élément de tableau
+void insererIDFCONSTTableau(char entite[], int index, char code[], char type[], char val[]);
 
 int main() {
     // Initialisation des tables
@@ -19,15 +22,18 @@ int main() {
     rechercher(";", "SEPARATOR", "", "", 2);
     rechercher(",", "SEPARATOR", "", "", 2);
 
-    // Recherche de quelques entités
-    /*
-    rechercherIDFCONST("variable1", "IDF", "int", "10");
-    rechercherKeywords("if", "KEYWORD", "condition", "");
-    rechercherseparateur(";", "SEPARATOR", "", "");*/
+    // Insertion d'éléments dans un tableau `tc`
+    insererTableauElement("tc","TABLE", 5, "CHAR","hello");
+    insererTableauElement("tc", "TABLE",10, "CHAR", "world");
 
     // Affichage des tables pour vérifier les insertions
+    printf("\nTable des identifiants/constantes :\n");
     afficher(0); // Table des identifiants/constantes
+
+    printf("\nTable des mots-clés :\n");
     afficher(1); // Table des mots-clés
+
+    printf("\nTable des séparateurs :\n");
     afficher(2); // Table des séparateurs
 
     // Test de la fonction pour obtenir la position d'un identifiant
@@ -47,5 +53,13 @@ int main() {
     printf("Type de 'variable1': %s\n", getType("variable1"));
     printf("Valeur de 'variable1': %s\n", getVal("variable1"));
 
+    // Récupérer et afficher les éléments du tableau `tc`
+    printf("\nÉléments de tableau insérés :\n");
+    printf("Type de 'tc[5]': %s\n", getType("tc[5]"));
+    printf("Valeur de 'tc[5]': %s\n", getVal("tc[5]"));
+    printf("Type de 'tc[10]': %s\n", getType("tc[10]"));
+    printf("Valeur de 'tc[10]': %s\n", getVal("tc[10]"));
+
     return 0;
 }
+
