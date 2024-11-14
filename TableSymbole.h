@@ -64,7 +64,7 @@ char* getType(char entite[]);
 char* getVal(char entite[]);
 
 char* getCode(char entite[]);
-void insererTableauElement(char entite[], int index, char val[]);
+void insererTableauElement(char entite[], int index, char val[],char type[]);
 
 
 #endif
