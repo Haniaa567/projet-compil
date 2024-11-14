@@ -151,7 +151,6 @@ factor:
     | primary DIVIDE factor             // Division, right-recursive
 ;
 
-
 // Define primary elements: identifiers, numbers, and parenthesized expressions
 primary:
     IDENTIFIER
