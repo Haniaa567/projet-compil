@@ -410,7 +410,7 @@ char* getCode(char entite[]){
 }
 
 //insertion tableau dans tab
-void insererTableauElement(char entite[], int index, char val[],char type) {
+void insererTableauElement(char entite[], int index, char val[],char type[]) {
     int i;
     char nomComplet[30];
     
