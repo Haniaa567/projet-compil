@@ -1,14 +1,17 @@
-
-READ
-INSTRUCTION
-VAR_GLOBAL
-Testeeeeee
-(-0.5)
-0.5
-(0.5)
-1
--1
-(-1)
-(-+1)
-[]
-{}
+VAR_GLOBAL {
+    INTEGER ABC;    
+    FLOAT XYZ;     
+}
+DECLARATION {
+    CONST INTEGER TEST = 123;    
+    FLOAT NUM = 12.34;          
+    INTEGER NUM2 = (+123);      
+    FLOAT NUM3 = (+12.34);      
+    CHAR CAR = 'A';            
+}
+INSTRUCTION {
+    ABC = 10;
+    IF(ABC > 0) { 
+        XYZ = 20.5;
+    };
+}
