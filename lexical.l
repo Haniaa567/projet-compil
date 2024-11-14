@@ -21,7 +21,7 @@ CHARACTERE \'[^ \t\n$%&#']\'
 
 
 %%
-VAR_GLOBAL       { rechercher(yytext,"mot cle","","",1); afficher(1); printf("VAR_GLOBAL\n"); col += strlen(yytext); return VAR_GLOBAL; }
+VAR_GLOBAL       { rechercher(yytext,"mot cle","","",1);  printf("VAR_GLOBAL\n"); col += strlen(yytext); return VAR_GLOBAL; }
 DECLARATION      { rechercher(yytext,"mot cle","","",1); printf("DECLARATION\n"); col += strlen(yytext); return DECLARATION; }
 INSTRUCTION      { printf("INSTRUCTION\n"); col += strlen(yytext); return INSTRUCTION; }
 
@@ -69,7 +69,12 @@ WRITE            { rechercher(yytext,"mot cle","","",1); printf("WRITE\n"); col 
 {FLOAT_NUMBER}   { yylval.real = atof(yytext); rechercher(yytext,"CONSTANT","FLOAT",yytext,0); printf("FLOAT_NUMBER: %s\n", yytext); col += strlen(yytext); return FLOAT_NUMBER; }
 {CHARACTERE}     { yylval.character = yytext[0]; rechercher(yytext,"CONSTANT","CHAR",yytext,0); printf("CHARACTERE: %s\n", yytext); col += strlen(yytext); return CHARACTERE; }
 {IDENTIFIER}     { rechercher(yytext,"IDF","","",0); col += strlen(yytext); if (yyleng < 9) { printf("IDENTIFIER: %s\n", yytext); return IDENTIFIER; } else { printf("Erreur Lexicale à la ligne %d à la colonne %d : IDF trop long\n", nb_ligne, col); } }
+"%%"[^\n]*         { /* Ignorer les commentaires */ col += strlen(yytext); }
 
+
+[ \t]+             { /* Ignorer les espaces */col += strlen(yytext); }
+
+\n                 { nb_ligne++; col =1;}
 .                  { printf("Erreur lexicale : %s \nligne %d Colonne %d\n",yytext ,yylineno, col);col= col +strlen(yytext); }
 
 %%
