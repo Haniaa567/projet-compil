@@ -167,5 +167,6 @@ int yywrap() {
 
 void yyerror(const char *s) {
     fprintf(stderr, "Error: %s at line %d, column %d\n", s, nb_ligne, col);
+    
 }
 
