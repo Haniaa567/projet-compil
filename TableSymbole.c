@@ -209,13 +209,13 @@ void afficher(int y) {
     break;
     case 1:
     printf("\n/***************Table des symboles mots cles*************/\n");
-    printf("___________________________________________________\n");
-    printf("\t| Nom_Entite | Type_Entite |\n");
-    printf("___________________________________________________\n");
+    printf("____________________________________________________________\n");
+    printf("\t| Nom_Entite             |         Type_Entite |\n");
+    printf("____________________________________________________________\n");
     
     for(i=0;i<40;i++){
         if(tabm[i].state==1){ 
-            printf("\t|%10s  | |%12s | \n",tabm[i].name, tabm[i].type);       
+            printf("\t|%20s  | |%20s | \n",tabm[i].name, tabm[i].type);       
         }
     }
     break;
