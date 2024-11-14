@@ -20,6 +20,8 @@
 %token EQUALS PLUS MINUS MULTIPLY DIVIDE
 %token LBRACE RBRACE LPAREN RPAREN LBRACKET RBRACKET SEMICOLON COMMA COLON
 %token STRING_LITERAL
+
+%start program
 %type <entier> expression term factor
 
 // Démarrage de la grammaire
@@ -64,6 +66,7 @@ declaration:
             yyerror("Erreur : constante déjà déclarée.");
         }
     }
+    
 ;
 
 // Liste de variables

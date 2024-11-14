@@ -13,7 +13,7 @@
 %option yylineno
 
 IDENTIFIER [A-Z][a-zA-Z0-9_]*
-INT_NUMBER_S \([-+]?[0-9]+\)
+INT_NUMBER_S \([-|+][0-9]+\)
 INT_NUMBER [0-9]+
 FLOAT_NUMBER_S \([-|+][0-9]+\.[0-9]+\) 
 FLOAT_NUMBER [0-9]+\.[0-9]+
