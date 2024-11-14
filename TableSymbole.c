@@ -409,4 +409,26 @@ char* getCode(char entite[]){
   }
 }
 
+//insertion tableau dans tab
+void insererTableauElement(char entite[], int index, char val[]) {
+    int i;
+    char nomComplet[30];
+    
+    // Créer un nom pour l'élément de tableau, ex. "tc[5]"
+    snprintf(nomComplet, sizeof(nomComplet), "%s[%d]", entite, index);
 
+    // Chercher une position libre dans la table
+    for (i = 0; i < 1000 && tab[i].state == 1 && strcmp(nomComplet, tab[i].name) != 0; i++);
+
+    if (i < 1000 && tab[i].state == 0) {
+        tab[i].state = 1;
+        strcpy(tab[i].name, nomComplet);
+        strcpy(tab[i].type, "char*");  // ou le type du tableau
+        strcpy(tab[i].val, val);
+        printf("Insertion de l'élément %s avec la valeur %s\n", nomComplet, val);
+    } else if (strcmp(nomComplet, tab[i].name) == 0) {
+        printf("L'élément %s existe déjà avec la valeur %s\n", nomComplet, tab[i].val);
+    } else {
+        printf("La table des symboles est pleine\n");
+    }
+}
