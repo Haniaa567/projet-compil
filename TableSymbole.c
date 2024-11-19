@@ -409,9 +409,15 @@ char* getCode(char entite[]){
     return tab[position].code;
   }
 }
+/*
 int typesCompatibles(char* varName, int exprType) {
     char* varType = getType(varName); // Récupère le type déclaré
     return strcmp(varType, exprType) == 0; // Vérifie la compatibilité
+}*/
+char* convertToString(int value) {
+    static char buffer[20];
+    snprintf(buffer, sizeof(buffer), "%d", value); // Convertit en chaîne
+    return buffer;
 }
 //i,serer tab
 void insererTableauElement(char entite[], char code[],int index, char val[], char type[]) {

@@ -598,11 +598,20 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
+<<<<<<< HEAD
        0,    32,    32,    39,    40,    45,    46,    51,    52,    57,
       58,    63,    64,    69,    70,    75,    76,    77,    82,    83,
       84,    85,    90,    95,    96,   101,   106,   107,   112,   113,
      118,   119,   124,   125,   126,   131,   132,   133,   138,   139,
      140,   141,   142,   143,   148
+=======
+       0,    36,    36,    44,    45,    46,    51,    52,    57,    58,
+      63,    64,    69,    70,    75,    76,    81,    90,   108,   109,
+     110,   111,   116,   128,   129,   134,   139,   145,   150,   151,
+     156,   157,   162,   163,   164,   169,   170,   171,   172,   173,
+     174,   175,   180,   181,   182,   187,   188,   189,   194,   200,
+     205,   206,   211,   212,   217
+>>>>>>> 2e53250 (comment)
 };
 #endif
 
@@ -1243,9 +1252,114 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
+<<<<<<< HEAD
       
 /* Line 1267 of yacc.c.  */
 #line 1498 "syntaxic.tab.c"
+=======
+  case 2: /* program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE  */
+#line 39 "syntaxic.y"
+    { printf("\n Le programme est correcte syntaxiquement\n"); YYACCEPT; }
+#line 1215 "syntaxic.tab.c"
+    break;
+
+  case 3: /* type: INTEGER  */
+#line 44 "syntaxic.y"
+            {strcpy(sauvType,"INTEGER");}
+#line 1221 "syntaxic.tab.c"
+    break;
+
+  case 4: /* type: FLOAT  */
+#line 45 "syntaxic.y"
+            {strcpy(sauvType,"FLOAT");}
+#line 1227 "syntaxic.tab.c"
+    break;
+
+  case 5: /* type: CHAR  */
+#line 46 "syntaxic.y"
+            {strcpy(sauvType,"CHAR");}
+#line 1233 "syntaxic.tab.c"
+    break;
+
+  case 16: /* variable: IDENTIFIER  */
+#line 81 "syntaxic.y"
+               {
+        if (verifdeclaration((yyvsp[0].string)) == -1) {
+            insererType(sauvType, (yyvsp[0].string));
+            printf("Vérification et insertion réussies pour : %s\n", (yyvsp[0].string));
+        } else {
+            printf("verifdeclaration($1) =%d \n",verifdeclaration((yyvsp[0].string)));
+            printf("Erreur semantique 'double declaration' à la ligne %d, la variable %s est déjà déclarée\n", nb_ligne, (yyvsp[0].string));
+        }
+    }
+#line 1247 "syntaxic.tab.c"
+    break;
+
+  case 17: /* variable: IDENTIFIER LBRACKET INT_NUMBER RBRACKET  */
+#line 90 "syntaxic.y"
+                                              {
+        if (verifdeclaration((yyvsp[-3].string)) == -1) {
+            if ((yyvsp[-1].entier) > 0) {
+                insererType(sauvType, (yyvsp[-3].string));
+                printf("Vérification et insertion réussies pour tableau : %s\n", (yyvsp[-3].string));
+            } else {
+                printf("Erreur semantique : L'indice du tableau '%s' doit être strictement positif à la ligne %d.\n", (yyvsp[-3].string), nb_ligne);
+            }
+        } else {
+            printf("Erreur semantique 'double declaration' à la ligne %d, le tableau %s est déjà déclaré\n", nb_ligne, (yyvsp[-3].string));
+        }
+    }
+#line 1264 "syntaxic.tab.c"
+    break;
+
+  case 22: /* assignment: IDENTIFIER EQUALS expression SEMICOLON  */
+#line 116 "syntaxic.y"
+                                           {
+        // Vérification de la déclaration de la variable avant usage dans READ
+        if (verifdeclaration((yyvsp[-3].string)) == -1) {
+            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", (yyvsp[-3].string));
+        }/*else if (!typesCompatibles($1, $3)) {
+            printf("Erreur sémantique : Type incompatible pour l'affectation de '%s'.\n", $1);
+        }*/
+    }
+#line 1277 "syntaxic.tab.c"
+    break;
+
+  case 48: /* primary: IDENTIFIER  */
+#line 194 "syntaxic.y"
+               {
+        // Vérification de la déclaration de la variable avant usage dans READ
+        if (verifdeclaration((yyvsp[0].string)) == -1) {
+            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", (yyvsp[0].string));
+        }
+    }
+#line 1288 "syntaxic.tab.c"
+    break;
+
+  case 49: /* primary: INT_NUMBER  */
+#line 200 "syntaxic.y"
+                 {
+        if ((yyvsp[0].entier) < 0 || (yyvsp[0].entier) > 32767) {
+            yyerror("Erreur : entier hors des limites autorisées (-32768 à 32767).");
+        }
+    }
+#line 1298 "syntaxic.tab.c"
+    break;
+
+  case 51: /* primary: INT_NUMBER_S  */
+#line 206 "syntaxic.y"
+                  {
+        if ((yyvsp[0].entier) < -32768 || (yyvsp[0].entier) > 32767) {
+            yyerror("Erreur : entier signé hors des limites autorisées (-32768 à 32767).");
+        }
+    }
+#line 1308 "syntaxic.tab.c"
+    break;
+
+
+#line 1312 "syntaxic.tab.c"
+
+>>>>>>> 2e53250 (comment)
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1437,7 +1551,11 @@ yyreturnlab:
   return yyresult;
 }
 
+<<<<<<< HEAD
 #line 151 "syntaxic.y"
+=======
+#line 220 "syntaxic.y"
+>>>>>>> 2e53250 (comment)
 
 
 // Main function to start the parser

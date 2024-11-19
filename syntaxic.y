@@ -21,7 +21,7 @@
 
 %token VAR_GLOBAL DECLARATION INSTRUCTION
 %token INTEGER FLOAT CHAR CONST IF ELSE FOR READ WRITE
-%token <string>IDENTIFIER INT_NUMBER_S INT_NUMBER FLOAT_NUMBER_S FLOAT_NUMBER CHARACTERE
+%token <string>IDENTIFIER <entier>INT_NUMBER_S <entier>INT_NUMBER FLOAT_NUMBER_S FLOAT_NUMBER CHARACTERE
 %token AND OR NOT EQ NEQ GEQ LT LEQ GT
 %token EQUALS PLUS MINUS MULTIPLY DIVIDE
 %token LBRACE RBRACE LPAREN RPAREN LBRACKET RBRACKET SEMICOLON COMMA COLON
@@ -117,9 +117,9 @@ assignment:
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration($1) == -1) {
             printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
-        }else if (!typesCompatibles($1, $3)) {
+        }/*else if (!typesCompatibles($1, $3)) {
             printf("Erreur sémantique : Type incompatible pour l'affectation de '%s'.\n", $1);
-        }
+        }*/
     }
 ;
 
@@ -136,12 +136,12 @@ loop:
 
 // Define input/output statements
 io_statement:
-    READ LPAREN IDENTIFIER RPAREN SEMICOLON{
+    READ LPAREN IDENTIFIER RPAREN SEMICOLON/*{
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration($3) == -1) {
             printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
         }
-    }
+    }*/
     | WRITE LPAREN io_expr_list RPAREN SEMICOLON
 ;
 

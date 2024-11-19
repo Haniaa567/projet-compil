@@ -65,7 +65,8 @@ char* getVal(char entite[]);
 
 char* getCode(char entite[]);
 
-int typesCompatibles(char entite1[],char entite2[]);
+//int typesCompatibles(char entite1[],char entite2[]);
+char* convertToString(int value);
 
 void insererTableauElement(char entite[],char code[], int index, char val[],char type[]);
 
