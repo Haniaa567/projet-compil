@@ -275,15 +275,16 @@ int positionSeparateur(char entite[])
 // Etape 7: les fonctions de modifications des cases:
 void insererType(char type[],char entite[])
 {
-int pos;
-pos=positionIDF(entite);
-if(pos != -1){
-    strcpy(tab[pos].type,type);
+    int pos;
+    pos=positionIDF(entite);
+    if(pos != -1){
+        strcpy(tab[pos].type,type);
+    }
+    else{
+        printf("l'élément n'existe pas");
+    }
 }
-else{
-    printf("l'élément n'existe pas");
-}
-}
+
 //cette fonction insere une valeur dans une entité déja déclarer
 void insererVal(char entite[],char Val[])
 {
@@ -321,7 +322,7 @@ int verifdeclaration(char entite[])
     int pos;
     printf("Vérification de la déclaration pour : %s\n", entite);
     pos=positionIDF(entite);
-     if(pos !=-1 && strcmp(tab[pos].type," ")==0){return(-1);}//la variable n'est pas déclaré 
+     if( strcmp(tab[pos].type,"")==0){return(0);}//la variable n'est pas déclaré 
      else{return(1);}
 
 

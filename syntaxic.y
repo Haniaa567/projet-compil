@@ -9,6 +9,13 @@
     // Déclaration de la fonction `yyerror` pour la gestion des erreurs de syntaxe.
     void yyerror(const char *s);
     char sauvType [20];
+    int j=0;
+    typedef struct
+   {  
+      char idfTab[9];
+      
+   } elt_idf;
+   elt_idf saveIdf[20];
 
 %}
 
@@ -36,7 +43,6 @@ program:
     VAR_GLOBAL LBRACE global_var_section RBRACE
     DECLARATION LBRACE declaration_section RBRACE
     INSTRUCTION LBRACE instruction_section RBRACE
-    { printf("\n Le programme est correcte syntaxiquement\n"); YYACCEPT; }
 ;
 
 // Define valid types for variables
@@ -66,39 +72,30 @@ instruction_section:
 
 // Rule for different types of declarations
 declaration:
-    type variable_list SEMICOLON 
+    type variable_list SEMICOLON {
+        //verification de la double declaration et insertion du type
+        for(j=0;strcmp(saveIdf[j].idfTab,"")!=0;j++){
+            if(verifdeclaration(saveIdf[j].idfTab)==0) insererType(sauvType,saveIdf[j].idfTab);
+            else printf("Erreur semantique :double declaration de %s a la ligne %d\n",saveIdf[j].idfTab,nb_ligne);
+            strcpy(saveIdf[j].idfTab,"");
+        }j=0;    
+
+    }
     | CONST type IDENTIFIER EQUALS expression SEMICOLON
 ;
 
 // Rule for a list of variables separated by commas (converted to right-recursive)
 variable_list:
-    variable
-    | variable COMMA variable_list
+    IDENTIFIER {strcpy(saveIdf[j].idfTab,$1);j++;} 
+    | IDENTIFIER LBRACKET INT_NUMBER RBRACKET  {strcpy(saveIdf[j].idfTab,$1);j++;}  
+    | IDENTIFIER COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
+    | IDENTIFIER LBRACKET INT_NUMBER RBRACKET COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
 ;
 
 // Rule for a variable, which can be either simple or an array
 variable:
-    IDENTIFIER {
-        if (verifdeclaration($1) == -1) {
-            insererType(sauvType, $1);
-            printf("Vérification et insertion réussies pour : %s\n", $1);
-        } else {
-            printf("verifdeclaration($1) =%d \n",verifdeclaration($1));
-            printf("Erreur semantique 'double declaration' à la ligne %d, la variable %s est déjà déclarée\n", nb_ligne, $1);
-        }
-    }
-    | IDENTIFIER LBRACKET INT_NUMBER RBRACKET {
-        if (verifdeclaration($1) == -1) {
-            if ($3 > 0) {
-                insererType(sauvType, $1);
-                printf("Vérification et insertion réussies pour tableau : %s\n", $1);
-            } else {
-                printf("Erreur semantique : L'indice du tableau '%s' doit être strictement positif à la ligne %d.\n", $1, nb_ligne);
-            }
-        } else {
-            printf("Erreur semantique 'double declaration' à la ligne %d, le tableau %s est déjà déclaré\n", nb_ligne, $1);
-        }
-    }
+    IDENTIFIER {strcpy(saveIdf.idfTab,$1);} 
+    | IDENTIFIER LBRACKET INT_NUMBER RBRACKET  {strcpy(saveIdf[j].idfTab,$1);j++;} 
 ;
 
 
