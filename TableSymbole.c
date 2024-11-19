@@ -278,7 +278,7 @@ void insererType(char type[],char entite[])
 int pos;
 pos=positionIDF(entite);
 if(pos != -1){
-    strcmp(tab[pos].type,type);
+    strcpy(tab[pos].type,type);
 }
 else{
     printf("l'élément n'existe pas");
@@ -319,6 +319,7 @@ void insererCode(char entite[])
 int verifdeclaration(char entite[])
 {
     int pos;
+    printf("Vérification de la déclaration pour : %s\n", entite);
     pos=positionIDF(entite);
      if(pos !=-1 && strcmp(tab[pos].type," ")==0){return(-1);}//la variable n'est pas déclaré 
      else{return(1);}
@@ -407,6 +408,10 @@ char* getCode(char entite[]){
   if (position!=-1){
     return tab[position].code;
   }
+}
+int typesCompatibles(char* varName, int exprType) {
+    char* varType = getType(varName); // Récupère le type déclaré
+    return strcmp(varType, exprType) == 0; // Vérifie la compatibilité
 }
 //i,serer tab
 void insererTableauElement(char entite[], char code[],int index, char val[], char type[]) {
