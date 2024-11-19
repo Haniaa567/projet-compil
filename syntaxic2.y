@@ -3,32 +3,28 @@
     #include <stdlib.h>
     #include "TableSymbole.h"
 
-    // Déclaration de la fonction `yylex` pour que le compilateur la reconnaisse.
     int yylex();
-
-    // Déclaration de la fonction `yyerror` pour la gestion des erreurs de syntaxe.
     void yyerror(const char *s);
-    char sauvType [20];
-
 %}
 
 %union {
     int entier;
     float real;
-    char character;
-    char* string;
+    char *string;  // Pour les chaînes de caractères
 }
 
-%token VAR_GLOBAL DECLARATION INSTRUCTION
-%token INTEGER FLOAT CHAR CONST IF ELSE FOR READ WRITE
-%token <string>IDENTIFIER INT_NUMBER_S INT_NUMBER FLOAT_NUMBER_S FLOAT_NUMBER CHARACTERE
-%token AND OR NOT EQ NEQ GEQ LT LEQ GT
-%token EQUALS PLUS MINUS MULTIPLY DIVIDE
-%token LBRACE RBRACE LPAREN RPAREN LBRACKET RBRACKET SEMICOLON COMMA COLON
-%token STRING_LITERAL
+%token <entier> VAR_GLOBAL DECLARATION INSTRUCTION
+%token <entier> INTEGER FLOAT CHAR CONST IF ELSE FOR READ WRITE
+%token <entier> IDENTIFIER INT_NUMBER_S INT_NUMBER FLOAT_NUMBER_S FLOAT_NUMBER CHARACTERE
+%token <entier> AND OR NOT EQ NEQ GEQ LT LEQ GT
+%token <entier> EQUALS PLUS MINUS MULTIPLY DIVIDE
+%token <string> STRING_LITERAL  // Utilisation de char* pour STRING_LITERAL
 
-%type <string> assignment
-//%start program
+%type <entier> program global_var_section declaration_section instruction_section declaration
+%type <entier> variable_list variable type statement assignment condition loop io_statement io_expr_list io_expr
+%type <entier> expression comparison_expr term factor primary
+%type <string> string_literal  // STRING_LITERAL est une chaîne de caractères
+
 %%
 
 // Starting rule for the program structure
@@ -36,14 +32,6 @@ program:
     VAR_GLOBAL LBRACE global_var_section RBRACE
     DECLARATION LBRACE declaration_section RBRACE
     INSTRUCTION LBRACE instruction_section RBRACE
-    { printf("\n Le programme est correcte syntaxiquement\n"); YYACCEPT; }
-;
-
-// Define valid types for variables
-type:
-    INTEGER {strcpy(sauvType,"INTEGER");}
-    | FLOAT {strcpy(sauvType,"FLOAT");}
-    | CHAR  {strcpy(sauvType,"CHAR");}
 ;
 
 // Section for global variables (converted to right-recursive)
@@ -66,8 +54,14 @@ instruction_section:
 
 // Rule for different types of declarations
 declaration:
-    type variable_list SEMICOLON 
-    | CONST type IDENTIFIER EQUALS expression SEMICOLON
+    type variable_list SEMICOLON
+    | CONST type IDENTIFIER EQUALS expression SEMICOLON {
+        if (positionIDF($3) == -1) {
+            insererIDFCONST($3, "IDF CONSTANT", $2, "", 0); // Insère la constante
+        } else {
+            yyerror("Erreur : constante déjà déclarée.");
+        }
+    }
 ;
 
 // Rule for a list of variables separated by commas (converted to right-recursive)
@@ -79,29 +73,31 @@ variable_list:
 // Rule for a variable, which can be either simple or an array
 variable:
     IDENTIFIER {
-        if (verifdeclaration($1) == -1) {
-            insererType(sauvType, $1);
-            printf("Vérification et insertion réussies pour : %s\n", $1);
+        if (positionIDF($1) == -1) {
+            insererIDFCONST($1, "variable", "", "", 0); // Insertion de la variable
         } else {
-            printf("verifdeclaration($1) =%d \n",verifdeclaration($1));
-            printf("Erreur semantique 'double declaration' à la ligne %d, la variable %s est déjà déclarée\n", nb_ligne, $1);
+            yyerror("Erreur : identificateur déjà déclaré.");
         }
     }
     | IDENTIFIER LBRACKET INT_NUMBER RBRACKET {
-        if (verifdeclaration($1) == -1) {
-            if ($3 > 0) {
-                insererType(sauvType, $1);
-                printf("Vérification et insertion réussies pour tableau : %s\n", $1);
-            } else {
-                printf("Erreur semantique : L'indice du tableau '%s' doit être strictement positif à la ligne %d.\n", $1, nb_ligne);
-            }
+        if ($3 <= 0) {
+            yyerror("Erreur : l'indice de tableau doit être strictement positif.");
         } else {
-            printf("Erreur semantique 'double declaration' à la ligne %d, le tableau %s est déjà déclaré\n", nb_ligne, $1);
+            if (positionIDF($1) == -1) {
+                insererIDFCONST($1, "array", "", "", $3);
+            } else {
+                yyerror("Erreur : identificateur déjà déclaré.");
+            }
         }
     }
 ;
 
-
+// Define valid types for variables
+type:
+    INTEGER { $$ = "int"; }
+    | FLOAT { $$ = "float"; }
+    | CHAR { $$ = "char"; }
+;
 
 // Define possible statements in the instruction section
 statement:
@@ -114,11 +110,12 @@ statement:
 // Define assignment statement
 assignment:
     IDENTIFIER EQUALS expression SEMICOLON {
-        // Vérification de la déclaration de la variable avant usage dans READ
-        if (verifdeclaration($1) == -1) {
-            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
-        }else if (!typesCompatibles($1, $3)) {
-            printf("Erreur sémantique : Type incompatible pour l'affectation de '%s'.\n", $1);
+        if (positionIDF($1) == -1) {
+            yyerror("Erreur : variable non déclarée.");
+        } else if (verifconstante($1)) {
+            yyerror("Erreur : modification d'une constante.");
+        } else if (!verifcmpType($1, getType($3))) {
+            yyerror("Erreur : type incompatible dans l'affectation.");
         }
     }
 ;
@@ -136,10 +133,9 @@ loop:
 
 // Define input/output statements
 io_statement:
-    READ LPAREN IDENTIFIER RPAREN SEMICOLON{
-        // Vérification de la déclaration de la variable avant usage dans READ
-        if (verifdeclaration($3) == -1) {
-            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
+    READ LPAREN IDENTIFIER RPAREN SEMICOLON {
+        if (positionIDF($3) == -1) {
+            yyerror("Erreur : variable non déclarée pour lecture.");
         }
     }
     | WRITE LPAREN io_expr_list RPAREN SEMICOLON
@@ -153,8 +149,8 @@ io_expr_list:
 
 // Define expressions in WRITE (prioritizes expression interpretation)
 io_expr:
-    expression         // Handles identifiers and arithmetic expressions
-    | string_literal   // Handles direct string output
+    expression
+    | string_literal
 ;
 
 // Define expressions (arithmetic operations, converted to right-recursive)
@@ -179,7 +175,7 @@ comparison_expr:
 term:
     factor
     | factor PLUS term                  // Addition
-    | factor MINUS term                 // substraction
+    | factor MINUS term                 // Subtraction
 ;
 
 // Define factor as multiplication/division or a primary element
@@ -192,23 +188,26 @@ factor:
 // Define primary elements: identifiers, numbers, and parenthesized expressions
 primary:
     IDENTIFIER {
-        // Vérification de la déclaration de la variable avant usage dans READ
-        if (verifdeclaration($1) == -1) {
-            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
+        if (positionIDF($1) == -1) {
+            yyerror("Erreur : variable non déclarée.");
         }
     }
     | INT_NUMBER {
-        if ($1 < 0 || $1 > 32767) {
+        if ($1 < -32768 || $1 > 32767) {
             yyerror("Erreur : entier hors des limites autorisées (-32768 à 32767).");
         }
     }
-    | FLOAT_NUMBER
-    | INT_NUMBER_S{
+    | FLOAT_NUMBER {
+        // Ajouter des vérifications de plage pour les flottants si nécessaire
+    }
+    | INT_NUMBER_S {
         if ($1 < -32768 || $1 > 32767) {
             yyerror("Erreur : entier signé hors des limites autorisées (-32768 à 32767).");
         }
     }
-    | FLOAT_NUMBER_S
+    | FLOAT_NUMBER_S {
+        // Ajouter des vérifications de plage pour les flottants si nécessaire
+    }
     | LPAREN expression RPAREN
 ;
 
@@ -222,20 +221,17 @@ string_literal:
 // Main function to start the parser
 int main() {
     initialisation();
-    
     yyparse(); 
     printf("\n");
-    afficher(0);afficher(1);afficher(2);
+    afficher(0); afficher(1); afficher(2);
     return 0;
 }
+
 int yywrap() {
     return 1;
 }
 
 // Function to handle errors during parsing
-
 void yyerror(const char *s) {
-    fprintf(stderr, "Error: %s at line %d, column %d\n", s, nb_ligne, col);
-
+    fprintf(stderr, "Erreur : %s à la ligne %d, colonne %d\n", s, nb_ligne, col);
 }
-
