@@ -41,6 +41,12 @@
 %token LBRACE RBRACE LPAREN RPAREN LBRACKET RBRACKET SEMICOLON COMMA COLON
 %token STRING_LITERAL
 
+%left PLUS MINUS       
+%left MULTIPLY DIVIDE   
+%left AND OR            
+%left GT LT GEQ LEQ EQ NEQ  
+
+
 %type <string> assignment
 %type <real> term
 %type <real> factor
@@ -190,7 +196,8 @@ io_expr:
 
 // Define expressions (arithmetic operations, converted to right-recursive)
 expression:
-    comparison_expr                    // Start with comparison expressions
+    comparison_expr   // Start with comparison expressions
+    | NOT expression                   
     | comparison_expr AND expression   // Logical AND
     | comparison_expr OR expression    // Logical OR
 ;
