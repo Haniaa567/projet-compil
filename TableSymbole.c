@@ -410,6 +410,15 @@ char* getCode(char entite[]){
     return tab[position].code;
   }
 }
+//comparer code
+int comparCode(char entite[])
+	{
+	int pos;
+	pos=positionIDF(entite);
+	if(strcmp(tab[pos].code,"CONSTANT")==0){return 0;} 
+	   else {return -1;}
+
+}
 /*
 int typesCompatibles(char* varName, int exprType) {
     char* varType = getType(varName); // Récupère le type déclaré

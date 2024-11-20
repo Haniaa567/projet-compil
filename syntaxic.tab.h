@@ -52,35 +52,33 @@
      READ = 268,
      WRITE = 269,
      IDENTIFIER = 270,
-     INT_NUMBER_S = 271,
-     INT_NUMBER = 272,
-     FLOAT_NUMBER_S = 273,
-     FLOAT_NUMBER = 274,
-     CHARACTERE = 275,
-     AND = 276,
-     OR = 277,
-     NOT = 278,
-     EQ = 279,
-     NEQ = 280,
-     GEQ = 281,
-     LT = 282,
-     LEQ = 283,
-     GT = 284,
-     EQUALS = 285,
-     PLUS = 286,
-     MINUS = 287,
-     MULTIPLY = 288,
-     DIVIDE = 289,
-     LBRACE = 290,
-     RBRACE = 291,
-     LPAREN = 292,
-     RPAREN = 293,
-     LBRACKET = 294,
-     RBRACKET = 295,
-     SEMICOLON = 296,
-     COMMA = 297,
-     COLON = 298,
-     STRING_LITERAL = 299
+     INT_NUMBER = 271,
+     FLOAT_NUMBER = 272,
+     CHARACTERE = 273,
+     AND = 274,
+     OR = 275,
+     NOT = 276,
+     EQ = 277,
+     NEQ = 278,
+     GEQ = 279,
+     LT = 280,
+     LEQ = 281,
+     GT = 282,
+     EQUALS = 283,
+     PLUS = 284,
+     MINUS = 285,
+     MULTIPLY = 286,
+     DIVIDE = 287,
+     LBRACE = 288,
+     RBRACE = 289,
+     LPAREN = 290,
+     RPAREN = 291,
+     LBRACKET = 292,
+     RBRACKET = 293,
+     SEMICOLON = 294,
+     COMMA = 295,
+     COLON = 296,
+     STRING_LITERAL = 297
    };
 #endif
 /* Tokens.  */
@@ -97,42 +95,40 @@
 #define READ 268
 #define WRITE 269
 #define IDENTIFIER 270
-#define INT_NUMBER_S 271
-#define INT_NUMBER 272
-#define FLOAT_NUMBER_S 273
-#define FLOAT_NUMBER 274
-#define CHARACTERE 275
-#define AND 276
-#define OR 277
-#define NOT 278
-#define EQ 279
-#define NEQ 280
-#define GEQ 281
-#define LT 282
-#define LEQ 283
-#define GT 284
-#define EQUALS 285
-#define PLUS 286
-#define MINUS 287
-#define MULTIPLY 288
-#define DIVIDE 289
-#define LBRACE 290
-#define RBRACE 291
-#define LPAREN 292
-#define RPAREN 293
-#define LBRACKET 294
-#define RBRACKET 295
-#define SEMICOLON 296
-#define COMMA 297
-#define COLON 298
-#define STRING_LITERAL 299
+#define INT_NUMBER 271
+#define FLOAT_NUMBER 272
+#define CHARACTERE 273
+#define AND 274
+#define OR 275
+#define NOT 276
+#define EQ 277
+#define NEQ 278
+#define GEQ 279
+#define LT 280
+#define LEQ 281
+#define GT 282
+#define EQUALS 283
+#define PLUS 284
+#define MINUS 285
+#define MULTIPLY 286
+#define DIVIDE 287
+#define LBRACE 288
+#define RBRACE 289
+#define LPAREN 290
+#define RPAREN 291
+#define LBRACKET 292
+#define RBRACKET 293
+#define SEMICOLON 294
+#define COMMA 295
+#define COLON 296
+#define STRING_LITERAL 297
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 22 "syntaxic.y"
+#line 29 "syntaxic.y"
 {
     int entier;
     float real;
@@ -140,7 +136,7 @@ typedef union YYSTYPE
     char* string;
 }
 /* Line 1529 of yacc.c.  */
-#line 144 "syntaxic.tab.h"
+#line 140 "syntaxic.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

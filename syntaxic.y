@@ -1,6 +1,7 @@
 %{
     #include <stdio.h>
     #include <stdlib.h>
+    #include <math.h>
     #include "TableSymbole.h"
 
     // Déclaration de la fonction `yylex` pour que le compilateur la reconnaisse.
@@ -16,6 +17,12 @@
       
    } elt_idf;
    elt_idf saveIdf[20];
+    char typeG[20];
+   char typeD[20];
+   char valIdf[20];
+   char saveStr[20];
+   char saveS[20];
+   char mDroit[20];
 
 %}
 
@@ -28,13 +35,17 @@
 
 %token VAR_GLOBAL DECLARATION INSTRUCTION
 %token INTEGER FLOAT CHAR CONST IF ELSE FOR READ WRITE
-%token <string>IDENTIFIER <entier>INT_NUMBER_S <entier>INT_NUMBER FLOAT_NUMBER_S FLOAT_NUMBER CHARACTERE
+%token <string>IDENTIFIER <entier>INT_NUMBER  FLOAT_NUMBER CHARACTERE
 %token AND OR NOT EQ NEQ GEQ LT LEQ GT
 %token EQUALS PLUS MINUS MULTIPLY DIVIDE
 %token LBRACE RBRACE LPAREN RPAREN LBRACKET RBRACKET SEMICOLON COMMA COLON
 %token STRING_LITERAL
 
 %type <string> assignment
+%type <real> term
+%type <real> factor
+%type <real> primary
+
 //%start program
 %%
 
@@ -81,16 +92,18 @@ declaration:
         }j=0;    
 
     }
-    | CONST type IDENTIFIER EQUALS expression SEMICOLON{
-        strcpy(saveIdf[0].idfTab,$3);
+    | CONST type cst EQUALS term SEMICOLON
+;
+cst:
+    IDENTIFIER{
+        strcpy(saveIdf[0].idfTab,$1);
+        
         //verification de la double declaration et insertion du type
-            if(verifdeclaration(saveIdf[0].idfTab)==0) insererType(sauvType,saveIdf[0].idfTab);
+            if(verifdeclaration(saveIdf[0].idfTab)==0) {insererType(sauvType,saveIdf[0].idfTab);strcpy(typeG,getType($1));}
             else printf("Erreur semantique :double declaration de %s a la ligne %d\n",saveIdf[0].idfTab,nb_ligne);
             strcpy(saveIdf[0].idfTab,"");
-        
     }
 ;
-
 // Rule for a list of variables separated by commas (converted to right-recursive)
 variable_list:
     IDENTIFIER {strcpy(saveIdf[j].idfTab,$1);j++;} 
@@ -117,16 +130,30 @@ statement:
 
 // Define assignment statement
 assignment:
-    IDENTIFIER EQUALS expression SEMICOLON {
-        // Vérification de la déclaration de la variable avant usage dans READ
-        if (verifdeclaration($1) == -1) {
-            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
-        }/*else if (!typesCompatibles($1, $3)) {
-            printf("Erreur sémantique : Type incompatible pour l'affectation de '%s'.\n", $1);
-        }*/
+    MDROIT EQUALS term SEMICOLON {
+        
+        if(($3-floor($3)!=0) && strcmp(typeG,"INTEGER")==0){
+            printf("Erreur semantique a la ligne %d:type incompatible 0\n",nb_ligne);
+        }
+            //sauvegarder la valeur affectee à IDF dans la TS apres la convertion a une str
+            sprintf(saveStr,"%f",$3);
+            insererVal(mDroit,saveStr);
     }
-;
-
+MDROIT: IDENTIFIER{
+    // Vérification de la déclaration de la variable avant usage dans READ
+        if (verifdeclaration($1) == 0) {
+            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
+        }else{ 
+            strcpy(typeG,getType($1));
+            printf("type: %s",typeG );
+            if(comparCode($1)==0){
+                printf("Erreur semantique a la ligne %d:affectation d une constante\n",nb_ligne);
+            }else{
+                 strcpy(mDroit,$1);
+            }
+        }
+    }
+;    
 // Define conditional statement with optional else block
 condition:
     IF LPAREN expression RPAREN LBRACE instruction_section RBRACE SEMICOLON
@@ -182,39 +209,81 @@ comparison_expr:
 // Define term as multiplication/division operations or a factor (converted to right-recursive)
 term:
     factor
-    | factor PLUS term                  // Addition
-    | factor MINUS term                 // substraction
+    | factor PLUS term {$$=$1+$3;}                  // Addition
+    | factor MINUS term {$$=$1-$3;}                // substraction
 ;
 
 // Define factor as multiplication/division or a primary element
 factor:
     primary
-    | primary MULTIPLY factor           // Multiplication, right-recursive
-    | primary DIVIDE factor             // Division, right-recursive
+    | primary MULTIPLY factor {$$=$1*$3;}          // Multiplication, right-recursive
+    | primary DIVIDE factor     { if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
+                                              else{   
+                                                $$= $1 / $3;  
+                                             }
+                            }                     // Division, right-recursive
 ;
 
 // Define primary elements: identifiers, numbers, and parenthesized expressions
 primary:
     IDENTIFIER {
         // Vérification de la déclaration de la variable avant usage dans READ
-        if (verifdeclaration($1) == -1) {
+        if (verifdeclaration($1) == 0) {
             printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
-        }
+        }else {strcpy(typeD,getType($1));
+                             if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);}
+                                strcpy(valIdf,getVal($1));
+                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d : variable %s non initialisee\n",nb_ligne,$1);}
+                                 else
+                                  $$=atof(valIdf);
+                             }
     }
     | INT_NUMBER {
-        if ($1 < 0 || $1 > 32767) {
-            yyerror("Erreur : entier hors des limites autorisées (-32768 à 32767).");
-        }
+        printf("here %s\n",typeG);
+        if(strcmp(typeG,"INTEGER")!=0) {printf("Erreur semantique a la ligne %d:type incompatible 2\n",nb_ligne);}
+                   else{$$=$1;}
+                  
     }
-    | FLOAT_NUMBER
-    | INT_NUMBER_S{
-        if ($1 < -32768 || $1 > 32767) {
-            yyerror("Erreur : entier signé hors des limites autorisées (-32768 à 32767).");
-        }
+    | FLOAT_NUMBER{        printf("here 2 %s\n",typeG);
+
+                    if(strcmp(typeG,"FLOAT")!=0) 
+                   {printf("Erreur semantique a la ligne %d:type incompatible 3\n",nb_ligne);}
+                   else{
+                   $$=atof($1); }  
+                   }
+    |LPAREN PLUS INT_NUMBER RPAREN{
+        if(strcmp(typeG,"INTEGER")!=0) 
+        {printf("Erreur semantique a la ligne %d :type incompatible 4\n",nb_ligne);}
+        else{$$=$3;}
     }
-    | FLOAT_NUMBER_S
-    | LPAREN expression RPAREN
-;
+    |LPAREN MINUS INT_NUMBER RPAREN{
+        if(strcmp(typeG,"INTEGER")!=0) 
+            {printf("Erreur semantique a la ligne %d:type incompatible 5\n",nb_ligne);}
+                else{sprintf(saveStr,"%d",$3);
+                strcat(strcpy(saveS,"-"),saveStr);
+                $$=atoi(saveS);}
+    }
+    | LPAREN PLUS FLOAT_NUMBER RPAREN {if(strcmp(typeG,"FLOAT")!=0) 
+                                    {printf("Erreur semantique a la ligne %d:type incompatible 6\n",nb_ligne);}
+                                      else{$$=atof($3);}
+                   }
+    | LPAREN MINUS FLOAT_NUMBER RPAREN {
+        if(strcmp(typeG,"FLOAT")!=0) 
+                                      {printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);}
+                                       else{
+                                           strcat(strcpy(saveS,"-"),$3);
+                                           $$=atof(saveS);
+                                       }
+    }
+    | LPAREN term RPAREN {$$=$2;}
+    |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {if(verifdeclaration($1)==0 )
+                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d\n",$1,nb_ligne);}
+                                else {
+                                    strcpy(typeD,getType($1));
+                                     if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d:type incompatible 8\n",nb_ligne);}
+                                 }
+                }
+
 
 // Define string literals for WRITE statements
 string_literal:

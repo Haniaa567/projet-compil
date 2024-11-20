@@ -13,9 +13,7 @@
 %option yylineno
 
 IDENTIFIER [A-Z][a-zA-Z0-9_]*
-INT_NUMBER_S \([-|+][0-9]+\)
 INT_NUMBER [0-9]+
-FLOAT_NUMBER_S \([-|+][0-9]+\.[0-9]+\) 
 FLOAT_NUMBER [0-9]+\.[0-9]+
 CHARACTERE \'[^ \t\n$%&#']\'
 
@@ -63,9 +61,7 @@ WRITE            { rechercher(yytext,"mot cle","","",1); printf("WRITE\n"); col 
 ","              { rechercher(yytext,"sep",0,"",2); printf("COMMA\n"); col += strlen(yytext); return COMMA; }
 ":"              { rechercher(yytext,"sep",0,"",2); printf("COLON\n"); col += strlen(yytext); return COLON; }
 
-{INT_NUMBER_S}   { yylval.entier = atoi(yytext); rechercher(yytext,"CONSTANT","INTEGER",yytext,0); printf("NUMBER_S: %s\n", yytext); col += strlen(yytext); return INT_NUMBER_S; }
 {INT_NUMBER}     { yylval.entier = atoi(yytext); rechercher(yytext,"CONSTANT","INTEGER",yytext,0); printf("NUMBER: %s\n", yytext); col += strlen(yytext); return INT_NUMBER; }
-{FLOAT_NUMBER_S} { yylval.real = atof(yytext); rechercher(yytext,"CONSTANT","FLOAT",yytext,0); printf("FLOAT_NUMBER_S: %s\n", yytext); col += strlen(yytext); return FLOAT_NUMBER_S; }
 {FLOAT_NUMBER}   { yylval.real = atof(yytext); rechercher(yytext,"CONSTANT","FLOAT",yytext,0); printf("FLOAT_NUMBER: %s\n", yytext); col += strlen(yytext); return FLOAT_NUMBER; }
 {CHARACTERE}     { yylval.character = yytext[0]; rechercher(yytext,"CONSTANT","CHAR",yytext,0); printf("CHARACTERE: %s\n", yytext); col += strlen(yytext); return CHARACTERE; }
 {IDENTIFIER}     { yylval.string = strdup(yytext); rechercher(yytext,"IDF","","",0); col += strlen(yytext); if (yyleng < 9) { printf("IDENTIFIER: %s\n", yytext); return IDENTIFIER; } else { printf("Erreur Lexicale à la ligne %d à la colonne %d : IDF trop long\n", nb_ligne, col); } }
