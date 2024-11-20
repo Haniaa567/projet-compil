@@ -81,7 +81,14 @@ declaration:
         }j=0;    
 
     }
-    | CONST type IDENTIFIER EQUALS expression SEMICOLON
+    | CONST type IDENTIFIER EQUALS expression SEMICOLON{
+        strcpy(saveIdf[0].idfTab,$3);
+        //verification de la double declaration et insertion du type
+            if(verifdeclaration(saveIdf[0].idfTab)==0) insererType(sauvType,saveIdf[0].idfTab);
+            else printf("Erreur semantique :double declaration de %s a la ligne %d\n",saveIdf[0].idfTab,nb_ligne);
+            strcpy(saveIdf[0].idfTab,"");
+        
+    }
 ;
 
 // Rule for a list of variables separated by commas (converted to right-recursive)

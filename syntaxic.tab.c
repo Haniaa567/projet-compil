@@ -532,11 +532,11 @@ static const yytype_int8 yyrhs[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    43,    43,    50,    51,    52,    57,    58,    63,    64,
-      69,    70,    75,    84,    89,    90,    91,    92,   105,   106,
-     107,   108,   113,   125,   126,   131,   136,   142,   147,   148,
-     153,   154,   159,   160,   161,   166,   167,   168,   169,   170,
-     171,   172,   177,   178,   179,   184,   185,   186,   191,   197,
-     202,   203,   208,   209,   214
+      69,    70,    75,    84,    96,    97,    98,    99,   112,   113,
+     114,   115,   120,   132,   133,   138,   143,   149,   154,   155,
+     160,   161,   166,   167,   168,   173,   174,   175,   176,   177,
+     178,   179,   184,   185,   186,   191,   192,   193,   198,   204,
+     209,   210,   215,   216,   221
 };
 #endif
 
@@ -1548,28 +1548,40 @@ yyreduce:
     ;}
     break;
 
+  case 13:
+#line 84 "syntaxic.y"
+    {
+        strcpy(saveIdf[0].idfTab,(yyvsp[(3) - (6)].string));
+        //verification de la double declaration et insertion du type
+            if(verifdeclaration(saveIdf[0].idfTab)==0) insererType(sauvType,saveIdf[0].idfTab);
+            else printf("Erreur semantique :double declaration de %s a la ligne %d\n",saveIdf[0].idfTab,nb_ligne);
+            strcpy(saveIdf[0].idfTab,"");
+        
+    ;}
+    break;
+
   case 14:
-#line 89 "syntaxic.y"
+#line 96 "syntaxic.y"
     {strcpy(saveIdf[j].idfTab,(yyvsp[(1) - (1)].string));j++;;}
     break;
 
   case 15:
-#line 90 "syntaxic.y"
+#line 97 "syntaxic.y"
     {strcpy(saveIdf[j].idfTab,(yyvsp[(1) - (4)].string));j++;;}
     break;
 
   case 16:
-#line 91 "syntaxic.y"
+#line 98 "syntaxic.y"
     {strcpy(saveIdf[j].idfTab,(yyvsp[(1) - (3)].string));j++;;}
     break;
 
   case 17:
-#line 92 "syntaxic.y"
+#line 99 "syntaxic.y"
     {strcpy(saveIdf[j].idfTab,(yyvsp[(1) - (6)].string));j++;;}
     break;
 
   case 22:
-#line 113 "syntaxic.y"
+#line 120 "syntaxic.y"
     {
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration((yyvsp[(1) - (4)].string)) == -1) {
@@ -1581,7 +1593,7 @@ yyreduce:
     break;
 
   case 48:
-#line 191 "syntaxic.y"
+#line 198 "syntaxic.y"
     {
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration((yyvsp[(1) - (1)].string)) == -1) {
@@ -1591,7 +1603,7 @@ yyreduce:
     break;
 
   case 49:
-#line 197 "syntaxic.y"
+#line 204 "syntaxic.y"
     {
         if ((yyvsp[(1) - (1)].entier) < 0 || (yyvsp[(1) - (1)].entier) > 32767) {
             yyerror("Erreur : entier hors des limites autorisées (-32768 à 32767).");
@@ -1600,7 +1612,7 @@ yyreduce:
     break;
 
   case 51:
-#line 203 "syntaxic.y"
+#line 210 "syntaxic.y"
     {
         if ((yyvsp[(1) - (1)].entier) < -32768 || (yyvsp[(1) - (1)].entier) > 32767) {
             yyerror("Erreur : entier signé hors des limites autorisées (-32768 à 32767).");
@@ -1610,7 +1622,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1614 "syntaxic.tab.c"
+#line 1626 "syntaxic.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1824,7 +1836,7 @@ yyreturn:
 }
 
 
-#line 217 "syntaxic.y"
+#line 224 "syntaxic.y"
 
 
 // Main function to start the parser
