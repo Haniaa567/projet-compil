@@ -16,7 +16,7 @@ IDENTIFIER [A-Z][a-zA-Z0-9_]*
 INT_NUMBER [0-9]+
 FLOAT_NUMBER [0-9]+\.[0-9]+
 CHARACTERE \'[^ \t\n$%&#']\'
-
+STRING_LITERAL  \"[^"]+\"
 
 %%
 VAR_GLOBAL       { rechercher(yytext,"mot cle","","",1);  printf("VAR_GLOBAL\n"); col += strlen(yytext); return VAR_GLOBAL; }
@@ -78,6 +78,7 @@ WRITE            { rechercher(yytext,"mot cle","","",1); printf("WRITE\n"); col 
                    return FLOAT_NUMBER; }
 {CHARACTERE}     { yylval.character = yytext[0]; rechercher(yytext,"CONSTANT","CHAR",yytext,0); printf("CHARACTERE: %s\n", yytext); col += strlen(yytext); return CHARACTERE; }
 {IDENTIFIER}     { yylval.string = strdup(yytext); rechercher(yytext,"IDF","","",0); col += strlen(yytext); if (yyleng < 9) { printf("IDENTIFIER: %s\n", yytext); return IDENTIFIER; } else { printf("Erreur Lexicale à la ligne %d à la colonne %d : IDF trop long\n", nb_ligne, col); } }
+{STRING_LITERAL} { yylval.character = yytext[0]; rechercher(yytext,"CONSTANT","STRING",yytext,0); printf("STRING: %s\n", yytext); col += strlen(yytext); return STRING_LITERAL; }
 "%%"[^\n]*         { /* Ignorer les commentaires */ col += strlen(yytext); }
 
 

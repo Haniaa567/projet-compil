@@ -40,7 +40,7 @@
 %token AND OR NOT EQ NEQ GEQ LT LEQ GT
 %token EQUALS PLUS MINUS MULTIPLY DIVIDE
 %token LBRACE RBRACE LPAREN RPAREN LBRACKET RBRACKET SEMICOLON COMMA COLON
-%token STRING_LITERAL
+%token <string>STRING_LITERAL
 
 %left PLUS MINUS       
 %left MULTIPLY DIVIDE   
@@ -52,6 +52,18 @@
 %type <real> term
 %type <real> factor
 %type <real> primary
+%type <real> term1
+%type <real> factor1
+%type <real> primary1
+%type <real> term2
+%type <real> factor2
+%type <real> primary2
+%type <real> term3
+%type <real> factor3
+%type <real> primary3
+%type <real> term4
+%type <real> factor4
+%type <real> primary4
 
 //%start program
 %%
@@ -99,13 +111,7 @@ declaration:
         }j=0;    
     }
     | CONST type cst EQUALS term SEMICOLON
-    | type IDFT LBRACKET INT_NUMBER RBRACKET SEMICOLON{
-        printf("*****************************************************************************");
-        int size = atoi($4);
-        if (size <= 0) {
-            printf("Erreur sémantique : La taille du tableau doit être positive\n");
-        } 
-        }
+ 
     
       
 ;
@@ -130,21 +136,14 @@ IDFT:
                 strcpy(saveIdf[0].idfTab,"");
         }
 ;
-sizeT:
-      INT_NUMBER{
-        printf("*****************************************************************************");
-        int size = atoi($1);
-        if (size <= 0) {
-            printf("Erreur sémantique : La taille du tableau doit être positive\n");
-        } 
-        }
-;    
+
 // Rule for a list of variables separated by commas (converted to right-recursive)
 variable_list:
     IDENTIFIER {strcpy(saveIdf[j].idfTab,$1);j++;} 
     | IDENTIFIER LBRACKET INT_NUMBER RBRACKET{strcpy(saveIdf[j].idfTab,$1);j++;} 
     | IDENTIFIER COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
     | IDENTIFIER LBRACKET INT_NUMBER RBRACKET COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
+    | IDENTIFIER LBRACKET LPAREN PLUS INT_NUMBER RPAREN RBRACKET COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
 ;
 
 // Rule for a variable, which can be either simple or an array
@@ -161,6 +160,7 @@ statement:
     | condition
     | loop
     | io_statement
+    |assignment_int
 ;
 
 // Define assignment statement
@@ -170,7 +170,6 @@ assignment:
         if (strcmp(typeG, "INTEGER") == 0 && ($3 - floor($3) != 0)) {
             printf("Erreur sémantique à la ligne %d : tentative d'affectation d'un flottant à une variable entière.\n", nb_ligne);
         }
-        
         // Si c'est compatible, on sauvegarde la valeur dans la table des symboles
         if (strcmp(typeG, "INTEGER") == 0) {
             sprintf(saveStr, "%d", (int)$3);  // Convertir en entier
@@ -181,8 +180,12 @@ assignment:
 
         insererVal(mDroit, saveStr);
     }
-
-MDROIT: IDENTIFIER {
+    |TAB EQUALS EXPRESSION_CHAINE SEMICOLON
+    |MDROIT EQUALS EXPRESSION_CHAR SEMICOLON
+    
+;
+MDROIT: 
+    IDENTIFIER {
     // Vérification de la déclaration de la variable avant usage
     if (verifdeclaration($1) == 0) {
         printf("Erreur sémantique : La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
@@ -195,27 +198,79 @@ MDROIT: IDENTIFIER {
             strcpy(mDroit, $1);
         }
     }
-}
+    }
+    | TAB
+; 
+TAB:
+    IDENTIFIER LBRACKET INT_NUMBER RBRACKET   {if(verifdeclaration($1)==0 )
+                    {printf("Erreur semantique a la ligne %d :Tableau %s non declare\n",$1,nb_ligne);}
+                    else {
+                        strcpy(typeG, getType($1));
+                            }
+        }               
  
+    | IDENTIFIER LBRACKET LPAREN PLUS INT_NUMBER RPAREN RBRACKET {
+                if(verifdeclaration($1)==0 )
+                  {printf("Erreur semantique a la ligne %d :Tableau %s non declare\n",$1,nb_ligne);}
+                  else {
+                     strcpy(typeG, getType($1));
+                        }
+                  } 
+
+; 
+EXPRESSION_CHAR: CHARACTERE {if(strcmp(typeG,"CHAR")!=0)   
+                                 {printf("Erreur semantique a la ligne %d:type incompatible\n",nb_ligne);}
+                            else {insererVal(mDroit,$1);}
+                           }            
+;                
+EXPRESSION_CHAINE:
+             CHARACTERE {if(strcmp(typeG,"CHAR")!=0)   
+                                 {printf("Erreur semantique a la ligne %d:type incompatible\n",nb_ligne);}
+                            else {insererVal(mDroit,$1);}
+                           }
+             |STRING_LITERAL {if(strcmp(typeG,"CHAR")!=0)   
+                                 {printf("Erreur semantique a la ligne %d:type incompatible\n",nb_ligne);}
+                            else {insererVal(mDroit,$1);}
+                           }           
+                           
+    
+;                          
 // Define conditional statement with optional else block
 condition:
-    IF LPAREN expression RPAREN LBRACE instruction_section RBRACE SEMICOLON
-    | IF LPAREN expression RPAREN LBRACE instruction_section RBRACE ELSE LBRACE instruction_section RBRACE SEMICOLON
+    IF LPAREN COND RPAREN LBRACE instruction_section RBRACE SEMICOLON
+    | IF LPAREN COND RPAREN LBRACE instruction_section RBRACE ELSE LBRACE instruction_section RBRACE SEMICOLON
 ;
-
+assignment_int:
+    MDROIT EQUALS term {
+        // Vérifie si la valeur affectée est compatible avec le type de la variable
+        if (strcmp(typeG, "INTEGER") == 0 && ($3 - floor($3) != 0)) {
+            printf("Erreur sémantique à la ligne %d : tentative d'affectation d'un flottant à une variable entière.\n", nb_ligne);
+        }
+        
+        // Si c'est compatible, on sauvegarde la valeur dans la table des symboles
+        if (strcmp(typeG, "INTEGER") != 0) {
+            printf("Erreur semantique a la ligne %d:type incompatible \n",nb_ligne);
+        }
+    }
+;    
 // Define loop statement
 loop:
-    FOR LPAREN assignment COLON expression COLON expression RPAREN LBRACE instruction_section RBRACE SEMICOLON
+    FOR LPAREN assignment_int COLON term3 COLON term4 RPAREN LBRACE instruction_section RBRACE SEMICOLON{
+        if(strcmp(typeD,"INTEGER")!=0 || strcmp(typeG,"INTEGER")!=0)
+        {
+            printf("Erreur semantique parametre boucle type incompatible \n");
+        }
+    }
 ;
 
 // Define input/output statements
 io_statement:
-    READ LPAREN IDENTIFIER RPAREN SEMICOLON/*{
+    READ LPAREN IDENTIFIER RPAREN SEMICOLON{
         // Vérification de la déclaration de la variable avant usage dans READ
-        if (verifdeclaration($3) == -1) {
-            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
+        if (verifdeclaration($3) == 0) {
+            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $3);
         }
-    }*/
+    }
     | WRITE LPAREN io_expr_list RPAREN SEMICOLON
 ;
 
@@ -227,29 +282,48 @@ io_expr_list:
 
 // Define expressions in WRITE (prioritizes expression interpretation)
 io_expr:
-    expression         // Handles identifiers and arithmetic expressions
+    IDENTIFIER {
+        // Vérification de la déclaration de la variable avant usage dans READ
+        if (verifdeclaration($1) == 0) {
+            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
+        }
+    }        // Handles identifiers and arithmetic expressions
     | string_literal   // Handles direct string output
 ;
 
-// Define expressions (arithmetic operations, converted to right-recursive)
-expression:
+// Define expressions de condition (arithmetic operations, converted to right-recursive)
+COND:
     comparison_expr   // Start with comparison expressions
-    | NOT expression                   
-    | comparison_expr AND expression   // Logical AND
-    | comparison_expr OR expression    // Logical OR
+    | NOT COND                   
+    | comparison_expr AND COND   // Logical AND
+    | comparison_expr OR COND    // Logical OR
 ;
 
 // Define comparison expressions (includes comparison operators)
 comparison_expr:
-    term
-    | term GT comparison_expr           // Greater than
-    | term LT comparison_expr           // Less than
-    | term GEQ comparison_expr          // Greater than or equal to
-    | term LEQ comparison_expr          // Less than or equal to
-    | term EQ comparison_expr           // Equal
-    | term NEQ comparison_expr          // Not equal
+    term2 OP_COMP term1  
+    |STRING_LITERAL OP_COMP STRING_LITERAL
+    |CHARACTERE OP_COMP CHARACTERE  
+    |DROIT OP_COMP term1 {printf("Erreur semantique a la ligne %d:type incompatible \n",nb_ligne);}       
+    |term2 OP_COMP GAUCHE {printf("Erreur semantique a la ligne %d:type incompatible \n",nb_ligne);}
+   
 ;
-
+DROIT:
+    CHARACTERE
+    |STRING_LITERAL
+;    
+GAUCHE:
+    CHARACTERE
+    |STRING_LITERAL
+;   
+OP_COMP:
+    GT        // Greater than
+    |LT            // Less than
+    |GEQ      // Greater than or equal to
+    |LEQ        // Less than or equal to
+    |EQ  // Equal
+    |NEQ       // Not equal
+;
 // Define term as multiplication/division operations or a factor (converted to right-recursive)
 term:
     factor
@@ -329,6 +403,249 @@ primary:
                 }
 
 
+term1:
+    factor1
+    | factor1 PLUS term1 {$$=$1+$3;}                  // Addition
+    | factor1 MINUS term1 {$$=$1-$3;}                // substraction
+;
+
+// Define factor as multiplication/division or a primary element
+factor1:
+    primary1
+    | primary1 MULTIPLY factor1 {$$=$1*$3;}          // Multiplication, right-recursive
+    | primary1 DIVIDE factor1     { if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
+                                              else{   
+                                                $$= $1 / $3;  
+                                             }
+                            }                     // Division, right-recursive
+;
+
+// Define primary elements: identifiers, numbers, and parenthesized expressions
+primary1:
+    IDENTIFIER {
+        // Vérification de la déclaration de la variable avant usage dans READ
+        if (verifdeclaration($1) == 0) {
+            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
+        }else {strcpy(typeD,getType($1) );
+                             if(strcmp(typeG,typeD)!=0 && !(strcmp(typeD,"FLOAT")==0 && strcmp(typeG,"INTEGER")==0) && !(strcmp(typeG,"FLOAT")==0 && strcmp(typeD,"INTEGER")==0) ) {printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);}
+                                strcpy(valIdf,getVal($1));
+                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d : variable %s non initialisee\n",nb_ligne,$1);}
+                                 else
+                                  $$=atof(valIdf);
+                             }
+    }
+    | INT_NUMBER {
+        printf("here %s\n",typeG);
+        strcpy(typeD,"INTEGER");
+        if(strcmp(typeG,"INTEGER")!=0 && !(strcmp(typeD,"FLOAT")==0 && strcmp(typeG,"INTEGER")==0) && !(strcmp(typeG,"FLOAT")==0 && strcmp(typeD,"INTEGER")==0)) {printf("Erreur semantique a la ligne %d:type incompatible 2\n",nb_ligne);}
+                   else{$$=atof($1);}
+                  
+    }
+    | FLOAT_NUMBER{        printf("here 2 %s\n",typeG);
+                    strcpy(typeD,"FLOAT");
+                    if(strcmp(typeG,"FLOAT")!=0 && !(strcmp(typeD,"FLOAT")==0 && strcmp(typeG,"INTEGER")==0) && !(strcmp(typeG,"FLOAT")==0 && strcmp(typeD,"INTEGER")==0)) 
+                   {printf("Erreur semantique a la ligne %d:type incompatible 3\n",nb_ligne);}
+                   else{
+                   $$=atof($1); }  
+                   }
+    |LPAREN PLUS INT_NUMBER RPAREN{
+        strcpy(typeD,"INTEGER");
+        if(strcmp(typeG,"INTEGER")!=0 && !(strcmp(typeD,"FLOAT")==0 && strcmp(typeG,"INTEGER")==0) && !(strcmp(typeG,"FLOAT")==0 && strcmp(typeD,"INTEGER")==0)) 
+        {printf("Erreur semantique a la ligne %d :type incompatible 4\n",nb_ligne);}
+        else{$$=atof($3);}
+    }
+    |LPAREN MINUS INT_NUMBER RPAREN{
+        strcpy(typeD,"INTEGER");
+        if(strcmp(typeG,"INTEGER")!=0 && !(strcmp(typeD,"FLOAT")==0 && strcmp(typeG,"INTEGER")==0) && !(strcmp(typeG,"FLOAT")==0 && strcmp(typeD,"INTEGER")==0)) 
+            {printf("Erreur semantique a la ligne %d:type incompatible 5\n",nb_ligne);}
+                else{sprintf(saveStr,"%d",$3);
+                strcat(strcpy(saveS,"-"),saveStr);
+                $$=atoi(saveS);}
+    }
+    | LPAREN PLUS FLOAT_NUMBER RPAREN {
+        strcpy(typeD,"FLOAT");
+        if(strcmp(typeG,"FLOAT")!=0 && !(strcmp(typeD,"FLOAT")==0 && strcmp(typeG,"INTEGER")==0) && !(strcmp(typeG,"FLOAT")==0 && strcmp(typeD,"INTEGER")==0)) 
+            {printf("Erreur semantique a la ligne %d:type incompatible 6\n",nb_ligne);}
+        else{$$=atof($3);}
+                   }
+    | LPAREN MINUS FLOAT_NUMBER RPAREN {
+        strcpy(typeD,"FLOAT");
+        if(strcmp(typeG,"FLOAT")!=0 && !(strcmp(typeD,"FLOAT")==0 && strcmp(typeG,"INTEGER")==0) && !(strcmp(typeG,"FLOAT")==0 && strcmp(typeD,"INTEGER")==0)) 
+                                      {printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);}
+                                       else{
+                                           strcat(strcpy(saveS,"-"),$3);
+                                           $$=atof(saveS);
+                                       }
+    }
+    | LPAREN term1 RPAREN {$$=$2;}
+    |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {if(verifdeclaration($1)==0 )
+                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d\n",$1,nb_ligne);}
+                                else {
+                                    strcpy(typeD,getType($1));
+                                     if(strcmp(typeG,typeD)!=0 && !(strcmp(typeD,"FLOAT")==0 && strcmp(typeG,"INTEGER")==0) && !(strcmp(typeG,"FLOAT")==0 && strcmp(typeD,"INTEGER")==0)) {printf("Erreur semantique a la ligne %d:type incompatible 8\n",nb_ligne);}
+                                 }
+                }
+;
+term2:
+    factor2
+    | factor2 PLUS term2 {$$=$1+$3;}                  // Addition
+    | factor2 MINUS term2 {$$=$1-$3;}                // substraction
+;
+
+// Define factor as multiplication/division or a primary element
+factor2:
+    primary2
+    | primary2 MULTIPLY factor2 {$$=$1*$3;}          // Multiplication, right-recursive
+    | primary2 DIVIDE factor2     { if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
+                                              else{   
+                                                $$= $1 / $3;  
+                                             }
+                            }                     // Division, right-recursive
+;
+
+// Define primary elements: identifiers, numbers, and parenthesized expressions
+primary2:
+    IDENTIFIER {
+        // Vérification de la déclaration de la variable avant usage dans READ
+        if (verifdeclaration($1) == 0) {
+            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
+        }else {strcpy(typeD,getType($1));}
+    }
+    | INT_NUMBER {
+        strcpy(typeD,"INTEGER");
+                  
+    }
+    | FLOAT_NUMBER{
+        strcpy(typeD,"FLOAT");
+    }
+    |LPAREN PLUS INT_NUMBER RPAREN{
+        strcpy(typeD,"INTEGER");
+    }
+    |LPAREN MINUS INT_NUMBER RPAREN{
+        strcpy(typeD,"INTEGER");
+    }
+    | LPAREN PLUS FLOAT_NUMBER RPAREN {
+        strcmp(typeD,"FLOAT");
+                   }
+    | LPAREN MINUS FLOAT_NUMBER RPAREN {
+        strcpy(typeD,"FLOAT");
+    }
+    | LPAREN term2 RPAREN {$$=$2;}
+    |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {
+        if(verifdeclaration($1)==0 ){
+            printf("Erreur semantique :Tableau %s non declaree a la ligne %d\n",$1,nb_ligne);}
+        else {
+                strcpy(typeG,getType($1));
+                }
+    }
+;
+
+term4:
+    factor4
+    | factor4 PLUS term4 {$$=$1+$3;}                  // Addition
+    | factor4 MINUS term4 {$$=$1-$3;}                // substraction
+;
+
+// Define factor as multiplication/division or a primary element
+factor4:
+    primary4
+    | primary4 MULTIPLY factor4 {$$=$1*$3;}          // Multiplication, right-recursive
+    | primary4 DIVIDE factor4     { if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
+                                              else{   
+                                                $$= $1 / $3;  
+                                             }
+                            }                     // Division, right-recursive
+;
+
+// Define primary elements: identifiers, numbers, and parenthesized expressions
+primary4:
+    IDENTIFIER {
+        // Vérification de la déclaration de la variable avant usage dans READ
+        if (verifdeclaration($1) == 0) {
+            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
+        }else {strcpy(typeD,getType($1));}
+    }
+    | INT_NUMBER {
+        strcpy(typeD,"INTEGER");
+                  
+    }
+    | FLOAT_NUMBER{
+        strcpy(typeD,"FLOAT");
+    }
+    |LPAREN PLUS INT_NUMBER RPAREN{
+        strcpy(typeD,"INTEGER");
+    }
+    |LPAREN MINUS INT_NUMBER RPAREN{
+        strcpy(typeD,"INTEGER");
+    }
+    | LPAREN PLUS FLOAT_NUMBER RPAREN {
+        strcmp(typeD,"FLOAT");
+                   }
+    | LPAREN MINUS FLOAT_NUMBER RPAREN {
+        strcpy(typeD,"FLOAT");
+    }
+    | LPAREN term4 RPAREN {$$=$2;}
+    |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {
+        if(verifdeclaration($1)==0 ){
+            printf("Erreur semantique :Tableau %s non declaree a la ligne %d\n",$1,nb_ligne);}
+        else {
+                strcpy(typeD,getType($1));
+                }
+    }
+;
+term3:
+    factor3
+    | factor3 PLUS term3 {$$=$1+$3;}                  // Addition
+    | factor3 MINUS term3 {$$=$1-$3;}                // substraction
+;
+
+// Define factor as multiplication/division or a primary element
+factor3:
+    primary3
+    | primary3 MULTIPLY factor3 {$$=$1*$3;}          // Multiplication, right-recursive
+    | primary3 DIVIDE factor3     { if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
+                                              else{   
+                                                $$= $1 / $3;  
+                                             }
+                            }                     // Division, right-recursive
+;
+
+// Define primary elements: identifiers, numbers, and parenthesized expressions
+primary3:
+    IDENTIFIER {
+        // Vérification de la déclaration de la variable avant usage dans READ
+        if (verifdeclaration($1) == 0) {
+            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
+        }else {strcpy(typeG,getType($1));}
+    }
+    | INT_NUMBER {
+        strcpy(typeG,"INTEGER");
+                  
+    }
+    | FLOAT_NUMBER{
+        strcpy(typeG,"FLOAT");
+    }
+    |LPAREN PLUS INT_NUMBER RPAREN{
+        strcpy(typeG,"INTEGER");
+    }
+    |LPAREN MINUS INT_NUMBER RPAREN{
+        strcpy(typeG,"INTEGER");
+    }
+    | LPAREN PLUS FLOAT_NUMBER RPAREN {
+        strcmp(typeG,"FLOAT");
+                   }
+    | LPAREN MINUS FLOAT_NUMBER RPAREN {
+        strcpy(typeG,"FLOAT");
+    }
+    | LPAREN term3 RPAREN {$$=$2;}
+    |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {
+        if(verifdeclaration($1)==0 ){
+            printf("Erreur semantique :Tableau %s non declaree a la ligne %d\n",$1,nb_ligne);}
+        else {
+                strcpy(typeG,getType($1));
+                }
+    }
+;
 // Define string literals for WRITE statements
 string_literal:
     STRING_LITERAL
