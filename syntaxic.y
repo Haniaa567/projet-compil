@@ -256,7 +256,7 @@ primary:
                     if(strcmp(typeG,"FLOAT")!=0) 
                    {printf("Erreur semantique a la ligne %d:type incompatible 3\n",nb_ligne);}
                    else{
-                   $$=atof($1); }  
+                   $$=atof(convertToString($1)); }  
                    }
     |LPAREN PLUS INT_NUMBER RPAREN{
         if(strcmp(typeG,"INTEGER")!=0) 
@@ -272,13 +272,13 @@ primary:
     }
     | LPAREN PLUS FLOAT_NUMBER RPAREN {if(strcmp(typeG,"FLOAT")!=0) 
                                     {printf("Erreur semantique a la ligne %d:type incompatible 6\n",nb_ligne);}
-                                      else{$$=atof($3);}
+                                      else{$$=atof(convertToString($3));}
                    }
     | LPAREN MINUS FLOAT_NUMBER RPAREN {
         if(strcmp(typeG,"FLOAT")!=0) 
                                       {printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);}
                                        else{
-                                           strcat(strcpy(saveS,"-"),$3);
+                                           strcat(strcpy(saveS,"-"),convertToString($3));
                                            $$=atof(saveS);
                                        }
     }
