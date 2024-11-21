@@ -110,14 +110,7 @@ declaration:
             strcpy(saveIdf[j].idfTab,"");
         }j=0;    
     }
-<<<<<<< HEAD
-    | CONST type cst EQUALS term SEMICOLON
- 
-    
-      
-=======
-    | CONST type cst EQUALS term SEMICOLON        
->>>>>>> dd68af19b742d181ce3a921bac15b40d3beceb3a
+    | CONST type cst EQUALS term SEMICOLON   
 ;
 
 cst:
@@ -140,11 +133,6 @@ IDFT:
                 strcpy(saveIdf[0].idfTab,"");
         }
 ;
-<<<<<<< HEAD
-
-=======
-   
->>>>>>> dd68af19b742d181ce3a921bac15b40d3beceb3a
 // Rule for a list of variables separated by commas (converted to right-recursive)
 variable_list:
     IDENTIFIER {strcpy(saveIdf[j].idfTab,$1);j++;} 
