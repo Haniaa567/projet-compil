@@ -10,7 +10,9 @@ DECLARATION {
     CHAR CAR ;            
 }
 INSTRUCTION {
+    NUM = 5.5;
     ABC = 10;
+    NUM3 = 8.6;
     IF(ABC > 0) { 
         XYZ = 20.5;
     };

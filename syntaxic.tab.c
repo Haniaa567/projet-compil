@@ -540,11 +540,11 @@ static const yytype_uint16 yyrline[] =
 {
        0,    60,    60,    67,    68,    69,    74,    75,    80,    81,
       86,    87,    92,   101,   104,   115,   116,   117,   118,   131,
-     132,   133,   134,   139,   148,   165,   166,   171,   176,   182,
-     187,   188,   193,   194,   199,   200,   201,   202,   207,   208,
-     209,   210,   211,   212,   213,   218,   219,   220,   225,   226,
-     227,   236,   248,   254,   261,   266,   273,   277,   285,   286,
-     297
+     132,   133,   134,   139,   156,   173,   174,   179,   184,   190,
+     195,   196,   201,   202,   207,   208,   209,   210,   215,   216,
+     217,   218,   219,   220,   221,   226,   227,   228,   233,   234,
+     235,   244,   256,   262,   269,   274,   281,   285,   293,   294,
+     305
 };
 #endif
 
@@ -1602,62 +1602,68 @@ yyreduce:
 
   case 23:
 #line 139 "syntaxic.y"
-    {
+                                 {
         
-        if(((yyvsp[(3) - (4)].real)-floor((yyvsp[(3) - (4)].real))!=0) && strcmp(typeG,"INTEGER")==0){
+        if(((yyvsp[-1].real)-floor((yyvsp[-1].real))!=0) && strcmp(typeG,"INTEGER")==0){
             printf("Erreur semantique a la ligne %d:type incompatible 0\n",nb_ligne);
         }
             //sauvegarder la valeur affectee à IDF dans la TS apres la convertion a une str
-            sprintf(saveStr,"%f",(yyvsp[(3) - (4)].real));
+            sprintf(saveStr,"%f",(yyvsp[-1].real));
             insererVal(mDroit,saveStr);
-    ;}
+    }
+#line 1320 "syntaxic.tab.c"
     break;
 
-  case 24:
+  case 24: /* MDROIT: IDENTIFIER  */
 #line 148 "syntaxic.y"
-    {
+                  {
     // Vérification de la déclaration de la variable avant usage dans READ
-        if (verifdeclaration((yyvsp[(1) - (1)].string)) == 0) {
-            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", (yyvsp[(1) - (1)].string));
+        if (verifdeclaration((yyvsp[0].string)) == 0) {
+            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", (yyvsp[0].string));
         }else{ 
-            strcpy(typeG,getType((yyvsp[(1) - (1)].string)));
+            strcpy(typeG,getType((yyvsp[0].string)));
             printf("type: %s",typeG );
-            if(comparCode((yyvsp[(1) - (1)].string))==0){
+            if(comparCode((yyvsp[0].string))==0){
                 printf("Erreur semantique a la ligne %d:affectation d une constante\n",nb_ligne);
             }else{
-                 strcpy(mDroit,(yyvsp[(1) - (1)].string));
+                 strcpy(mDroit,(yyvsp[0].string));
             }
         }
-    ;}
+    }
+#line 1339 "syntaxic.tab.c"
     break;
 
-  case 46:
+  case 46: /* term: factor PLUS term  */
 #line 219 "syntaxic.y"
-    {(yyval.real)=(yyvsp[(1) - (3)].real)+(yyvsp[(3) - (3)].real);;}
+                       {(yyval.real)=(yyvsp[-2].real)+(yyvsp[0].real);}
+#line 1345 "syntaxic.tab.c"
     break;
 
-  case 47:
+  case 47: /* term: factor MINUS term  */
 #line 220 "syntaxic.y"
-    {(yyval.real)=(yyvsp[(1) - (3)].real)-(yyvsp[(3) - (3)].real);;}
+                        {(yyval.real)=(yyvsp[-2].real)-(yyvsp[0].real);}
+#line 1351 "syntaxic.tab.c"
     break;
 
-  case 49:
+  case 49: /* factor: primary MULTIPLY factor  */
 #line 226 "syntaxic.y"
-    {(yyval.real)=(yyvsp[(1) - (3)].real)*(yyvsp[(3) - (3)].real);;}
+                              {(yyval.real)=(yyvsp[-2].real)*(yyvsp[0].real);}
+#line 1357 "syntaxic.tab.c"
     break;
 
-  case 50:
+  case 50: /* factor: primary DIVIDE factor  */
 #line 227 "syntaxic.y"
-    { if((yyvsp[(3) - (3)].real)==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
+                                { if((yyvsp[0].real)==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
                                               else{   
                                                 (yyval.real)= (yyvsp[(1) - (3)].real) / (yyvsp[(3) - (3)].real);  
                                              }
-                            ;}
+                            }
+#line 1367 "syntaxic.tab.c"
     break;
 
-  case 51:
+  case 51: /* primary: IDENTIFIER  */
 #line 236 "syntaxic.y"
-    {
+               {
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration((yyvsp[(1) - (1)].string)) == 0) {
             printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", (yyvsp[(1) - (1)].string));
@@ -1668,89 +1674,98 @@ yyreduce:
                                  else
                                   (yyval.real)=atof(valIdf);
                              }
-    ;}
+    }
+#line 1384 "syntaxic.tab.c"
     break;
 
-  case 52:
+  case 52: /* primary: INT_NUMBER  */
 #line 248 "syntaxic.y"
-    {
+                 {
         printf("here %s\n",typeG);
         if(strcmp(typeG,"INTEGER")!=0) {printf("Erreur semantique a la ligne %d:type incompatible 2\n",nb_ligne);}
-                   else{(yyval.real)=(yyvsp[(1) - (1)].entier);}
+                   else{(yyval.real)=(yyvsp[0].entier);}
                   
-    ;}
+    }
+#line 1395 "syntaxic.tab.c"
     break;
 
-  case 53:
+  case 53: /* primary: FLOAT_NUMBER  */
 #line 254 "syntaxic.y"
-    {        printf("here 2 %s\n",typeG);
+                  {        printf("here 2 %s\n",typeG);
 
                     if(strcmp(typeG,"FLOAT")!=0) 
                    {printf("Erreur semantique a la ligne %d:type incompatible 3\n",nb_ligne);}
                    else{
-                   (yyval.real)=atof(convertToString((yyvsp[(1) - (1)].entier))); }  
-                   ;}
+                   (yyval.real)=atof(convertToString((yyvsp[0].entier))); }  
+                   }
+#line 1407 "syntaxic.tab.c"
     break;
 
-  case 54:
+  case 54: /* primary: LPAREN PLUS INT_NUMBER RPAREN  */
 #line 261 "syntaxic.y"
-    {
+                                  {
         if(strcmp(typeG,"INTEGER")!=0) 
         {printf("Erreur semantique a la ligne %d :type incompatible 4\n",nb_ligne);}
-        else{(yyval.real)=(yyvsp[(3) - (4)].entier);}
-    ;}
+        else{(yyval.real)=(yyvsp[-1].entier);}
+    }
+#line 1417 "syntaxic.tab.c"
     break;
 
-  case 55:
+  case 55: /* primary: LPAREN MINUS INT_NUMBER RPAREN  */
 #line 266 "syntaxic.y"
-    {
+                                   {
         if(strcmp(typeG,"INTEGER")!=0) 
             {printf("Erreur semantique a la ligne %d:type incompatible 5\n",nb_ligne);}
-                else{sprintf(saveStr,"%d",(yyvsp[(3) - (4)].entier));
+                else{sprintf(saveStr,"%d",(yyvsp[-1].entier));
                 strcat(strcpy(saveS,"-"),saveStr);
                 (yyval.real)=atoi(saveS);}
-    ;}
+    }
+#line 1429 "syntaxic.tab.c"
     break;
 
-  case 56:
+  case 56: /* primary: LPAREN PLUS FLOAT_NUMBER RPAREN  */
 #line 273 "syntaxic.y"
-    {if(strcmp(typeG,"FLOAT")!=0) 
+                                      {if(strcmp(typeG,"FLOAT")!=0) 
                                     {printf("Erreur semantique a la ligne %d:type incompatible 6\n",nb_ligne);}
-                                      else{(yyval.real)=atof(convertToString((yyvsp[(3) - (4)].entier)));}
-                   ;}
+                                      else{(yyval.real)=atof(convertToString((yyvsp[-1].entier)));}
+                   }
+#line 1438 "syntaxic.tab.c"
     break;
 
-  case 57:
+  case 57: /* primary: LPAREN MINUS FLOAT_NUMBER RPAREN  */
 #line 277 "syntaxic.y"
-    {
+                                       {
         if(strcmp(typeG,"FLOAT")!=0) 
                                       {printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);}
                                        else{
-                                           strcat(strcpy(saveS,"-"),convertToString((yyvsp[(3) - (4)].entier)));
+                                           strcat(strcpy(saveS,"-"),convertToString((yyvsp[-1].entier)));
                                            (yyval.real)=atof(saveS);
                                        }
-    ;}
+    }
+#line 1451 "syntaxic.tab.c"
     break;
 
-  case 58:
+  case 58: /* primary: LPAREN term RPAREN  */
 #line 285 "syntaxic.y"
-    {(yyval.real)=(yyvsp[(2) - (3)].real);;}
+                         {(yyval.real)=(yyvsp[-1].real);}
+#line 1457 "syntaxic.tab.c"
     break;
 
-  case 59:
+  case 59: /* primary: IDENTIFIER LBRACKET INT_NUMBER RBRACKET  */
 #line 286 "syntaxic.y"
-    {if(verifdeclaration((yyvsp[(1) - (4)].string))==0 )
-                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d\n",(yyvsp[(1) - (4)].string),nb_ligne);}
+                                             {if(verifdeclaration((yyvsp[-3].string))==0 )
+                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d\n",(yyvsp[-3].string),nb_ligne);}
                                 else {
                                     strcpy(typeD,getType((yyvsp[(1) - (4)].string)));
                                      if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d:type incompatible 8\n",nb_ligne);}
                                  }
-                ;}
+                }
+#line 1469 "syntaxic.tab.c"
     break;
 
 
-/* Line 1267 of yacc.c.  */
-#line 1754 "syntaxic.tab.c"
+#line 1473 "syntaxic.tab.c"
+
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1964,7 +1979,7 @@ yyreturn:
 }
 
 
-#line 300 "syntaxic.y"
+#line 308 "syntaxic.y"
 
 
 // Main function to start the parser

@@ -35,7 +35,7 @@
 
 %token VAR_GLOBAL DECLARATION INSTRUCTION
 %token INTEGER FLOAT CHAR CONST IF ELSE FOR READ WRITE
-%token <string>IDENTIFIER <entier>INT_NUMBER  FLOAT_NUMBER CHARACTERE
+%token <string>IDENTIFIER <string>INT_NUMBER  <string>FLOAT_NUMBER CHARACTERE
 %token AND OR NOT EQ NEQ GEQ LT LEQ GT
 %token EQUALS PLUS MINUS MULTIPLY DIVIDE
 %token LBRACE RBRACE LPAREN RPAREN LBRACKET RBRACKET SEMICOLON COMMA COLON
@@ -137,29 +137,37 @@ statement:
 // Define assignment statement
 assignment:
     MDROIT EQUALS term SEMICOLON {
+        // Vérifie si la valeur affectée est compatible avec le type de la variable
+        if (strcmp(typeG, "INTEGER") == 0 && ($3 - floor($3) != 0)) {
+            printf("Erreur sémantique à la ligne %d : tentative d'affectation d'un flottant à une variable entière.\n", nb_ligne);
+        }
         
-        if(($3-floor($3)!=0) && strcmp(typeG,"INTEGER")==0){
-            printf("Erreur semantique a la ligne %d:type incompatible 0\n",nb_ligne);
+        // Si c'est compatible, on sauvegarde la valeur dans la table des symboles
+        if (strcmp(typeG, "INTEGER") == 0) {
+            sprintf(saveStr, "%d", (int)$3);  // Convertir en entier
+        } else if (strcmp(typeG, "FLOAT") == 0) {
+            sprintf(saveStr, "%f",$3);  // Convertir en flottant
         }
-            //sauvegarder la valeur affectee à IDF dans la TS apres la convertion a une str
-            sprintf(saveStr,"%f",$3);
-            insererVal(mDroit,saveStr);
+
+
+        insererVal(mDroit, saveStr);
     }
-MDROIT: IDENTIFIER{
-    // Vérification de la déclaration de la variable avant usage dans READ
-        if (verifdeclaration($1) == 0) {
-            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
-        }else{ 
-            strcpy(typeG,getType($1));
-            printf("type: %s",typeG );
-            if(comparCode($1)==0){
-                printf("Erreur semantique a la ligne %d:affectation d une constante\n",nb_ligne);
-            }else{
-                 strcpy(mDroit,$1);
-            }
+
+MDROIT: IDENTIFIER {
+    // Vérification de la déclaration de la variable avant usage
+    if (verifdeclaration($1) == 0) {
+        printf("Erreur sémantique : La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
+    } else {
+        strcpy(typeG, getType($1));  // Récupérer le type de la variable à gauche
+        printf("type: %s", typeG);
+        if (comparCode($1) == 0) {
+            printf("Erreur sémantique à la ligne %d : affectation d'une constante\n", nb_ligne);
+        } else {
+            strcpy(mDroit, $1);
         }
     }
-;    
+}
+ 
 // Define conditional statement with optional else block
 condition:
     IF LPAREN expression RPAREN LBRACE instruction_section RBRACE SEMICOLON
@@ -248,7 +256,7 @@ primary:
     | INT_NUMBER {
         printf("here %s\n",typeG);
         if(strcmp(typeG,"INTEGER")!=0) {printf("Erreur semantique a la ligne %d:type incompatible 2\n",nb_ligne);}
-                   else{$$=$1;}
+                   else{$$=atof($1);}
                   
     }
     | FLOAT_NUMBER{        printf("here 2 %s\n",typeG);
@@ -256,12 +264,12 @@ primary:
                     if(strcmp(typeG,"FLOAT")!=0) 
                    {printf("Erreur semantique a la ligne %d:type incompatible 3\n",nb_ligne);}
                    else{
-                   $$=atof(convertToString($1)); }  
+                   $$=atof($1); }  
                    }
     |LPAREN PLUS INT_NUMBER RPAREN{
         if(strcmp(typeG,"INTEGER")!=0) 
         {printf("Erreur semantique a la ligne %d :type incompatible 4\n",nb_ligne);}
-        else{$$=$3;}
+        else{$$=atof($3);}
     }
     |LPAREN MINUS INT_NUMBER RPAREN{
         if(strcmp(typeG,"INTEGER")!=0) 
@@ -272,13 +280,13 @@ primary:
     }
     | LPAREN PLUS FLOAT_NUMBER RPAREN {if(strcmp(typeG,"FLOAT")!=0) 
                                     {printf("Erreur semantique a la ligne %d:type incompatible 6\n",nb_ligne);}
-                                      else{$$=atof(convertToString($3));}
+                                      else{$$=atof($3);}
                    }
     | LPAREN MINUS FLOAT_NUMBER RPAREN {
         if(strcmp(typeG,"FLOAT")!=0) 
                                       {printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);}
                                        else{
-                                           strcat(strcpy(saveS,"-"),convertToString($3));
+                                           strcat(strcpy(saveS,"-"),$3);
                                            $$=atof(saveS);
                                        }
     }
