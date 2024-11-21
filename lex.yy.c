@@ -1014,58 +1014,62 @@ YY_RULE_SETUP
 case 36:
 YY_RULE_SETUP
 #line 64 "lexical.l"
-{ yylval.entier = atoi(yytext);
-                    rechercher(yytext, "CONSTANT", "INTEGER", yytext, 0);
-                    if (atoi(yytext) > -32768 && atoi(yytext) < 32767) {
-                        printf("INT_NUMBER: %s\n", yytext);
-                    } else {
-                        printf("Erreur Lexicale à la ligne %d à la colonne %d : l'entier n'est pas supporté\n", nb_ligne, col);
-                    }
-                    col += strlen(yytext);
-                     return INT_NUMBER; }
+{ yylval.string = strdup(yytext);
+                   rechercher(yytext, "CONSTANT", "INTEGER", yytext, 0);
+                   if (atoi(yytext) > -32768 && atoi(yytext) < 32767) {
+                       printf("INT_NUMBER: %s\n", yytext);
+                   } else {
+                       printf("Erreur Lexicale à la ligne %d à la colonne %d : l'entier n'est pas supporté\n", nb_ligne, col);
+                   }
+                   col += strlen(yytext);
+                   return INT_NUMBER; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 73 "lexical.l"
-{ yylval.real = atof(yytext); rechercher(yytext,"CONSTANT","FLOAT",yytext,0); printf("FLOAT_NUMBER: %s\n", yytext); col += strlen(yytext); return FLOAT_NUMBER; }
+#line 74 "lexical.l"
+{ yylval.string = strdup(yytext); 
+                   rechercher(yytext,"CONSTANT","FLOAT",yytext,0); 
+                   printf("FLOAT_NUMBER: %s\n", yytext); 
+                   col += strlen(yytext); 
+                   return FLOAT_NUMBER; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 74 "lexical.l"
+#line 79 "lexical.l"
 { yylval.character = yytext[0]; rechercher(yytext,"CONSTANT","CHAR",yytext,0); printf("CHARACTERE: %s\n", yytext); col += strlen(yytext); return CHARACTERE; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 75 "lexical.l"
+#line 80 "lexical.l"
 { yylval.string = strdup(yytext); rechercher(yytext,"IDF","","",0); col += strlen(yytext); if (yyleng < 9) { printf("IDENTIFIER: %s\n", yytext); return IDENTIFIER; } else { printf("Erreur Lexicale à la ligne %d à la colonne %d : IDF trop long\n", nb_ligne, col); } }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 76 "lexical.l"
+#line 81 "lexical.l"
 { /* Ignorer les commentaires */ col += strlen(yytext); }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 79 "lexical.l"
+#line 84 "lexical.l"
 { /* Ignorer les espaces */col += strlen(yytext); }
 	YY_BREAK
 case 42:
 /* rule 42 can match eol */
 YY_RULE_SETUP
-#line 81 "lexical.l"
+#line 86 "lexical.l"
 { nb_ligne++; col =1;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 82 "lexical.l"
+#line 87 "lexical.l"
 { printf("Erreur lexicale : %s \nligne %d Colonne %d\n",yytext ,yylineno, col);col= col +strlen(yytext); }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 84 "lexical.l"
+#line 89 "lexical.l"
 ECHO;
 	YY_BREAK
-#line 1068 "lex.yy.c"
+#line 1072 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2082,7 +2086,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 84 "lexical.l"
+#line 89 "lexical.l"
 
 
 
