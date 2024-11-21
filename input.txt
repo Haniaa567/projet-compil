@@ -5,7 +5,8 @@ VAR_GLOBAL {
 DECLARATION {
     CONST INTEGER TEST = 12;    
     FLOAT NUM  ;     
-    INTEGER NUM2;      
+    INTEGER NUM4[9];  
+    FLOAT NUM2;   
     FLOAT NUM3 ;      
     CHAR CAR ;            
 }

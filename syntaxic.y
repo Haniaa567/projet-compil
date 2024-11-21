@@ -9,7 +9,7 @@
 
     // Déclaration de la fonction `yyerror` pour la gestion des erreurs de syntaxe.
     void yyerror(const char *s);
-    char sauvType [20];
+    char sauvType[20];
     int j=0;
     typedef struct
    {  
@@ -23,6 +23,7 @@
    char saveStr[20];
    char saveS[20];
    char mDroit[20];
+   char tableau_info[20];
 
 %}
 
@@ -96,10 +97,19 @@ declaration:
             else printf("Erreur semantique :double declaration de %s a la ligne %d\n",saveIdf[j].idfTab,nb_ligne);
             strcpy(saveIdf[j].idfTab,"");
         }j=0;    
-
     }
     | CONST type cst EQUALS term SEMICOLON
+    | type IDFT LBRACKET INT_NUMBER RBRACKET SEMICOLON{
+        printf("*****************************************************************************");
+        int size = atoi($4);
+        if (size <= 0) {
+            printf("Erreur sémantique : La taille du tableau doit être positive\n");
+        } 
+        }
+    
+      
 ;
+
 cst:
     IDENTIFIER{
         strcpy(saveIdf[0].idfTab,$1);
@@ -110,10 +120,29 @@ cst:
             strcpy(saveIdf[0].idfTab,"");
     }
 ;
+IDFT:
+    IDENTIFIER{
+            strcpy(saveIdf[0].idfTab,$1);
+            
+            //verification de la double declaration et insertion du type
+                if(verifdeclaration(saveIdf[0].idfTab)==0) {insererType(sauvType,saveIdf[0].idfTab);strcpy(typeG,getType($1));}
+                else printf("Erreur semantique :double declaration de %s a la ligne %d\n",saveIdf[0].idfTab,nb_ligne);
+                strcpy(saveIdf[0].idfTab,"");
+        }
+;
+sizeT:
+      INT_NUMBER{
+        printf("*****************************************************************************");
+        int size = atoi($1);
+        if (size <= 0) {
+            printf("Erreur sémantique : La taille du tableau doit être positive\n");
+        } 
+        }
+;    
 // Rule for a list of variables separated by commas (converted to right-recursive)
 variable_list:
     IDENTIFIER {strcpy(saveIdf[j].idfTab,$1);j++;} 
-    | IDENTIFIER LBRACKET INT_NUMBER RBRACKET  {strcpy(saveIdf[j].idfTab,$1);j++;}  
+    | IDENTIFIER LBRACKET INT_NUMBER RBRACKET{strcpy(saveIdf[j].idfTab,$1);j++;} 
     | IDENTIFIER COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
     | IDENTIFIER LBRACKET INT_NUMBER RBRACKET COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
 ;

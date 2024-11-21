@@ -127,9 +127,16 @@
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
+<<<<<<< HEAD
 typedef union YYSTYPE
 #line 29 "syntaxic.y"
 {
+=======
+union YYSTYPE
+{
+#line 30 "syntaxic.y"
+
+>>>>>>> b26a609 (declaration tab sans verif size)
     int entier;
     float real;
     char character;
