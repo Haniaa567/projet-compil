@@ -110,10 +110,14 @@ declaration:
             strcpy(saveIdf[j].idfTab,"");
         }j=0;    
     }
+<<<<<<< HEAD
     | CONST type cst EQUALS term SEMICOLON
  
     
       
+=======
+    | CONST type cst EQUALS term SEMICOLON        
+>>>>>>> dd68af19b742d181ce3a921bac15b40d3beceb3a
 ;
 
 cst:
@@ -136,11 +140,18 @@ IDFT:
                 strcpy(saveIdf[0].idfTab,"");
         }
 ;
+<<<<<<< HEAD
 
+=======
+   
+>>>>>>> dd68af19b742d181ce3a921bac15b40d3beceb3a
 // Rule for a list of variables separated by commas (converted to right-recursive)
 variable_list:
     IDENTIFIER {strcpy(saveIdf[j].idfTab,$1);j++;} 
-    | IDENTIFIER LBRACKET INT_NUMBER RBRACKET{strcpy(saveIdf[j].idfTab,$1);j++;} 
+    | IDENTIFIER LBRACKET INT_NUMBER RBRACKET{strcpy(saveIdf[j].idfTab,$1);j++;
+        if (atoi($3) == 0) {
+            printf("Erreur semantique : La taille du tableau doit etre strictement positive\n");
+        } } 
     | IDENTIFIER COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
     | IDENTIFIER LBRACKET INT_NUMBER RBRACKET COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
     | IDENTIFIER LBRACKET LPAREN PLUS INT_NUMBER RPAREN RBRACKET COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
