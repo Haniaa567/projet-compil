@@ -3,6 +3,16 @@
 #include <string.h>
 #include "quadruplet.h"
 
+
+char tempp[5];
+char idfSwitch[15];
+char defaultTemp[15];
+char idfQuad[15];
+
+quad QuadR[1000];
+pile *pile1 = NULL, *pile2 = NULL, *pile3 = NULL;
+int qc = 0;
+
 //creation d'1 quadruplet
 void createQuad(char *opt, char *opd1, char *opd2, char *res){
 	QuadR[qc].opt=strdup(opt);
@@ -127,10 +137,81 @@ char* depiler(pile**p){
 
 void displayQuad(){
 	int i;
+	FILE* File = fopen("QUAD.txt", "w+");
+    if (!File) {
+        perror("Erreur d'ouverture de fichier");
+        return;
+    }
 	printf("\n::::::::::::::::::::::::::::::: Quadruplets :::::::::::::::::::::::::::::::::::\n");
 	printf("___________________________________________________________________\n");
 	for(i=0;i<qc;i++){
 		printf("\n|\t %d - ( %s  ,  %s  ,  %s  ,  %s )",i,QuadR[i].opt,QuadR[i].opd1,QuadR[i].opd2,QuadR[i].res);
+		fprintf(File,"%d - ( %s  ,  %s  ,  %s  ,  %s )\n",i,QuadR[i].opt,QuadR[i].opd1,QuadR[i].opd2,QuadR[i].res);
 	}
 	printf("\n___________________________________________________________________\n");
 }
+
+/*
+int main()
+{
+    // Initialisation
+    qc = 0;  // Compteur de quadruplets à 0
+    pile *maPile = NULL;  // Création d'une pile vide
+
+    printf("Test du programme de génération de quadruplets\n\n");
+
+    // 1. Test de createQuad basique
+    printf("1. Test de createQuad simple :\n");
+    createQuad("+", "a", "b", "temp1");
+    displayQuad();
+
+    // 2. Test des quadruplets arithmétiques
+    printf("\n2. Test des quadruplets arithmétiques :\n");
+    printf("\nTest de != (BNE) :\n");
+    createQuadA(1, "x", "y", "res1");
+    
+    printf("\nTest de == (BE) :\n");
+    createQuadA(2, "x", "y", "res2");
+    
+    printf("\nTest de < (BL) :\n");
+    createQuadA(3, "x", "y", "res3");
+    displayQuad();
+
+    // 3. Test des quadruplets logiques
+    printf("\n3. Test des quadruplets logiques :\n");
+    printf("\nTest de NOT :\n");
+    createQuadL(1, "a", "", "res_not");
+    
+    printf("\nTest de OR :\n");
+    createQuadL(2, "a", "b", "res_or");
+    
+    printf("\nTest de AND :\n");
+    createQuadL(3, "a", "b", "res_and");
+    displayQuad();
+
+    // 4. Test des opérations de pile
+    printf("\n4. Test des opérations de pile :\n");
+    
+    // Test empiler string
+    empiler_Str(&maPile, "test1");
+    empiler_Str(&maPile, "test2");
+    printf("Premier élément de la pile : %s\n", first(maPile));
+    
+    // Test empiler integer
+    empiler_Int(&maPile, 42);
+    printf("Nouvel élément (int) empilé\n");
+    
+    // Test depiler
+    printf("Dépilage : %s\n", depiler(&maPile));
+    printf("Dépilage : %s\n", depiler(&maPile));
+    printf("Dépilage : %s\n", depiler(&maPile));
+
+    // 5. Test de ToSTR
+    printf("\n5. Test de ToSTR :\n");
+    char *str_number = ToSTR(123);
+    printf("Conversion de 123 en string : %s\n", str_number);
+    free(str_number);  // Libération de la mémoire
+
+    return 0;
+}
+*/
