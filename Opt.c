@@ -2,15 +2,14 @@
 #include <string.h>
 #include <stdlib.h>
 #include "TableSymbole.h"
-#include "TableSymbole.c"
-#include "quadruplet.h"
+#include "quadruplet.c"
 #include "Opt.h"
 
 void optimisation()
 {
     checkX2(QuadR);
     checkPow(QuadR);
-    checkVarUse(tab, tabs, tabm, QuadR);
+    checkVarUse(tab, QuadR);
     chekPropCopie(QuadR);
     int i = 0;
     for(i = 0; i < qc-1; i++)
@@ -76,8 +75,8 @@ void checkPow(quad *q)
     }
 }
 
-// Modification majeure de cette fonction pour utiliser les tableaux au lieu des listes chaînées
-void checkVarUse(element *tab, elt *tabs, elt *tabm, quad *q)
+// Version simplifiée ne prenant en compte que le tableau tab
+void checkVarUse(element *tab, quad *q)
 {
     int i;
     for(i = 0; i < 1000; i++) // Parcours du tableau des identifiants
@@ -141,3 +140,71 @@ void chekPropCopie(quad *q)
         }
     }
 }
+
+/*
+// Définition des variables globales
+element tab[1000];
+elt tabs[40], tabm[40];
+
+void initialiserTS() {
+    int i;
+    // Initialisation de tab
+    for(i = 0; i < 1000; i++) {
+        tab[i].state = 0;
+    }
+    
+    // Ajout de quelques identifiants pour le test
+    strcpy(tab[0].name, "x");
+    strcpy(tab[0].type, "INT");
+    tab[0].state = 1;
+    
+    strcpy(tab[1].name, "y");
+    strcpy(tab[1].type, "INT");
+    tab[1].state = 1;
+    
+    strcpy(tab[2].name, "z");
+    strcpy(tab[2].type, "INT");
+    tab[2].state = 1;
+    
+    strcpy(tab[3].name, "unused");
+    strcpy(tab[3].type, "INT");
+    tab[3].state = 1;
+}
+
+int main() {
+    printf("Test du programme d'optimisation\n\n");
+    
+    // Initialisation de la table des symboles
+    initialiserTS();
+    
+    // Test 1: Multiplication par 2
+    createQuad("*", "2", "x", "t1");
+    createQuad("+", "t1", "y", "z");
+    
+    // Test 2: Puissance de 2
+    createQuad("^", "x", "2", "t2");
+    
+    // Test 3: Test des copies
+    createQuad("=", "x", "", "t3");
+    createQuad("+", "t3", "y", "z");
+    
+    // Test 4: Variable non utilisée (unused)
+    // La variable "unused" est déclarée mais jamais utilisée dans les quadruplets
+    
+    printf("Quadruplets avant optimisation:\n");
+    displayQuad();
+    
+    printf("\nApplication des optimisations...\n");
+    optimisation();
+    
+    printf("\nQuadruplets après optimisation:\n");
+    displayQuad();
+    
+    printf("\nRésultats attendus:\n");
+    printf("1. La multiplication par 2 (t1 = 2 * x) devrait être transformée en addition (t1 = x + x)\n");
+    printf("2. La puissance de 2 (t2 = x ^ 2) devrait être transformée en multiplication (t2 = x * x)\n");
+    printf("3. La copie inutile via t3 devrait être éliminée\n");
+    printf("4. Un warning devrait être affiché pour la variable 'unused'\n");
+    
+    return 0;
+}*/

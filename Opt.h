@@ -1,8 +1,12 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "TableSymbole.h"
+#include "quadruplet.h"
 #ifndef OPT_H
 #define OPT_H
 
-#include "quadruplet.h"
-#include "TableSymbole.h"
+
 
 // Fonction principale d'optimisation
 void optimisation();
@@ -14,7 +18,7 @@ void checkX2(quad *q);
 void checkPow(quad *q);
 
 // Fonction qui vérifie l'utilisation des variables
-void checkVarUse(element *tab, elt *tabs, elt *tabm, quad *q);
+void checkVarUse(element *tab, quad *q);
 
 // Fonction qui vérifie et optimise la propagation des copies
 void chekPropCopie(quad *q);
