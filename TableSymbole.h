@@ -6,25 +6,7 @@
 extern int col;
 extern int  nb_ligne;
 
-typedef struct
-{
-   int state;//pour indiquer si la case est occupée
-   char name[20];//nom de l'entité
-   char code[20];//type de code associé
-   char type[20];//type de l'entité
-   char val[40];//Dans le cas ou le type est integer ou float on vas faire une transaction de char vers int attention
- } element;
 
-
-typedef struct
-{ 
-   int state; 
-   char name[20];
-   //char code[20];
-   char type[20];
-} elt;
-//Les tableaux tab, tabs, et tabm stockent respectivement les identifiants/constantes, les séparateurs et les mots-clés.(il a crée trois ts)
-element tab[1000];
 //inisialistaion si la case est vide on met 0 sinon 1
 void initialisation();
 void insererKeywords(char entite[], char code[],char type[],char val[],int i);
