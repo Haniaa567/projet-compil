@@ -76,6 +76,7 @@ void checkPow(quad *q)
 }
 
 // Version simplifiée ne prenant en compte que le tableau tab
+/*
 void checkVarUse(element *tab, quad *q)
 {
     int i;
@@ -101,7 +102,7 @@ void checkVarUse(element *tab, quad *q)
             }
         }
     }
-}
+}*/
 
 void chekPropCopie(quad *q)
 {

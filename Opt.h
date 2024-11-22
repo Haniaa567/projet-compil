@@ -18,7 +18,7 @@ void checkX2(quad *q);
 void checkPow(quad *q);
 
 // Fonction qui vérifie l'utilisation des variables
-void checkVarUse(element *tab, quad *q);
+//void checkVarUse(element *tab, quad *q);
 
 // Fonction qui vérifie et optimise la propagation des copies
 void chekPropCopie(quad *q);
