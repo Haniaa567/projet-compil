@@ -222,10 +222,31 @@ void  Useless(QUAD** TeteQ, ENTITE** TeteTS){
   }
 }
 void Machine(QUAD** TeteQ,ENTITE** TeteTS){
-  FILE* File=NULL;
-  File=fopen("CODEMACHINE.txt","w+");
-  struct ENTITE* ParcourirTS =*TeteTS;
-  struct QUAD* ParcourirQ =*TeteQ;
+ // FILE* File=NULL;
+    FILE* File = fopen("CODEMACHINE.txt", "w+");
+    if (File == NULL) {
+        perror("Erreur lors de l'ouverture du fichier");
+        return;
+    }
+
+    // Ajout de vérifications pour les pointeurs
+    if (!TeteQ || !TeteTS || !*TeteQ || !*TeteTS) {
+        printf("Erreur: Pointeurs NULL passés à la fonction Machine\n");
+        fclose(File);
+        return;
+    }
+
+    struct ENTITE* ParcourirTS = *TeteTS;
+    struct QUAD* ParcourirQ = *TeteQ;
+
+    printf("Début de la génération du code machine...\n");
+    printf("Table des symboles :\n");
+    while(ParcourirTS != NULL) {
+        printf("Variable: %s, Type: %s, Taille: %d\n", 
+            ParcourirTS->name, ParcourirTS->TypeE, ParcourirTS->TailleE);
+        ParcourirTS = ParcourirTS->next;
+    }
+  
   fprintf(File, "     DATA SEGMENT \n");
   while(ParcourirTS != NULL){
     if((*ParcourirTS).TailleE >1){
@@ -707,97 +728,94 @@ void Machine(QUAD** TeteQ,ENTITE** TeteTS){
   fprintf(File, "       CODE ENDS\n");
   fprintf(File, "       END PROG_PRINCIPAL\n");
   fclose(File);
+  printf("Génération terminée.\n");
 }
 
 
 
-
-// Main function to test QUAD optimizations
 int main() {
-
-
     QUAD* TeteQ = NULL;
     ENTITE* TeteTS = NULL;
     
-    // Create some test entities first
+    printf("Création des entités...\n");
+    
+    // Création des entités (table des symboles)
     ENTITE* var1 = (ENTITE*)malloc(sizeof(ENTITE));
-    strcpy(var1->name, "temp1");
+    if (!var1) {
+        perror("Erreur allocation var1");
+        return 1;
+    }
+    strcpy(var1->name, "x");
     strcpy(var1->TypeE, "Integer");
     strcpy(var1->State, "VAR");
-    var1->TailleE = 4;
+    var1->TailleE = 1;
     var1->next = NULL;
     TeteTS = var1;
 
     ENTITE* var2 = (ENTITE*)malloc(sizeof(ENTITE));
-    strcpy(var2->name, "temp2");
+    if (!var2) {
+        perror("Erreur allocation var2");
+        free(var1);
+        return 1;
+    }
+    strcpy(var2->name, "y");
     strcpy(var2->TypeE, "Integer");
     strcpy(var2->State, "VAR");
-    var2->TailleE = 4;
+    var2->TailleE = 1;
     var2->next = NULL;
     var1->next = var2;
 
-    // Test case 1: Simple assignment that can be propagated
-    printf("\n=== Test Case 1: Assignment Propagation ===\n");
-    InsertQ(&TeteQ, "=", "5", "", "temp1", 1);
-    InsertQ(&TeteQ, "+", "temp1", "3", "temp2", 2);
-    InsertQ(&TeteQ, "*", "temp2", "2", "temp1", 3);
+    printf("Création des quadruplets...\n");
     
-    printf("Before optimization:\n");
-    ShowQ(&TeteQ);
-    
-    printf("\nApplying Opt1...\n");
-    Opt1(&TeteQ, &TeteTS);
-    ShowQ(&TeteQ);
+    // Création des quadruplets
+    InsertQ(&TeteQ, "=", "5", "", "x", 1);
+    InsertQ(&TeteQ, "=", "10", "", "y", 2);
+    InsertQ(&TeteQ, "+", "x", "y", "T1", 3);
 
-    // Clear the quadruplets for next test
-    TeteQ = NULL;
+    // Vérification des structures avant génération
+    printf("\nVérification de la table des symboles :\n");
+    ENTITE* tempE = TeteTS;
+    while(tempE != NULL) {
+        printf("Variable: %s\n", tempE->name);
+        tempE = tempE->next;
+    }
 
-    // Test case 2: Useless assignment
-    printf("\n=== Test Case 2: Useless Assignment ===\n");
-    InsertQ(&TeteQ, "=", "10", "", "temp1", 1);
-    InsertQ(&TeteQ, "+", "20", "30", "temp2", 2);
-    InsertQ(&TeteQ, "=", "15", "", "temp1", 3);  // This assignment to temp1 is never used
-    InsertQ(&TeteQ, "*", "temp2", "2", "temp2", 4);
-    
-    printf("Before optimization:\n");
-    ShowQ(&TeteQ);
-    
-    printf("\nApplying Useless...\n");
-    Useless(&TeteQ, &TeteTS);
-    ShowQ(&TeteQ);
+    printf("\nVérification des quadruplets :\n");
+    QUAD* tempQ = TeteQ;
+    while(tempQ != NULL) {
+        printf("Quad %d: (%s,%s,%s,%s)\n", 
+            tempQ->QN, tempQ->OPR1, tempQ->OPR2, tempQ->OPR3, tempQ->RESULT);
+        tempQ = tempQ->SVT;
+    }
 
-    // Test case 3: Complex case with jumps
-    printf("\n=== Test Case 3: Complex Case with Jumps ===\n");
-    TeteQ = NULL;
-    InsertQ(&TeteQ, "=", "1", "", "temp1", 1);
-    InsertQ(&TeteQ, "BGE", "4", "", "", 2);
-    InsertQ(&TeteQ, "=", "2", "", "temp1", 3);
-    InsertQ(&TeteQ, "+", "temp1", "3", "temp2", 4);
-    InsertQ(&TeteQ, "*", "temp2", "2", "temp1", 5);
-    
-    printf("Before optimizations:\n");
-    ShowQ(&TeteQ);
-    
-    printf("\nApplying both optimizations...\n");
-    Opt1(&TeteQ, &TeteTS);
-    Useless(&TeteQ, &TeteTS);
-    ShowQ(&TeteQ);
+    printf("\nAppel de la fonction Machine...\n");
+    Machine(&TeteQ, &TeteTS);
 
-    // Free memory
-    QUAD* current = TeteQ;
-    while (current != NULL) {
-        QUAD* temp = current;
-        current = current->SVT;
+    // Lecture et affichage du fichier généré
+    FILE* check = fopen("CODEMACHINE.txt", "r");
+    if (check) {
+        printf("\nContenu du fichier CODEMACHINE.txt :\n");
+        char buffer[256];
+        while (fgets(buffer, sizeof(buffer), check)) {
+            printf("%s", buffer);
+        }
+        fclose(check);
+    } else {
+        printf("Impossible d'ouvrir le fichier pour vérification\n");
+    }
+
+    // Libération de la mémoire
+    while(TeteQ != NULL) {
+        QUAD* temp = TeteQ;
+        TeteQ = temp->SVT;
         free(temp);
     }
 
-    ENTITE* currentE = TeteTS;
-    while (currentE != NULL) {
-        ENTITE* temp = currentE;
-        currentE = currentE->next;
+    while(TeteTS != NULL) {
+        ENTITE* temp = TeteTS;
+        TeteTS = temp->next;
         free(temp);
     }
 
     return 0;
 }
-
