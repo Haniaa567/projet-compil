@@ -54,7 +54,7 @@ if errorlevel 1 (
 )
 
 echo ---- Création de l'exécutable ----
-%GCC% -o %EXECUTABLE% syntaxic.tab.o lex.yy.o TableSymbole.o 
+%GCC% -o %EXECUTABLE% syntaxic.tab.o lex.yy.o TableSymbole.o quadruplet.o
 if errorlevel 1 (
     echo Erreur lors de la création de l'exécutable.
     exit /b 1

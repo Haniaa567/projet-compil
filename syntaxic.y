@@ -3,6 +3,7 @@
     #include <stdlib.h>
     #include <math.h>
     #include "TableSymbole.h"
+    #include "quadruplet.h"
 
     // Déclaration de la fonction `yylex` pour que le compilateur la reconnaisse.
     int yylex();
@@ -23,7 +24,10 @@
    char saveStr[20];
    char saveS[20];
    char mDroit[20];
-   char tableau_info[20];
+   char buffer1[20], buffer2[20], temp[20];
+    pile *pile_if = NULL;
+    pile *pile_for = NULL;
+
 
 %}
 
@@ -64,6 +68,9 @@
 %type <real> term4
 %type <real> factor4
 %type <real> primary4
+%type <string> COND
+%type <string>  comparison_expr
+%type <string>  OP_COMP
 
 //%start program
 %%
@@ -107,10 +114,28 @@ declaration:
         for(j=0;strcmp(saveIdf[j].idfTab,"")!=0;j++){
             if(verifdeclaration(saveIdf[j].idfTab)==0) insererType(sauvType,saveIdf[j].idfTab);
             else printf("Erreur semantique :double declaration de %s a la ligne %d\n",saveIdf[j].idfTab,nb_ligne);
+            //createQuad("DECL", sauvType, "", saveIdf[j].idfTab);
             strcpy(saveIdf[j].idfTab,"");
-        }j=0;    
+        }  
+        j=0;  
     }
-    | CONST type cst EQUALS term SEMICOLON   
+    | CONST type cst EQUALS term SEMICOLON{
+    // Vérifie si la valeur affectée est compatible avec le type de la variable
+        if (strcmp(typeG, "INTEGER") == 0 && ($5 - floor($5) != 0)) {
+            printf("Erreur sémantique à la ligne %d : tentative d'affectation d'un flottant à une variable entière.\n", nb_ligne);
+        }
+         
+        // Si c'est compatible, on sauvegarde la valeur dans la table des symboles
+        if (strcmp(typeG, "INTEGER") == 0) {
+            sprintf(saveStr, "%d", (int)$5);  // Convertir en entier
+        } else if (strcmp(typeG, "FLOAT") == 0) {
+            sprintf(saveStr, "%f", $5);  // Convertir en flottant
+        }
+        // Ajout du quadruplet pour la déclaration d'une constante
+        //createQuad("CONST", sauvType, saveStr, saveIdf[0].idfTab);
+        insererVal(saveIdf[0].idfTab,saveStr);
+        strcpy(saveIdf[0].idfTab,"");
+    } 
 ;
 
 cst:
@@ -120,26 +145,22 @@ cst:
         //verification de la double declaration et insertion du type
             if(verifdeclaration(saveIdf[0].idfTab)==0) {insererType(sauvType,saveIdf[0].idfTab);strcpy(typeG,getType($1));}
             else printf("Erreur semantique :double declaration de %s a la ligne %d\n",saveIdf[0].idfTab,nb_ligne);
-            strcpy(saveIdf[0].idfTab,"");
+            
+            
     }
 ;
-IDFT:
-    IDENTIFIER{
-            strcpy(saveIdf[0].idfTab,$1);
-            
-            //verification de la double declaration et insertion du type
-                if(verifdeclaration(saveIdf[0].idfTab)==0) {insererType(sauvType,saveIdf[0].idfTab);strcpy(typeG,getType($1));}
-                else printf("Erreur semantique :double declaration de %s a la ligne %d\n",saveIdf[0].idfTab,nb_ligne);
-                strcpy(saveIdf[0].idfTab,"");
-        }
-;
+
 // Rule for a list of variables separated by commas (converted to right-recursive)
 variable_list:
     IDENTIFIER {strcpy(saveIdf[j].idfTab,$1);j++;} 
     | IDENTIFIER LBRACKET INT_NUMBER RBRACKET{strcpy(saveIdf[j].idfTab,$1);j++;
         if (atoi($3) == 0) {
             printf("Erreur semantique : La taille du tableau doit etre strictement positive\n");
-        } } 
+        } 
+        sprintf(buffer1, "%d", atoi($3)-1);
+        createQuad("BOUNDS", "0", buffer1,"");
+        createQuad("ADEC",$1,"","");
+        } 
     | IDENTIFIER COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
     | IDENTIFIER LBRACKET INT_NUMBER RBRACKET COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
     | IDENTIFIER LBRACKET LPAREN PLUS INT_NUMBER RPAREN RBRACKET COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
@@ -168,16 +189,17 @@ assignment:
         // Vérifie si la valeur affectée est compatible avec le type de la variable
         if (strcmp(typeG, "INTEGER") == 0 && ($3 - floor($3) != 0)) {
             printf("Erreur sémantique à la ligne %d : tentative d'affectation d'un flottant à une variable entière.\n", nb_ligne);
-        }
+        }   
         // Si c'est compatible, on sauvegarde la valeur dans la table des symboles
         if (strcmp(typeG, "INTEGER") == 0) {
             sprintf(saveStr, "%d", (int)$3);  // Convertir en entier
         } else if (strcmp(typeG, "FLOAT") == 0) {
             sprintf(saveStr, "%f",$3);  // Convertir en flottant
         }
+        // Génération du quadruplet d'affectation
+        createQuad("=", saveStr, "",mDroit);
 
-
-        insererVal(mDroit, saveStr);
+        insererVal(temp, saveStr);
     }
     |TAB EQUALS EXPRESSION_CHAINE SEMICOLON
     |MDROIT EQUALS EXPRESSION_CHAR SEMICOLON
@@ -195,10 +217,11 @@ MDROIT:
             printf("Erreur sémantique à la ligne %d : affectation d'une constante\n", nb_ligne);
         } else {
             strcpy(mDroit, $1);
+            strcpy(temp, $1);
         }
     }
     }
-    | TAB
+    |TAB
 ; 
 TAB:
     IDENTIFIER LBRACKET INT_NUMBER RBRACKET   {if(verifdeclaration($1)==0 )
@@ -206,6 +229,13 @@ TAB:
                     else {
                         strcpy(typeG, getType($1));
                             }
+                    strcpy(temp,$1);
+                    strcpy(mDroit,$1);
+                    strcat(mDroit,"[");
+                    sprintf(buffer2,"%d",atoi($3));
+                    strcat(mDroit,buffer2);
+                    strcat(mDroit,"]");
+                    printf("mDroit= %s",mDroit);
         }               
  
     | IDENTIFIER LBRACKET LPAREN PLUS INT_NUMBER RPAREN RBRACKET {
@@ -236,8 +266,34 @@ EXPRESSION_CHAINE:
 ;                          
 // Define conditional statement with optional else block
 condition:
-    IF LPAREN COND RPAREN LBRACE instruction_section RBRACE SEMICOLON
-    | IF LPAREN COND RPAREN LBRACE instruction_section RBRACE ELSE LBRACE instruction_section RBRACE SEMICOLON
+    IF LPAREN COND RPAREN LBRACE {
+        // Génération du quadruplet pour le saut conditionnel
+        char* temp = newtemp();
+        empiler_Int(&pile_if, qc);
+        createQuad("BZ", temp, "", "");
+    }instruction_section RBRACE SEMICOLON{
+        // Mise à jour du quadruplet de saut
+        int sauv = atoi(depiler(&pile_if));
+        sprintf(QuadR[sauv].opd1, "%d", qc);
+    }
+    | IF LPAREN COND RPAREN LBRACE {
+        // Premier saut conditionnel
+        char* temp = newtemp();
+        empiler_Int(&pile_if, qc);
+        createQuad("BZ", temp, "", "");
+    }instruction_section RBRACE ELSE{
+        // Saut pour éviter le else
+        empiler_Int(&pile_if, qc);
+        createQuad("BR", "", "", "");
+        
+        // Mise à jour du premier saut
+        int sauv = atoi(depiler(&pile_if));
+        sprintf(QuadR[sauv].opd1, "%d", qc);
+    }  LBRACE instruction_section RBRACE SEMICOLON{
+        // Mise à jour du saut du else
+        int sauv = atoi(depiler(&pile_if));
+        sprintf(QuadR[sauv].opd1, "%d", qc);
+    }
 ;
 assignment_int:
     MDROIT EQUALS term {
@@ -254,11 +310,26 @@ assignment_int:
 ;    
 // Define loop statement
 loop:
-    FOR LPAREN assignment_int COLON term3 COLON term4 RPAREN LBRACE instruction_section RBRACE SEMICOLON{
+    FOR LPAREN assignment_int{
+        // Sauvegarde du début de la boucle
+        empiler_Int(&pile_for, qc);
+    }  COLON term3 {
+        // Génération du quadruplet de test
+        char* temp = newtemp();
+        empiler_Int(&pile_for, qc);
+        createQuad("BZ", temp, "", "");
+    }COLON term4 RPAREN LBRACE instruction_section RBRACE SEMICOLON{
         if(strcmp(typeD,"INTEGER")!=0 || strcmp(typeG,"INTEGER")!=0)
         {
             printf("Erreur semantique parametre boucle type incompatible \n");
         }
+        // Génération du saut de retour
+        int debut = atoi(depiler(&pile_for));
+        createQuad("BR", ToSTR(debut), "", "");
+        
+        // Mise à jour du quadruplet de test
+        int sauv = atoi(depiler(&pile_for));
+        sprintf(QuadR[sauv].opd1, "%d", qc);
     }
 ;
 
@@ -293,16 +364,37 @@ io_expr:
 // Define expressions de condition (arithmetic operations, converted to right-recursive)
 COND:
     comparison_expr   // Start with comparison expressions
-    | NOT COND                   
-    | comparison_expr AND COND   // Logical AND
-    | comparison_expr OR COND    // Logical OR
+    | NOT COND {
+        char* temp = newtemp();
+        createQuadL(1, $2, "", temp);
+        $$ = temp;    
+    }             
+    | comparison_expr AND COND{
+        char* temp = newtemp();
+        createQuadL(3, $1, $3, temp);
+        $$ = temp;
+    }   // Logical AND
+    | comparison_expr OR COND {
+        char* temp = newtemp();
+        createQuadL(2, $1, $3, temp);
+        $$ = temp;
+    }   // Logical OR
 ;
 
 // Define comparison expressions (includes comparison operators)
 comparison_expr:
-    term2 OP_COMP term1  
-    |STRING_LITERAL OP_COMP STRING_LITERAL
-    |CHARACTERE OP_COMP CHARACTERE  
+    term2 OP_COMP term1 { $$ = newtemp(); 
+    sprintf(buffer1, "%f", $1);
+    sprintf(buffer2, "%f", $3);
+    createQuad($2,buffer1, buffer2, $$); } 
+    |STRING_LITERAL OP_COMP STRING_LITERAL{ $$ = newtemp(); 
+    sprintf(buffer1, "%f", $1);
+    sprintf(buffer2, "%f", $3);
+    createQuad($2,buffer1, buffer2, $$); } 
+    |CHARACTERE OP_COMP CHARACTERE { $$ = newtemp(); 
+    sprintf(buffer1, "%f", $1);
+    sprintf(buffer2, "%f", $3);
+    createQuad($2,buffer1, buffer2, $$);  }
     |DROIT OP_COMP term1 {printf("Erreur semantique a la ligne %d:type incompatible \n",nb_ligne);}       
     |term2 OP_COMP GAUCHE {printf("Erreur semantique a la ligne %d:type incompatible \n",nb_ligne);}
    
@@ -326,17 +418,49 @@ OP_COMP:
 // Define term as multiplication/division operations or a factor (converted to right-recursive)
 term:
     factor
-    | factor PLUS term {$$=$1+$3;}                  // Addition
-    | factor MINUS term {$$=$1-$3;}                // substraction
+    | factor PLUS term {
+        sprintf(buffer1, "%f", $1);
+        sprintf(buffer2, "%f", $3);
+        char* temp = newtemp();  // Génère un identifiant temporaire
+        float t=$1+$3;
+        sprintf(temp,"%f",t);
+        createQuad("+", buffer1, buffer2, temp);
+        $$=atof(temp);
+        
+    }                 // Addition
+    | factor MINUS term {
+        sprintf(buffer1, "%f", $1);
+        sprintf(buffer2, "%f", $3);
+        char* temp = newtemp();  // Génère un identifiant temporaire
+        float t=$1-$3;
+        sprintf(temp,"%f",t);
+        createQuad("-", buffer1, buffer2, temp);
+        $$=atof(temp);
+     
+    }                // substraction
 ;
 
 // Define factor as multiplication/division or a primary element
 factor:
     primary
-    | primary MULTIPLY factor {$$=$1*$3;}          // Multiplication, right-recursive
+    | primary MULTIPLY factor {
+        sprintf(buffer1, "%f", $1);
+        sprintf(buffer2, "%f", $3);
+        char* temp = newtemp();  // Génère un identifiant temporaire
+        float t=$1*$3;
+        sprintf(temp,"%f",t);
+        createQuad("*", buffer1, buffer2, temp);
+        $$=atof(temp);
+    }          // Multiplication, right-recursive
     | primary DIVIDE factor     { if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
                                               else{   
-                                                $$= $1 / $3;  
+                                               sprintf(buffer1, "%f", $1);
+                                                sprintf(buffer2, "%f", $3);
+                                                char* temp = newtemp();  // Génère un identifiant temporaire
+                                                float t=$1/$3;
+                                                sprintf(temp,"%f",t);
+                                                createQuad("/", buffer1, buffer2, temp);
+                                                $$=atof(temp);
                                              }
                             }                     // Division, right-recursive
 ;
@@ -659,6 +783,7 @@ int main() {
     yyparse(); 
     printf("\n");
     afficher(0);afficher(1);afficher(2);
+    displayQuad();
     return 0;
 }
 int yywrap() {

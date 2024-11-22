@@ -1,9 +1,9 @@
 VAR_GLOBAL {
     INTEGER ABC;    
-    FLOAT XYZ;     
+    INTEGER XYZ;     
 }
 DECLARATION {
-    CONST INTEGER TEST = 12;    
+    CONST FLOAT TEST = 12.5;    
     CHAR NUM[5]  ;     
     INTEGER NUM4[9];  
     FLOAT NUM2[6];   
@@ -11,9 +11,11 @@ DECLARATION {
     CHAR CAR ;            
 }
 INSTRUCTION {
+    ABC=2;
+    NUM2[1]=5.5;
     NUM = 'h';
     IF(ABC > 0) { 
-        XYZ = 20.5;
+        XYZ = 20/2;
     };
     FOR(ABC = 1 : 0:2)
     {

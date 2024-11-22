@@ -14,7 +14,7 @@ pile *pile1 = NULL, *pile2 = NULL, *pile3 = NULL;
 int qc = 0;
 
 //creation d'1 quadruplet
-void createQuad(char *opt, char *opd1, char *opd2, char *res){
+void createQuad(char* opt, char* opd1, char* opd2, char* res){
 	QuadR[qc].opt=strdup(opt);
 	QuadR[qc].opd1=strdup(opd1);
 	QuadR[qc].opd2=strdup(opd2);
@@ -150,7 +150,12 @@ void displayQuad(){
 	}
 	printf("\n___________________________________________________________________\n");
 }
-
+char* newtemp() {
+    static int counter = 0;
+    char* temp = (char*)malloc(20);  // Alloue une chaîne
+    sprintf(temp, "t%d", counter++);  // Génère un nom temporaire
+    return temp;
+}
 /*
 int main()
 {

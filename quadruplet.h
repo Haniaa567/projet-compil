@@ -34,5 +34,6 @@ void empiler_Int(pile **p, int donne);
 char* first(pile *p);
 char* depiler(pile **p);
 void displayQuad();
+char* newtemp();
 
 #endif
