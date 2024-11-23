@@ -295,6 +295,8 @@ void insererVal(char entite[],char Val[])
       strcpy(tab[pos].val,Val);
     }
     else{
+                printf("here\n");
+
         printf("l'élément n'existe pas");
     }
 }
@@ -451,5 +453,19 @@ void insererTableauElement(char entite[], char code[],int index, char val[], cha
         printf("L'élément %s existe déjà avec la valeur %s\n", nomComplet, tab[i].val);
     } else {
         printf("La table des symboles est pleine\n");
+    }
+}
+//modifier code
+void modifierCode(char code[],char entite[])
+{
+    int pos;
+    pos=positionIDF(entite);
+    if(pos !=-1)
+    {
+        printf("here\n");
+        strcpy(tab[pos].code,code);
+    }
+    else{
+        printf("l'élément n'existe pas");
     }
 }

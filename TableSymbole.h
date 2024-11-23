@@ -70,6 +70,7 @@ int comparCode(char entite[]);
 char* convertToString(int value);
 
 void insererTableauElement(char entite[],char code[], int index, char val[],char type[]);
+void modifierCode(char code[],char entite[]);
 
 
 #endif

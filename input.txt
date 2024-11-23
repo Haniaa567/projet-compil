@@ -13,7 +13,7 @@ DECLARATION {
 INSTRUCTION {
     ABC=2;
     NUM2[1]=5.5;
-    NUM = 'h';
+    NUM[2]='h';
     IF(ABC > 0) { 
         XYZ = 20/2;
     };

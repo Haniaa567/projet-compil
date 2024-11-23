@@ -152,7 +152,7 @@ cst:
 // Rule for a list of variables separated by commas (converted to right-recursive)
 variable_list:
     IDENTIFIER {strcpy(saveIdf[j].idfTab,$1);j++;} 
-    | IDENTIFIER LBRACKET INT_NUMBER RBRACKET{strcpy(saveIdf[j].idfTab,$1);j++;
+    | IDENTIFIER LBRACKET INT_NUMBER RBRACKET{strcpy(saveIdf[j].idfTab,$1);modifierCode("IDF TAB",saveIdf[j].idfTab);j++;
         if (atoi($3) == 0) {
             printf("Erreur semantique : La taille du tableau doit etre strictement positive\n");
         } 
@@ -161,8 +161,8 @@ variable_list:
         createQuad("ADEC",$1,"","");
         } 
     | IDENTIFIER COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
-    | IDENTIFIER LBRACKET INT_NUMBER RBRACKET COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
-    | IDENTIFIER LBRACKET LPAREN PLUS INT_NUMBER RPAREN RBRACKET COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
+    | IDENTIFIER LBRACKET INT_NUMBER RBRACKET COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);modifierCode("IDF TAB",saveIdf[j].idfTab);j++;} 
+    | IDENTIFIER LBRACKET LPAREN PLUS INT_NUMBER RPAREN RBRACKET COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);modifierCode("IDF TAB",saveIdf[j].idfTab);j++;} 
 ;
 
 // Rule for a variable, which can be either simple or an array
@@ -225,7 +225,20 @@ MDROIT:
     // Vérification de la déclaration de la variable avant usage
     if (verifdeclaration($1) == 0) {
         printf("Erreur sémantique : La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
-    } else {
+    } else if(strcmp(getCode($1),"IDF TAB")==0){
+        printf("Erreur sémantique : La variable '%s' est un tableau.\n", $1);
+
+        strcpy(typeG, getType($1));  // Récupérer le type de la variable à gauche
+        printf("type: %s", typeG);
+        if (comparCode($1) == 0) {
+            printf("Erreur sémantique à la ligne %d : affectation d'une constante\n", nb_ligne);
+        } else {
+            strcpy(mDroit, $1);
+            strcpy(temp, $1);
+        }
+        
+    }
+    else{
         strcpy(typeG, getType($1));  // Récupérer le type de la variable à gauche
         printf("type: %s", typeG);
         if (comparCode($1) == 0) {
@@ -240,25 +253,36 @@ MDROIT:
 TAB:
     IDENTIFIER LBRACKET INT_NUMBER RBRACKET   {if(verifdeclaration($1)==0 )
                     {printf("Erreur semantique a la ligne %d :Tableau %s non declare\n",$1,nb_ligne);}
-                    else {
+                    else if(strcmp(getCode($1),"IDF")==0){
+                        printf("Erreur sémantique : La variable '%s' est n'est pasm un tableau.\n", $1);
                         strcpy(typeG, getType($1));
                             }
-                    strcpy(temp,$1);
-                    strcpy(mDroit,$1);
-                    strcat(mDroit,"[");
-                    sprintf(buffer2,"%d",atoi($3));
-                    strcat(mDroit,buffer2);
-                    strcat(mDroit,"]");
-                    printf("mDroit= %s",mDroit);
-        }               
+                            else{
+                        strcpy(typeG, getType($1));
+
+                    }  
+                        strcpy(temp,$1);
+                        strcpy(mDroit,$1);
+                        //strcat(mDroit,"[");
+                        //sprintf(buffer2,"%d",atoi($3));
+                        //strcat(mDroit,buffer2);
+                        //strcat(mDroit,"]");
+                        //printf("mDroit= %s",mDroit);
+                    }      
+                           
  
     | IDENTIFIER LBRACKET LPAREN PLUS INT_NUMBER RPAREN RBRACKET {
                 if(verifdeclaration($1)==0 )
                   {printf("Erreur semantique a la ligne %d :Tableau %s non declare\n",$1,nb_ligne);}
-                  else {
-                     strcpy(typeG, getType($1));
-                        }
-                  } 
+                  else if(strcmp(getCode($1),"IDF")==0){
+                        printf("Erreur sémantique : La variable '%s' est n'est pas un tableau.\n", $1);
+                        strcpy(typeG, getType($1));
+                            }
+                            else{
+                        strcpy(typeG, getType($1));
+
+                    }  
+    }
 
 ; 
 EXPRESSION_CHAR: CHARACTERE {if(strcmp(typeG,"CHAR")!=0)   
@@ -394,7 +418,7 @@ comparison_expr:
         createQuadA(6,buffer1,buffer2,temp);
     }
     | term2 LT term1{
-        sprintf($$,"T%d",cptTemp);4
+        sprintf($$,"T%d",cptTemp);
         sprintf(buffer1, "%f", $1);
         sprintf(buffer2, "%f", $3);
         createQuadA(5,buffer1,buffer2,$$);
@@ -590,7 +614,7 @@ primary1:
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration($1) == 0) {
             printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
-        }else {strcpy(typeD,getType($1) );
+        }else {strcpy(typeG,getType($1) );
                              if(strcmp(typeG,typeD)!=0 && !(strcmp(typeD,"FLOAT")==0 && strcmp(typeG,"INTEGER")==0) && !(strcmp(typeG,"FLOAT")==0 && strcmp(typeD,"INTEGER")==0) ) {printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);}
                                 strcpy(valIdf,getVal($1));
                                  if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d : variable %s non initialisee\n",nb_ligne,$1);}
@@ -600,15 +624,14 @@ primary1:
         sprintf(buffer2, "%s", $1);
     }
     | INT_NUMBER {
-        printf("here %s\n",typeG);
-        strcpy(typeD,"INTEGER");
+        strcpy(typeG,"INTEGER");
         if(strcmp(typeG,"INTEGER")!=0 && !(strcmp(typeD,"FLOAT")==0 && strcmp(typeG,"INTEGER")==0) && !(strcmp(typeG,"FLOAT")==0 && strcmp(typeD,"INTEGER")==0)) {printf("Erreur semantique a la ligne %d:type incompatible 2\n",nb_ligne);}
                    else{$$=atof($1);}
         sprintf(buffer2, "%d",atoi($1));
                   
     }
     | FLOAT_NUMBER{        printf("here 2 %s\n",typeG);
-                    strcpy(typeD,"FLOAT");
+                    strcpy(typeG,"FLOAT");
                     if(strcmp(typeG,"FLOAT")!=0 && !(strcmp(typeD,"FLOAT")==0 && strcmp(typeG,"INTEGER")==0) && !(strcmp(typeG,"FLOAT")==0 && strcmp(typeD,"INTEGER")==0)) 
                    {printf("Erreur semantique a la ligne %d:type incompatible 3\n",nb_ligne);}
                    else{
@@ -616,13 +639,13 @@ primary1:
                    sprintf(buffer2, "%f", $1); 
                    }
     |LPAREN PLUS INT_NUMBER RPAREN{
-        strcpy(typeD,"INTEGER");
+        strcpy(typeG,"INTEGER");
         if(strcmp(typeG,"INTEGER")!=0 && !(strcmp(typeD,"FLOAT")==0 && strcmp(typeG,"INTEGER")==0) && !(strcmp(typeG,"FLOAT")==0 && strcmp(typeD,"INTEGER")==0)) 
         {printf("Erreur semantique a la ligne %d :type incompatible 4\n",nb_ligne);}
         else{$$=atof($3);}
     }
     |LPAREN MINUS INT_NUMBER RPAREN{
-        strcpy(typeD,"INTEGER");
+        strcpy(typeG,"INTEGER");
         if(strcmp(typeG,"INTEGER")!=0 && !(strcmp(typeD,"FLOAT")==0 && strcmp(typeG,"INTEGER")==0) && !(strcmp(typeG,"FLOAT")==0 && strcmp(typeD,"INTEGER")==0)) 
             {printf("Erreur semantique a la ligne %d:type incompatible 5\n",nb_ligne);}
                 else{sprintf(saveStr,"%d",$3);
@@ -630,13 +653,13 @@ primary1:
                 $$=atoi(saveS);}
     }
     | LPAREN PLUS FLOAT_NUMBER RPAREN {
-        strcpy(typeD,"FLOAT");
+        strcpy(typeG,"FLOAT");
         if(strcmp(typeG,"FLOAT")!=0 && !(strcmp(typeD,"FLOAT")==0 && strcmp(typeG,"INTEGER")==0) && !(strcmp(typeG,"FLOAT")==0 && strcmp(typeD,"INTEGER")==0)) 
             {printf("Erreur semantique a la ligne %d:type incompatible 6\n",nb_ligne);}
         else{$$=atof($3);}
                    }
     | LPAREN MINUS FLOAT_NUMBER RPAREN {
-        strcpy(typeD,"FLOAT");
+        strcpy(typeG,"FLOAT");
         if(strcmp(typeG,"FLOAT")!=0 && !(strcmp(typeD,"FLOAT")==0 && strcmp(typeG,"INTEGER")==0) && !(strcmp(typeG,"FLOAT")==0 && strcmp(typeD,"INTEGER")==0)) 
                                       {printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);}
                                        else{
@@ -648,7 +671,7 @@ primary1:
     |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {if(verifdeclaration($1)==0 )
                                          {printf("Erreur semantique :Tableau %s non declaree a la ligne %d\n",$1,nb_ligne);}
                                 else {
-                                    strcpy(typeD,getType($1));
+                                    strcpy(typeG,getType($1));
                                      if(strcmp(typeG,typeD)!=0 && !(strcmp(typeD,"FLOAT")==0 && strcmp(typeG,"INTEGER")==0) && !(strcmp(typeG,"FLOAT")==0 && strcmp(typeD,"INTEGER")==0)) {printf("Erreur semantique a la ligne %d:type incompatible 8\n",nb_ligne);}
                                  }
                 }
