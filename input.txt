@@ -6,7 +6,7 @@ DECLARATION {
     CONST FLOAT TEST = 12.5;    
     CHAR NUM[5]  ;     
     INTEGER NUM4[9];  
-    FLOAT NUM2[6];   
+    FLOAT NUM2;   
     FLOAT NUM3 ;      
     CHAR CAR ;            
 }
@@ -16,14 +16,6 @@ INSTRUCTION {
     NUM = 'h';
     IF(ABC > 0) { 
         XYZ = 20/2;
-    };
-    FOR(ABC = 1 : 0:2)
-    {
-        NUM2=1.2;
-    };
-    FOR(ABC=0:2.3:TEST)
-    {
-        NUM2=1.2;
     };
     WRITE("HELLO",X);
     READ(CAR);

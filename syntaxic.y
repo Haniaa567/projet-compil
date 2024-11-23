@@ -25,9 +25,8 @@
    char saveS[20];
    char mDroit[20];
    char buffer1[20], buffer2[20], temp[20];
-    pile *pile_if = NULL;
-    pile *pile_for = NULL;
-
+   int cptTemp=1;
+   int cptEndCheck=0;
 
 %}
 
@@ -201,6 +200,22 @@ assignment:
 
         insererVal(temp, saveStr);
     }
+    |TAB EQUALS term SEMICOLON {
+        // Vérifie si la valeur affectée est compatible avec le type de la variable
+        if (strcmp(typeG, "INTEGER") == 0 && ($3 - floor($3) != 0)) {
+            printf("Erreur sémantique à la ligne %d : tentative d'affectation d'un flottant à une variable entière.\n", nb_ligne);
+        }   
+        // Si c'est compatible, on sauvegarde la valeur dans la table des symboles
+        if (strcmp(typeG, "INTEGER") == 0) {
+            sprintf(saveStr, "%d", (int)$3);  // Convertir en entier
+        } else if (strcmp(typeG, "FLOAT") == 0) {
+            sprintf(saveStr, "%f",$3);  // Convertir en flottant
+        }
+        // Génération du quadruplet d'affectation
+        createQuad("=", saveStr, "",mDroit);
+
+        insererVal(temp, saveStr);
+    }
     |TAB EQUALS EXPRESSION_CHAINE SEMICOLON
     |MDROIT EQUALS EXPRESSION_CHAR SEMICOLON
     
@@ -221,7 +236,6 @@ MDROIT:
         }
     }
     }
-    |TAB
 ; 
 TAB:
     IDENTIFIER LBRACKET INT_NUMBER RBRACKET   {if(verifdeclaration($1)==0 )
@@ -267,33 +281,24 @@ EXPRESSION_CHAINE:
 // Define conditional statement with optional else block
 condition:
     IF LPAREN COND RPAREN LBRACE {
-        // Génération du quadruplet pour le saut conditionnel
-        char* temp = newtemp();
-        empiler_Int(&pile_if, qc);
-        createQuad("BZ", temp, "", "");
-    }instruction_section RBRACE SEMICOLON{
-        // Mise à jour du quadruplet de saut
-        int sauv = atoi(depiler(&pile_if));
-        sprintf(QuadR[sauv].opd1, "%d", qc);
-    }
+          empiler_Int(&pile1,qc);
+          createQuad("BZ","",QuadR[qc-1].res,"");
+        }
+        instruction_section RBRACE SEMICOLON{
+          QuadR[atoi(depiler(&pile1))].opd1=ToSTR(qc);
+        };
     | IF LPAREN COND RPAREN LBRACE {
-        // Premier saut conditionnel
-        char* temp = newtemp();
-        empiler_Int(&pile_if, qc);
-        createQuad("BZ", temp, "", "");
-    }instruction_section RBRACE ELSE{
-        // Saut pour éviter le else
-        empiler_Int(&pile_if, qc);
-        createQuad("BR", "", "", "");
-        
-        // Mise à jour du premier saut
-        int sauv = atoi(depiler(&pile_if));
-        sprintf(QuadR[sauv].opd1, "%d", qc);
-    }  LBRACE instruction_section RBRACE SEMICOLON{
-        // Mise à jour du saut du else
-        int sauv = atoi(depiler(&pile_if));
-        sprintf(QuadR[sauv].opd1, "%d", qc);
-    }
+          empiler_Int(&pile1,qc);
+          createQuad("BZ","",QuadR[qc-1].res,"");
+        }
+        instruction_section RBRACE ELSE{
+        QuadR[atoi(depiler(&pile1))].opd1=ToSTR(qc+1);
+        empiler_Int(&pile1,qc);
+        createQuad("BR","","","");
+        }
+        LBRACE instruction_section RBRACE SEMICOLON{
+          QuadR[atoi(depiler(&pile1))].opd1=ToSTR(qc);
+        };
 ;
 assignment_int:
     MDROIT EQUALS term {
@@ -312,11 +317,11 @@ assignment_int:
 loop:
     FOR LPAREN assignment_int{
         // Sauvegarde du début de la boucle
-        empiler_Int(&pile_for, qc);
+       // empiler_Int(&pile, qc);
     }  COLON term3 {
         // Génération du quadruplet de test
         char* temp = newtemp();
-        empiler_Int(&pile_for, qc);
+       // empiler_Int(&pile_for, qc);
         createQuad("BZ", temp, "", "");
     }COLON term4 RPAREN LBRACE instruction_section RBRACE SEMICOLON{
         if(strcmp(typeD,"INTEGER")!=0 || strcmp(typeG,"INTEGER")!=0)
@@ -324,12 +329,12 @@ loop:
             printf("Erreur semantique parametre boucle type incompatible \n");
         }
         // Génération du saut de retour
-        int debut = atoi(depiler(&pile_for));
-        createQuad("BR", ToSTR(debut), "", "");
+       // int debut = atoi(depiler(&pile_for));
+       // createQuad("BR", ToSTR(debut), "", "");
         
         // Mise à jour du quadruplet de test
-        int sauv = atoi(depiler(&pile_for));
-        sprintf(QuadR[sauv].opd1, "%d", qc);
+        //int sauv = atoi(depiler(&pile_for));
+        //sprintf(QuadR[sauv].opd1, "%d", qc);
     }
 ;
 
@@ -383,10 +388,46 @@ COND:
 
 // Define comparison expressions (includes comparison operators)
 comparison_expr:
-    term2 OP_COMP term1 { $$ = newtemp(); 
-    sprintf(buffer1, "%f", $1);
-    sprintf(buffer2, "%f", $3);
-    createQuad($2,buffer1, buffer2, $$); } 
+    |term2 GT term1
+    {
+         char* temp=newtemp();
+        createQuadA(6,buffer1,buffer2,temp);
+    }
+    | term2 LT term1{
+        sprintf($$,"T%d",cptTemp);4
+        sprintf(buffer1, "%f", $1);
+        sprintf(buffer2, "%f", $3);
+        createQuadA(5,buffer1,buffer2,$$);
+        cptTemp++;
+    }
+    |term2 EQ term1{
+        sprintf($$,"T%d",cptTemp);
+        sprintf(buffer1, "%f", $1);
+        sprintf(buffer2, "%f", $3);
+        createQuadA(1,buffer1,buffer2,$$);
+        cptTemp++;
+    }
+    |term2 GEQ term1{
+       sprintf($$,"T%d",cptTemp);
+        sprintf(buffer1, "%f", $1);
+        sprintf(buffer2, "%f", $3);
+        createQuadA(3,buffer1,buffer2,$$);
+        cptTemp++;
+    }
+    |term2 LEQ term1{
+        sprintf($$,"T%d",cptTemp);
+        sprintf(buffer1, "%f", $1);
+        sprintf(buffer2, "%f", $3);
+        createQuadA(4,buffer1,buffer2,$$);
+        cptTemp++;
+    }
+    |term2 NEQ term1{
+        sprintf($$,"T%d",cptTemp);
+        sprintf(buffer1, "%f", $1);
+        sprintf(buffer2, "%f", $3);
+        createQuadA(2,buffer1,buffer2,$$);
+        cptTemp++;
+    }
     |STRING_LITERAL OP_COMP STRING_LITERAL{ $$ = newtemp(); 
     sprintf(buffer1, "%f", $1);
     sprintf(buffer2, "%f", $3);
@@ -556,12 +597,14 @@ primary1:
                                  else
                                   $$=atof(valIdf);
                              }
+        sprintf(buffer2, "%s", $1);
     }
     | INT_NUMBER {
         printf("here %s\n",typeG);
         strcpy(typeD,"INTEGER");
         if(strcmp(typeG,"INTEGER")!=0 && !(strcmp(typeD,"FLOAT")==0 && strcmp(typeG,"INTEGER")==0) && !(strcmp(typeG,"FLOAT")==0 && strcmp(typeD,"INTEGER")==0)) {printf("Erreur semantique a la ligne %d:type incompatible 2\n",nb_ligne);}
                    else{$$=atof($1);}
+        sprintf(buffer2, "%d",atoi($1));
                   
     }
     | FLOAT_NUMBER{        printf("here 2 %s\n",typeG);
@@ -569,7 +612,8 @@ primary1:
                     if(strcmp(typeG,"FLOAT")!=0 && !(strcmp(typeD,"FLOAT")==0 && strcmp(typeG,"INTEGER")==0) && !(strcmp(typeG,"FLOAT")==0 && strcmp(typeD,"INTEGER")==0)) 
                    {printf("Erreur semantique a la ligne %d:type incompatible 3\n",nb_ligne);}
                    else{
-                   $$=atof($1); }  
+                   $$=atof($1); } 
+                   sprintf(buffer2, "%f", $1); 
                    }
     |LPAREN PLUS INT_NUMBER RPAREN{
         strcpy(typeD,"INTEGER");
@@ -633,13 +677,16 @@ primary2:
         if (verifdeclaration($1) == 0) {
             printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
         }else {strcpy(typeD,getType($1));}
+        sprintf(buffer1, "%s", $1);
     }
     | INT_NUMBER {
         strcpy(typeD,"INTEGER");
+        sprintf(buffer1, "%d", atoi($1));
                   
     }
     | FLOAT_NUMBER{
         strcpy(typeD,"FLOAT");
+        sprintf(buffer1, "%f", $1);
     }
     |LPAREN PLUS INT_NUMBER RPAREN{
         strcpy(typeD,"INTEGER");
