@@ -15,7 +15,7 @@ INSTRUCTION {
     NUM2[1]=5.5;
     NUM[2]='h';
     IF(ABC == 0) { 
-        XYZ = ABC+3;
+        XYZ = ABC+5;
     }
     ELSE{
         XYZ=30;

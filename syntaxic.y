@@ -484,11 +484,17 @@ OP_COMP:
 ;
 // Define term as multiplication/division operations or a factor (converted to right-recursive)
 term:
-    factor
-    | factor PLUS term {
-        sprintf(buffer1, "%f", $1);
-        sprintf(buffer2, "%f", $3);
-        char* temp = newtemp();  // Génère un identifiant temporaire
+    factor1
+    | factor1 PLUS term {
+        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3);  
+        char *temp = newtemp();  // Génère un identifiant temporaire
         float t=$1+$3;
         sprintf(temp,"%f",t);
         createQuad("+", buffer1, buffer2, temp);
@@ -496,9 +502,15 @@ term:
         
     }                 // Addition
     | factor MINUS term {
-        sprintf(buffer1, "%f", $1);
-        sprintf(buffer2, "%f", $3);
-        char* temp = newtemp();  // Génère un identifiant temporaire
+        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3); 
+        char *temp = newtemp();  // Génère un identifiant temporaire
         float t=$1-$3;
         sprintf(temp,"%f",t);
         createQuad("-", buffer1, buffer2, temp);
@@ -511,25 +523,38 @@ term:
 factor:
     primary
     | primary MULTIPLY factor {
-        sprintf(buffer1, "%f", $1);
-        sprintf(buffer2, "%f", $3);
-        char* temp = newtemp();  // Génère un identifiant temporaire
+        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3); 
+        char *temp = newtemp();  // Génère un identifiant temporaire
         float t=$1*$3;
         sprintf(temp,"%f",t);
         createQuad("*", buffer1, buffer2, temp);
         $$=atof(temp);
     }          // Multiplication, right-recursive
-    | primary DIVIDE factor     { if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
-                                              else{   
-                                               sprintf(buffer1, "%f", $1);
-                                                sprintf(buffer2, "%f", $3);
-                                                char* temp = newtemp();  // Génère un identifiant temporaire
-                                                float t=$1/$3;
-                                                sprintf(temp,"%f",t);
-                                                createQuad("/", buffer1, buffer2, temp);
-                                                $$=atof(temp);
-                                             }
-                            }                     // Division, right-recursive
+    | primary DIVIDE factor     { 
+        if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
+        else{   
+        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3); 
+        char *temp = newtemp();  // Génère un identifiant temporaire
+        float t=$1/$3;
+        sprintf(temp,"%f",t);
+        createQuad("/", buffer1, buffer2, temp);
+        $$=atof(temp);
+        }
+}                     // Division, right-recursive
 ;
 
 // Define primary elements: identifiers, numbers, and parenthesized expressions
