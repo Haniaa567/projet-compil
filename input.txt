@@ -14,8 +14,11 @@ INSTRUCTION {
     ABC=2;
     NUM2[1]=5.5;
     NUM[2]='h';
-    IF(ABC > 0) { 
-        XYZ = 20/2;
+    IF(ABC == 0) { 
+        XYZ = ABC+3;
+    }
+    ELSE{
+        XYZ=30;
     };
     WRITE("HELLO",X);
     READ(CAR);

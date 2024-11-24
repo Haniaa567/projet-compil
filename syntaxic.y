@@ -24,9 +24,9 @@
    char saveStr[20];
    char saveS[20];
    char mDroit[20];
-   char buffer1[20], buffer2[20], temp[20];
-   int cptTemp=1;
-   int cptEndCheck=0;
+   char buffer1[20], buffer2[20], tmp[20];
+   char* temp;
+   
 
 %}
 
@@ -198,7 +198,7 @@ assignment:
         // Génération du quadruplet d'affectation
         createQuad("=", saveStr, "",mDroit);
 
-        insererVal(temp, saveStr);
+        insererVal(mDroit, saveStr);
     }
     |TAB EQUALS term SEMICOLON {
         // Vérifie si la valeur affectée est compatible avec le type de la variable
@@ -212,9 +212,9 @@ assignment:
             sprintf(saveStr, "%f",$3);  // Convertir en flottant
         }
         // Génération du quadruplet d'affectation
-        createQuad("=", saveStr, "",mDroit);
+        createQuad("=", saveStr, "",temp);
 
-        insererVal(temp, saveStr);
+        insererVal(mDroit, saveStr);
     }
     |TAB EQUALS EXPRESSION_CHAINE SEMICOLON
     |MDROIT EQUALS EXPRESSION_CHAR SEMICOLON
@@ -234,7 +234,6 @@ MDROIT:
             printf("Erreur sémantique à la ligne %d : affectation d'une constante\n", nb_ligne);
         } else {
             strcpy(mDroit, $1);
-            strcpy(temp, $1);
         }
         
     }
@@ -245,7 +244,6 @@ MDROIT:
             printf("Erreur sémantique à la ligne %d : affectation d'une constante\n", nb_ligne);
         } else {
             strcpy(mDroit, $1);
-            strcpy(temp, $1);
         }
     }
     }
@@ -260,14 +258,16 @@ TAB:
                             else{
                         strcpy(typeG, getType($1));
 
-                    }  
-                        strcpy(temp,$1);
+                    }   
                         strcpy(mDroit,$1);
-                        //strcat(mDroit,"[");
-                        //sprintf(buffer2,"%d",atoi($3));
-                        //strcat(mDroit,buffer2);
-                        //strcat(mDroit,"]");
-                        //printf("mDroit= %s",mDroit);
+                        temp=newtemp();
+                        strcpy(temp,$1);
+                        strcpy(tmp,$1);
+                        strcat(tmp,"[");
+                        sprintf(buffer2,"%d",atoi($3));
+                        strcat(tmp,buffer2);
+                        strcat(tmp,"]");
+                       
                     }      
                            
  
@@ -304,13 +304,14 @@ EXPRESSION_CHAINE:
 ;                          
 // Define conditional statement with optional else block
 condition:
+/*
     IF LPAREN COND RPAREN LBRACE {
-          empiler_Int(&pile1,qc);
-          createQuad("BZ","",QuadR[qc-1].res,"");
-        }
-        instruction_section RBRACE SEMICOLON{
-          QuadR[atoi(depiler(&pile1))].opd1=ToSTR(qc);
-        };
+    empiler_Int(&pile1, qc);
+    //createQuad("BZ", "", $3, "");  // Branchement direct sans variables intermédiaires
+    }
+    instruction_section RBRACE SEMICOLON {
+        QuadR[atoi(depiler(&pile1))].opd1 = ToSTR(qc);
+    }
     | IF LPAREN COND RPAREN LBRACE {
           empiler_Int(&pile1,qc);
           createQuad("BZ","",QuadR[qc-1].res,"");
@@ -322,7 +323,23 @@ condition:
         }
         LBRACE instruction_section RBRACE SEMICOLON{
           QuadR[atoi(depiler(&pile1))].opd1=ToSTR(qc);
-        };
+        }
+;
+*/
+      IF LPAREN COND RPAREN LBRACE {
+          empiler_Int(&pile1,qc);
+          createQuad("BZ","",QuadR[qc-1].res,"");
+        }
+        instruction_section RBRACE elsebloc SEMICOLON{
+        QuadR[atoi(depiler(&pile1))].opd1=ToSTR(qc);
+        }
+;
+elsebloc: ELSE LBRACE {
+        QuadR[atoi(depiler(&pile1))].opd1=ToSTR(qc+1);
+        empiler_Int(&pile1,qc);
+        createQuad("BR","","","");
+        } instruction_section RBRACE 
+        |
 ;
 assignment_int:
     MDROIT EQUALS term {
@@ -346,7 +363,7 @@ loop:
         // Génération du quadruplet de test
         char* temp = newtemp();
        // empiler_Int(&pile_for, qc);
-        createQuad("BZ", temp, "", "");
+       // createQuad("BZ", temp, "", "");
     }COLON term4 RPAREN LBRACE instruction_section RBRACE SEMICOLON{
         if(strcmp(typeD,"INTEGER")!=0 || strcmp(typeG,"INTEGER")!=0)
         {
@@ -394,18 +411,18 @@ io_expr:
 COND:
     comparison_expr   // Start with comparison expressions
     | NOT COND {
-        char* temp = newtemp();
-        createQuadL(1, $2, "", temp);
-        $$ = temp;    
+        //char* temp = newtemcreateQuadLp();
+        //createQuadL(1, $2, "", temp);
+       // $$ = temp;    
     }             
     | comparison_expr AND COND{
         char* temp = newtemp();
-        createQuadL(3, $1, $3, temp);
+       // (3, $1, $3, temp);
         $$ = temp;
     }   // Logical AND
     | comparison_expr OR COND {
         char* temp = newtemp();
-        createQuadL(2, $1, $3, temp);
+       // createQuadL(2, $1, $3, temp);
         $$ = temp;
     }   // Logical OR
 ;
@@ -418,39 +435,24 @@ comparison_expr:
         createQuadA(6,buffer1,buffer2,temp);
     }
     | term2 LT term1{
-        sprintf($$,"T%d",cptTemp);
-        sprintf(buffer1, "%f", $1);
-        sprintf(buffer2, "%f", $3);
-        createQuadA(5,buffer1,buffer2,$$);
-        cptTemp++;
+        char* temp=newtemp();
+        createQuadA(5,buffer1,buffer2,temp);
     }
     |term2 EQ term1{
-        sprintf($$,"T%d",cptTemp);
-        sprintf(buffer1, "%f", $1);
-        sprintf(buffer2, "%f", $3);
-        createQuadA(1,buffer1,buffer2,$$);
-        cptTemp++;
+        char* temp=newtemp();
+        createQuadA(1,buffer1,buffer2,temp);
     }
     |term2 GEQ term1{
-       sprintf($$,"T%d",cptTemp);
-        sprintf(buffer1, "%f", $1);
-        sprintf(buffer2, "%f", $3);
-        createQuadA(3,buffer1,buffer2,$$);
-        cptTemp++;
+       char* temp=newtemp();
+        createQuadA(3,buffer1,buffer2,temp);
     }
     |term2 LEQ term1{
-        sprintf($$,"T%d",cptTemp);
-        sprintf(buffer1, "%f", $1);
-        sprintf(buffer2, "%f", $3);
-        createQuadA(4,buffer1,buffer2,$$);
-        cptTemp++;
+        char* temp=newtemp();
+        createQuadA(4,buffer1,buffer2,temp);
     }
     |term2 NEQ term1{
-        sprintf($$,"T%d",cptTemp);
-        sprintf(buffer1, "%f", $1);
-        sprintf(buffer2, "%f", $3);
-        createQuadA(2,buffer1,buffer2,$$);
-        cptTemp++;
+        char* temp=newtemp();
+        createQuadA(2,buffer1,buffer2,temp);
     }
     |STRING_LITERAL OP_COMP STRING_LITERAL{ $$ = newtemp(); 
     sprintf(buffer1, "%f", $1);

@@ -33,40 +33,47 @@ char* ToSTR(int i){
 void createQuadA(int type, char *cond1, char *cond2, char *res){
 	char *TypeBR;
 	switch(type){
-		case 1 :{//1==> "!=" (égale)
+		case 1 ://1==> "!=" (égale)
 			TypeBR=strdup("BNE");
-		}
+		
 		break;
-		case 2 :{//2==> "==" (different)
+		case 2 ://2==> "==" (different)
 			TypeBR=strdup("BE");
-		}
+		
 		break;
-		case 3 :{//3==> "<" higher Or Equal
+		case 3 ://3==> "<" higher Or Equal
 			TypeBR=strdup("BL");
-		}
+		
 		break;
-		case 4 :{//4==> ">" lower Or Equal
+		case 4 ://4==> ">" lower Or Equal
 			TypeBR=strdup("BG");
-		}
+		
 		break;
-		case 5 :{//5==> ">=" lower
+		case 5 ://5==> ">=" lower
 			TypeBR=strdup("BGE");
-		}
+		
 		break;
-		case 6 :{//6==> "<=" higher
+		case 6 ://6==> "<=" higher
 			TypeBR=strdup("BLE");
-		}
+		
 		break;
 	}
-	createQuad(TypeBR,ToSTR(qc+3),cond1,cond2);
-	createQuad("=","1","",res);
-	createQuad("BR",ToSTR(qc+2),"","");
-	createQuad("=","0","",res);
+	/*
+    if (type==1){TypeBR=strdup("BNE");}
+	if(type==2){TypeBR=strdup("BE");}
+	if(type==3){TypeBR=strdup("BL");}
+	if(type==4){TypeBR=strdup("BG");}
+	if(type==5){TypeBR=strdup("BGE");}
+	else if(type==6){TypeBR=strdup("BLE");}
+	*/
+    //createQuad(TypeBR,ToSTR(qc),cond1,cond2);
+	createQuad(TypeBR, "", cond1, cond2);
+	printf("helloUHSOUHVZSOUHVZUDIHVsigFDGHUJOBIGFHIUJOGVZUHIUOWDJIEHSFGR\n");
 }
 
 //creation d'1 quad logique
 void createQuadL(int type, char *cond1, char *cond2, char *res){
-	switch(type){
+	/*switch(type){
 		case 1 :{//1==> not
 			createQuad("BNZ",ToSTR(qc+3),cond1,"");
 			createQuad("=","","1",res);
@@ -81,6 +88,7 @@ void createQuadL(int type, char *cond1, char *cond2, char *res){
 			createQuad("BR",ToSTR(qc+2),"","");
 			createQuad("=","","1",res);
 		}
+
 		break;
 		case 3 :{//3==> and
 			createQuad("BZ",ToSTR(qc+4),cond1,"");
@@ -90,7 +98,7 @@ void createQuadL(int type, char *cond1, char *cond2, char *res){
 			createQuad("=","","0",res);
 		}
 		break;
-	}
+	}*/
 }
 //les piles pour l'imbrecation
 
