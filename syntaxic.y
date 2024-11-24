@@ -25,8 +25,8 @@
    char saveS[20];
    char mDroit[20];
    char buffer1[20], buffer2[20], tmp[20];
-   char* temp;
-   
+   char *temp,*tt;
+   int cpttemp=1;
 
 %}
 
@@ -357,18 +357,29 @@ assignment_int:
 // Define loop statement
 loop:
     FOR LPAREN assignment_int{
-        // Sauvegarde du début de la boucle
-       // empiler_Int(&pile, qc);
-    }  COLON term3 {
-        // Génération du quadruplet de test
-        char* temp = newtemp();
-       // empiler_Int(&pile_for, qc);
-       // createQuad("BZ", temp, "", "");
-    }COLON term4 RPAREN LBRACE instruction_section RBRACE SEMICOLON{
+           empiler_Int(&pile1,qc);
+        } COLON term3 {
+           empiler_Int(&pile2,qc);
+           createQuad("BZ","",QuadR[qc-1].res,"");
+           empiler_Int(&pile2,qc);
+          createQuad("BR","","","");
+           empiler_Int(&pile2,qc);
+        }COLON term4 RPAREN LBRACE {
+             createQuad("BR",first(pile1),"","");
+               strcpy(tempp,depiler(&pile2));
+               QuadR[atoi(depiler(&pile2))].opd1=ToSTR(qc);
+              empiler_Str(&pile2,tempp);
+          }instruction_section{
+               createQuad("BR",depiler(&pile2),"","");
+               QuadR[atoi(depiler(&pile2))].opd1=ToSTR(qc);
+           } RBRACE SEMICOLON{
         if(strcmp(typeD,"INTEGER")!=0 || strcmp(typeG,"INTEGER")!=0)
         {
             printf("Erreur semantique parametre boucle type incompatible \n");
         }
+        {
+               depiler(&pile1);
+           };
         // Génération du saut de retour
        // int debut = atoi(depiler(&pile_for));
        // createQuad("BR", ToSTR(debut), "", "");
@@ -484,8 +495,12 @@ OP_COMP:
 ;
 // Define term as multiplication/division operations or a factor (converted to right-recursive)
 term:
-    factor1
-    | factor1 PLUS term {
+    factor
+    | factor PLUS term {
+        float t=$1+$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
         if (strcmp(typeD, "INTEGER") == 0) {
         int i = (int)floor($1);
         sprintf(buffer1, "%d", i);  // Convertir en entier
@@ -494,14 +509,18 @@ term:
         int i = (int)floor($3);
         sprintf(buffer2, "%d", i);  // Convertir en entier
         } else  sprintf(buffer2, "%f", $3);  
-        char *temp = newtemp();  // Génère un identifiant temporaire
-        float t=$1+$3;
-        sprintf(temp,"%f",t);
+        temp = newtemp(); 
+        sprintf(temp,"T%d",cpttemp);
         createQuad("+", buffer1, buffer2, temp);
-        $$=atof(temp);
+        cpttemp++;
+        
         
     }                 // Addition
     | factor MINUS term {
+        float t=$1-$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
         if (strcmp(typeD, "INTEGER") == 0) {
         int i = (int)floor($1);
         sprintf(buffer1, "%d", i);  // Convertir en entier
@@ -510,11 +529,10 @@ term:
         int i = (int)floor($3);
         sprintf(buffer2, "%d", i);  // Convertir en entier
         } else  sprintf(buffer2, "%f", $3); 
-        char *temp = newtemp();  // Génère un identifiant temporaire
-        float t=$1-$3;
-        sprintf(temp,"%f",t);
+        temp = newtemp();  // Génère un identifiant temporaire
+        sprintf(temp,"T%d",cpttemp);
         createQuad("-", buffer1, buffer2, temp);
-        $$=atof(temp);
+        cpttemp++;
      
     }                // substraction
 ;
@@ -522,7 +540,11 @@ term:
 // Define factor as multiplication/division or a primary element
 factor:
     primary
-    | primary MULTIPLY factor {
+    | primary MULTIPLY factor { 
+        float t=$1*$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
         if (strcmp(typeD, "INTEGER") == 0) {
         int i = (int)floor($1);
         sprintf(buffer1, "%d", i);  // Convertir en entier
@@ -531,16 +553,19 @@ factor:
         int i = (int)floor($3);
         sprintf(buffer2, "%d", i);  // Convertir en entier
         } else  sprintf(buffer2, "%f", $3); 
-        char *temp = newtemp();  // Génère un identifiant temporaire
-        float t=$1*$3;
-        sprintf(temp,"%f",t);
+        temp = newtemp();  // Génère un identifiant temporaire
+        sprintf(temp,"T%d",cpttemp);
         createQuad("*", buffer1, buffer2, temp);
-        $$=atof(temp);
+        cpttemp++;
+
     }          // Multiplication, right-recursive
     | primary DIVIDE factor     { 
         if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
         else{   
-        if (strcmp(typeD, "INTEGER") == 0) {
+        float t=$1/$3;        
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);        if (strcmp(typeD, "INTEGER") == 0) {
         int i = (int)floor($1);
         sprintf(buffer1, "%d", i);  // Convertir en entier
         } else  sprintf(buffer1, "%f", $1); 
@@ -548,11 +573,11 @@ factor:
         int i = (int)floor($3);
         sprintf(buffer2, "%d", i);  // Convertir en entier
         } else  sprintf(buffer2, "%f", $3); 
-        char *temp = newtemp();  // Génère un identifiant temporaire
-        float t=$1/$3;
-        sprintf(temp,"%f",t);
+        temp = newtemp();  // Génère un identifiant temporaire
+        
+        sprintf(temp,"T%d",cpttemp);
         createQuad("/", buffer1, buffer2, temp);
-        $$=atof(temp);
+        cpttemp++;
         }
 }                     // Division, right-recursive
 ;
@@ -616,23 +641,91 @@ primary:
                                      if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d:type incompatible 8\n",nb_ligne);}
                                  }
                 }
-
+;
 
 term1:
     factor1
-    | factor1 PLUS term1 {$$=$1+$3;}                  // Addition
-    | factor1 MINUS term1 {$$=$1-$3;}                // substraction
+    | factor1 PLUS term1 {
+        float t=$1+$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
+        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3);  
+        temp = newtemp(); 
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("+", buffer1, buffer2, temp);
+        cpttemp++;
+        
+    }         // Addition
+    | factor1 MINUS term1 {
+        float t=$1-$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3); 
+        temp = newtemp();  // Génère un identifiant temporaire
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("-", buffer1, buffer2, temp);
+        cpttemp++;
+    }                // substraction
 ;
 
 // Define factor as multiplication/division or a primary element
 factor1:
     primary1
-    | primary1 MULTIPLY factor1 {$$=$1*$3;}          // Multiplication, right-recursive
-    | primary1 DIVIDE factor1     { if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
-                                              else{   
-                                                $$= $1 / $3;  
-                                             }
-                            }                     // Division, right-recursive
+    | primary1 MULTIPLY factor1 {
+        float t=$1*$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3); 
+        temp = newtemp();  // Génère un identifiant temporaire
+       
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("*", buffer1, buffer2, temp);
+        cpttemp++;
+    }          // Multiplication, right-recursive
+    | primary1 DIVIDE factor1     { 
+        if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
+        else{   
+        float t=$1/$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
+        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3); 
+        temp = newtemp();  // Génère un identifiant temporaire
+        
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("/", buffer1, buffer2, temp);
+        cpttemp++;  
+        }
+    }                     // Division, right-recursive
 ;
 
 // Define primary elements: identifiers, numbers, and parenthesized expressions
@@ -705,19 +798,88 @@ primary1:
 ;
 term2:
     factor2
-    | factor2 PLUS term2 {$$=$1+$3;}                  // Addition
-    | factor2 MINUS term2 {$$=$1-$3;}                // substraction
+    | factor2 PLUS term2 {
+        float t=$1+$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
+        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3);  
+        temp = newtemp(); 
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("+", buffer1, buffer2, temp);
+        cpttemp++;
+        
+    }                // Addition
+    | factor2 MINUS term2 {
+        float t=$1-$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
+        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3); 
+        temp = newtemp();  // Génère un identifiant temporaire
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("-", buffer1, buffer2, temp);
+        cpttemp++;
+    }                // substraction
 ;
 
 // Define factor as multiplication/division or a primary element
 factor2:
     primary2
-    | primary2 MULTIPLY factor2 {$$=$1*$3;}          // Multiplication, right-recursive
-    | primary2 DIVIDE factor2     { if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
-                                              else{   
-                                                $$= $1 / $3;  
-                                             }
-                            }                     // Division, right-recursive
+    | primary2 MULTIPLY factor2 {
+        float t=$1*$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
+        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3); 
+        temp = newtemp();  // Génère un identifiant temporaire
+       
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("*", buffer1, buffer2, temp);
+        cpttemp++;
+    }          // Multiplication, right-recursive
+    | primary2 DIVIDE factor2     { 
+        if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
+        else{   
+        float t=$1/$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
+        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3); 
+        temp = newtemp();  // Génère un identifiant temporaire
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("/", buffer1, buffer2, temp);
+        cpttemp++; 
+        }
+}                     // Division, right-recursive
 ;
 
 // Define primary elements: identifiers, numbers, and parenthesized expressions
@@ -762,19 +924,87 @@ primary2:
 
 term4:
     factor4
-    | factor4 PLUS term4 {$$=$1+$3;}                  // Addition
-    | factor4 MINUS term4 {$$=$1-$3;}                // substraction
+    | factor4 PLUS term4 {
+        float t=$1+$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
+        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3);  
+        temp = newtemp(); 
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("+", buffer1, buffer2, temp);
+        cpttemp++;
+    }                  // Addition
+    | factor4 MINUS term4 {
+        float t=$1-$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
+        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3); 
+        temp = newtemp();  // Génère un identifiant temporaire
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("-", buffer1, buffer2, temp);
+        cpttemp++;
+    }                // substraction
 ;
 
 // Define factor as multiplication/division or a primary element
 factor4:
     primary4
-    | primary4 MULTIPLY factor4 {$$=$1*$3;}          // Multiplication, right-recursive
-    | primary4 DIVIDE factor4     { if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
-                                              else{   
-                                                $$= $1 / $3;  
-                                             }
-                            }                     // Division, right-recursive
+    | primary4 MULTIPLY factor4 {
+        float t=$1*$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
+        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3); 
+        temp = newtemp();  // Génère un identifiant temporaire
+       
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("*", buffer1, buffer2, temp);
+        cpttemp++;
+    }          // Multiplication, right-recursive
+    | primary4 DIVIDE factor4     { 
+        if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
+        else{   
+        float t=$1/$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
+        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3); 
+        temp = newtemp();  // Génère un identifiant temporaire
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("/", buffer1, buffer2, temp);
+        cpttemp++;  
+        }
+    }                     // Division, right-recursive
 ;
 
 // Define primary elements: identifiers, numbers, and parenthesized expressions
@@ -815,19 +1045,87 @@ primary4:
 ;
 term3:
     factor3
-    | factor3 PLUS term3 {$$=$1+$3;}                  // Addition
-    | factor3 MINUS term3 {$$=$1-$3;}                // substraction
+    | factor3 PLUS term3 {
+        float t=$1+$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
+        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3);  
+        temp = newtemp(); 
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("+", buffer1, buffer2, temp);
+        cpttemp++;
+    }                  // Addition
+    | factor3 MINUS term3 {
+        float t=$1-$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
+        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3); 
+        temp = newtemp();  // Génère un identifiant temporaire
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("-", buffer1, buffer2, temp);
+        cpttemp++;
+    }                // substraction
 ;
 
 // Define factor as multiplication/division or a primary element
 factor3:
     primary3
-    | primary3 MULTIPLY factor3 {$$=$1*$3;}          // Multiplication, right-recursive
-    | primary3 DIVIDE factor3     { if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
-                                              else{   
-                                                $$= $1 / $3;  
-                                             }
-                            }                     // Division, right-recursive
+    | primary3 MULTIPLY factor3 {
+        float t=$1*$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
+        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3); 
+        temp = newtemp();  // Génère un identifiant temporaire
+       
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("*", buffer1, buffer2, temp);
+        cpttemp++;
+    }          // Multiplication, right-recursive
+    | primary3 DIVIDE factor3 {
+        if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
+        else{   
+        float t=$1/$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
+        if (strcmp(typeD, "INTEGER") == 0) {
+        int i = (int)floor($1);
+        sprintf(buffer1, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer1, "%f", $1); 
+        if (strcmp(typeG, "INTEGER") == 0) {
+        int i = (int)floor($3);
+        sprintf(buffer2, "%d", i);  // Convertir en entier
+        } else  sprintf(buffer2, "%f", $3); 
+        temp = newtemp();  // Génère un identifiant temporaire
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("/", buffer1, buffer2, temp);
+        cpttemp++;  
+        }
+    }                     // Division, right-recursive
 ;
 
 // Define primary elements: identifiers, numbers, and parenthesized expressions

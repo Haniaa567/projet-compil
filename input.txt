@@ -20,6 +20,10 @@ INSTRUCTION {
     ELSE{
         XYZ=30;
     };
+     FOR(ABC=0:2.3:TEST)
+    {
+        NUM2=1.2;
+    };
     WRITE("HELLO",X);
     READ(CAR);
 }
