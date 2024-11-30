@@ -58,22 +58,13 @@ void createQuadA(int type, char *cond1, char *cond2, char *res){
 		
 		break;
 	}
-	/*
-    if (type==1){TypeBR=strdup("BNE");}
-	if(type==2){TypeBR=strdup("BE");}
-	if(type==3){TypeBR=strdup("BL");}
-	if(type==4){TypeBR=strdup("BG");}
-	if(type==5){TypeBR=strdup("BGE");}
-	else if(type==6){TypeBR=strdup("BLE");}
-	*/
     //createQuad(TypeBR,ToSTR(qc),cond1,cond2);
 	createQuad(TypeBR, "", cond1, cond2);
-	printf("helloUHSOUHVZSOUHVZUDIHVsigFDGHUJOBIGFHIUJOGVZUHIUOWDJIEHSFGR\n");
 }
 
 //creation d'1 quad logique
 void createQuadL(int type, char *cond1, char *cond2, char *res){
-	/*switch(type){
+	switch(type){
 		case 1 :{//1==> not
 			createQuad("BNZ",ToSTR(qc+3),cond1,"");
 			createQuad("=","","1",res);
@@ -98,7 +89,7 @@ void createQuadL(int type, char *cond1, char *cond2, char *res){
 			createQuad("=","","0",res);
 		}
 		break;
-	}*/
+	}
 }
 //les piles pour l'imbrecation
 

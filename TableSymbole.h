@@ -63,6 +63,7 @@ char* getType(char entite[]);
 
 
 char* getVal(char entite[]);
+char* getNom(char entite[]);
 
 char* getCode(char entite[]);
 int comparCode(char entite[]);

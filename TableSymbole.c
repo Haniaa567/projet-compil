@@ -405,6 +405,14 @@ char* getVal(char entite[]){
   }
 }
 
+char* getNom(char entite[]){
+  int position;
+  position = positionIDF(entite);
+  if (position!=-1){
+    return tab[position].name;
+  }
+}
+
 char* getCode(char entite[]){
   int position;
   position = positionIDF(entite);

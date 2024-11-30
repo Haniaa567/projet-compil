@@ -3,7 +3,7 @@ VAR_GLOBAL {
     INTEGER XYZ;     
 }
 DECLARATION {
-    CONST FLOAT TEST = 12.5;    
+    CONST INTEGER TEST = 6;    
     CHAR NUM[5]  ;     
     INTEGER NUM4[9];  
     FLOAT NUM2;   
@@ -14,16 +14,20 @@ INSTRUCTION {
     ABC=2;
     NUM2[1]=5.5;
     NUM[2]='h';
-    IF(ABC == 0) { 
+    IF( ! ABC == 0 ) { 
         XYZ = ABC+5;
+        ABC=XYZ+2;
+        NUM2=ABC;
     }
     ELSE{
         XYZ=30;
+        NUM3=7.0;
     };
-     FOR(ABC=0:2.3:TEST)
+    FOR(ABC=0:2:TEST)
     {
         NUM2=1.2;
     };
     WRITE("HELLO",X);
     READ(CAR);
 }
+
