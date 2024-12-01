@@ -58,8 +58,11 @@ void createQuadA(int type, char *cond1, char *cond2, char *res){
 		
 		break;
 	}
-    //createQuad(TypeBR,ToSTR(qc),cond1,cond2);
-	createQuad(TypeBR, "", cond1, cond2);
+    createQuad(TypeBR,ToSTR(qc+3),cond1,cond2);
+	//createQuad(TypeBR, "", cond1, cond2);
+	createQuad("=","","1",res);
+	createQuad("BR",ToSTR(qc+2),"","");
+	createQuad("=","","0",res);
 }
 
 //creation d'1 quad logique

@@ -37,6 +37,9 @@
    char brnsup[20];
    char pasfor[20];
    char cptfor[20];
+   char valcond1[20];
+   char valcond2[20];
+
 %}
 
 %union {
@@ -353,8 +356,8 @@ condition:
         }
  */   
       IF LPAREN COND RPAREN LBRACE {
+          createQuad("BZ","",QuadR[qc-1].res,"");
           empiler_Int(&pile1,qc-1);
-          //createQuad("BZ","",QuadR[qc-1].res,"");
         }
         instruction_section RBRACE elsebloc SEMICOLON{
         QuadR[atoi(depiler(&pile1))].opd1=ToSTR(qc);
@@ -484,25 +487,31 @@ io_expr:
 // Define expressions de condition (arithmetic operations, converted to right-recursive)
 COND:
     comparison_expr   // Start with comparison expressions
-    /*| NOT COND //la syntaxe de not n'est pas au point ! ABC == 0 erreur
+    | NOT COND //la syntaxe de not n'est pas au point ! ABC == 0 erreur
     {
+        printf("je suis dans le NOT");
         temp = newtemp();
         sprintf(temp,"T%d",cpttemp);
-        createQuadL(1, $2, "", temp);
+        sprintf(valcond1,"T%d",cpttemp-1);
+        createQuadL(1, valcond1, "", temp);
         cpttemp++;
     }             
     | comparison_expr AND COND{
          temp = newtemp();
         sprintf(temp,"T%d",cpttemp);
-        createQuadL(3, $1, $3, temp);
+        sprintf(valcond1,"T%d",cpttemp-2);
+        sprintf(valcond2,"T%d",cpttemp-1);
+        createQuadL(3, valcond1, valcond2, temp);
         cpttemp++;
     }   
     | comparison_expr OR COND {
         temp = newtemp();
         sprintf(temp,"T%d",cpttemp);
-        createQuadL(2, $1, $3, temp);
+        sprintf(valcond1,"T%d",cpttemp-2);
+        sprintf(valcond2,"T%d",cpttemp-1);
+        createQuadL(2, valcond1, valcond2, temp);
         cpttemp++;
-    }*/
+    }
 ; 
 /*
      avant comparison_expr apres
@@ -530,35 +539,59 @@ apres:AND COND{
 
 // Define comparison expressions (includes comparison operators)
 comparison_expr:
-    |term2 GT term1
+    ||term2 GT term1
     {
-        createQuadA(6,buffer1,buffer2,"");
+         char* temp=newtemp();
+         sprintf(temp,"T%d",cpttemp);
+         cpttemp++;
+        createQuadA(6,buffer1,buffer2,temp);
     }
     | term2 LT term1{
-        createQuadA(5,buffer1,buffer2,"");
+        char* temp=newtemp();
+        sprintf(temp,"T%d",cpttemp);
+         cpttemp++;
+        createQuadA(5,buffer1,buffer2,temp);
     }
     |term2 EQ term1{
-        createQuadA(1,buffer1,buffer2,"");
+        char* temp=newtemp();
+        sprintf(temp,"T%d",cpttemp);
+         cpttemp++;
+        createQuadA(1,buffer1,buffer2,temp);
     }
     |term2 GEQ term1{
-        createQuadA(3,buffer1,buffer2,"");
+       char* temp=newtemp();
+       sprintf(temp,"T%d",cpttemp);
+         cpttemp++;
+        createQuadA(3,buffer1,buffer2,temp);
     }
     |term2 LEQ term1{
-        createQuadA(4,buffer1,buffer2,"");
+        char* temp=newtemp();
+        sprintf(temp,"T%d",cpttemp);
+         cpttemp++;
+        createQuadA(4,buffer1,buffer2,temp);
     }
     |term2 NEQ term1{
-        createQuadA(2,buffer1,buffer2,"");
+        char* temp=newtemp();
+        sprintf(temp,"T%d",cpttemp);
+         cpttemp++;
+        createQuadA(2,buffer1,buffer2,temp);
     }
     |STRING_LITERAL OP_COMP STRING_LITERAL{
-        createQuadA(nb_op,$1,$3,"");
+        char* temp=newtemp();
+        sprintf(temp,"T%d",cpttemp);
+         cpttemp++;
+        createQuadA(nb_op,$1,$3,temp);
     }
     |CHARACTERE OP_COMP CHARACTERE {
-       createQuadA(nb_op,$1,$3,"");
+        char* temp=newtemp();
+        sprintf(temp,"T%d",cpttemp);
+         cpttemp++;
+       createQuadA(nb_op,$1,$3,temp);
     }
     |DROIT OP_COMP term1 {printf("Erreur semantique a la ligne %d:type incompatible \n",nb_ligne);}       
     |term2 OP_COMP GAUCHE {printf("Erreur semantique a la ligne %d:type incompatible \n",nb_ligne);}
 
-    | NOT comparison_expr //la syntaxe de not n'est pas au point ! ABC == 0 erreur
+    /*| NOT comparison_expr //la syntaxe de not n'est pas au point ! ABC == 0 erreur
     {
         temp = newtemp();
         sprintf(temp,"T%d",cpttemp);
@@ -576,7 +609,7 @@ comparison_expr:
         sprintf(temp,"T%d",cpttemp);
         createQuadL(2, $1, $3, temp);
         cpttemp++;
-    }
+    }*/
 ; 
    
 

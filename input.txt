@@ -14,7 +14,7 @@ INSTRUCTION {
     ABC=2;
     NUM2[1]=5.5;
     NUM[2]='h';
-    IF( ! ABC == 0 ) { 
+    IF(ABC == 0 && TEST != 4) { 
         XYZ = ABC+5;
         ABC=XYZ+2;
         NUM2=ABC;
