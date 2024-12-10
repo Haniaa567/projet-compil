@@ -30,7 +30,7 @@
    char saveS[20];
    char mDroit[20];
    char buffer1[20], buffer2[20], tmp[20];
-   char *temp,*tt;
+   char *temp,*tt,*temp1,*temp2;
    int cpttemp=1;
    int nb_op;
    char *tempasg;
@@ -39,7 +39,8 @@
    char cptfor[20];
    char valcond1[20];
    char valcond2[20];
-
+   int nbop=0;
+   int existop=0;
 %}
 
 %union {
@@ -67,6 +68,8 @@
 %type <real> term
 %type <real> factor
 %type <real> primary
+%type <real> factorD
+%type <real> primaryD
 %type <real> term1
 %type <real> factor1
 %type <real> primary1
@@ -420,41 +423,6 @@ loop:
         3-(+,ABC,2,T)
         4-(=,T,,ABC)
         5-(BR,1,,) */
-/*
-        
-    FOR LPAREN assignment_int{
-           empiler_Int(&pile1,qc);
-        } COLON term3 {
-           empiler_Int(&pile2,qc);
-           createQuad("BZ","",QuadR[qc-1].res,"");
-           empiler_Int(&pile2,qc);
-          createQuad("BR","","","");
-           empiler_Int(&pile2,qc);
-        }COLON term4 RPAREN LBRACE {
-             createQuad("BR",first(pile1),"","");
-               strcpy(tempp,depiler(&pile2));
-               QuadR[atoi(depiler(&pile2))].opd1=ToSTR(qc);
-              empiler_Str(&pile2,tempp);
-          }instruction_section{
-               createQuad("BR",depiler(&pile2),"","");
-               QuadR[atoi(depiler(&pile2))].opd1=ToSTR(qc);
-           } RBRACE SEMICOLON{
-        if(strcmp(typeD,"INTEGER")!=0 || strcmp(typeG,"INTEGER")!=0)
-        {
-            printf("Erreur semantique parametre boucle type incompatible \n");
-        }
-        {
-               depiler(&pile1);
-           };
-        // Génération du saut de retour
-       // int debut = atoi(depiler(&pile_for));
-       // createQuad("BR", ToSTR(debut), "", "");
-        
-        // Mise à jour du quadruplet de test
-        //int sauv = atoi(depiler(&pile_for));
-        //sprintf(QuadR[sauv].opd1, "%d", qc);
-    }
-;*/
 
 // Define input/output statements
 io_statement:
@@ -487,9 +455,8 @@ io_expr:
 // Define expressions de condition (arithmetic operations, converted to right-recursive)
 COND:
     comparison_expr   // Start with comparison expressions
-    | NOT COND //la syntaxe de not n'est pas au point ! ABC == 0 erreur
+    | NOT COND
     {
-        printf("je suis dans le NOT");
         temp = newtemp();
         sprintf(temp,"T%d",cpttemp);
         sprintf(valcond1,"T%d",cpttemp-1);
@@ -513,33 +480,11 @@ COND:
         cpttemp++;
     }
 ; 
-/*
-     avant comparison_expr apres
-     ;
-avant: NOT COND{
-        temp = newtemp();
-        sprintf(temp,"T%d",cpttemp);
-        createQuadL(1, $2, "", temp);
-        cpttemp++;
-    } 
-    | ;
-apres:AND COND{
-         temp = newtemp();
-        sprintf(temp,"T%d",cpttemp);
-        createQuadL(3, $1, $3, temp);
-        cpttemp++;
-    }   
-    | OR COND {
-        temp = newtemp();
-        sprintf(temp,"T%d",cpttemp);
-        createQuadL(2, $1, $3, temp);
-        cpttemp++;
-    }
-    |;*/
+
 
 // Define comparison expressions (includes comparison operators)
 comparison_expr:
-    ||term2 GT term1
+    |term2 GT term1
     {
          char* temp=newtemp();
          sprintf(temp,"T%d",cpttemp);
@@ -591,25 +536,6 @@ comparison_expr:
     |DROIT OP_COMP term1 {printf("Erreur semantique a la ligne %d:type incompatible \n",nb_ligne);}       
     |term2 OP_COMP GAUCHE {printf("Erreur semantique a la ligne %d:type incompatible \n",nb_ligne);}
 
-    /*| NOT comparison_expr //la syntaxe de not n'est pas au point ! ABC == 0 erreur
-    {
-        temp = newtemp();
-        sprintf(temp,"T%d",cpttemp);
-        createQuadL(1, $2, "", temp);
-        cpttemp++;
-    }             
-    | comparison_expr AND comparison_expr{
-         temp = newtemp();
-        sprintf(temp,"T%d",cpttemp);
-        createQuadL(3, $1, $3, temp);
-        cpttemp++;
-    }   
-    | comparison_expr OR comparison_expr{
-        temp = newtemp();
-        sprintf(temp,"T%d",cpttemp);
-        createQuadL(2, $1, $3, temp);
-        cpttemp++;
-    }*/
 ; 
    
 
@@ -632,99 +558,71 @@ OP_COMP:
 // Define term as multiplication/division operations or a factor (converted to right-recursive)
 term:
     factor
-    | factor PLUS term {
+    | term PLUS factorD {
+        //existop++;
         float t=$1+$3;
-
-       // strcpy(typeOG,getTypeF($1));
-        //strcpy(typeOD,getTypeF($3));
         tt=newtemp();
         sprintf(tt,"%f",t);
         $$=atoi(tt);
-        /*if (strcmp(typeG, "INTEGER") == 0) {
-        int i = (int)floor($1);
-        sprintf(buffer1, "%d", i);  // Convertir en entier
-        //strcpy(buffer1,getNom(buffer1));
-        //printf("le nom de la var aver getnom est : %s",getNom(buffer1));
-        } else  sprintf(buffer1, "%f", $1); */
-        if (strcmp(typeD, "INTEGER") == 0) {
-        int i = (int)floor($3);
-        sprintf(buffer2, "%d", i);
-        i = (int)floor($1);
-        sprintf(buffer1, "%d", i);  // Convertir en entier
-        } else  {sprintf(buffer2, "%f", $3); 
-        sprintf(buffer1, "%f", $1);}
-        //nomG,getNom(buffer1);
-        //nomD=getNom(buffer2);
-        
-        //strcpy(buffer2,getNom(buffer2));
+        /*
+        if(existop>1){
+        temp1 = newtemp(); 
+        sprintf(temp1,"T%d",cpttemp-2);
+        temp2 = newtemp(); 
+        sprintf(temp2,"T%d",cpttemp-1);
+        sprintf(buffer1,"%s",temp1);
+        sprintf(buffer2,"%s",temp2);
+        }
+        */
         temp = newtemp(); 
         sprintf(temp,"T%d",cpttemp);
         createQuad("+", buffer1, buffer2, temp);
         strcpy(saveStrq,temp);
         cpttemp++;
+        
 
-    }                 // Addition
-    | factor MINUS term {
+    } // Addition
+    | term MINUS factorD {
+        existop++;
         float t=$1-$3;
         tt=newtemp();
         sprintf(tt,"%f",t);
         $$=atoi(tt);
-        if (strcmp(typeD, "INTEGER") == 0) {
-        int i = (int)floor($1);
-        sprintf(buffer1, "%d", i);  // Convertir en entier
-        } else  sprintf(buffer1, "%f", $1); 
-        if (strcmp(typeG, "INTEGER") == 0) {
-        int i = (int)floor($3);
-        sprintf(buffer2, "%d", i);  // Convertir en entier
-        } else  sprintf(buffer2, "%f", $3); 
+    
         temp = newtemp();  // Génère un identifiant temporaire
         sprintf(temp,"T%d",cpttemp);
         createQuad("-", buffer1, buffer2, temp);
         strcpy(saveStrq,temp);
         cpttemp++;
-     
-    }                // substraction
+    }  // substraction
 ;
 
 // Define factor as multiplication/division or a primary element
 factor:
     primary
-    | primary MULTIPLY factor { 
+    | factor MULTIPLY primaryD { 
+        existop++;
         float t=$1*$3;
         tt=newtemp();
         sprintf(tt,"%f",t);
         $$=atoi(tt);
-        if (strcmp(typeD, "INTEGER") == 0) {
-        int i = (int)floor($1);
-        sprintf(buffer1, "%d", i);  // Convertir en entier
-        } else  sprintf(buffer1, "%f", $1); 
-        if (strcmp(typeG, "INTEGER") == 0) {
-        int i = (int)floor($3);
-        sprintf(buffer2, "%d", i);  // Convertir en entier
-        } else  sprintf(buffer2, "%f", $3); 
+
         temp = newtemp();  // Génère un identifiant temporaire
         sprintf(temp,"T%d",cpttemp);
         createQuad("*", buffer1, buffer2, temp);
         strcpy(saveStrq,temp);
         cpttemp++;
 
-    }          // Multiplication, right-recursive
-    | primary DIVIDE factor     { 
+    }          // Multiplication
+    | factor DIVIDE primaryD     { 
         if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
         else{   
         float t=$1/$3;        
         tt=newtemp();
         sprintf(tt,"%f",t);
-        $$=atoi(tt);        if (strcmp(typeD, "INTEGER") == 0) {
-        int i = (int)floor($1);
-        sprintf(buffer1, "%d", i);  // Convertir en entier
-        } else  sprintf(buffer1, "%f", $1); 
-        if (strcmp(typeG, "INTEGER") == 0) {
-        int i = (int)floor($3);
-        sprintf(buffer2, "%d", i);  // Convertir en entier
-        } else  sprintf(buffer2, "%f", $3); 
+        $$=atoi(tt);  
+    
         temp = newtemp();  // Génère un identifiant temporaire
-        
         sprintf(temp,"T%d",cpttemp);
         createQuad("/", buffer1, buffer2, temp);
         strcpy(saveStrq,temp);
@@ -746,19 +644,16 @@ primary:
                                  else
                                   $$=atof(valIdf);
                                   strcpy(saveStrq,$1);
+                                  strcpy(buffer1,$1);
                                   
                              }
-                             //strcpy(nom,getNom($1));
-                             //sprintf(saveStrq,"%s",nom);
-                             //sprintf(buffer1,"%s",nom);
-                            // sprintf(buffer2,"%s",nom);
-
     }
     | INT_NUMBER {
         printf("here %s\n",typeG);
         if(strcmp(typeG,"INTEGER")!=0) {printf("Erreur semantique a la ligne %d:type incompatible 2\n",nb_ligne);}
                    else{$$=atof($1);}
                   strcpy(saveStrq,$1);
+                  strcpy(buffer1,$1);
                   
     }
     | FLOAT_NUMBER{        printf("here 2 %s\n",typeG);
@@ -768,22 +663,33 @@ primary:
                    else{
                    $$=atof($1); }  
                    strcpy(saveStrq,$1);
+                   strcpy(buffer1,$1);
                    }
     |LPAREN PLUS INT_NUMBER RPAREN{
         if(strcmp(typeG,"INTEGER")!=0) 
         {printf("Erreur semantique a la ligne %d :type incompatible 4\n",nb_ligne);}
-        else{$$=atof($3);}
+        else{$$=atof($3);
+        strcpy(saveStrq,$3);
+        strcpy(buffer1,$3);
+        }
     }
     |LPAREN MINUS INT_NUMBER RPAREN{
         if(strcmp(typeG,"INTEGER")!=0) 
             {printf("Erreur semantique a la ligne %d:type incompatible 5\n",nb_ligne);}
-                else{sprintf(saveStr,"%d",$3);
+                else{
+                strcpy(saveStr,$3);
                 strcat(strcpy(saveS,"-"),saveStr);
-                $$=atoi(saveS);}
+                $$=atoi(saveS);
+                strcpy(saveStrq, saveS);
+                strcpy(buffer1, saveS);
+            }
     }
     | LPAREN PLUS FLOAT_NUMBER RPAREN {if(strcmp(typeG,"FLOAT")!=0) 
                                     {printf("Erreur semantique a la ligne %d:type incompatible 6\n",nb_ligne);}
-                                      else{$$=atof($3);}
+                                      else{$$=atof($3);
+                                      strcpy(saveStrq,$3);
+                                      strcpy(buffer1,$3);
+                                      }
                    }
     | LPAREN MINUS FLOAT_NUMBER RPAREN {
         if(strcmp(typeG,"FLOAT")!=0) 
@@ -791,6 +697,8 @@ primary:
                                        else{
                                            strcat(strcpy(saveS,"-"),$3);
                                            $$=atof(saveS);
+                                           strcpy(saveStrq, saveS);
+                                           strcpy(buffer1, saveS);
                                        }
     }
     | LPAREN term RPAREN {$$=$2;}
@@ -802,7 +710,166 @@ primary:
                                  }
                 }
 ;
+factorD:
+    primaryD
+    | primaryD MULTIPLY factor { 
+        float t=$1*$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
+        
+        temp = newtemp();  // Génère un identifiant temporaire
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("*", buffer1, buffer2, temp);
+        strcpy(saveStrq,temp);
+        cpttemp++;
 
+    }          // Multiplication, right-recursive
+    | primaryD DIVIDE factor     { 
+        if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
+        else{   
+        float t=$1/$3;        
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);     
+        
+        temp = newtemp();  // Génère un identifiant temporaire
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("/", buffer1, buffer2, temp);
+        strcpy(saveStrq,temp);
+        cpttemp++;
+        }
+}                     // Division, right-recursive
+;
+
+// Define primary elements: identifiers, numbers, and parenthesized expressions
+primaryD:
+    IDENTIFIER {
+        nbop++;
+        // Vérification de la déclaration de la variable avant usage dans READ
+        if (verifdeclaration($1) == 0) {
+            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
+        }else {strcpy(typeD,getType($1));
+                             if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);}
+                                strcpy(valIdf,getVal($1));
+                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d : variable %s non initialisee\n",nb_ligne,$1);}
+                                 else
+                                  $$=atof(valIdf);
+                                  strcpy(saveStrq,$1);
+                                  strcpy(buffer2,$1);
+                                  if(nbop>=2){
+                                    temp=newtemp();
+                                    sprintf(temp,"T%d",cpttemp-1);
+                                    strcpy(buffer1,temp);}     
+                             }                  
+
+    }
+    | INT_NUMBER {nbop++;
+        printf("here %s\n",typeG);
+        if(strcmp(typeG,"INTEGER")!=0) {printf("Erreur semantique a la ligne %d:type incompatible 2\n",nb_ligne);}
+                   else{$$=atof($1);}
+                  strcpy(saveStrq,$1);
+                  strcpy(buffer2,$1);
+                  if(nbop>=2){
+                    temp=newtemp();
+                    sprintf(temp,"T%d",cpttemp-1);
+                    strcpy(buffer1,temp);}
+                  
+    }
+    | FLOAT_NUMBER{ nbop++;
+               printf("here 2 %s\n",typeG);
+
+                    if(strcmp(typeG,"FLOAT")!=0) 
+                   {printf("Erreur semantique a la ligne %d:type incompatible 3\n",nb_ligne);}
+                   else{
+                   $$=atof($1); }  
+                   strcpy(saveStrq,$1);
+                   strcpy(buffer2,$1);
+                   if(nbop>=2){
+                    temp=newtemp();
+                    sprintf(temp,"T%d",cpttemp-1);
+                    strcpy(buffer1,temp);}
+                   }
+    |LPAREN PLUS INT_NUMBER RPAREN{
+        nbop++;
+        if(strcmp(typeG,"INTEGER")!=0) 
+        {printf("Erreur semantique a la ligne %d :type incompatible 4\n",nb_ligne);}
+        else{$$=atof($3);
+        strcpy(saveStrq,$3);
+        strcpy(buffer2,$3);
+        if(nbop>=2)
+        {
+        temp=newtemp();
+        sprintf(temp,"T%d",cpttemp-1);
+        strcpy(buffer1,temp);}
+        }
+    }
+    
+    |LPAREN MINUS INT_NUMBER RPAREN{
+        nbop++;
+        if(strcmp(typeG,"INTEGER")!=0) 
+            {printf("Erreur semantique a la ligne %d:type incompatible 5\n",nb_ligne);}
+                else{
+                strcpy(saveStr,$3);
+                strcat(strcpy(saveS,"-"),saveStr);
+                $$=atoi(saveS);
+                strcpy(saveStrq, saveS);
+                strcpy(buffer2, saveS);
+                if(nbop>=2){
+                    temp=newtemp();
+                    sprintf(temp,"T%d",cpttemp-1);
+                    strcpy(buffer1,temp);}
+                   }
+       }    
+    
+    | LPAREN PLUS FLOAT_NUMBER RPAREN {nbop++;
+                                    if(strcmp(typeG,"FLOAT")!=0) 
+                                    {printf("Erreur semantique a la ligne %d:type incompatible 6\n",nb_ligne);}
+                                      else{$$=atof($3);
+                                      strcpy(saveStrq,$3);
+                                        strcpy(buffer2,$3);
+                                        if(nbop>=2)
+                                        {
+                                        temp=newtemp();
+                                        sprintf(temp,"T%d",cpttemp-1);
+                                        strcpy(buffer1,temp);}
+                                        }
+        }
+                   
+    | LPAREN MINUS FLOAT_NUMBER RPAREN {nbop++;
+                                      if(strcmp(typeG,"FLOAT")!=0) 
+                                      {printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);}
+                                       else{
+                                           strcat(strcpy(saveS,"-"),$3);
+                                           $$=atof(saveS);
+                                           strcpy(saveStrq, saveS);
+                                            strcpy(buffer2, saveS);
+                                            if(nbop>=2){
+                                                temp=newtemp();
+                                                sprintf(temp,"T%d",cpttemp-1);
+                                                strcpy(buffer1,temp);}
+                                            }                                  
+    },
+    | LPAREN term RPAREN {$$=$2; }
+    |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {if(verifdeclaration($1)==0 )
+                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d\n",$1,nb_ligne);}
+                                else {
+                                    strcpy(typeD,getType($1));
+                                     if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d:type incompatible 8\n",nb_ligne);}
+                                    strcpy(tmp,$1);
+                                    strcat(tmp,"[");
+                                    sprintf(buffer2,"%d",atoi($3));
+                                    strcat(tmp,buffer2);
+                                    strcat(tmp,"]");
+                                    strcpy(saveStrq,tmp);
+                                    strcpy(buffer2,tmp);
+                                    if(nbop>=2){
+                                        temp=newtemp();
+                                        sprintf(temp,"T%d",cpttemp-1);
+                                        strcpy(buffer1,temp);} 
+                                    }
+                }
+;
 term1:
     factor1
     | factor1 PLUS term1 {

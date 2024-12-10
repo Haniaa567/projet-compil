@@ -4,28 +4,29 @@ VAR_GLOBAL {
 }
 DECLARATION {
     CONST INTEGER TEST = 6;    
-    CHAR NUM[5]  ;     
+    CHAR NUM[20]  ;     
     INTEGER NUM4[9];  
-    FLOAT NUM2;   
+    INTEGER NUM2;   
     FLOAT NUM3 ;      
     CHAR CAR ;            
 }
 INSTRUCTION {
     ABC=2;
-    NUM2[1]=5.5;
+    CAR='m';
+    NUM[0]="coucou";
+    NUM2[1]=5;
     NUM[2]='h';
-    IF(ABC == 0 && TEST != 4) { 
-        XYZ = ABC+5;
+    IF("mimi" == "lili" && TEST != 4) { 
+        XYZ = (-2)*NUM2[1];
         ABC=XYZ+2;
         NUM2=ABC;
     }
     ELSE{
-        XYZ=30;
         NUM3=7.0;
     };
     FOR(ABC=0:2:TEST)
     {
-        NUM2=1.2;
+        NUM2=1;
     };
     WRITE("HELLO",X);
     READ(CAR);

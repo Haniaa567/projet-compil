@@ -76,9 +76,9 @@ WRITE            { rechercher(yytext,"mot cle","","",1); printf("WRITE\n"); col 
                    printf("FLOAT_NUMBER: %s\n", yytext); 
                    col += strlen(yytext); 
                    return FLOAT_NUMBER; }
-{CHARACTERE}     { yylval.character = yytext[0]; rechercher(yytext,"CONSTANT","CHAR",yytext,0); printf("CHARACTERE: %s\n", yytext); col += strlen(yytext); return CHARACTERE; }
+{CHARACTERE}     { yylval.string = strdup(yytext); rechercher(yytext,"CONSTANT","CHAR",yytext,0); printf("CHARACTERE: %s\n", yytext); col += strlen(yytext); return CHARACTERE; }
 {IDENTIFIER}     { yylval.string = strdup(yytext); rechercher(yytext,"IDF","","",0); col += strlen(yytext); if (yyleng < 9) { printf("IDENTIFIER: %s\n", yytext); return IDENTIFIER; } else { printf("Erreur Lexicale à la ligne %d à la colonne %d : IDF trop long\n", nb_ligne, col); } }
-{STRING_LITERAL} { yylval.character = yytext[0]; rechercher(yytext,"CONSTANT","STRING",yytext,0); printf("STRING: %s\n", yytext); col += strlen(yytext); return STRING_LITERAL; }
+{STRING_LITERAL} {yylval.string = strdup(yytext); rechercher(yytext,"CONSTANT","STRING",yytext,0); printf("STRING: %s\n", yytext); col += strlen(yytext); return STRING_LITERAL; }
 "%%"[^\n]*         { /* Ignorer les commentaires */ col += strlen(yytext); }
 
 

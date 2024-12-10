@@ -1038,7 +1038,7 @@ YY_RULE_SETUP
 case 38:
 YY_RULE_SETUP
 #line 79 "lexical.l"
-{ yylval.character = yytext[0]; rechercher(yytext,"CONSTANT","CHAR",yytext,0); printf("CHARACTERE: %s\n", yytext); col += strlen(yytext); return CHARACTERE; }
+{ yylval.string = strdup(yytext); rechercher(yytext,"CONSTANT","CHAR",yytext,0); printf("CHARACTERE: %s\n", yytext); col += strlen(yytext); return CHARACTERE; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
@@ -1049,7 +1049,7 @@ case 40:
 /* rule 40 can match eol */
 YY_RULE_SETUP
 #line 81 "lexical.l"
-{ yylval.character = yytext[0]; rechercher(yytext,"CONSTANT","STRING",yytext,0); printf("STRING: %s\n", yytext); col += strlen(yytext); return STRING_LITERAL; }
+{yylval.string = strdup(yytext); rechercher(yytext,"CONSTANT","STRING",yytext,0); printf("STRING: %s\n", yytext); col += strlen(yytext); return STRING_LITERAL; }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
