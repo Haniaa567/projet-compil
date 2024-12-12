@@ -41,6 +41,8 @@
    char valcond2[20];
    int nbop=0;
    int existop=0;
+   float valind;
+   int taille=0;
 %}
 
 %union {
@@ -65,6 +67,11 @@
 
 
 %type <string> assignment
+%type <real> termtab
+%type <real> factortab
+%type <real> primarytab
+%type <real> factorDtab
+%type <real> primaryDtab
 %type <real> term
 %type <real> factor
 %type <real> primary
@@ -175,10 +182,25 @@ variable_list:
         createQuad("BOUNDS", "0", buffer1,"");
         createQuad("ADEC",$1,"","");
         } 
+    | IDENTIFIER LBRACKET termtab RBRACKET{strcpy(saveIdf[j].idfTab,$1);modifierCode("IDF TAB",saveIdf[j].idfTab);j++;
+
+        sprintf(buffer1, "T%d", cpttemp-1);
+        createQuad("BOUNDS", "0", buffer1,"");
+        createQuad("ADEC",$1,"","");
+         if (fmod(valind, 1.0) != 0.0) {
+            printf("Erreur semantique : La taille du tableau doit etre un entier (pas un nombre réel)\n");
+        }
+        
+        // Vérifier que le nombre est un entier positif
+        if ($3 < 1) {
+            printf("Erreur semantique : La taille du tableau doit etre un entier strictement positif\n");
+        }
+        } 
     | IDENTIFIER COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
     | IDENTIFIER LBRACKET INT_NUMBER RBRACKET COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);modifierCode("IDF TAB",saveIdf[j].idfTab);j++;} 
     | IDENTIFIER LBRACKET LPAREN PLUS INT_NUMBER RPAREN RBRACKET COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);modifierCode("IDF TAB",saveIdf[j].idfTab);j++;} 
 ;
+
 
 // Rule for a variable, which can be either simple or an array
 variable:
@@ -231,7 +253,7 @@ assignment:
 
         insererVal(mDroit, saveStr);
     }
-    |TAB EQUALS EXPRESSION_CHAINE SEMICOLON{
+    |TAB EQUALS EXPRESSION_CHAR SEMICOLON{
         createQuad("=", saveStrq, "",tmp);
 
         insererVal(mDroit, saveStr);
@@ -282,7 +304,8 @@ TAB:
                             else{
                         strcpy(typeG, getType($1));
 
-                    }   
+                    } 
+                      
                         strcpy(mDroit,$1);
                         temp=newtemp();
                         strcpy(temp,$1);
@@ -291,6 +314,7 @@ TAB:
                         sprintf(buffer2,"%d",atoi($3));
                         strcat(tmp,buffer2);
                         strcat(tmp,"]");
+                    
                        
                     }      
                            
@@ -307,8 +331,309 @@ TAB:
 
                     }  
     }
+    |IDENTIFIER LBRACKET termtab RBRACKET   {printf("la valeur de l'indice est %f \n",$3);
+                    if(verifdeclaration($1)==0 )
+                    {printf("Erreur semantique a la ligne %d :Tableau %s non declare\n",$1,nb_ligne);}
+                    else if(strcmp(getCode($1),"IDF")==0){
+                        printf("Erreur semantique : La variable '%s' est n'est pasm un tableau.\n", $1);
+                        strcpy(typeG, getType($1));
+                            }
+                            else{
+                        strcpy(typeG, getType($1));
 
+                    }  
+                    // Vérifier si le nombre a une partie fractionnelle
+                    if (fmod(valind, 1.0) != 0.0) {
+                        printf("Erreur semantique : L'indice du tableau doit etre un entier (pas un nombre reel)\n");
+                    }
+                    
+                    // Vérifier que le nombre est un entier positif
+                    if ($3 < 0) {
+                        printf("Erreur semantique : L'indice du tableau doit être un entier positif\n");
+                    }
+                    
+        
+                        strcpy(mDroit,$1);
+                        temp=newtemp();
+                        strcpy(temp,$1);
+                        strcpy(tmp,$1);
+                        strcat(tmp,"[");
+                        temp1=newtemp();
+                        sprintf(buffer2,"T%d",cpttemp-1);
+                        strcat(tmp,buffer2);
+                        strcat(tmp,"]");
+                       
+                    }      
+                           
 ; 
+termtab:
+    factortab
+    | termtab PLUS factorDtab {
+        //existop++;
+        float t=$1+$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
+        valind=t;
+        temp = newtemp(); 
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("+", buffer1, buffer2, temp);
+        strcpy(saveStrq,temp);
+        cpttemp++;
+        
+
+    } // Addition
+    | termtab MINUS factorDtab {
+        existop++;
+        float t=$1-$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
+        valind=t;
+        temp = newtemp();  // Génère un identifiant temporaire
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("-", buffer1, buffer2, temp);
+        strcpy(saveStrq,temp);
+        cpttemp++;
+    }  // substraction
+;
+
+// Define factor as multiplication/division or a primary element
+factortab:
+    primarytab
+    | factortab MULTIPLY primaryDtab { 
+        existop++;
+        float t=$1*$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
+        valind=t;
+        temp = newtemp();  // Génère un identifiant temporaire
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("*", buffer1, buffer2, temp);
+        strcpy(saveStrq,temp);
+        cpttemp++;
+
+    }          // Multiplication
+    | factortab DIVIDE primaryDtab     { 
+        if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
+        else{   
+        float t=$1/$3;        
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);  
+        valind=t;
+        temp = newtemp();  // Génère un identifiant temporaire
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("/", buffer1, buffer2, temp);
+        strcpy(saveStrq,temp);
+        cpttemp++;
+        }
+}                     // Division, right-recursive
+;
+
+// Define primary elements: identifiers, numbers, and parenthesized expressions
+primarytab:
+    IDENTIFIER {
+        // Vérification de la déclaration de la variable avant usage dans READ
+        if (verifdeclaration($1) == 0) {
+            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
+        }else {strcpy(typeD,getType($1));
+                                strcpy(valIdf,getVal($1));
+                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d : variable %s non initialisee\n",nb_ligne,$1);}
+                                 else{
+                                  $$=atof(valIdf);
+                                  strcpy(saveStrq,$1);
+                                  strcpy(buffer1,$1);
+                                 }
+                             }
+    }
+    | INT_NUMBER {
+                   $$=atof($1);
+                  strcpy(saveStrq,$1);
+                  strcpy(buffer1,$1);
+                  
+    }
+    | FLOAT_NUMBER{  
+                   $$=atof($1); 
+                   strcpy(saveStrq,$1);
+                   strcpy(buffer1,$1);
+    }
+    |LPAREN PLUS INT_NUMBER RPAREN{
+        $$=atof($3);
+        strcpy(saveStrq,$3);
+        strcpy(buffer1,$3);
+        
+    }
+    |LPAREN MINUS INT_NUMBER RPAREN{
+                strcpy(saveStr,$3);
+                strcat(strcpy(saveS,"-"),saveStr);
+                $$=atoi(saveS);
+                strcpy(saveStrq, saveS);
+                strcpy(buffer1, saveS);
+
+    }
+    | LPAREN PLUS FLOAT_NUMBER RPAREN {$$=atof($3);
+                                      strcpy(saveStrq,$3);
+                                      strcpy(buffer1,$3);
+                                      
+                   }
+    | LPAREN MINUS FLOAT_NUMBER RPAREN {
+                                           strcat(strcpy(saveS,"-"),$3);
+                                           $$=atof(saveS);
+                                           strcpy(saveStrq, saveS);
+                                           strcpy(buffer1, saveS);
+                                       
+    }
+    | LPAREN term RPAREN {$$=$2;}
+    |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {if(verifdeclaration($1)==0 )
+                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d\n",$1,nb_ligne);}
+                            
+                }
+;
+factorDtab:
+    primaryDtab
+    | primaryDtab MULTIPLY factortab { 
+        float t=$1*$3;
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);
+        
+        temp = newtemp();  // Génère un identifiant temporaire
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("*", buffer1, buffer2, temp);
+        strcpy(saveStrq,temp);
+        cpttemp++;
+
+    }          // Multiplication, right-recursive
+    | primaryDtab DIVIDE factortab     { 
+        if($3==0) printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne);
+        else{   
+        float t=$1/$3;        
+        tt=newtemp();
+        sprintf(tt,"%f",t);
+        $$=atoi(tt);     
+        
+        temp = newtemp();  // Génère un identifiant temporaire
+        sprintf(temp,"T%d",cpttemp);
+        createQuad("/", buffer1, buffer2, temp);
+        strcpy(saveStrq,temp);
+        cpttemp++;
+        }
+}                     // Division, right-recursive
+;
+
+// Define primary elements: identifiers, numbers, and parenthesized expressions
+primaryDtab:
+    IDENTIFIER {
+        nbop++;
+        // Vérification de la déclaration de la variable avant usage dans READ
+        if (verifdeclaration($1) == 0) {
+            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
+        }else {strcpy(typeD,getType($1));
+                                strcpy(valIdf,getVal($1));
+                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d : variable %s non initialisee\n",nb_ligne,$1);}
+                                 else{
+                                  $$=atof(valIdf);
+                                  strcpy(saveStrq,$1);
+                                  strcpy(buffer2,$1);
+                                  if(nbop>=2){
+                                    temp=newtemp();
+                                    sprintf(temp,"T%d",cpttemp-1);
+                                    strcpy(buffer1,temp);} 
+                                 }    
+                             }                  
+
+    }
+    | INT_NUMBER {nbop++;
+                  $$=atof($1);
+                  strcpy(saveStrq,$1);
+                  strcpy(buffer2,$1);
+                  if(nbop>=2){
+                    temp=newtemp();
+                    sprintf(temp,"T%d",cpttemp-1);
+                    strcpy(buffer1,temp);}
+                  
+    }
+    | FLOAT_NUMBER{ nbop++;
+                   $$=atof($1); 
+                   strcpy(saveStrq,$1);
+                   strcpy(buffer2,$1);
+                   if(nbop>=2){
+                    temp=newtemp();
+                    sprintf(temp,"T%d",cpttemp-1);
+                    strcpy(buffer1,temp);}
+                   }
+    |LPAREN PLUS INT_NUMBER RPAREN{
+        nbop++;
+        $$=atof($3);
+        strcpy(saveStrq,$3);
+        strcpy(buffer2,$3);
+        if(nbop>=2)
+        {
+        temp=newtemp();
+        sprintf(temp,"T%d",cpttemp-1);
+        strcpy(buffer1,temp);
+        }
+    }
+    
+    |LPAREN MINUS INT_NUMBER RPAREN{
+        nbop++;
+                strcpy(saveStr,$3);
+                strcat(strcpy(saveS,"-"),saveStr);
+                $$=atoi(saveS);
+                strcpy(saveStrq, saveS);
+                strcpy(buffer2, saveS);
+                if(nbop>=2){
+                    temp=newtemp();
+                    sprintf(temp,"T%d",cpttemp-1);
+                    strcpy(buffer1,temp);}
+                   
+       }    
+    
+    | LPAREN PLUS FLOAT_NUMBER RPAREN {nbop++;
+                                    $$=atof($3);
+                                      strcpy(saveStrq,$3);
+                                        strcpy(buffer2,$3);
+                                        if(nbop>=2)
+                                        {
+                                        temp=newtemp();
+                                        sprintf(temp,"T%d",cpttemp-1);
+                                        strcpy(buffer1,temp);}
+                                        
+        }
+                   
+    | LPAREN MINUS FLOAT_NUMBER RPAREN {nbop++;
+                                           strcat(strcpy(saveS,"-"),$3);
+                                           $$=atof(saveS);
+                                           strcpy(saveStrq, saveS);
+                                            strcpy(buffer2, saveS);
+                                            if(nbop>=2){
+                                                temp=newtemp();
+                                                sprintf(temp,"T%d",cpttemp-1);
+                                                strcpy(buffer1,temp);}
+                                                                            
+    }
+    | LPAREN term RPAREN {$$=$2; }
+    |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {if(verifdeclaration($1)==0 )
+                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d\n",$1,nb_ligne);}
+                                else {
+                                    strcpy(typeD,getType($1));
+                                    strcpy(tmp,$1);
+                                    strcat(tmp,"[");
+                                    sprintf(buffer2,"%d",atoi($3));
+                                    strcat(tmp,buffer2);
+                                    strcat(tmp,"]");
+                                    strcpy(saveStrq,tmp);
+                                    strcpy(buffer2,tmp);
+                                    if(nbop>=2){
+                                        temp=newtemp();
+                                        sprintf(temp,"T%d",cpttemp-1);
+                                        strcpy(buffer1,temp);} 
+                                    }
+                }
+;
+
 EXPRESSION_CHAR: CHARACTERE {if(strcmp(typeG,"CHAR")!=0)   
                                  {printf("Erreur semantique a la ligne %d:type incompatible\n",nb_ligne);}
                             else {insererVal(mDroit,$1);}
@@ -316,7 +641,7 @@ EXPRESSION_CHAR: CHARACTERE {if(strcmp(typeG,"CHAR")!=0)
                             sprintf(saveStr, "%s",$1); 
                            }            
 ;                
-EXPRESSION_CHAINE:
+/*EXPRESSION_CHAINE:
              CHARACTERE {if(strcmp(typeG,"CHAR")!=0)   
                                  {printf("Erreur semantique a la ligne %d:type incompatible\n",nb_ligne);}
                             else {insererVal(mDroit,$1);}
@@ -330,7 +655,7 @@ EXPRESSION_CHAINE:
                             strcpy(saveStrq,$1);
                             sprintf(saveStr, "%s",$1); 
                            }           
-                           
+*/                        
     
 ;                          
 // Define conditional statement with optional else block

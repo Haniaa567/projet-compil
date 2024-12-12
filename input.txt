@@ -4,7 +4,7 @@ VAR_GLOBAL {
 }
 DECLARATION {
     CONST INTEGER TEST = 6;    
-    CHAR NUM[20]  ;     
+    CHAR NUM[ABC-2];     
     INTEGER NUM4[9];  
     INTEGER NUM2;   
     FLOAT NUM3 ;      
@@ -13,10 +13,10 @@ DECLARATION {
 INSTRUCTION {
     ABC=2;
     CAR='m';
-    NUM[0]="coucou";
-    NUM2[1]=5;
+    NUM[0]='c';
+    NUM4[1+2.5]=5;
     NUM[2]='h';
-    IF("mimi" == "lili" && TEST != 4) { 
+    IF("mimi" == "lili" && TEST != 4 || "sisi" == "lili" && TEST != 6) { 
         XYZ = (-2)*NUM2[1];
         ABC=XYZ+2;
         NUM2=ABC;
