@@ -18,17 +18,9 @@ INSTRUCTION {
     NUM[2]='h';
     IF("mimi" == "lili" && TEST != 4 || "sisi" == "lili" && TEST != 6) { 
         XYZ = (-2)*NUM2[1];
-        ABC=XYZ+2;
+        ABC=XYZ+2*3-5;
         NUM2=ABC;
-    }
-    ELSE{
-        NUM3=7.0;
     };
-    FOR(ABC=0:2:TEST)
-    {
-        NUM2=1;
-    };
-    WRITE("HELLO",X);
-    READ(CAR);
 }
+
 

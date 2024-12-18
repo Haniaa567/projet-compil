@@ -59,8 +59,7 @@ int DoubleDecSEP(char entite[]);
 //Etape 9:les fonction get
 
 char* getType(char entite[]);
-
-
+int typeCompatible(char* type1, char* type2) ;
 
 char* getVal(char entite[]);
 char* getNom(char entite[]);

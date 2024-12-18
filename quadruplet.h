@@ -18,7 +18,7 @@ typedef struct pile {
 // Variables externes
 extern quad QuadR[1000];
 extern int qc;
-extern pile *pile1, *pile2, *pile3;
+extern pile *pile1, *pile2, *pile3,*pile4;
 extern char tempp[5];
 extern char idfSwitch[15];
 extern char defaultTemp[15];
@@ -29,7 +29,7 @@ void createQuad(char *opt, char *opd1, char *opd2, char *res);
 char* ToSTR(int i);
 void createQuadA(int type, char *cond1, char *cond2, char *res);
 void createQuadL(int type, char *cond1, char *cond2, char *res);
-void empiler_Str(pile **p, char *donne);
+void empiler(pile **p, char donne[]);
 void empiler_Int(pile **p, int donne);
 char* first(pile *p);
 char* depiler(pile **p);
