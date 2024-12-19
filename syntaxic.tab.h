@@ -102,7 +102,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 48 "syntaxic.y"
+#line 50 "syntaxic.y"
 
     int entier;
     float real;

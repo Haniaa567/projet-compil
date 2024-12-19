@@ -118,7 +118,10 @@ int j,i;
 
 
   }
-
+int typeCompatible(char* type1, char* type2) {
+    // Implémentez la logique de vérification de compatibilité de types ici
+    return 1;
+}
 void rechercherseparateur (char entite[], char code[],char type[],char val[])	
 {
 

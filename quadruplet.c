@@ -10,9 +10,8 @@ char defaultTemp[15];
 char idfQuad[15];
 
 quad QuadR[1000];
-pile *pile1 = NULL, *pile2 = NULL, *pile3 = NULL;
+pile *pile1 = NULL, *pile2 = NULL, *pile3 = NULL,*pile4 = NULL;
 int qc = 0;
-
 //creation d'1 quadruplet
 void createQuad(char* opt, char* opd1, char* opd2, char* res){
 	QuadR[qc].opt=strdup(opt);
@@ -97,7 +96,7 @@ void createQuadL(int type, char *cond1, char *cond2, char *res){
 //les piles pour l'imbrecation
 
 //empiler String
-void empiler_Str(pile **p,char *donne){
+void empiler(pile **p,char donne[]){
 	pile *new;
 
 	new=(pile*)malloc(sizeof(pile));
@@ -135,7 +134,6 @@ char* depiler(pile**p){
 	free(H);
 	return res;
 }
-
 
 void displayQuad(){
 	int i;
