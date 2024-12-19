@@ -1523,7 +1523,7 @@ primary4:
     |STRING_LITERAL{printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);
                     printf("parametres de boucle doit pas etre characters\n")exit(0)}
 
-    |CARACTERE{printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);
+    |CHARACTERE{printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);
                     printf("parametres de boucle doit pas etre character\n")exit(0)}
 ;
 term3:
@@ -1681,7 +1681,7 @@ primary3:
     |STRING_LITERAL{printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);
                     printf("parametres de boucle doit pas etre characters\n")exit(0)}
     
-    |CARACTERE{printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);
+    |CHARACTERE{printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);
                     printf("parametres de boucle doit pas etre character\n")exit(0)}
 ;
 
