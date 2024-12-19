@@ -65,7 +65,7 @@
 %left AND OR            
 %left GT LT GEQ LEQ EQ NEQ  
 
-
+%type <string> cst
 %type <string> assignment
 %type <real> termtab
 %type <real> factortab
@@ -151,6 +151,10 @@ declaration:
         } else if (strcmp(typeG, "FLOAT") == 0) {
             sprintf(saveStr, "%f", $5);  // Convertir en flottant
         }
+        sprintf(mDroit,"%s",$3);
+        // Génération du quadruplet d'affectation
+        createQuad("=", saveStrq, "",mDroit);
+
         // Ajout du quadruplet pour la déclaration d'une constante
         //createQuad("CONST", sauvType, saveStr, saveIdf[0].idfTab);
         insererVal(saveIdf[0].idfTab,saveStr);
