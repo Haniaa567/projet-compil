@@ -4,19 +4,15 @@ VAR_GLOBAL {
 }
 DECLARATION {
     CONST INTEGER TEST = 6;    
-    CHAR NUM[ABC+2*3-5];     
-    INTEGER NUM4[9];  
     INTEGER NUM2;   
     FLOAT NUM3 ;      
     CHAR CAR ;            
 }
 INSTRUCTION {
     ABC=2;
-    CAR='m';
-    NUM[0]='c';
-    NUM[2]='h';
+    XYZ=8;
     
-    FOR(ABC=0:2+7*0:4){
+    IF (ABC + XYZ > TEST * ABC && "mimi" != "lili" || ! ABC== 2 ){
         XYZ=5;
     };
 }
