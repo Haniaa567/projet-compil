@@ -641,16 +641,13 @@ OR_EXPR:
     {
         temp = newtemp();
         sprintf(temp, "T%d", cpttemp);
-        if(firstAND==0){firstAND=cpttemp;}
-        if(firstAND!=0){
-        sprintf(valcond1, "T%d", firstAND);
-        }else{
-            sprintf(valcond1, "T%d", cpttemp - 2);
-        }
-        sprintf(valcond2, "T%d", cpttemp - 1);
+        valDepile = depiler(&pile3); 
+        strcpy(valcond2, valDepile); 
+        valDepile = depiler(&pile3); 
+        strcpy(valcond1, valDepile);
         createQuadL(2, valcond1, valcond2, temp);
+        empiler(&pile3,temp);
         cpttemp++;
-        firstAND=0;
     }
     | AND_EXPR
 ;
@@ -660,10 +657,12 @@ AND_EXPR:
     {
         temp = newtemp();
         sprintf(temp, "T%d", cpttemp);
-        sprintf(valcond1, "T%d", cpttemp - 2);
-        sprintf(valcond2, "T%d", cpttemp - 1);
+        valDepile = depiler(&pile3); 
+        strcpy(valcond2, valDepile); 
+        valDepile = depiler(&pile3); 
+        strcpy(valcond1, valDepile);
         createQuadL(3, valcond1, valcond2, temp);
-        if(firstAND==0){firstAND=cpttemp;}
+        empiler(&pile3,temp);
         cpttemp++;
     }
     | NOT_EXPR
@@ -674,8 +673,10 @@ NOT_EXPR:
     {
         temp = newtemp();
         sprintf(temp, "T%d", cpttemp);
-        sprintf(valcond1, "T%d", cpttemp - 1);
+        valDepile = depiler(&pile3); 
+        strcpy(valcond1, valDepile); 
         createQuadL(1, valcond1, "", temp);
+        empiler(&pile3,temp);
         cpttemp++;
     }
     | comparison_expr
@@ -695,6 +696,7 @@ comparison_expr:
         valDepile = depiler(&pile3); 
         strcpy(buffer1, valDepile);
         createQuadA(6,buffer1,buffer2,temp);
+        empiler(&pile3,temp);
     }
     | term2 LT term1{
         char* temp=newtemp();
@@ -705,6 +707,7 @@ comparison_expr:
         valDepile = depiler(&pile3); 
         strcpy(buffer1, valDepile);
         createQuadA(5,buffer1,buffer2,temp);
+        empiler(&pile3,temp);
     }
     |term2 EQ term1{
         char* temp=newtemp();
@@ -715,6 +718,7 @@ comparison_expr:
         valDepile = depiler(&pile3); 
         strcpy(buffer1, valDepile);
         createQuadA(1,buffer1,buffer2,temp);
+        empiler(&pile3,temp);
     }
     |term2 GEQ term1{
        char* temp=newtemp();
@@ -725,6 +729,7 @@ comparison_expr:
         valDepile = depiler(&pile3); 
         strcpy(buffer1, valDepile);
         createQuadA(3,buffer1,buffer2,temp);
+        empiler(&pile3,temp);
     }
     |term2 LEQ term1{
         char* temp=newtemp();
@@ -735,6 +740,7 @@ comparison_expr:
         valDepile = depiler(&pile3); 
         strcpy(buffer1, valDepile);
         createQuadA(4,buffer1,buffer2,temp);
+        empiler(&pile3,temp);
     }
     |term2 NEQ term1{
         char* temp=newtemp();
@@ -745,18 +751,21 @@ comparison_expr:
         valDepile = depiler(&pile3); 
         strcpy(buffer1, valDepile);
         createQuadA(2,buffer1,buffer2,temp);
+        empiler(&pile3,temp);
     }
     |STRING_LITERAL OP_COMP STRING_LITERAL{
         char* temp=newtemp();
         sprintf(temp,"T%d",cpttemp);
          cpttemp++;
         createQuadA(nb_op,$1,$3,temp);
+        empiler(&pile3,temp);
     }
     |CHARACTERE OP_COMP CHARACTERE {
         char* temp=newtemp();
         sprintf(temp,"T%d",cpttemp);
          cpttemp++;
        createQuadA(nb_op,$1,$3,temp);
+       empiler(&pile3,temp);
     }
     |DROIT OP_COMP term1 {printf("Erreur semantique a la ligne %d:type incompatible \n",nb_ligne);}       
     |term2 OP_COMP GAUCHE {printf("Erreur semantique a la ligne %d:type incompatible \n",nb_ligne);}
