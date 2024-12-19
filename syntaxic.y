@@ -1451,6 +1451,8 @@ primary4:
         if (verifdeclaration($1) == 0) {
             printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1); exit(0);
         }else {strcpy(typeD,getType($1));
+                if(strcmp(typeG,"CHAR")==0){printf("Erreur semantique a la ligne %d:type incompatible parametre de boucle ne doit pas etre CHAR\n",nb_ligne);exit(0);}
+
                                   strcpy(brnsup,$1);
                                   $$=atof(valIdf);
                                   strcpy(buffer1,$1);
@@ -1521,10 +1523,10 @@ primary4:
                                  }
                 }
     |STRING_LITERAL{printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);
-                    printf("parametres de boucle doit pas etre characters\n")exit(0)}
+                    printf("parametres de boucle doit pas etre characters\n");exit(0)}
 
     |CHARACTERE{printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);
-                    printf("parametres de boucle doit pas etre character\n")exit(0)}
+                    printf("parametres de boucle doit pas etre character\n");exit(0)}
 ;
 term3:
     factor3
@@ -1617,6 +1619,7 @@ primary3:
             printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", $1);
              exit(0);
         }else {strcpy(typeG,getType($1));
+                if(strcmp(typeG,"CHAR")==0){printf("Erreur semantique a la ligne %d:type incompatible parametre de boucle ne doit pas etre CHAR\n",nb_ligne);exit(0);}
                                   $$=atof(valIdf);
                                   strcpy(buffer1,$1);
                                   empiler(&pile3,buffer1);
@@ -1679,10 +1682,10 @@ primary3:
                                  }
                 }
     |STRING_LITERAL{printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);
-                    printf("parametres de boucle doit pas etre characters\n")exit(0)}
+                    printf("parametres de boucle doit pas etre characters\n");exit(0)}
     
     |CHARACTERE{printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);
-                    printf("parametres de boucle doit pas etre character\n")exit(0)}
+                    printf("parametres de boucle doit pas etre character\n");exit(0)}
 ;
 
 %%
