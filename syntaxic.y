@@ -40,9 +40,7 @@
    char valcond1[20];
    char valcond2[20];
    int nbop=0;
-   int existop=0;
    float valind;
-   int firstAND=0;
    char *valDepile;
 
 %}

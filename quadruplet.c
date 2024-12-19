@@ -59,9 +59,9 @@ void createQuadA(int type, char *cond1, char *cond2, char *res){
 	}
     createQuad(TypeBR,ToSTR(qc+3),cond1,cond2);
 	//createQuad(TypeBR, "", cond1, cond2);
-	createQuad("=","","1",res);
+	createQuad("=","1","",res);
 	createQuad("BR",ToSTR(qc+2),"","");
-	createQuad("=","","0",res);
+	createQuad("=","0","",res);
 }
 
 //creation d'1 quad logique
@@ -69,26 +69,26 @@ void createQuadL(int type, char *cond1, char *cond2, char *res){
 	switch(type){
 		case 1 :{//1==> not
 			createQuad("BNZ",ToSTR(qc+3),cond1,"");
-			createQuad("=","","1",res);
+			createQuad("=","1","",res);
 			createQuad("BR",ToSTR(qc+2),"","");
-			createQuad("=","","0",res);
+			createQuad("=","0","",res);
 		}
 		break;
 		case 2 :{//2==> or
 			createQuad("BNZ",ToSTR(qc+4),cond1,"");
 			createQuad("BNZ",ToSTR(qc+3),cond2,"");
-			createQuad("=","","0",res);
+			createQuad("=","0","",res);
 			createQuad("BR",ToSTR(qc+2),"","");
-			createQuad("=","","1",res);
+			createQuad("=","1","",res);
 		}
 
 		break;
 		case 3 :{//3==> and
 			createQuad("BZ",ToSTR(qc+4),cond1,"");
 			createQuad("BZ",ToSTR(qc+3),cond2,"");
-			createQuad("=","","1",res);
+			createQuad("=","1","",res);
 			createQuad("BR",ToSTR(qc+2),"","");
-			createQuad("=","","0",res);
+			createQuad("=","0","",res);
 		}
 		break;
 	}
