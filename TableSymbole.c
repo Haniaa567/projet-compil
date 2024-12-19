@@ -75,7 +75,7 @@ void insererseparateur(char entite[], char code[],char type[],char val[],int i)
 void rechercherIDFCONST (char entite[], char code[],char type[],char val[])	
 {
 
-int j,i;
+int i;
 
 
   //verifier si la case dans la tables des IDF et CONST est libre
@@ -101,12 +101,13 @@ int j,i;
 void rechercherKeywords (char entite[], char code[],char type[],char val[])	
 {
 
-int j,i;
+int i;
 
 
  //verifier si la case dans la tables des mots clés est libre si 1 on affiche un message d'erreur si 0  on insére
        
-       for (i=0;((i<40)&&(tabm[i].state==1))&&(strcmp(entite,tabm[i].name)!=0);i++); 
+       for (i=0;((i<40)&&(tabm[i].state==1))&&(strcmp(entite,tabm[i].name)!=0);i++)
+       ; 
         if(tabm[i].state==0){
 		insererKeywords(entite,code,type,val,i);}
         else if (strcmp(entite,tabm[i].name)==0){
@@ -125,7 +126,7 @@ int typeCompatible(char* type1, char* type2) {
 void rechercherseparateur (char entite[], char code[],char type[],char val[])	
 {
 
-int j,i;
+int i;
 
   //verifier si la case dans la tables des séparateurs est libre si 1 on affiche un message d'erreur si 0 on insére
          for (i=0;((i<40)&&(tabs[i].state==1))&&(strcmp(entite,tabs[i].name)!=0);i++); 
@@ -142,7 +143,7 @@ int j,i;
 
 
 void rechercher(char entite[], char code[], char type[], char val[], int choix) {
-    int j, i;
+    int i;
     
     switch(choix) {
         case 0: // rechercherIDFCONST
@@ -374,7 +375,7 @@ int verifcmpType(char entite[],char type[])
 //verifie la double declaration au cas du 2 tableau
 int DoubleDecKeyworld(char entite[]){
     int i = 0;
-    for (i;i <40; i++){
+    for (i=0;i <40; i++){
        if (strcmp(entite,tabm[i].name)==0 && strcmp(tabm[i].type," ")==0){ return -1;}//le mot clé n'est pas declaree
    }
   return 1;//le mot clée est  declaree
@@ -383,7 +384,7 @@ int DoubleDecKeyworld(char entite[]){
 //verifie la double declaration au cas du 3 tableau
 int DoubleDecSEP(char entite[]){
     int i = 0;
-    for (i;i <40; i++){
+    for (i=0;i <40; i++){
        if (strcmp(entite,tabs[i].name)==0 && strcmp(tabm[i].type," ")==0){ return -1;}//le mot clé n'est pas declaree
    }
   return 1;//le mot clée est  declaree

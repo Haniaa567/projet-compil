@@ -88,7 +88,8 @@
 %type <string> COND
 %type <string>  comparison_expr
 %type <string>  OP_COMP
-
+%type <string>  DROIT
+%type <string>  GAUCHE
 //%start program
 %%
 
@@ -532,8 +533,9 @@ EXPRESSION_CHAR: CHARACTERE {if(strcmp(typeG,"CHAR")!=0)
                            }            
                 |STRING_LITERAL {   
                                  printf("Erreur semantique a la ligne %d colonne %d:type incompatible\n",nb_ligne,col);
-                                 printf("On ne peut pas affecter STRING a CHAR");
-                                 exit(0);
+                                 if(strcmp(typeG,"CHAR")==0) {printf("On ne peut pas affecter STRING a CHAR(on doit le faire caractere par caratere dans un tableaux)\n");exit(0);}
+                                 else{printf("tentative d'affecter STRING a un %s\n",typeG); exit(0);}
+                                 
                             
                             }  
 ;                            
@@ -669,13 +671,10 @@ io_expr:
     | STRING_LITERAL  // Handles direct string output
 ;
 
-// Define expressions de condition (arithmetic operations, converted to right-recursive)
-COND:
-    OR_EXPR
-;
 
-OR_EXPR:
-    OR_EXPR OR AND_EXPR
+
+COND:
+    COND OR AND_EXPR
     {
         temp = newtemp();
         sprintf(temp, "T%d", cpttemp);
@@ -791,7 +790,8 @@ comparison_expr:
         createQuadA(2,buffer1,buffer2,temp);
         empiler(&pile3,temp);
     }
-    |STRING_LITERAL OP_COMP STRING_LITERAL{
+    //probleme coflit
+    /*|STRING_LITERAL OP_COMP STRING_LITERAL{
         char* temp=newtemp();
         sprintf(temp,"T%d",cpttemp);
          cpttemp++;
@@ -804,24 +804,38 @@ comparison_expr:
          cpttemp++;
        createQuadA(nb_op,$1,$3,temp);
        empiler(&pile3,temp);
-    }
-    |DROIT OP_COMP term1 {printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
-                          printf("on compare CARACTERE avec CARACTERES"); exit(0);
+    }*/
+    | DROIT OP_COMP term1 {
+                            printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
+                          printf("on ne peut pas comparer CARACTERE avec avec %s\n",typeD); exit(0);
                          }       
-    |term2 OP_COMP GAUCHE {printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
-                            printf("on compare CARACTERES avec CARACTEREs"); exit(0);
+    | term2 OP_COMP GAUCHE {printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
+                            printf("on ne peut pas comparer %s avec avec %s\n",typeG,typeD); exit(0);
                             }
+    | DROIT OP_COMP GAUCHE{
+        if(strcmp(typeD,typeG)!=0){
+            printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
+            printf("on ne peut pas comparer %s avec avec %s\n",typeG,typeD); exit(0);
+        }
+        else{
+            char* temp=newtemp();
+            sprintf(temp,"T%d",cpttemp);
+            cpttemp++;
+            createQuadA(nb_op,$1,$3,temp);
+            empiler(&pile3,temp);
+        }
+    }
+
 
 ; 
-   
 
 DROIT:
-    CHARACTERE
-    |STRING_LITERAL
+    CHARACTERE{strcpy(typeG,"CHAR");}
+    |STRING_LITERAL{strcpy(typeG,"STRING");}
 ;    
 GAUCHE:
-    CHARACTERE
-    |STRING_LITERAL
+   CHARACTERE{strcpy(typeD,"CHAR");}
+    |STRING_LITERAL{strcpy(typeD,"STRING");}
 ;   
 OP_COMP:
     GT  {nb_op=6;}      // Greater than
@@ -1110,7 +1124,7 @@ primary1:
              exit(0);
         }else {strcpy(typeD,getType($1));
                              if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 1\n",nb_ligne,col);
-                             printf("tentative d'affecter %s a un %s\n",typeD,typeG);
+                             printf("on ne peut pas comparer %s avec %s\n",typeD,typeG);
                               exit(0);
                              }
                                 strcpy(valIdf,getVal($1));
@@ -1126,7 +1140,7 @@ primary1:
     | INT_NUMBER {
        
         if(strcmp(typeG,"INTEGER")!=0) {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 2\n",nb_ligne,col);
-        printf("tentative d'affecter INTEGER a un %s\n",typeG); exit(0);}
+        printf("on ne peut pas comparer INTEGER avec %s\n",typeG); exit(0);}
                    else{$$=atof($1);}
                   strcpy(saveStrq,$1);
                   strcpy(buffer1,$1);
@@ -1137,7 +1151,7 @@ primary1:
 
                     if(strcmp(typeG,"FLOAT")!=0) 
                    {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 3\n",nb_ligne,col);
-                   printf("tentative d'affecter FLOAT a un %s\n",typeG); exit(0);}
+                   printf("on ne peut pas comparer FLOAT avec %s\n",typeG); exit(0);}
                    else{
                    $$=atof($1); }  
                    strcpy(saveStrq,$1);
@@ -1147,7 +1161,7 @@ primary1:
     |LPAREN PLUS INT_NUMBER RPAREN{
         if(strcmp(typeG,"INTEGER")!=0) 
         {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 4\n",nb_ligne,col);
-        printf("tentative d'affecter INTEGER a un %s\n",typeG); exit(0);}
+        printf("on ne peut pas comparer INTEGER avec %s\n",typeG); exit(0);}
         else{$$=atof($3);
         strcpy(saveStrq,$3);
         strcpy(buffer1,$3);
@@ -1157,7 +1171,7 @@ primary1:
     |LPAREN MINUS INT_NUMBER RPAREN{
         if(strcmp(typeG,"INTEGER")!=0) 
             {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 5\n",nb_ligne,col);
-            printf("tentative d'affecter INTEGER a un %s\n",typeG); exit(0);}
+            printf("on ne peut pas comparer INTEGER avec %s\n",typeG); exit(0);}
                 else{
                 strcpy(saveStr,$3);
                 strcat(strcpy(saveS,"-"),saveStr);
@@ -1169,7 +1183,7 @@ primary1:
     }
     | LPAREN PLUS FLOAT_NUMBER RPAREN {if(strcmp(typeG,"FLOAT")!=0) 
                                     {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 6\n",nb_ligne,col);
-                                    printf("tentative d'affecter FLOAT a un %s\n",typeG); exit(0);}
+                                    printf("on ne peut pas comparer FLOAT avec %s\n",typeG); exit(0);}
                                       else{$$=atof($3);
                                       strcpy(saveStrq,$3);
                                       strcpy(buffer1,$3);
@@ -1179,7 +1193,7 @@ primary1:
     | LPAREN MINUS FLOAT_NUMBER RPAREN {
         if(strcmp(typeG,"FLOAT")!=0) 
                                       {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 7\n",nb_ligne,col);
-                                      printf("tentative d'affecter FLOAT a un %s\n",typeG); exit(0);}
+                                      printf("on ne peut pas comparer FLOAT avec %s\n",typeG); exit(0);}
                                        else{
                                            strcat(strcpy(saveS,"-"),$3);
                                            $$=atof(saveS);
@@ -1188,14 +1202,14 @@ primary1:
                                            empiler(&pile3,buffer1);
                                        }
     }
-    | LPAREN term RPAREN {$$=$2;}
+    | LPAREN term1 RPAREN {$$=$2;}
     |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {if(verifdeclaration($1)==0 )
                                          {printf("Erreur semantique  :Tableau %s non declaree a la ligne %d colonne %d\n",$1,nb_ligne,col);
                                           exit(0);}
                                 else {
                                     strcpy(typeD,getType($1));
                                      if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 8\n",nb_ligne,col);
-                                     printf("tentative d'affecter %s a un %s\n",typeD,typeG); exit(0);}
+                                     printf("on ne peut pas comparer %s avec %s\n",typeD,typeG); exit(0);}
                                      strcpy(tmp,$1);
                                     strcat(tmp,"[");
                                     sprintf(buffer1,"%d",atoi($3));
@@ -1297,7 +1311,7 @@ primary2:
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration($1) == 0) {
             printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, $1); exit(0);
-        }else {strcpy(typeD,getType($1));
+        }else {strcpy(typeG,getType($1));
                                   $$=atof(valIdf);
                                   strcpy(buffer1,$1);
                                   empiler(&pile3,buffer1);
@@ -1305,26 +1319,26 @@ primary2:
                              }
     }
     | INT_NUMBER {
-       strcpy(typeD,"INTEGER");
+       strcpy(typeG,"INTEGER");
        $$=atof($1);
        strcpy(buffer1,$1);
        empiler(&pile3,buffer1);
                   
     }
-    | FLOAT_NUMBER{strcpy(typeD,"FLOAT");
+    | FLOAT_NUMBER{strcpy(typeG,"FLOAT");
                    $$=atof($1);  
                    strcpy(buffer1,$1);
                    empiler(&pile3,buffer1);
                    }
     |LPAREN PLUS INT_NUMBER RPAREN{
-        strcpy(typeD,"INTEGER");
+        strcpy(typeG,"INTEGER");
         $$=atof($3);
         strcpy(buffer1,$3);
         empiler(&pile3,buffer1);
         
     }
     |LPAREN MINUS INT_NUMBER RPAREN{
-        strcpy(typeD,"INTEGER");
+        strcpy(typeG,"INTEGER");
                 strcpy(saveStr,$3);
                 strcat(strcpy(saveS,"-"),saveStr);
                 $$=atoi(saveS);
@@ -1332,24 +1346,24 @@ primary2:
                 empiler(&pile3,buffer1);
             
     }
-    | LPAREN PLUS FLOAT_NUMBER RPAREN {strcpy(typeD,"FLOAT");
+    | LPAREN PLUS FLOAT_NUMBER RPAREN {strcpy(typeG,"FLOAT");
                                       $$=atof($3);;
                                       strcpy(buffer1,$3);
                                       empiler(&pile3,buffer1);
                                       
                    }
-    | LPAREN MINUS FLOAT_NUMBER RPAREN {strcpy(typeD,"FLOAT");
+    | LPAREN MINUS FLOAT_NUMBER RPAREN {strcpy(typeG,"FLOAT");
                                            strcat(strcpy(saveS,"-"),$3);
                                            $$=atof(saveS);
                                            strcpy(buffer1, saveS);
                                            empiler(&pile3,buffer1);
                                        
     }
-    | LPAREN term RPAREN {$$=$2;}
+    | LPAREN term2 RPAREN {$$=$2;}
     |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {if(verifdeclaration($1)==0 )
                                          {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d\n",$1,nb_ligne,col); exit(0);}
                                 else {
-                                    strcpy(typeD,getType($1));
+                                    strcpy(typeG,getType($1));
                                      strcpy(tmp,$1);
                                     strcat(tmp,"[");
                                     sprintf(buffer1,"%d",atoi($3));
@@ -1507,7 +1521,7 @@ primary4:
                                            empiler(&pile3,buffer1);
                                        
     }
-    | LPAREN term RPAREN {$$=$2;}
+    | LPAREN term4 RPAREN {$$=$2;}
     |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {if(verifdeclaration($1)==0 )
                                          {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d\n",$1,nb_ligne,col); exit(0);}
                                 else {
@@ -1667,7 +1681,7 @@ primary3:
                                            empiler(&pile3,buffer1);
                                        
     }
-    | LPAREN term RPAREN {$$=$2;}
+    | LPAREN term3 RPAREN {$$=$2;}
     |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {if(verifdeclaration($1)==0 )
                                          {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d \n",$1,nb_ligne,col); exit(0);}
                                 else {
@@ -1696,6 +1710,10 @@ int main() {
     
     yyparse(); 
     printf("\n");
+    printf("\n::::::::::::::::::::COMPILATION TERMINER AVEC SUCCÈS::::::::::::::::::::::::::\n");
+	printf("________________________________________________________________________________\n");
+    printf("\n");
+    printf("\n");
     afficher(0);afficher(1);afficher(2);
     displayQuad();
     return 0;
@@ -1708,6 +1726,6 @@ int yywrap() {
 
 void yyerror(const char *s) {
     fprintf(stderr, "Error: %s at line %d, column %d\n", s, nb_ligne, col);
-
+    exit(0);
 }
 
