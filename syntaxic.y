@@ -72,13 +72,9 @@
 %type <real> termtab
 %type <real> factortab
 %type <real> primarytab
-%type <real> factorDtab
-%type <real> primaryDtab
 %type <real> term
 %type <real> factor
 %type <real> primary
-%type <real> factorD
-%type <real> primaryD
 %type <real> term1
 %type <real> factor1
 %type <real> primary1
