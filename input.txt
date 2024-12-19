@@ -1,23 +1,23 @@
 VAR_GLOBAL {
     INTEGER ABC;    
-    INTEGER XYZ;     
+    CHAR XYZ;     
 }
 DECLARATION {
     CONST INTEGER TEST = 6;    
-    CHAR NUM[ABC+2*3-5];     
+    CHAR NUM[2*3-5];     
     INTEGER NUM4[9];  
     INTEGER NUM2;   
     FLOAT NUM3 ;      
-    CHAR CAR ;            
+    CHAR CAR ;    
 }
 INSTRUCTION {
     ABC=2*8+(16+29-13);
-    CAR='m';
-    NUM[0]='c';
+    CAR='k';
+    NUM[0]='o';
     NUM[2]='h';
     
-    FOR(ABC=0:2+7*0:4){
-        XYZ=5;
+    FOR(ABC=0:CAR:4.5){
+        XYZ='a';
     };
 }
 
