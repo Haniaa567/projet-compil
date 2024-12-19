@@ -12,11 +12,11 @@ DECLARATION {
 }
 INSTRUCTION {
     ABC=2*8+(16+29-13);
-    CAR='k';
+    CAR='p';
     NUM[0]='o';
     NUM[2]='h';
     
-    FOR(ABC=0:9:4.5){
+    FOR(ABC=0:9:10){
         XYZ='a';
     };
 }

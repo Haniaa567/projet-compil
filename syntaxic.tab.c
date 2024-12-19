@@ -1782,7 +1782,7 @@ yyreduce:
         //verification de la double declaration et insertion du type
         for(j=0;strcmp(saveIdf[j].idfTab,"")!=0;j++){
             if(verifdeclaration(saveIdf[j].idfTab)==0) insererType(sauvType,saveIdf[j].idfTab);
-            else {printf("Erreur semantique :double declaration de %s a la ligne %d\n",saveIdf[j].idfTab,nb_ligne);
+            else {printf("Erreur semantique :double declaration de %s a la ligne %d colonne %d \n",saveIdf[j].idfTab,nb_ligne,col);
                 exit(0);}
             //createQuad("DECL", sauvType, "", saveIdf[j].idfTab);
             strcpy(saveIdf[j].idfTab,"");
@@ -1796,7 +1796,7 @@ yyreduce:
     {
     // Vérifie si la valeur affectée est compatible avec le type de la variable
         if (strcmp(typeG, "INTEGER") == 0 && ((yyvsp[(5) - (6)].real) - floor((yyvsp[(5) - (6)].real)) != 0)) {
-            printf("Erreur sémantique à la ligne %d : tentative d'affectation d'un flottant à une variable entière.\n", nb_ligne);
+            printf("Erreur sémantique à la ligne %d colonne %d  : tentative d'affectation d'un flottant à une variable entière.\n", nb_ligne,col);
              exit(0);
         }
          
@@ -1820,7 +1820,7 @@ yyreduce:
         
         //verification de la double declaration et insertion du type
             if(verifdeclaration(saveIdf[0].idfTab)==0) {insererType(sauvType,saveIdf[0].idfTab);strcpy(typeG,getType((yyvsp[(1) - (1)].string)));}
-            else printf("Erreur semantique :double declaration de %s a la ligne %d\n",saveIdf[0].idfTab,nb_ligne);
+            else printf("Erreur semantique :double declaration de %s a la ligne %d colonne %d \n",saveIdf[0].idfTab,nb_ligne,col);
             
             
     ;}
@@ -1835,7 +1835,7 @@ yyreduce:
 #line 175 "syntaxic.y"
     {strcpy(saveIdf[j].idfTab,(yyvsp[(1) - (4)].string));modifierCode("IDF TAB",saveIdf[j].idfTab);j++;
         if (atoi((yyvsp[(3) - (4)].string)) == 0) {
-            printf("Erreur semantique : La taille du tableau doit etre strictement positive\n");
+            printf("Erreur semantique la ligne %d colonne %d : La taille du tableau doit etre strictement positive\n",nb_ligne,col);
              exit(0);
         } 
         sprintf(buffer1, "%d", atoi((yyvsp[(3) - (4)].string))-1);
@@ -1852,13 +1852,13 @@ yyreduce:
         createQuad("BOUNDS", "0", buffer1,"");
         createQuad("ADEC",(yyvsp[(1) - (4)].string),"","");
          if (fmod(valind, 1.0) != 0.0) {
-            printf("Erreur semantique : La taille du tableau doit etre un entier (pas un nombre réel)\n");
+            printf("Erreur semantique la ligne %d colonne %d : La taille du tableau doit etre un entier (pas un nombre réel)\n",nb_ligne,col);
              exit(0);
         }
         
         // Vérifier que le nombre est un entier positif
         if ((yyvsp[(3) - (4)].real) < 1) {
-            printf("Erreur semantique : La taille du tableau doit etre un entier strictement positif\n");
+            printf("Erreur semantique la ligne %d colonne %d : La taille du tableau doit etre un entier strictement positif\n",nb_ligne,col);
              exit(0);
         }
         ;}
@@ -1936,14 +1936,14 @@ yyreduce:
     {
     // Vérification de la déclaration de la variable avant usage
     if (verifdeclaration((yyvsp[(1) - (1)].string)) == 0) {
-        printf("Erreur sémantique : La variable '%s' n'est pas déclarée avant son utilisation.\n", (yyvsp[(1) - (1)].string));
+        printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[(1) - (1)].string));
          exit(0);
     } else if(strcmp(getCode((yyvsp[(1) - (1)].string)),"IDF TAB")==0){
-        printf("Erreur sémantique : La variable '%s' est un tableau.\n", (yyvsp[(1) - (1)].string));
+        printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' est un tableau.\n",nb_ligne,col, (yyvsp[(1) - (1)].string));
          exit(0);
         strcpy(typeG, getType((yyvsp[(1) - (1)].string)));  // Récupérer le type de la variable à gauche
         if (comparCode((yyvsp[(1) - (1)].string)) == 0) {
-            printf("Erreur sémantique à la ligne %d : affectation d'une constante\n", nb_ligne);
+            printf("Erreur sémantique à la ligne %d colonne %d : affectation d'une constante\n", nb_ligne,col);
         } else {
             strcpy(mDroit, (yyvsp[(1) - (1)].string));
         }
@@ -1952,7 +1952,7 @@ yyreduce:
     else{
         strcpy(typeG, getType((yyvsp[(1) - (1)].string)));  // Récupérer le type de la variable à gauche
         if (comparCode((yyvsp[(1) - (1)].string)) == 0) {
-            printf("Erreur sémantique à la ligne %d : affectation d'une constante\n", nb_ligne);
+            printf("Erreur sémantique à la ligne %d colonne %d : affectation d'une constante\n", nb_ligne,col);
              exit(0);
         } else {
             strcpy(mDroit, (yyvsp[(1) - (1)].string));
@@ -1964,9 +1964,9 @@ yyreduce:
   case 31:
 #line 292 "syntaxic.y"
     {if(verifdeclaration((yyvsp[(1) - (4)].string))==0 )
-                    {printf("Erreur semantique a la ligne %d :Tableau %s non declare\n",(yyvsp[(1) - (4)].string),nb_ligne); exit(0);}
+                    {printf("Erreur semantique a la ligne %d colonne %d :Tableau %s non declare\n",nb_ligne,col,(yyvsp[(1) - (4)].string)); exit(0);}
                     else if(strcmp(getCode((yyvsp[(1) - (4)].string)),"IDF")==0){
-                        printf("Erreur sémantique : La variable '%s' est n'est pas un tableau.\n", (yyvsp[(1) - (4)].string));
+                        printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' est n'est pas un tableau.\n",nb_ligne,col, (yyvsp[(1) - (4)].string));
                          exit(0);
                         strcpy(typeG, getType((yyvsp[(1) - (4)].string)));
                             }
@@ -1992,10 +1992,10 @@ yyreduce:
 #line 317 "syntaxic.y"
     {
                 if(verifdeclaration((yyvsp[(1) - (7)].string))==0 )
-                  {printf("Erreur semantique a la ligne %d :Tableau %s non declare\n",(yyvsp[(1) - (7)].string),nb_ligne);
+                  {printf("Erreur semantique a la ligne %d colonne %d :Tableau %s non declare\n",nb_ligne,col,(yyvsp[(1) - (7)].string));
                    exit(0);}
                   else if(strcmp(getCode((yyvsp[(1) - (7)].string)),"IDF")==0){
-                        printf("Erreur sémantique : La variable '%s' est n'est pas un tableau.\n", (yyvsp[(1) - (7)].string));
+                        printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' est n'est pas un tableau.\n",nb_ligne,col, (yyvsp[(1) - (7)].string));
                          exit(0);
                         strcpy(typeG, getType((yyvsp[(1) - (7)].string)));
                             }
@@ -2008,12 +2008,12 @@ yyreduce:
 
   case 33:
 #line 331 "syntaxic.y"
-    {printf("la valeur de l'indice est %f \n",(yyvsp[(3) - (4)].real));
+    {
                     if(verifdeclaration((yyvsp[(1) - (4)].string))==0 )
-                    {printf("Erreur semantique a la ligne %d :Tableau %s non declare\n",(yyvsp[(1) - (4)].string),nb_ligne);
+                    {printf("Erreur semantique a la ligne %d colonne %d :Tableau %s non declare\n",nb_ligne,col,(yyvsp[(1) - (4)].string));
                      exit(0);}
                     else if(strcmp(getCode((yyvsp[(1) - (4)].string)),"IDF")==0){
-                        printf("Erreur semantique : La variable '%s' est n'est pasm un tableau.\n", (yyvsp[(1) - (4)].string));
+                        printf("Erreur semantique la ligne %d colonne %d: La variable '%s' est n'est pasm un tableau.\n",nb_ligne,col, (yyvsp[(1) - (4)].string));
                          exit(0);
                         strcpy(typeG, getType((yyvsp[(1) - (4)].string)));
                             }
@@ -2023,13 +2023,13 @@ yyreduce:
                     }  
                     // Vérifier si le nombre a une partie fractionnelle
                     if (fmod(valind, 1.0) != 0.0) {
-                        printf("Erreur semantique : L'indice du tableau doit etre un entier (pas un nombre reel)\n");
+                        printf("Erreur semantique la ligne %d colonne %d: L'indice du tableau doit etre un entier (pas un nombre reel)\n",nb_ligne,col);
                          exit(0);
                     }
                     
                     // Vérifier que le nombre est un entier positif
                     if ((yyvsp[(3) - (4)].real) < 0) {
-                        printf("Erreur semantique : L'indice du tableau doit être un entier positif\n");
+                        printf("Erreur semantique la ligne %d colonne %d : L'indice du tableau doit être un entier positif\n",nb_ligne,col);
                          exit(0);
                     }
                     
@@ -2116,7 +2116,7 @@ yyreduce:
   case 39:
 #line 432 "syntaxic.y"
     { 
-        if((yyvsp[(3) - (3)].real)==0) {printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne); exit(0);}
+        if((yyvsp[(3) - (3)].real)==0) {printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
         else{   
         float t=(yyvsp[(1) - (3)].real)/(yyvsp[(3) - (3)].real);        
         tt=newtemp();
@@ -2142,13 +2142,13 @@ yyreduce:
     {
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration((yyvsp[(1) - (1)].string)) == 0) {
-            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", (yyvsp[(1) - (1)].string)); exit(0);
+            printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[(1) - (1)].string)); exit(0);
         }else {strcpy(typeD,getType((yyvsp[(1) - (1)].string)));
                              if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
                                                          printf("tentative d'affecter %s a un %s\n",typeD,typeG); exit(0);
                                                         }
                                 strcpy(valIdf,getVal((yyvsp[(1) - (1)].string)));
-                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d : variable %s non initialisee\n",nb_ligne,(yyvsp[(1) - (1)].string)); exit(0);}
+                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d colonne %d : variable %s non initialisee\n",nb_ligne,col,(yyvsp[(1) - (1)].string)); exit(0);}
                                  else
                                   (yyval.real)=atof(valIdf);
                                   strcpy(saveStrq,(yyvsp[(1) - (1)].string));
@@ -2243,7 +2243,7 @@ yyreduce:
   case 49:
 #line 525 "syntaxic.y"
     {if(strcmp(typeG,"CHAR")!=0)   
-                                {printf("Erreur semantique a la ligne %d:type incompatible\n",nb_ligne);
+                                {printf("Erreur semantique a la ligne %d colonne %d :type incompatible\n",nb_ligne,col);
                                  printf("tentative d'affecter CHAR a un %s\n",typeG); exit(0);
                                 }
                             else {insererVal(mDroit,(yyvsp[(1) - (1)].string));}
@@ -2255,7 +2255,7 @@ yyreduce:
   case 50:
 #line 533 "syntaxic.y"
     {   
-                                 printf("Erreur semantique a la ligne %d:type incompatible\n",nb_ligne);
+                                 printf("Erreur semantique a la ligne %d colonne %d:type incompatible\n",nb_ligne,col);
                                  printf("On ne peut pas affecter STRING a CHAR");
                                  exit(0);
                             
@@ -2292,7 +2292,7 @@ yyreduce:
         
         // Si c'est compatible, on sauvegarde la valeur dans la table des symboles
         if (strcmp(typeG, "INTEGER") != 0) {
-            printf("Erreur semantique a la ligne %d:type incompatible \n",nb_ligne);
+            printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
             printf("Parametre de boucle doit etre un entier"); exit(0);
         }else{
             //sprintf(saveStr, "%d", (int)$3); 
@@ -2306,7 +2306,7 @@ yyreduce:
 #line 589 "syntaxic.y"
     {
         if (strcmp(typeG, "INTEGER") != 0) {
-            printf("Erreur semantique a la ligne %d:type incompatible \n",nb_ligne);
+            printf("Erreur semantique a la ligne %d colonne %d:type incompatible \n",nb_ligne,col);
             printf("Parametre de boucle doit etre un entier"); exit(0);
         }
         // Génération du quadruplet d'affectation
@@ -2320,7 +2320,7 @@ yyreduce:
 #line 599 "syntaxic.y"
     {
         if (strcmp(typeG, "INTEGER") != 0) {
-            printf("Erreur semantique a la ligne %d:type incompatible \n",nb_ligne);
+            printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
             printf("Parametre de boucle doit etre un entier"); exit(0);
         }
         createQuad("=", saveStrq, "",tmp);
@@ -2333,7 +2333,7 @@ yyreduce:
 #line 608 "syntaxic.y"
     {
         if (strcmp(typeG, "INTEGER") != 0) {
-            printf("Erreur semantique a la ligne %d:type incompatible \n",nb_ligne);
+            printf("Erreur semantique a la la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
             printf("Parametre de boucle doit etre un entier"); exit(0);
         }
         createQuad("=", saveStrq, "",mDroit);
@@ -2382,7 +2382,7 @@ yyreduce:
     {
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration((yyvsp[(3) - (5)].string)) == 0) {
-            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", (yyvsp[(3) - (5)].string)); exit(0);
+            printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col,(yyvsp[(3) - (5)].string)); exit(0);
         }
     ;}
     break;
@@ -2392,7 +2392,7 @@ yyreduce:
     {
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration((yyvsp[(1) - (1)].string)) == 0) {
-            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", (yyvsp[(1) - (1)].string)); exit(0);
+            printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[(1) - (1)].string)); exit(0);
         }
     ;}
     break;
@@ -2554,14 +2554,14 @@ yyreduce:
 
   case 85:
 #line 808 "syntaxic.y"
-    {printf("Erreur semantique a la ligne %d:type incompatible \n",nb_ligne);
+    {printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
                           printf("on compare CARACTERE avec CARACTERES"); exit(0);
                          ;}
     break;
 
   case 86:
 #line 811 "syntaxic.y"
-    {printf("Erreur semantique a la ligne %d:type incompatible \n",nb_ligne);
+    {printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
                             printf("on compare CARACTERES avec CARACTEREs"); exit(0);
                             ;}
     break;
@@ -2665,7 +2665,7 @@ yyreduce:
   case 102:
 #line 898 "syntaxic.y"
     { 
-        if((yyvsp[(3) - (3)].real)==0) {printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne); exit(0);}
+        if((yyvsp[(3) - (3)].real)==0) {printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
         else{   
         float t=(yyvsp[(1) - (3)].real)/(yyvsp[(3) - (3)].real);        
         tt=newtemp();
@@ -2691,12 +2691,12 @@ yyreduce:
     {
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration((yyvsp[(1) - (1)].string)) == 0) {
-            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", (yyvsp[(1) - (1)].string)); exit(0);
+            printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[(1) - (1)].string)); exit(0);
         }else {strcpy(typeD,getType((yyvsp[(1) - (1)].string)));
-                             if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
+                             if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 1\n",nb_ligne,col);
                                                             printf("tentative d'affecter %s a un %s\n",typeD,typeG); exit(0);}
                                 strcpy(valIdf,getVal((yyvsp[(1) - (1)].string)));
-                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d : variable %s non initialisee\n",nb_ligne,(yyvsp[(1) - (1)].string)); exit(0);}
+                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d colonne %d : variable %s non initialisee\n",nb_ligne,col,(yyvsp[(1) - (1)].string)); exit(0);}
                                  else
                                   (yyval.real)=atof(valIdf);
                                   strcpy(saveStrq,(yyvsp[(1) - (1)].string));
@@ -2710,7 +2710,7 @@ yyreduce:
   case 104:
 #line 939 "syntaxic.y"
     {
-        if(strcmp(typeG,"INTEGER")!=0) {printf("Erreur semantique a la ligne %d:type incompatible 2\n",nb_ligne);
+        if(strcmp(typeG,"INTEGER")!=0) {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 2\n",nb_ligne,col);
                                         printf("tentative d'affecter INTEGER a un %s\n",typeG); exit(0);}
                    else{(yyval.real)=atof((yyvsp[(1) - (1)].string));}
                   strcpy(saveStrq,(yyvsp[(1) - (1)].string));
@@ -2724,7 +2724,7 @@ yyreduce:
 #line 948 "syntaxic.y"
     {
                     if(strcmp(typeG,"FLOAT")!=0) 
-                   {printf("Erreur semantique a la ligne %d:type incompatible 3\n",nb_ligne);
+                   {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 3\n",nb_ligne,col);
                    printf("tentative d'affecter FLOAT a un %s\n",typeG); exit(0);}
                    else{
                    (yyval.real)=atof((yyvsp[(1) - (1)].string)); }  
@@ -2738,7 +2738,7 @@ yyreduce:
 #line 958 "syntaxic.y"
     {
         if(strcmp(typeG,"INTEGER")!=0) 
-        {printf("Erreur semantique a la ligne %d :type incompatible 4\n",nb_ligne);
+        {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 4\n",nb_ligne,col);
         printf("tentative d'affecter INTEGER a un %s\n",typeG); exit(0);}
         else{(yyval.real)=atof((yyvsp[(3) - (4)].string));
         strcpy(saveStrq,(yyvsp[(3) - (4)].string));
@@ -2752,7 +2752,7 @@ yyreduce:
 #line 968 "syntaxic.y"
     {
         if(strcmp(typeG,"INTEGER")!=0) 
-            {printf("Erreur semantique a la ligne %d:type incompatible 5\n",nb_ligne);
+            {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 5\n",nb_ligne,col);
             printf("tentative d'affecter INTEGER a un %s\n",typeG); exit(0);}
                 else{
                 strcpy(saveStr,(yyvsp[(3) - (4)].string));
@@ -2768,7 +2768,7 @@ yyreduce:
   case 108:
 #line 981 "syntaxic.y"
     {if(strcmp(typeG,"FLOAT")!=0) 
-                                    {printf("Erreur semantique a la ligne %d:type incompatible 6\n",nb_ligne);
+                                    {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 6\n",nb_ligne,col);
                                     printf("tentative d'affecter FLOAT a un %s\n",typeG); exit(0);}
                                       else{(yyval.real)=atof((yyvsp[(3) - (4)].string));
                                       strcpy(saveStrq,(yyvsp[(3) - (4)].string));
@@ -2782,7 +2782,7 @@ yyreduce:
 #line 990 "syntaxic.y"
     {
         if(strcmp(typeG,"FLOAT")!=0) 
-                                      {printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);
+                                      {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 7\n",nb_ligne,col);
                                       printf("tentative d'affecter FlOAT a un %s\n",typeG); exit(0);}
                                        else{
                                            strcat(strcpy(saveS,"-"),(yyvsp[(3) - (4)].string));
@@ -2802,10 +2802,10 @@ yyreduce:
   case 111:
 #line 1003 "syntaxic.y"
     {if(verifdeclaration((yyvsp[(1) - (4)].string))==0 )
-                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d\n",(yyvsp[(1) - (4)].string),nb_ligne); exit(0);}
+                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d \n",(yyvsp[(1) - (4)].string),nb_ligne,col); exit(0);}
                                 else {
                                     strcpy(typeD,getType((yyvsp[(1) - (4)].string)));
-                                     if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d:type incompatible 8\n",nb_ligne);
+                                     if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 8\n",nb_ligne,col);
                                                                 printf("tentative d'affecter %s a un %s\n",typeD,typeG); exit(0);}
                                      strcpy(tmp,(yyvsp[(1) - (4)].string));
                                     strcat(tmp,"[");
@@ -2888,7 +2888,7 @@ yyreduce:
   case 117:
 #line 1082 "syntaxic.y"
     { 
-        if((yyvsp[(3) - (3)].real)==0) {printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne); exit(0);}
+        if((yyvsp[(3) - (3)].real)==0) {printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
         else{   
         float t=(yyvsp[(1) - (3)].real)/(yyvsp[(3) - (3)].real);        
         tt=newtemp();
@@ -2914,15 +2914,15 @@ yyreduce:
     {
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration((yyvsp[(1) - (1)].string)) == 0) {
-            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", (yyvsp[(1) - (1)].string));
+            printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[(1) - (1)].string));
              exit(0);
         }else {strcpy(typeD,getType((yyvsp[(1) - (1)].string)));
-                             if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
+                             if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 1\n",nb_ligne,col);
                              printf("tentative d'affecter %s a un %s\n",typeD,typeG);
                               exit(0);
                              }
                                 strcpy(valIdf,getVal((yyvsp[(1) - (1)].string)));
-                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d : variable %s non initialisee\n",nb_ligne,(yyvsp[(1) - (1)].string)); exit(0);}
+                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d colonne %d : variable %s non initialisee\n",nb_ligne,col,(yyvsp[(1) - (1)].string)); exit(0);}
                                  else
                                   (yyval.real)=atof(valIdf);
                                   strcpy(saveStrq,(yyvsp[(1) - (1)].string));
@@ -2936,8 +2936,8 @@ yyreduce:
   case 119:
 #line 1126 "syntaxic.y"
     {
-        printf("here %s\n",typeG);
-        if(strcmp(typeG,"INTEGER")!=0) {printf("Erreur semantique a la ligne %d:type incompatible 2\n",nb_ligne);
+       
+        if(strcmp(typeG,"INTEGER")!=0) {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 2\n",nb_ligne,col);
         printf("tentative d'affecter INTEGER a un %s\n",typeG); exit(0);}
                    else{(yyval.real)=atof((yyvsp[(1) - (1)].string));}
                   strcpy(saveStrq,(yyvsp[(1) - (1)].string));
@@ -2949,10 +2949,10 @@ yyreduce:
 
   case 120:
 #line 1136 "syntaxic.y"
-    {        printf("here 2 %s\n",typeG);
+    {       
 
                     if(strcmp(typeG,"FLOAT")!=0) 
-                   {printf("Erreur semantique a la ligne %d:type incompatible 3\n",nb_ligne);
+                   {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 3\n",nb_ligne,col);
                    printf("tentative d'affecter FLOAT a un %s\n",typeG); exit(0);}
                    else{
                    (yyval.real)=atof((yyvsp[(1) - (1)].string)); }  
@@ -2966,7 +2966,7 @@ yyreduce:
 #line 1147 "syntaxic.y"
     {
         if(strcmp(typeG,"INTEGER")!=0) 
-        {printf("Erreur semantique a la ligne %d :type incompatible 4\n",nb_ligne);
+        {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 4\n",nb_ligne,col);
         printf("tentative d'affecter INTEGER a un %s\n",typeG); exit(0);}
         else{(yyval.real)=atof((yyvsp[(3) - (4)].string));
         strcpy(saveStrq,(yyvsp[(3) - (4)].string));
@@ -2980,7 +2980,7 @@ yyreduce:
 #line 1157 "syntaxic.y"
     {
         if(strcmp(typeG,"INTEGER")!=0) 
-            {printf("Erreur semantique a la ligne %d:type incompatible 5\n",nb_ligne);
+            {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 5\n",nb_ligne,col);
             printf("tentative d'affecter INTEGER a un %s\n",typeG); exit(0);}
                 else{
                 strcpy(saveStr,(yyvsp[(3) - (4)].string));
@@ -2996,7 +2996,7 @@ yyreduce:
   case 123:
 #line 1170 "syntaxic.y"
     {if(strcmp(typeG,"FLOAT")!=0) 
-                                    {printf("Erreur semantique a la ligne %d:type incompatible 6\n",nb_ligne);
+                                    {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 6\n",nb_ligne,col);
                                     printf("tentative d'affecter FLOAT a un %s\n",typeG); exit(0);}
                                       else{(yyval.real)=atof((yyvsp[(3) - (4)].string));
                                       strcpy(saveStrq,(yyvsp[(3) - (4)].string));
@@ -3010,7 +3010,7 @@ yyreduce:
 #line 1179 "syntaxic.y"
     {
         if(strcmp(typeG,"FLOAT")!=0) 
-                                      {printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);
+                                      {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 7\n",nb_ligne,col);
                                       printf("tentative d'affecter FLOAT a un %s\n",typeG); exit(0);}
                                        else{
                                            strcat(strcpy(saveS,"-"),(yyvsp[(3) - (4)].string));
@@ -3030,11 +3030,11 @@ yyreduce:
   case 126:
 #line 1192 "syntaxic.y"
     {if(verifdeclaration((yyvsp[(1) - (4)].string))==0 )
-                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d\n",(yyvsp[(1) - (4)].string),nb_ligne);
+                                         {printf("Erreur semantique  :Tableau %s non declaree a la ligne %d colonne %d\n",(yyvsp[(1) - (4)].string),nb_ligne,col);
                                           exit(0);}
                                 else {
                                     strcpy(typeD,getType((yyvsp[(1) - (4)].string)));
-                                     if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d:type incompatible 8\n",nb_ligne);
+                                     if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 8\n",nb_ligne,col);
                                      printf("tentative d'affecter %s a un %s\n",typeD,typeG); exit(0);}
                                      strcpy(tmp,(yyvsp[(1) - (4)].string));
                                     strcat(tmp,"[");
@@ -3117,7 +3117,7 @@ yyreduce:
   case 132:
 #line 1272 "syntaxic.y"
     { 
-        if((yyvsp[(3) - (3)].real)==0){ printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne); exit(0);}
+        if((yyvsp[(3) - (3)].real)==0){ printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
         else{   
         float t=(yyvsp[(1) - (3)].real)/(yyvsp[(3) - (3)].real);        
         tt=newtemp();
@@ -3143,7 +3143,7 @@ yyreduce:
     {
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration((yyvsp[(1) - (1)].string)) == 0) {
-            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", (yyvsp[(1) - (1)].string)); exit(0);
+            printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[(1) - (1)].string)); exit(0);
         }else {strcpy(typeD,getType((yyvsp[(1) - (1)].string)));
                                   (yyval.real)=atof(valIdf);
                                   strcpy(buffer1,(yyvsp[(1) - (1)].string));
@@ -3226,7 +3226,7 @@ yyreduce:
   case 141:
 #line 1349 "syntaxic.y"
     {if(verifdeclaration((yyvsp[(1) - (4)].string))==0 )
-                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d\n",(yyvsp[(1) - (4)].string),nb_ligne); exit(0);}
+                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d\n",(yyvsp[(1) - (4)].string),nb_ligne,col); exit(0);}
                                 else {
                                     strcpy(typeD,getType((yyvsp[(1) - (4)].string)));
                                      strcpy(tmp,(yyvsp[(1) - (4)].string));
@@ -3309,7 +3309,7 @@ yyreduce:
   case 147:
 #line 1425 "syntaxic.y"
     { 
-        if((yyvsp[(3) - (3)].real)==0) {printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne); exit(0);}
+        if((yyvsp[(3) - (3)].real)==0) {printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
         else{   
         float t=(yyvsp[(1) - (3)].real)/(yyvsp[(3) - (3)].real);        
         tt=newtemp();
@@ -3335,9 +3335,9 @@ yyreduce:
     {
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration((yyvsp[(1) - (1)].string)) == 0) {
-            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", (yyvsp[(1) - (1)].string)); exit(0);
+            printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[(1) - (1)].string)); exit(0);
         }else {strcpy(typeD,getType((yyvsp[(1) - (1)].string)));
-                if(strcmp(typeG,"CHAR")==0){printf("Erreur semantique a la ligne %d:type incompatible parametre de boucle ne doit pas etre CHAR\n",nb_ligne);exit(0);}
+                if(strcmp(typeD,"CHAR")==0){printf("Erreur semantique a la ligne %d colonne %d :type incompatible parametre de boucle ne doit pas etre CHAR\n",nb_ligne,col);exit(0);}
 
                                   strcpy(brnsup,(yyvsp[(1) - (1)].string));
                                   (yyval.real)=atof(valIdf);
@@ -3427,7 +3427,7 @@ yyreduce:
   case 156:
 #line 1511 "syntaxic.y"
     {if(verifdeclaration((yyvsp[(1) - (4)].string))==0 )
-                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d\n",(yyvsp[(1) - (4)].string),nb_ligne); exit(0);}
+                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d\n",(yyvsp[(1) - (4)].string),nb_ligne,col); exit(0);}
                                 else {
                                     strcpy(typeD,getType((yyvsp[(1) - (4)].string)));
                                      strcpy(tmp,(yyvsp[(1) - (4)].string));
@@ -3444,13 +3444,13 @@ yyreduce:
 
   case 157:
 #line 1525 "syntaxic.y"
-    {printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);
+    {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
                     printf("parametres de boucle doit pas etre characters\n");exit(0);}
     break;
 
   case 158:
 #line 1528 "syntaxic.y"
-    {printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);
+    {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
                     printf("parametres de boucle doit pas etre character\n");exit(0);}
     break;
 
@@ -3523,7 +3523,7 @@ yyreduce:
   case 164:
 #line 1592 "syntaxic.y"
     { 
-        if((yyvsp[(3) - (3)].real)==0) {printf("Erreur semantique a la ligne %d :division sur 0\n",nb_ligne); exit(0);}
+        if((yyvsp[(3) - (3)].real)==0) {printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
         else{   
         float t=(yyvsp[(1) - (3)].real)/(yyvsp[(3) - (3)].real);        
         tt=newtemp();
@@ -3549,10 +3549,10 @@ yyreduce:
     {
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration((yyvsp[(1) - (1)].string)) == 0) {
-            printf("Erreur sémantique: La variable '%s' n'est pas déclarée avant son utilisation.\n", (yyvsp[(1) - (1)].string));
+            printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n", nb_ligne,col,(yyvsp[(1) - (1)].string));
              exit(0);
         }else {strcpy(typeG,getType((yyvsp[(1) - (1)].string)));
-                if(strcmp(typeG,"CHAR")==0){printf("Erreur semantique a la ligne %d:type incompatible parametre de boucle ne doit pas etre CHAR\n",nb_ligne);exit(0);}
+                if(strcmp(typeG,"CHAR")==0){printf("Erreur semantique a la ligne %d colonne %d :type incompatible parametre de boucle ne doit pas etre CHAR\n",nb_ligne,col);exit(0);}
                                   (yyval.real)=atof(valIdf);
                                   strcpy(buffer1,(yyvsp[(1) - (1)].string));
                                   empiler(&pile3,buffer1);
@@ -3634,7 +3634,7 @@ yyreduce:
   case 173:
 #line 1671 "syntaxic.y"
     {if(verifdeclaration((yyvsp[(1) - (4)].string))==0 )
-                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d\n",(yyvsp[(1) - (4)].string),nb_ligne); exit(0);}
+                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d \n",(yyvsp[(1) - (4)].string),nb_ligne,col); exit(0);}
                                 else {
                                     strcpy(typeG,getType((yyvsp[(1) - (4)].string)));
                                      strcpy(tmp,(yyvsp[(1) - (4)].string));
@@ -3650,13 +3650,13 @@ yyreduce:
 
   case 174:
 #line 1684 "syntaxic.y"
-    {printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);
+    {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
                     printf("parametres de boucle doit pas etre characters\n");exit(0);}
     break;
 
   case 175:
 #line 1687 "syntaxic.y"
-    {printf("Erreur semantique a la ligne %d:type incompatible 7\n",nb_ligne);
+    {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
                     printf("parametres de boucle doit pas etre character\n");exit(0);}
     break;
 
