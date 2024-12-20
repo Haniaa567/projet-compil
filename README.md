@@ -1,4 +1,5 @@
-# projet-compil <br>
+#Projet-Compil
+ <br>
 Description:<br>
 Ce projet, réalisé par l'équipe N°4, est un compilateur simplifié pour un langage personnalisé. Il inclut :<br>
 
@@ -14,3 +15,13 @@ Structure des fichiers:<br>
    build.bat : Script pour Windows qui automatise la compilation du projet en utilisant les outils nécessaires.<br>
    TableSymbole.c / TableSymbole.h : Gestion de la table de symbole.<br>
    input.txt,input1.txt,input2.txt,input3.txt,input4.txt,input5.txt et input6.txt:comprenne des programmes et testes qu'on a appliquer pour tester notre compilateur<br>
+
+Exécution :<br>
+- Sous Windows :<br>
+  Compiler et exécuter avec les commandes suivantes dans l'invite de commandes :  
+  cmd /c build.bat<br>
+  cmd /c "analyseur.exe < input.txt"<br>
+
+- Sous macOS/Linux :<br>
+  Compiler en utilisant make :  make<br>
+
