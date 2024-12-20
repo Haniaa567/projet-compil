@@ -304,7 +304,7 @@ void insererVal(char entite[],char Val[])
       strcpy(tab[pos].val,Val);
     }
     else{
-                printf("here\n");
+
 
         printf("l'élément n'existe pas");
     }
@@ -485,7 +485,6 @@ void modifierCode(char code[],char entite[])
     pos=positionIDF(entite);
     if(pos !=-1)
     {
-        printf("here\n");
         strcpy(tab[pos].code,code);
     }
     else{
