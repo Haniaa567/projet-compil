@@ -1,14 +1,14 @@
-/* A Bison parser, made by GNU Bison 2.3.  */
+/* A Bison parser, made by GNU Bison 3.8.2.  */
 
-/* Skeleton implementation for Bison's Yacc-like parsers in C
+/* Bison implementation for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006
-   Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2021 Free Software Foundation,
+   Inc.
 
-   This program is free software; you can redistribute it and/or modify
+   This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2, or (at your option)
-   any later version.
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,9 +16,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.  */
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -36,6 +34,10 @@
 /* C LALR(1) parser skeleton written by Richard Stallman, by
    simplifying the original so-called "semantic" parser.  */
 
+/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+   especially those whose name start with YY_ or yy_.  They are
+   private implementation details that can be changed or removed.  */
+
 /* All symbols defined below should begin with yy or YY, to avoid
    infringing on user name space.  This should be done even for local
    variables, as they might otherwise be expanded by user macros.
@@ -43,11 +45,11 @@
    define necessary library symbols; they are noted "INFRINGES ON
    USER NAME SPACE" below.  */
 
-/* Identify Bison output.  */
-#define YYBISON 1
+/* Identify Bison output, and Bison version.  */
+#define YYBISON 30802
 
-/* Bison version.  */
-#define YYBISON_VERSION "2.3"
+/* Bison version string.  */
+#define YYBISON_VERSION "3.8.2"
 
 /* Skeleton name.  */
 #define YYSKELETON_NAME "yacc.c"
@@ -55,105 +57,16 @@
 /* Pure parsers.  */
 #define YYPURE 0
 
-/* Using locations.  */
-#define YYLSP_NEEDED 0
+/* Push parsers.  */
+#define YYPUSH 0
 
-
-
-/* Tokens.  */
-#ifndef YYTOKENTYPE
-# define YYTOKENTYPE
-   /* Put the tokens into the symbol table, so that GDB and other debuggers
-      know about them.  */
-   enum yytokentype {
-     VAR_GLOBAL = 258,
-     DECLARATION = 259,
-     INSTRUCTION = 260,
-     INTEGER = 261,
-     FLOAT = 262,
-     CHAR = 263,
-     CONST = 264,
-     IF = 265,
-     ELSE = 266,
-     FOR = 267,
-     READ = 268,
-     WRITE = 269,
-     IDENTIFIER = 270,
-     INT_NUMBER = 271,
-     FLOAT_NUMBER = 272,
-     CHARACTERE = 273,
-     AND = 274,
-     OR = 275,
-     NOT = 276,
-     EQ = 277,
-     NEQ = 278,
-     GEQ = 279,
-     LT = 280,
-     LEQ = 281,
-     GT = 282,
-     EQUALS = 283,
-     PLUS = 284,
-     MINUS = 285,
-     MULTIPLY = 286,
-     DIVIDE = 287,
-     LBRACE = 288,
-     RBRACE = 289,
-     LPAREN = 290,
-     RPAREN = 291,
-     LBRACKET = 292,
-     RBRACKET = 293,
-     SEMICOLON = 294,
-     COMMA = 295,
-     COLON = 296,
-     STRING_LITERAL = 297
-   };
-#endif
-/* Tokens.  */
-#define VAR_GLOBAL 258
-#define DECLARATION 259
-#define INSTRUCTION 260
-#define INTEGER 261
-#define FLOAT 262
-#define CHAR 263
-#define CONST 264
-#define IF 265
-#define ELSE 266
-#define FOR 267
-#define READ 268
-#define WRITE 269
-#define IDENTIFIER 270
-#define INT_NUMBER 271
-#define FLOAT_NUMBER 272
-#define CHARACTERE 273
-#define AND 274
-#define OR 275
-#define NOT 276
-#define EQ 277
-#define NEQ 278
-#define GEQ 279
-#define LT 280
-#define LEQ 281
-#define GT 282
-#define EQUALS 283
-#define PLUS 284
-#define MINUS 285
-#define MULTIPLY 286
-#define DIVIDE 287
-#define LBRACE 288
-#define RBRACE 289
-#define LPAREN 290
-#define RPAREN 291
-#define LBRACKET 292
-#define RBRACKET 293
-#define SEMICOLON 294
-#define COMMA 295
-#define COLON 296
-#define STRING_LITERAL 297
+/* Pull parsers.  */
+#define YYPULL 1
 
 
 
 
-/* Copy the first part of user declarations.  */
+/* First part of user prologue.  */
 #line 1 "syntaxic.y"
 
     #include <stdio.h>
@@ -201,79 +114,306 @@
    char *valDepile;
 
 
+#line 118 "syntaxic.tab.c"
 
-/* Enabling traces.  */
+# ifndef YY_CAST
+#  ifdef __cplusplus
+#   define YY_CAST(Type, Val) static_cast<Type> (Val)
+#   define YY_REINTERPRET_CAST(Type, Val) reinterpret_cast<Type> (Val)
+#  else
+#   define YY_CAST(Type, Val) ((Type) (Val))
+#   define YY_REINTERPRET_CAST(Type, Val) ((Type) (Val))
+#  endif
+# endif
+# ifndef YY_NULLPTR
+#  if defined __cplusplus
+#   if 201103L <= __cplusplus
+#    define YY_NULLPTR nullptr
+#   else
+#    define YY_NULLPTR 0
+#   endif
+#  else
+#   define YY_NULLPTR ((void*)0)
+#  endif
+# endif
+
+
+/* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
 #endif
-
-/* Enabling verbose error messages.  */
-#ifdef YYERROR_VERBOSE
-# undef YYERROR_VERBOSE
-# define YYERROR_VERBOSE 1
-#else
-# define YYERROR_VERBOSE 0
+#if YYDEBUG
+extern int yydebug;
 #endif
 
-/* Enabling the token table.  */
-#ifndef YYTOKEN_TABLE
-# define YYTOKEN_TABLE 0
+/* Token kinds.  */
+#ifndef YYTOKENTYPE
+# define YYTOKENTYPE
+  enum yytokentype
+  {
+    YYEMPTY = -2,
+    YYEOF = 0,                     /* "end of file"  */
+    YYerror = 256,                 /* error  */
+    YYUNDEF = 257,                 /* "invalid token"  */
+    VAR_GLOBAL = 258,              /* VAR_GLOBAL  */
+    DECLARATION = 259,             /* DECLARATION  */
+    INSTRUCTION = 260,             /* INSTRUCTION  */
+    INTEGER = 261,                 /* INTEGER  */
+    FLOAT = 262,                   /* FLOAT  */
+    CHAR = 263,                    /* CHAR  */
+    CONST = 264,                   /* CONST  */
+    IF = 265,                      /* IF  */
+    ELSE = 266,                    /* ELSE  */
+    FOR = 267,                     /* FOR  */
+    READ = 268,                    /* READ  */
+    WRITE = 269,                   /* WRITE  */
+    IDENTIFIER = 270,              /* IDENTIFIER  */
+    INT_NUMBER = 271,              /* INT_NUMBER  */
+    FLOAT_NUMBER = 272,            /* FLOAT_NUMBER  */
+    CHARACTERE = 273,              /* CHARACTERE  */
+    AND = 274,                     /* AND  */
+    OR = 275,                      /* OR  */
+    NOT = 276,                     /* NOT  */
+    EQ = 277,                      /* EQ  */
+    NEQ = 278,                     /* NEQ  */
+    GEQ = 279,                     /* GEQ  */
+    LT = 280,                      /* LT  */
+    LEQ = 281,                     /* LEQ  */
+    GT = 282,                      /* GT  */
+    EQUALS = 283,                  /* EQUALS  */
+    PLUS = 284,                    /* PLUS  */
+    MINUS = 285,                   /* MINUS  */
+    MULTIPLY = 286,                /* MULTIPLY  */
+    DIVIDE = 287,                  /* DIVIDE  */
+    LBRACE = 288,                  /* LBRACE  */
+    RBRACE = 289,                  /* RBRACE  */
+    LPAREN = 290,                  /* LPAREN  */
+    RPAREN = 291,                  /* RPAREN  */
+    LBRACKET = 292,                /* LBRACKET  */
+    RBRACKET = 293,                /* RBRACKET  */
+    SEMICOLON = 294,               /* SEMICOLON  */
+    COMMA = 295,                   /* COMMA  */
+    COLON = 296,                   /* COLON  */
+    STRING_LITERAL = 297           /* STRING_LITERAL  */
+  };
+  typedef enum yytokentype yytoken_kind_t;
 #endif
 
+/* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef union YYSTYPE
-#line 48 "syntaxic.y"
+union YYSTYPE
 {
+#line 48 "syntaxic.y"
+
     int entier;
     float real;
     char character;
     char* string;
-}
-/* Line 193 of yacc.c.  */
-#line 234 "syntaxic.tab.c"
-	YYSTYPE;
-# define yystype YYSTYPE /* obsolescent; will be withdrawn */
-# define YYSTYPE_IS_DECLARED 1
+
+#line 214 "syntaxic.tab.c"
+
+};
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
+# define YYSTYPE_IS_DECLARED 1
 #endif
 
 
+extern YYSTYPE yylval;
 
-/* Copy the second part of user declarations.  */
+
+int yyparse (void);
 
 
-/* Line 216 of yacc.c.  */
-#line 247 "syntaxic.tab.c"
+
+/* Symbol kind.  */
+enum yysymbol_kind_t
+{
+  YYSYMBOL_YYEMPTY = -2,
+  YYSYMBOL_YYEOF = 0,                      /* "end of file"  */
+  YYSYMBOL_YYerror = 1,                    /* error  */
+  YYSYMBOL_YYUNDEF = 2,                    /* "invalid token"  */
+  YYSYMBOL_VAR_GLOBAL = 3,                 /* VAR_GLOBAL  */
+  YYSYMBOL_DECLARATION = 4,                /* DECLARATION  */
+  YYSYMBOL_INSTRUCTION = 5,                /* INSTRUCTION  */
+  YYSYMBOL_INTEGER = 6,                    /* INTEGER  */
+  YYSYMBOL_FLOAT = 7,                      /* FLOAT  */
+  YYSYMBOL_CHAR = 8,                       /* CHAR  */
+  YYSYMBOL_CONST = 9,                      /* CONST  */
+  YYSYMBOL_IF = 10,                        /* IF  */
+  YYSYMBOL_ELSE = 11,                      /* ELSE  */
+  YYSYMBOL_FOR = 12,                       /* FOR  */
+  YYSYMBOL_READ = 13,                      /* READ  */
+  YYSYMBOL_WRITE = 14,                     /* WRITE  */
+  YYSYMBOL_IDENTIFIER = 15,                /* IDENTIFIER  */
+  YYSYMBOL_INT_NUMBER = 16,                /* INT_NUMBER  */
+  YYSYMBOL_FLOAT_NUMBER = 17,              /* FLOAT_NUMBER  */
+  YYSYMBOL_CHARACTERE = 18,                /* CHARACTERE  */
+  YYSYMBOL_AND = 19,                       /* AND  */
+  YYSYMBOL_OR = 20,                        /* OR  */
+  YYSYMBOL_NOT = 21,                       /* NOT  */
+  YYSYMBOL_EQ = 22,                        /* EQ  */
+  YYSYMBOL_NEQ = 23,                       /* NEQ  */
+  YYSYMBOL_GEQ = 24,                       /* GEQ  */
+  YYSYMBOL_LT = 25,                        /* LT  */
+  YYSYMBOL_LEQ = 26,                       /* LEQ  */
+  YYSYMBOL_GT = 27,                        /* GT  */
+  YYSYMBOL_EQUALS = 28,                    /* EQUALS  */
+  YYSYMBOL_PLUS = 29,                      /* PLUS  */
+  YYSYMBOL_MINUS = 30,                     /* MINUS  */
+  YYSYMBOL_MULTIPLY = 31,                  /* MULTIPLY  */
+  YYSYMBOL_DIVIDE = 32,                    /* DIVIDE  */
+  YYSYMBOL_LBRACE = 33,                    /* LBRACE  */
+  YYSYMBOL_RBRACE = 34,                    /* RBRACE  */
+  YYSYMBOL_LPAREN = 35,                    /* LPAREN  */
+  YYSYMBOL_RPAREN = 36,                    /* RPAREN  */
+  YYSYMBOL_LBRACKET = 37,                  /* LBRACKET  */
+  YYSYMBOL_RBRACKET = 38,                  /* RBRACKET  */
+  YYSYMBOL_SEMICOLON = 39,                 /* SEMICOLON  */
+  YYSYMBOL_COMMA = 40,                     /* COMMA  */
+  YYSYMBOL_COLON = 41,                     /* COLON  */
+  YYSYMBOL_STRING_LITERAL = 42,            /* STRING_LITERAL  */
+  YYSYMBOL_YYACCEPT = 43,                  /* $accept  */
+  YYSYMBOL_program = 44,                   /* program  */
+  YYSYMBOL_type = 45,                      /* type  */
+  YYSYMBOL_global_var_section = 46,        /* global_var_section  */
+  YYSYMBOL_declaration_section = 47,       /* declaration_section  */
+  YYSYMBOL_instruction_section = 48,       /* instruction_section  */
+  YYSYMBOL_declaration = 49,               /* declaration  */
+  YYSYMBOL_cst = 50,                       /* cst  */
+  YYSYMBOL_variable_list = 51,             /* variable_list  */
+  YYSYMBOL_statement = 52,                 /* statement  */
+  YYSYMBOL_assignment = 53,                /* assignment  */
+  YYSYMBOL_MDROIT = 54,                    /* MDROIT  */
+  YYSYMBOL_TAB = 55,                       /* TAB  */
+  YYSYMBOL_termtab = 56,                   /* termtab  */
+  YYSYMBOL_factortab = 57,                 /* factortab  */
+  YYSYMBOL_primarytab = 58,                /* primarytab  */
+  YYSYMBOL_EXPRESSION_CHAR = 59,           /* EXPRESSION_CHAR  */
+  YYSYMBOL_condition = 60,                 /* condition  */
+  YYSYMBOL_61_1 = 61,                      /* $@1  */
+  YYSYMBOL_elsebloc = 62,                  /* elsebloc  */
+  YYSYMBOL_63_2 = 63,                      /* $@2  */
+  YYSYMBOL_assignment_int = 64,            /* assignment_int  */
+  YYSYMBOL_loop = 65,                      /* loop  */
+  YYSYMBOL_66_3 = 66,                      /* $@3  */
+  YYSYMBOL_67_4 = 67,                      /* $@4  */
+  YYSYMBOL_io_statement = 68,              /* io_statement  */
+  YYSYMBOL_io_expr_list = 69,              /* io_expr_list  */
+  YYSYMBOL_io_expr = 70,                   /* io_expr  */
+  YYSYMBOL_COND = 71,                      /* COND  */
+  YYSYMBOL_AND_EXPR = 72,                  /* AND_EXPR  */
+  YYSYMBOL_NOT_EXPR = 73,                  /* NOT_EXPR  */
+  YYSYMBOL_comparison_expr = 74,           /* comparison_expr  */
+  YYSYMBOL_DROIT = 75,                     /* DROIT  */
+  YYSYMBOL_GAUCHE = 76,                    /* GAUCHE  */
+  YYSYMBOL_OP_COMP = 77,                   /* OP_COMP  */
+  YYSYMBOL_term = 78,                      /* term  */
+  YYSYMBOL_factor = 79,                    /* factor  */
+  YYSYMBOL_primary = 80,                   /* primary  */
+  YYSYMBOL_term1 = 81,                     /* term1  */
+  YYSYMBOL_factor1 = 82,                   /* factor1  */
+  YYSYMBOL_primary1 = 83,                  /* primary1  */
+  YYSYMBOL_term2 = 84,                     /* term2  */
+  YYSYMBOL_factor2 = 85,                   /* factor2  */
+  YYSYMBOL_primary2 = 86,                  /* primary2  */
+  YYSYMBOL_term4 = 87,                     /* term4  */
+  YYSYMBOL_factor4 = 88,                   /* factor4  */
+  YYSYMBOL_primary4 = 89,                  /* primary4  */
+  YYSYMBOL_term3 = 90,                     /* term3  */
+  YYSYMBOL_factor3 = 91,                   /* factor3  */
+  YYSYMBOL_primary3 = 92                   /* primary3  */
+};
+typedef enum yysymbol_kind_t yysymbol_kind_t;
+
+
+
 
 #ifdef short
 # undef short
 #endif
 
-#ifdef YYTYPE_UINT8
-typedef YYTYPE_UINT8 yytype_uint8;
-#else
-typedef unsigned char yytype_uint8;
+/* On compilers that do not define __PTRDIFF_MAX__ etc., make sure
+   <limits.h> and (if available) <stdint.h> are included
+   so that the code can choose integer types of a good width.  */
+
+#ifndef __PTRDIFF_MAX__
+# include <limits.h> /* INFRINGES ON USER NAME SPACE */
+# if defined __STDC_VERSION__ && 199901 <= __STDC_VERSION__
+#  include <stdint.h> /* INFRINGES ON USER NAME SPACE */
+#  define YY_STDINT_H
+# endif
 #endif
 
-#ifdef YYTYPE_INT8
-typedef YYTYPE_INT8 yytype_int8;
-#elif (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
+/* Narrow types that promote to a signed type and that can represent a
+   signed or unsigned integer of at least N bits.  In tables they can
+   save space and decrease cache pressure.  Promoting to a signed type
+   helps avoid bugs in integer arithmetic.  */
+
+#ifdef __INT_LEAST8_MAX__
+typedef __INT_LEAST8_TYPE__ yytype_int8;
+#elif defined YY_STDINT_H
+typedef int_least8_t yytype_int8;
+#else
 typedef signed char yytype_int8;
-#else
-typedef short int yytype_int8;
 #endif
 
-#ifdef YYTYPE_UINT16
-typedef YYTYPE_UINT16 yytype_uint16;
+#ifdef __INT_LEAST16_MAX__
+typedef __INT_LEAST16_TYPE__ yytype_int16;
+#elif defined YY_STDINT_H
+typedef int_least16_t yytype_int16;
 #else
-typedef unsigned short int yytype_uint16;
+typedef short yytype_int16;
 #endif
 
-#ifdef YYTYPE_INT16
-typedef YYTYPE_INT16 yytype_int16;
+/* Work around bug in HP-UX 11.23, which defines these macros
+   incorrectly for preprocessor constants.  This workaround can likely
+   be removed in 2023, as HPE has promised support for HP-UX 11.23
+   (aka HP-UX 11i v2) only through the end of 2022; see Table 2 of
+   <https://h20195.www2.hpe.com/V2/getpdf.aspx/4AA4-7673ENW.pdf>.  */
+#ifdef __hpux
+# undef UINT_LEAST8_MAX
+# undef UINT_LEAST16_MAX
+# define UINT_LEAST8_MAX 255
+# define UINT_LEAST16_MAX 65535
+#endif
+
+#if defined __UINT_LEAST8_MAX__ && __UINT_LEAST8_MAX__ <= __INT_MAX__
+typedef __UINT_LEAST8_TYPE__ yytype_uint8;
+#elif (!defined __UINT_LEAST8_MAX__ && defined YY_STDINT_H \
+       && UINT_LEAST8_MAX <= INT_MAX)
+typedef uint_least8_t yytype_uint8;
+#elif !defined __UINT_LEAST8_MAX__ && UCHAR_MAX <= INT_MAX
+typedef unsigned char yytype_uint8;
 #else
-typedef short int yytype_int16;
+typedef short yytype_uint8;
+#endif
+
+#if defined __UINT_LEAST16_MAX__ && __UINT_LEAST16_MAX__ <= __INT_MAX__
+typedef __UINT_LEAST16_TYPE__ yytype_uint16;
+#elif (!defined __UINT_LEAST16_MAX__ && defined YY_STDINT_H \
+       && UINT_LEAST16_MAX <= INT_MAX)
+typedef uint_least16_t yytype_uint16;
+#elif !defined __UINT_LEAST16_MAX__ && USHRT_MAX <= INT_MAX
+typedef unsigned short yytype_uint16;
+#else
+typedef int yytype_uint16;
+#endif
+
+#ifndef YYPTRDIFF_T
+# if defined __PTRDIFF_TYPE__ && defined __PTRDIFF_MAX__
+#  define YYPTRDIFF_T __PTRDIFF_TYPE__
+#  define YYPTRDIFF_MAXIMUM __PTRDIFF_MAX__
+# elif defined PTRDIFF_MAX
+#  ifndef ptrdiff_t
+#   include <stddef.h> /* INFRINGES ON USER NAME SPACE */
+#  endif
+#  define YYPTRDIFF_T ptrdiff_t
+#  define YYPTRDIFF_MAXIMUM PTRDIFF_MAX
+# else
+#  define YYPTRDIFF_T long
+#  define YYPTRDIFF_MAXIMUM LONG_MAX
+# endif
 #endif
 
 #ifndef YYSIZE_T
@@ -281,55 +421,106 @@ typedef short int yytype_int16;
 #  define YYSIZE_T __SIZE_TYPE__
 # elif defined size_t
 #  define YYSIZE_T size_t
-# elif ! defined YYSIZE_T && (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
+# elif defined __STDC_VERSION__ && 199901 <= __STDC_VERSION__
 #  include <stddef.h> /* INFRINGES ON USER NAME SPACE */
 #  define YYSIZE_T size_t
 # else
-#  define YYSIZE_T unsigned int
+#  define YYSIZE_T unsigned
 # endif
 #endif
 
-#define YYSIZE_MAXIMUM ((YYSIZE_T) -1)
+#define YYSIZE_MAXIMUM                                  \
+  YY_CAST (YYPTRDIFF_T,                                 \
+           (YYPTRDIFF_MAXIMUM < YY_CAST (YYSIZE_T, -1)  \
+            ? YYPTRDIFF_MAXIMUM                         \
+            : YY_CAST (YYSIZE_T, -1)))
+
+#define YYSIZEOF(X) YY_CAST (YYPTRDIFF_T, sizeof (X))
+
+
+/* Stored state numbers (used for stacks). */
+typedef yytype_int16 yy_state_t;
+
+/* State numbers in computations.  */
+typedef int yy_state_fast_t;
 
 #ifndef YY_
 # if defined YYENABLE_NLS && YYENABLE_NLS
 #  if ENABLE_NLS
 #   include <libintl.h> /* INFRINGES ON USER NAME SPACE */
-#   define YY_(msgid) dgettext ("bison-runtime", msgid)
+#   define YY_(Msgid) dgettext ("bison-runtime", Msgid)
 #  endif
 # endif
 # ifndef YY_
-#  define YY_(msgid) msgid
+#  define YY_(Msgid) Msgid
+# endif
+#endif
+
+
+#ifndef YY_ATTRIBUTE_PURE
+# if defined __GNUC__ && 2 < __GNUC__ + (96 <= __GNUC_MINOR__)
+#  define YY_ATTRIBUTE_PURE __attribute__ ((__pure__))
+# else
+#  define YY_ATTRIBUTE_PURE
+# endif
+#endif
+
+#ifndef YY_ATTRIBUTE_UNUSED
+# if defined __GNUC__ && 2 < __GNUC__ + (7 <= __GNUC_MINOR__)
+#  define YY_ATTRIBUTE_UNUSED __attribute__ ((__unused__))
+# else
+#  define YY_ATTRIBUTE_UNUSED
 # endif
 #endif
 
 /* Suppress unused-variable warnings by "using" E.  */
 #if ! defined lint || defined __GNUC__
-# define YYUSE(e) ((void) (e))
+# define YY_USE(E) ((void) (E))
 #else
-# define YYUSE(e) /* empty */
+# define YY_USE(E) /* empty */
 #endif
 
-/* Identity function, used to suppress warnings about constant conditions.  */
-#ifndef lint
-# define YYID(n) (n)
+/* Suppress an incorrect diagnostic about yylval being uninitialized.  */
+#if defined __GNUC__ && ! defined __ICC && 406 <= __GNUC__ * 100 + __GNUC_MINOR__
+# if __GNUC__ * 100 + __GNUC_MINOR__ < 407
+#  define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN                           \
+    _Pragma ("GCC diagnostic push")                                     \
+    _Pragma ("GCC diagnostic ignored \"-Wuninitialized\"")
+# else
+#  define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN                           \
+    _Pragma ("GCC diagnostic push")                                     \
+    _Pragma ("GCC diagnostic ignored \"-Wuninitialized\"")              \
+    _Pragma ("GCC diagnostic ignored \"-Wmaybe-uninitialized\"")
+# endif
+# define YY_IGNORE_MAYBE_UNINITIALIZED_END      \
+    _Pragma ("GCC diagnostic pop")
 #else
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
-static int
-YYID (int i)
-#else
-static int
-YYID (i)
-    int i;
+# define YY_INITIAL_VALUE(Value) Value
 #endif
-{
-  return i;
-}
+#ifndef YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
+# define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
+# define YY_IGNORE_MAYBE_UNINITIALIZED_END
+#endif
+#ifndef YY_INITIAL_VALUE
+# define YY_INITIAL_VALUE(Value) /* Nothing. */
 #endif
 
-#if ! defined yyoverflow || YYERROR_VERBOSE
+#if defined __cplusplus && defined __GNUC__ && ! defined __ICC && 6 <= __GNUC__
+# define YY_IGNORE_USELESS_CAST_BEGIN                          \
+    _Pragma ("GCC diagnostic push")                            \
+    _Pragma ("GCC diagnostic ignored \"-Wuseless-cast\"")
+# define YY_IGNORE_USELESS_CAST_END            \
+    _Pragma ("GCC diagnostic pop")
+#endif
+#ifndef YY_IGNORE_USELESS_CAST_BEGIN
+# define YY_IGNORE_USELESS_CAST_BEGIN
+# define YY_IGNORE_USELESS_CAST_END
+#endif
+
+
+#define YY_ASSERT(E) ((void) (0 && (E)))
+
+#if !defined yyoverflow
 
 /* The parser invokes alloca or malloc; define the necessary symbols.  */
 
@@ -346,11 +537,11 @@ YYID (i)
 #    define alloca _alloca
 #   else
 #    define YYSTACK_ALLOC alloca
-#    if ! defined _ALLOCA_H && ! defined _STDLIB_H && (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
+#    if ! defined _ALLOCA_H && ! defined EXIT_SUCCESS
 #     include <stdlib.h> /* INFRINGES ON USER NAME SPACE */
-#     ifndef _STDLIB_H
-#      define _STDLIB_H 1
+      /* Use EXIT_SUCCESS as a witness for stdlib.h.  */
+#     ifndef EXIT_SUCCESS
+#      define EXIT_SUCCESS 0
 #     endif
 #    endif
 #   endif
@@ -358,8 +549,8 @@ YYID (i)
 # endif
 
 # ifdef YYSTACK_ALLOC
-   /* Pacify GCC's `empty if-body' warning.  */
-#  define YYSTACK_FREE(Ptr) do { /* empty */; } while (YYID (0))
+   /* Pacify GCC's 'empty if-body' warning.  */
+#  define YYSTACK_FREE(Ptr) do { /* empty */; } while (0)
 #  ifndef YYSTACK_ALLOC_MAXIMUM
     /* The OS might guarantee only one guard page at the bottom of the stack,
        and a page size can be as small as 4096 bytes.  So we cannot safely
@@ -373,87 +564,88 @@ YYID (i)
 #  ifndef YYSTACK_ALLOC_MAXIMUM
 #   define YYSTACK_ALLOC_MAXIMUM YYSIZE_MAXIMUM
 #  endif
-#  if (defined __cplusplus && ! defined _STDLIB_H \
+#  if (defined __cplusplus && ! defined EXIT_SUCCESS \
        && ! ((defined YYMALLOC || defined malloc) \
-	     && (defined YYFREE || defined free)))
+             && (defined YYFREE || defined free)))
 #   include <stdlib.h> /* INFRINGES ON USER NAME SPACE */
-#   ifndef _STDLIB_H
-#    define _STDLIB_H 1
+#   ifndef EXIT_SUCCESS
+#    define EXIT_SUCCESS 0
 #   endif
 #  endif
 #  ifndef YYMALLOC
 #   define YYMALLOC malloc
-#   if ! defined malloc && ! defined _STDLIB_H && (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
+#   if ! defined malloc && ! defined EXIT_SUCCESS
 void *malloc (YYSIZE_T); /* INFRINGES ON USER NAME SPACE */
 #   endif
 #  endif
 #  ifndef YYFREE
 #   define YYFREE free
-#   if ! defined free && ! defined _STDLIB_H && (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
+#   if ! defined free && ! defined EXIT_SUCCESS
 void free (void *); /* INFRINGES ON USER NAME SPACE */
 #   endif
 #  endif
 # endif
-#endif /* ! defined yyoverflow || YYERROR_VERBOSE */
-
+#endif /* !defined yyoverflow */
 
 #if (! defined yyoverflow \
      && (! defined __cplusplus \
-	 || (defined YYSTYPE_IS_TRIVIAL && YYSTYPE_IS_TRIVIAL)))
+         || (defined YYSTYPE_IS_TRIVIAL && YYSTYPE_IS_TRIVIAL)))
 
 /* A type that is properly aligned for any stack member.  */
 union yyalloc
 {
-  yytype_int16 yyss;
-  YYSTYPE yyvs;
-  };
+  yy_state_t yyss_alloc;
+  YYSTYPE yyvs_alloc;
+};
 
 /* The size of the maximum gap between one aligned stack and the next.  */
-# define YYSTACK_GAP_MAXIMUM (sizeof (union yyalloc) - 1)
+# define YYSTACK_GAP_MAXIMUM (YYSIZEOF (union yyalloc) - 1)
 
 /* The size of an array large to enough to hold all stacks, each with
    N elements.  */
 # define YYSTACK_BYTES(N) \
-     ((N) * (sizeof (yytype_int16) + sizeof (YYSTYPE)) \
+     ((N) * (YYSIZEOF (yy_state_t) + YYSIZEOF (YYSTYPE)) \
       + YYSTACK_GAP_MAXIMUM)
 
-/* Copy COUNT objects from FROM to TO.  The source and destination do
-   not overlap.  */
-# ifndef YYCOPY
-#  if defined __GNUC__ && 1 < __GNUC__
-#   define YYCOPY(To, From, Count) \
-      __builtin_memcpy (To, From, (Count) * sizeof (*(From)))
-#  else
-#   define YYCOPY(To, From, Count)		\
-      do					\
-	{					\
-	  YYSIZE_T yyi;				\
-	  for (yyi = 0; yyi < (Count); yyi++)	\
-	    (To)[yyi] = (From)[yyi];		\
-	}					\
-      while (YYID (0))
-#  endif
-# endif
+# define YYCOPY_NEEDED 1
 
 /* Relocate STACK from its old location to the new one.  The
    local variables YYSIZE and YYSTACKSIZE give the old and new number of
    elements in the stack, and YYPTR gives the new location of the
    stack.  Advance YYPTR to a properly aligned location for the next
    stack.  */
-# define YYSTACK_RELOCATE(Stack)					\
-    do									\
-      {									\
-	YYSIZE_T yynewbytes;						\
-	YYCOPY (&yyptr->Stack, Stack, yysize);				\
-	Stack = &yyptr->Stack;						\
-	yynewbytes = yystacksize * sizeof (*Stack) + YYSTACK_GAP_MAXIMUM; \
-	yyptr += yynewbytes / sizeof (*yyptr);				\
-      }									\
-    while (YYID (0))
+# define YYSTACK_RELOCATE(Stack_alloc, Stack)                           \
+    do                                                                  \
+      {                                                                 \
+        YYPTRDIFF_T yynewbytes;                                         \
+        YYCOPY (&yyptr->Stack_alloc, Stack, yysize);                    \
+        Stack = &yyptr->Stack_alloc;                                    \
+        yynewbytes = yystacksize * YYSIZEOF (*Stack) + YYSTACK_GAP_MAXIMUM; \
+        yyptr += yynewbytes / YYSIZEOF (*yyptr);                        \
+      }                                                                 \
+    while (0)
 
 #endif
+
+#if defined YYCOPY_NEEDED && YYCOPY_NEEDED
+/* Copy COUNT objects from SRC to DST.  The source and destination do
+   not overlap.  */
+# ifndef YYCOPY
+#  if defined __GNUC__ && 1 < __GNUC__
+#   define YYCOPY(Dst, Src, Count) \
+      __builtin_memcpy (Dst, Src, YY_CAST (YYSIZE_T, (Count)) * sizeof (*(Src)))
+#  else
+#   define YYCOPY(Dst, Src, Count)              \
+      do                                        \
+        {                                       \
+          YYPTRDIFF_T yyi;                      \
+          for (yyi = 0; yyi < (Count); yyi++)   \
+            (Dst)[yyi] = (Src)[yyi];            \
+        }                                       \
+      while (0)
+#  endif
+# endif
+#endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
@@ -465,19 +657,24 @@ union yyalloc
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  50
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  173
-/* YYNRULES -- Number of states.  */
+#define YYNRULES  172
+/* YYNSTATES -- Number of states.  */
 #define YYNSTATES  349
 
-/* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
-#define YYUNDEFTOK  2
+/* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   297
 
-#define YYTRANSLATE(YYX)						\
-  ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
 
-/* YYTRANSLATE[YYLEX] -- Bison symbol number corresponding to YYLEX.  */
-static const yytype_uint8 yytranslate[] =
+/* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
+   as returned by yylex, with out-of-bounds checking.  */
+#define YYTRANSLATE(YYX)                                \
+  (0 <= (YYX) && (YYX) <= YYMAXUTOK                     \
+   ? YY_CAST (yysymbol_kind_t, yytranslate[YYX])        \
+   : YYSYMBOL_YYUNDEF)
+
+/* YYTRANSLATE[TOKEN-NUM] -- Symbol number corresponding to TOKEN-NUM
+   as returned by yylex.  */
+static const yytype_int8 yytranslate[] =
 {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -512,260 +709,79 @@ static const yytype_uint8 yytranslate[] =
 };
 
 #if YYDEBUG
-/* YYPRHS[YYN] -- Index of the first RHS symbol of rule number YYN in
-   YYRHS.  */
-static const yytype_uint16 yyprhs[] =
+/* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
+static const yytype_int16 yyrline[] =
 {
-       0,     0,     3,    16,    18,    20,    22,    24,    27,    29,
-      32,    34,    37,    41,    48,    50,    52,    57,    62,    66,
-      73,    83,    85,    87,    89,    91,    93,    98,   103,   108,
-     113,   115,   120,   128,   133,   135,   139,   143,   145,   149,
-     153,   155,   157,   159,   164,   169,   174,   179,   183,   188,
-     190,   192,   193,   204,   205,   211,   212,   216,   220,   224,
-     228,   229,   230,   245,   251,   257,   259,   263,   265,   267,
-     271,   273,   277,   279,   282,   284,   285,   289,   293,   297,
-     301,   305,   309,   313,   317,   321,   323,   325,   327,   329,
-     331,   333,   335,   337,   339,   341,   343,   347,   351,   353,
-     357,   361,   363,   365,   367,   372,   377,   382,   387,   391,
-     396,   398,   402,   406,   408,   412,   416,   418,   420,   422,
-     427,   432,   437,   442,   446,   451,   453,   457,   461,   463,
-     467,   471,   473,   475,   477,   482,   487,   492,   497,   501,
-     506,   508,   512,   516,   518,   522,   526,   528,   530,   532,
-     537,   542,   547,   552,   556,   561,   563,   565,   567,   571,
-     575,   577,   581,   585,   587,   589,   591,   596,   601,   606,
-     611,   615,   620,   622
-};
-
-/* YYRHS -- A `-1'-separated list of the rules' RHS.  */
-static const yytype_int8 yyrhs[] =
-{
-      44,     0,    -1,     3,    33,    46,    34,     4,    33,    47,
-      34,     5,    33,    48,    34,    -1,     6,    -1,     7,    -1,
-       8,    -1,    49,    -1,    49,    46,    -1,    49,    -1,    49,
-      47,    -1,    52,    -1,    52,    48,    -1,    45,    51,    39,
-      -1,     9,    45,    50,    28,    78,    39,    -1,    15,    -1,
-      15,    -1,    15,    37,    16,    38,    -1,    15,    37,    56,
-      38,    -1,    15,    40,    51,    -1,    15,    37,    16,    38,
-      40,    51,    -1,    15,    37,    35,    29,    16,    36,    38,
-      40,    51,    -1,    53,    -1,    60,    -1,    65,    -1,    68,
-      -1,    64,    -1,    54,    28,    78,    39,    -1,    55,    28,
-      78,    39,    -1,    55,    28,    59,    39,    -1,    54,    28,
-      59,    39,    -1,    15,    -1,    15,    37,    16,    38,    -1,
-      15,    37,    35,    29,    16,    36,    38,    -1,    15,    37,
-      56,    38,    -1,    57,    -1,    56,    29,    57,    -1,    56,
-      30,    57,    -1,    58,    -1,    57,    31,    58,    -1,    57,
-      32,    58,    -1,    15,    -1,    16,    -1,    17,    -1,    35,
-      29,    16,    36,    -1,    35,    30,    16,    36,    -1,    35,
-      29,    17,    36,    -1,    35,    30,    17,    36,    -1,    35,
-      78,    36,    -1,    15,    37,    16,    38,    -1,    18,    -1,
-      42,    -1,    -1,    10,    35,    71,    36,    33,    61,    48,
-      34,    62,    39,    -1,    -1,    11,    33,    63,    48,    34,
-      -1,    -1,    54,    28,    78,    -1,    55,    28,    78,    -1,
-      55,    28,    59,    -1,    54,    28,    59,    -1,    -1,    -1,
-      12,    35,    64,    41,    90,    66,    41,    87,    67,    36,
-      33,    48,    34,    39,    -1,    13,    35,    15,    36,    39,
-      -1,    14,    35,    69,    36,    39,    -1,    70,    -1,    70,
-      40,    69,    -1,    15,    -1,    42,    -1,    71,    20,    72,
-      -1,    72,    -1,    72,    19,    73,    -1,    73,    -1,    21,
-      73,    -1,    74,    -1,    -1,    84,    27,    81,    -1,    84,
-      25,    81,    -1,    84,    22,    81,    -1,    84,    24,    81,
-      -1,    84,    26,    81,    -1,    84,    23,    81,    -1,    75,
-      77,    81,    -1,    84,    77,    76,    -1,    75,    77,    76,
-      -1,    18,    -1,    42,    -1,    18,    -1,    42,    -1,    27,
-      -1,    25,    -1,    24,    -1,    26,    -1,    22,    -1,    23,
-      -1,    79,    -1,    78,    29,    79,    -1,    78,    30,    79,
-      -1,    80,    -1,    79,    31,    80,    -1,    79,    32,    80,
-      -1,    15,    -1,    16,    -1,    17,    -1,    35,    29,    16,
-      36,    -1,    35,    30,    16,    36,    -1,    35,    29,    17,
-      36,    -1,    35,    30,    17,    36,    -1,    35,    78,    36,
-      -1,    15,    37,    16,    38,    -1,    82,    -1,    81,    29,
-      82,    -1,    81,    30,    82,    -1,    83,    -1,    82,    31,
-      83,    -1,    82,    32,    83,    -1,    15,    -1,    16,    -1,
-      17,    -1,    35,    29,    16,    36,    -1,    35,    30,    16,
-      36,    -1,    35,    29,    17,    36,    -1,    35,    30,    17,
-      36,    -1,    35,    81,    36,    -1,    15,    37,    16,    38,
-      -1,    85,    -1,    84,    29,    85,    -1,    84,    30,    85,
-      -1,    86,    -1,    85,    31,    86,    -1,    85,    32,    86,
-      -1,    15,    -1,    16,    -1,    17,    -1,    35,    29,    16,
-      36,    -1,    35,    30,    16,    36,    -1,    35,    29,    17,
-      36,    -1,    35,    30,    17,    36,    -1,    35,    84,    36,
-      -1,    15,    37,    16,    38,    -1,    88,    -1,    87,    29,
-      88,    -1,    87,    30,    88,    -1,    89,    -1,    88,    31,
-      89,    -1,    88,    32,    89,    -1,    15,    -1,    16,    -1,
-      17,    -1,    35,    29,    16,    36,    -1,    35,    30,    16,
-      36,    -1,    35,    29,    17,    36,    -1,    35,    30,    17,
-      36,    -1,    35,    87,    36,    -1,    15,    37,    16,    38,
-      -1,    42,    -1,    18,    -1,    91,    -1,    90,    29,    91,
-      -1,    90,    30,    91,    -1,    92,    -1,    91,    31,    92,
-      -1,    91,    32,    92,    -1,    15,    -1,    16,    -1,    17,
-      -1,    35,    29,    16,    36,    -1,    35,    30,    16,    36,
-      -1,    35,    29,    17,    36,    -1,    35,    30,    17,    36,
-      -1,    35,    90,    36,    -1,    15,    37,    16,    38,    -1,
-      42,    -1,    18,    -1
-};
-
-/* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
-static const yytype_uint16 yyrline[] =
-{
-       0,    98,    98,   105,   106,   107,   112,   113,   118,   119,
-     124,   125,   130,   141,   166,   179,   180,   189,   205,   206,
-     207,   221,   222,   223,   224,   225,   230,   243,   255,   260,
-     269,   297,   322,   336,   377,   378,   397,   418,   419,   437,
-     461,   479,   485,   490,   496,   504,   509,   516,   517,   530,
-     538,   566,   566,   574,   574,   579,   583,   595,   605,   614,
-     626,   631,   626,   652,   658,   663,   664,   669,   675,   681,
-     693,   697,   709,   713,   723,   729,   730,   742,   753,   764,
-     775,   786,   812,   816,   819,   837,   838,   841,   842,   845,
-     846,   847,   848,   849,   850,   856,   857,   876,   897,   898,
-     916,   940,   957,   966,   976,   986,   999,  1008,  1020,  1021,
-    1040,  1041,  1060,  1081,  1082,  1100,  1124,  1144,  1154,  1165,
-    1175,  1188,  1197,  1209,  1210,  1230,  1231,  1250,  1271,  1272,
-    1290,  1314,  1325,  1332,  1337,  1344,  1353,  1359,  1366,  1367,
-    1383,  1384,  1403,  1424,  1425,  1443,  1467,  1481,  1489,  1495,
-    1503,  1513,  1520,  1528,  1529,  1543,  1546,  1550,  1551,  1570,
-    1591,  1592,  1610,  1634,  1647,  1654,  1659,  1666,  1675,  1681,
-    1688,  1689,  1702,  1705
+       0,   100,   100,   107,   108,   109,   114,   115,   120,   121,
+     126,   127,   132,   143,   168,   181,   182,   191,   207,   208,
+     209,   215,   216,   217,   218,   219,   224,   237,   249,   254,
+     263,   291,   316,   330,   371,   372,   391,   412,   413,   431,
+     455,   473,   479,   484,   490,   498,   503,   510,   511,   524,
+     532,   560,   560,   568,   568,   573,   577,   589,   599,   608,
+     620,   625,   620,   646,   652,   657,   658,   663,   669,   675,
+     687,   691,   703,   707,   717,   724,   736,   747,   758,   769,
+     780,   806,   810,   813,   831,   832,   835,   836,   839,   840,
+     841,   842,   843,   844,   850,   851,   870,   891,   892,   910,
+     934,   951,   960,   970,   980,   993,  1002,  1014,  1015,  1034,
+    1035,  1054,  1075,  1076,  1094,  1118,  1138,  1148,  1159,  1169,
+    1182,  1191,  1203,  1204,  1224,  1225,  1244,  1265,  1266,  1284,
+    1308,  1319,  1326,  1331,  1338,  1347,  1353,  1360,  1361,  1377,
+    1378,  1397,  1418,  1419,  1437,  1461,  1475,  1483,  1489,  1497,
+    1507,  1514,  1522,  1523,  1537,  1540,  1544,  1545,  1564,  1585,
+    1586,  1604,  1628,  1641,  1648,  1653,  1660,  1669,  1675,  1682,
+    1683,  1696,  1699
 };
 #endif
 
-#if YYDEBUG || YYERROR_VERBOSE || YYTOKEN_TABLE
+/** Accessing symbol of state STATE.  */
+#define YY_ACCESSING_SYMBOL(State) YY_CAST (yysymbol_kind_t, yystos[State])
+
+#if YYDEBUG || 0
+/* The user-facing name of the symbol whose (internal) number is
+   YYSYMBOL.  No bounds checking.  */
+static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
+
 /* YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "VAR_GLOBAL", "DECLARATION",
-  "INSTRUCTION", "INTEGER", "FLOAT", "CHAR", "CONST", "IF", "ELSE", "FOR",
-  "READ", "WRITE", "IDENTIFIER", "INT_NUMBER", "FLOAT_NUMBER",
-  "CHARACTERE", "AND", "OR", "NOT", "EQ", "NEQ", "GEQ", "LT", "LEQ", "GT",
-  "EQUALS", "PLUS", "MINUS", "MULTIPLY", "DIVIDE", "LBRACE", "RBRACE",
-  "LPAREN", "RPAREN", "LBRACKET", "RBRACKET", "SEMICOLON", "COMMA",
-  "COLON", "STRING_LITERAL", "$accept", "program", "type",
-  "global_var_section", "declaration_section", "instruction_section",
-  "declaration", "cst", "variable_list", "statement", "assignment",
-  "MDROIT", "TAB", "termtab", "factortab", "primarytab", "EXPRESSION_CHAR",
-  "condition", "@1", "elsebloc", "@2", "assignment_int", "loop", "@3",
-  "@4", "io_statement", "io_expr_list", "io_expr", "COND", "AND_EXPR",
-  "NOT_EXPR", "comparison_expr", "DROIT", "GAUCHE", "OP_COMP", "term",
-  "factor", "primary", "term1", "factor1", "primary1", "term2", "factor2",
-  "primary2", "term4", "factor4", "primary4", "term3", "factor3",
-  "primary3", 0
+  "\"end of file\"", "error", "\"invalid token\"", "VAR_GLOBAL",
+  "DECLARATION", "INSTRUCTION", "INTEGER", "FLOAT", "CHAR", "CONST", "IF",
+  "ELSE", "FOR", "READ", "WRITE", "IDENTIFIER", "INT_NUMBER",
+  "FLOAT_NUMBER", "CHARACTERE", "AND", "OR", "NOT", "EQ", "NEQ", "GEQ",
+  "LT", "LEQ", "GT", "EQUALS", "PLUS", "MINUS", "MULTIPLY", "DIVIDE",
+  "LBRACE", "RBRACE", "LPAREN", "RPAREN", "LBRACKET", "RBRACKET",
+  "SEMICOLON", "COMMA", "COLON", "STRING_LITERAL", "$accept", "program",
+  "type", "global_var_section", "declaration_section",
+  "instruction_section", "declaration", "cst", "variable_list",
+  "statement", "assignment", "MDROIT", "TAB", "termtab", "factortab",
+  "primarytab", "EXPRESSION_CHAR", "condition", "$@1", "elsebloc", "$@2",
+  "assignment_int", "loop", "$@3", "$@4", "io_statement", "io_expr_list",
+  "io_expr", "COND", "AND_EXPR", "NOT_EXPR", "comparison_expr", "DROIT",
+  "GAUCHE", "OP_COMP", "term", "factor", "primary", "term1", "factor1",
+  "primary1", "term2", "factor2", "primary2", "term4", "factor4",
+  "primary4", "term3", "factor3", "primary3", YY_NULLPTR
 };
+
+static const char *
+yysymbol_name (yysymbol_kind_t yysymbol)
+{
+  return yytname[yysymbol];
+}
 #endif
 
-# ifdef YYPRINT
-/* YYTOKNUM[YYLEX-NUM] -- Internal token number corresponding to
-   token YYLEX-NUM.  */
-static const yytype_uint16 yytoknum[] =
-{
-       0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
-     275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
-     285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
-     295,   296,   297
-};
-# endif
+#define YYPACT_NINF (-172)
 
-/* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
-static const yytype_uint8 yyr1[] =
-{
-       0,    43,    44,    45,    45,    45,    46,    46,    47,    47,
-      48,    48,    49,    49,    50,    51,    51,    51,    51,    51,
-      51,    52,    52,    52,    52,    52,    53,    53,    53,    53,
-      54,    55,    55,    55,    56,    56,    56,    57,    57,    57,
-      58,    58,    58,    58,    58,    58,    58,    58,    58,    59,
-      59,    61,    60,    63,    62,    62,    64,    64,    64,    64,
-      66,    67,    65,    68,    68,    69,    69,    70,    70,    71,
-      71,    72,    72,    73,    73,    74,    74,    74,    74,    74,
-      74,    74,    74,    74,    74,    75,    75,    76,    76,    77,
-      77,    77,    77,    77,    77,    78,    78,    78,    79,    79,
-      79,    80,    80,    80,    80,    80,    80,    80,    80,    80,
-      81,    81,    81,    82,    82,    82,    83,    83,    83,    83,
-      83,    83,    83,    83,    83,    84,    84,    84,    85,    85,
-      85,    86,    86,    86,    86,    86,    86,    86,    86,    86,
-      87,    87,    87,    88,    88,    88,    89,    89,    89,    89,
-      89,    89,    89,    89,    89,    89,    89,    90,    90,    90,
-      91,    91,    91,    92,    92,    92,    92,    92,    92,    92,
-      92,    92,    92,    92
-};
+#define yypact_value_is_default(Yyn) \
+  ((Yyn) == YYPACT_NINF)
 
-/* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
-static const yytype_uint8 yyr2[] =
-{
-       0,     2,    12,     1,     1,     1,     1,     2,     1,     2,
-       1,     2,     3,     6,     1,     1,     4,     4,     3,     6,
-       9,     1,     1,     1,     1,     1,     4,     4,     4,     4,
-       1,     4,     7,     4,     1,     3,     3,     1,     3,     3,
-       1,     1,     1,     4,     4,     4,     4,     3,     4,     1,
-       1,     0,    10,     0,     5,     0,     3,     3,     3,     3,
-       0,     0,    14,     5,     5,     1,     3,     1,     1,     3,
-       1,     3,     1,     2,     1,     0,     3,     3,     3,     3,
-       3,     3,     3,     3,     3,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     1,     1,     3,     3,     1,     3,
-       3,     1,     1,     1,     4,     4,     4,     4,     3,     4,
-       1,     3,     3,     1,     3,     3,     1,     1,     1,     4,
-       4,     4,     4,     3,     4,     1,     3,     3,     1,     3,
-       3,     1,     1,     1,     4,     4,     4,     4,     3,     4,
-       1,     3,     3,     1,     3,     3,     1,     1,     1,     4,
-       4,     4,     4,     3,     4,     1,     1,     1,     3,     3,
-       1,     3,     3,     1,     1,     1,     4,     4,     4,     4,
-       3,     4,     1,     1
-};
+#define YYTABLE_NINF (-1)
 
-/* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
-   STATE-NUM when YYTABLE doesn't specify something else to do.  Zero
-   means the default is an error.  */
-static const yytype_uint8 yydefact[] =
-{
-       0,     0,     0,     0,     1,     3,     4,     5,     0,     0,
-       0,     6,     0,    15,     0,     0,     7,    14,     0,     0,
-       0,    12,     0,     0,    40,    41,    42,     0,     0,    34,
-      37,    18,     0,   101,   102,   103,     0,     0,    95,    98,
-       0,    16,     0,     0,     0,     0,     0,    17,     0,     0,
-       0,     8,     0,     0,     0,     0,     0,     0,    13,     0,
-       0,     0,     0,     0,     0,     0,     0,    47,    41,     0,
-      35,    36,    38,    39,     0,     9,     0,     0,     0,     0,
-       0,   108,    96,    97,    99,   100,    48,    19,    43,    45,
-      44,    46,     0,     0,   109,   104,   106,   105,   107,     0,
-       0,     0,     0,    43,     0,     0,     0,     0,    30,     0,
-      10,    21,     0,     0,    22,    25,    23,    24,    20,    75,
-       0,     0,     0,     0,     2,    11,     0,     0,   131,   132,
-     133,    85,    75,     0,    86,     0,    70,    72,    74,     0,
-       0,   125,   128,     0,     0,     0,     0,    67,    68,     0,
-      65,    41,     0,     0,    49,    50,    59,    56,    58,    57,
-       0,    73,     0,     0,     0,    75,     0,    75,    93,    94,
-      91,    90,    92,    89,     0,    93,    94,    91,    90,    92,
-      89,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,    31,     0,    33,    29,    26,    28,    27,     0,
-       0,     0,     0,     0,   138,    69,    51,    71,   116,   117,
-     118,    87,     0,    88,    84,    82,   110,   113,    78,    81,
-      79,    77,    80,    76,   126,   127,    83,   129,   130,    59,
-      56,    58,    57,   163,   164,   165,   173,     0,   172,    60,
-     157,   160,    63,    64,    66,     0,   139,   134,   136,   135,
-     137,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,    43,
-       0,     0,     0,     0,     0,     0,   123,   111,   112,   114,
-     115,     0,     0,     0,     0,     0,   170,   158,   159,     0,
-     161,   162,    32,    55,   124,   119,   121,   120,   122,   171,
-     166,   168,   167,   169,   146,   147,   148,   156,     0,   155,
-      61,   140,   143,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,    53,    52,     0,     0,     0,     0,
-       0,   153,   141,   142,     0,   144,   145,     0,   154,   149,
-     151,   150,   152,     0,     0,     0,    54,     0,    62
-};
-
-/* YYDEFGOTO[NTERM-NUM].  */
-static const yytype_int16 yydefgoto[] =
-{
-      -1,     2,     9,    10,    50,   109,    11,    18,    14,   110,
-     111,   112,   113,    28,    29,    30,   156,   114,   251,   314,
-     337,   115,   116,   266,   321,   117,   149,   150,   135,   136,
-     137,   138,   139,   214,   174,    44,    38,    39,   215,   216,
-     217,   140,   141,   142,   310,   311,   312,   239,   240,   241
-};
+#define yytable_value_is_error(Yyn) \
+  0
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -172
 static const yytype_int16 yypact[] =
 {
       23,     7,    31,   198,  -172,  -172,  -172,  -172,   216,    39,
@@ -805,6 +821,48 @@ static const yytype_int16 yypact[] =
     -172,  -172,  -172,   206,   318,   336,  -172,   334,  -172
 };
 
+/* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
+   Performed when YYTABLE does not specify something else to do.  Zero
+   means the default is an error.  */
+static const yytype_uint8 yydefact[] =
+{
+       0,     0,     0,     0,     1,     3,     4,     5,     0,     0,
+       0,     6,     0,    15,     0,     0,     7,    14,     0,     0,
+       0,    12,     0,     0,    40,    41,    42,     0,     0,    34,
+      37,    18,     0,   100,   101,   102,     0,     0,    94,    97,
+       0,    16,     0,     0,     0,     0,     0,    17,     0,     0,
+       0,     8,     0,     0,     0,     0,     0,     0,    13,     0,
+       0,     0,     0,     0,     0,     0,     0,    47,    41,     0,
+      35,    36,    38,    39,     0,     9,     0,     0,     0,     0,
+       0,   107,    95,    96,    98,    99,    48,    19,    43,    45,
+      44,    46,     0,     0,   108,   103,   105,   104,   106,     0,
+       0,     0,     0,    43,     0,     0,     0,     0,    30,     0,
+      10,    21,     0,     0,    22,    25,    23,    24,    20,     0,
+       0,     0,     0,     0,     2,    11,     0,     0,   130,   131,
+     132,    84,     0,     0,    85,     0,    70,    72,    74,     0,
+       0,   124,   127,     0,     0,     0,     0,    67,    68,     0,
+      65,    41,     0,     0,    49,    50,    59,    56,    58,    57,
+       0,    73,     0,     0,     0,     0,     0,     0,    92,    93,
+      90,    89,    91,    88,     0,    92,    93,    90,    89,    91,
+      88,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,    31,     0,    33,    29,    26,    28,    27,     0,
+       0,     0,     0,     0,   137,    69,    51,    71,   115,   116,
+     117,    86,     0,    87,    83,    81,   109,   112,    77,    80,
+      78,    76,    79,    75,   125,   126,    82,   128,   129,    59,
+      56,    58,    57,   162,   163,   164,   172,     0,   171,    60,
+     156,   159,    63,    64,    66,     0,   138,   133,   135,   134,
+     136,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,    43,
+       0,     0,     0,     0,     0,     0,   122,   110,   111,   113,
+     114,     0,     0,     0,     0,     0,   169,   157,   158,     0,
+     160,   161,    32,    55,   123,   118,   120,   119,   121,   170,
+     165,   167,   166,   168,   145,   146,   147,   155,     0,   154,
+      61,   139,   142,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,    53,    52,     0,     0,     0,     0,
+       0,   152,   140,   141,     0,   143,   144,     0,   153,   148,
+     150,   149,   151,     0,     0,     0,    54,     0,    62
+};
+
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int16 yypgoto[] =
 {
@@ -815,12 +873,20 @@ static const yytype_int16 yypgoto[] =
       19,   246,   100,    99,    70,   -34,   -33,   145,    27,    26
 };
 
-/* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
-   positive, shift that token.  If negative, reduce the rule which
-   number is the opposite.  If zero, do what YYDEFACT says.
-   If YYTABLE_NINF, syntax error.  */
-#define YYTABLE_NINF -1
-static const yytype_uint16 yytable[] =
+/* YYDEFGOTO[NTERM-NUM].  */
+static const yytype_int16 yydefgoto[] =
+{
+       0,     2,     9,    10,    50,   109,    11,    18,    14,   110,
+     111,   112,   113,    28,    29,    30,   156,   114,   251,   314,
+     337,   115,   116,   266,   321,   117,   149,   150,   135,   136,
+     137,   138,   139,   214,   174,    44,    38,    39,   215,   216,
+     217,   140,   141,   142,   310,   311,   312,   239,   240,   241
+};
+
+/* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
+   positive, shift that token.  If negative, reduce the rule whose
+   number is the opposite.  If YYTABLE_NINF, syntax error.  */
+static const yytype_int16 yytable[] =
 {
      125,    37,    31,   158,   218,   219,   220,   221,   222,   223,
      161,   147,   211,    51,    55,   233,   234,   235,   236,   304,
@@ -906,9 +972,9 @@ static const yytype_int16 yycheck[] =
       -1,    -1,   237,    -1,    -1,    -1,    51
 };
 
-/* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
-   symbol of state STATE-NUM.  */
-static const yytype_uint8 yystos[] =
+/* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
+   state STATE-NUM.  */
+static const yytype_int8 yystos[] =
 {
        0,     3,    44,    33,     0,     6,     7,     8,     9,    45,
       46,    49,    45,    15,    51,    34,    46,    15,    50,    37,
@@ -947,95 +1013,87 @@ static const yytype_uint8 yystos[] =
       36,    36,    36,    33,    48,    48,    34,    34,    39
 };
 
-#define yyerrok		(yyerrstatus = 0)
-#define yyclearin	(yychar = YYEMPTY)
-#define YYEMPTY		(-2)
-#define YYEOF		0
+/* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
+static const yytype_int8 yyr1[] =
+{
+       0,    43,    44,    45,    45,    45,    46,    46,    47,    47,
+      48,    48,    49,    49,    50,    51,    51,    51,    51,    51,
+      51,    52,    52,    52,    52,    52,    53,    53,    53,    53,
+      54,    55,    55,    55,    56,    56,    56,    57,    57,    57,
+      58,    58,    58,    58,    58,    58,    58,    58,    58,    59,
+      59,    61,    60,    63,    62,    62,    64,    64,    64,    64,
+      66,    67,    65,    68,    68,    69,    69,    70,    70,    71,
+      71,    72,    72,    73,    73,    74,    74,    74,    74,    74,
+      74,    74,    74,    74,    75,    75,    76,    76,    77,    77,
+      77,    77,    77,    77,    78,    78,    78,    79,    79,    79,
+      80,    80,    80,    80,    80,    80,    80,    80,    80,    81,
+      81,    81,    82,    82,    82,    83,    83,    83,    83,    83,
+      83,    83,    83,    83,    84,    84,    84,    85,    85,    85,
+      86,    86,    86,    86,    86,    86,    86,    86,    86,    87,
+      87,    87,    88,    88,    88,    89,    89,    89,    89,    89,
+      89,    89,    89,    89,    89,    89,    90,    90,    90,    91,
+      91,    91,    92,    92,    92,    92,    92,    92,    92,    92,
+      92,    92,    92
+};
 
-#define YYACCEPT	goto yyacceptlab
-#define YYABORT		goto yyabortlab
-#define YYERROR		goto yyerrorlab
+/* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
+static const yytype_int8 yyr2[] =
+{
+       0,     2,    12,     1,     1,     1,     1,     2,     1,     2,
+       1,     2,     3,     6,     1,     1,     4,     4,     3,     6,
+       9,     1,     1,     1,     1,     1,     4,     4,     4,     4,
+       1,     4,     7,     4,     1,     3,     3,     1,     3,     3,
+       1,     1,     1,     4,     4,     4,     4,     3,     4,     1,
+       1,     0,    10,     0,     5,     0,     3,     3,     3,     3,
+       0,     0,    14,     5,     5,     1,     3,     1,     1,     3,
+       1,     3,     1,     2,     1,     3,     3,     3,     3,     3,
+       3,     3,     3,     3,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     3,     3,     1,     3,     3,
+       1,     1,     1,     4,     4,     4,     4,     3,     4,     1,
+       3,     3,     1,     3,     3,     1,     1,     1,     4,     4,
+       4,     4,     3,     4,     1,     3,     3,     1,     3,     3,
+       1,     1,     1,     4,     4,     4,     4,     3,     4,     1,
+       3,     3,     1,     3,     3,     1,     1,     1,     4,     4,
+       4,     4,     3,     4,     1,     1,     1,     3,     3,     1,
+       3,     3,     1,     1,     1,     4,     4,     4,     4,     3,
+       4,     1,     1
+};
 
 
-/* Like YYERROR except do call yyerror.  This remains here temporarily
-   to ease the transition to the new meaning of YYERROR, for GCC.
-   Once GCC version 2 has supplanted version 1, this can go.  */
+enum { YYENOMEM = -2 };
 
-#define YYFAIL		goto yyerrlab
+#define yyerrok         (yyerrstatus = 0)
+#define yyclearin       (yychar = YYEMPTY)
+
+#define YYACCEPT        goto yyacceptlab
+#define YYABORT         goto yyabortlab
+#define YYERROR         goto yyerrorlab
+#define YYNOMEM         goto yyexhaustedlab
+
 
 #define YYRECOVERING()  (!!yyerrstatus)
 
-#define YYBACKUP(Token, Value)					\
-do								\
-  if (yychar == YYEMPTY && yylen == 1)				\
-    {								\
-      yychar = (Token);						\
-      yylval = (Value);						\
-      yytoken = YYTRANSLATE (yychar);				\
-      YYPOPSTACK (1);						\
-      goto yybackup;						\
-    }								\
-  else								\
-    {								\
-      yyerror (YY_("syntax error: cannot back up")); \
-      YYERROR;							\
-    }								\
-while (YYID (0))
+#define YYBACKUP(Token, Value)                                    \
+  do                                                              \
+    if (yychar == YYEMPTY)                                        \
+      {                                                           \
+        yychar = (Token);                                         \
+        yylval = (Value);                                         \
+        YYPOPSTACK (yylen);                                       \
+        yystate = *yyssp;                                         \
+        goto yybackup;                                            \
+      }                                                           \
+    else                                                          \
+      {                                                           \
+        yyerror (YY_("syntax error: cannot back up")); \
+        YYERROR;                                                  \
+      }                                                           \
+  while (0)
 
+/* Backward compatibility with an undocumented macro.
+   Use YYerror or YYUNDEF. */
+#define YYERRCODE YYUNDEF
 
-#define YYTERROR	1
-#define YYERRCODE	256
-
-
-/* YYLLOC_DEFAULT -- Set CURRENT to span from RHS[1] to RHS[N].
-   If N is 0, then set CURRENT to the empty location which ends
-   the previous symbol: RHS[0] (always defined).  */
-
-#define YYRHSLOC(Rhs, K) ((Rhs)[K])
-#ifndef YYLLOC_DEFAULT
-# define YYLLOC_DEFAULT(Current, Rhs, N)				\
-    do									\
-      if (YYID (N))                                                    \
-	{								\
-	  (Current).first_line   = YYRHSLOC (Rhs, 1).first_line;	\
-	  (Current).first_column = YYRHSLOC (Rhs, 1).first_column;	\
-	  (Current).last_line    = YYRHSLOC (Rhs, N).last_line;		\
-	  (Current).last_column  = YYRHSLOC (Rhs, N).last_column;	\
-	}								\
-      else								\
-	{								\
-	  (Current).first_line   = (Current).last_line   =		\
-	    YYRHSLOC (Rhs, 0).last_line;				\
-	  (Current).first_column = (Current).last_column =		\
-	    YYRHSLOC (Rhs, 0).last_column;				\
-	}								\
-    while (YYID (0))
-#endif
-
-
-/* YY_LOCATION_PRINT -- Print the location on the stream.
-   This macro was not mandated originally: define only if we know
-   we won't break user code: when these are the locations we know.  */
-
-#ifndef YY_LOCATION_PRINT
-# if defined YYLTYPE_IS_TRIVIAL && YYLTYPE_IS_TRIVIAL
-#  define YY_LOCATION_PRINT(File, Loc)			\
-     fprintf (File, "%d.%d-%d.%d",			\
-	      (Loc).first_line, (Loc).first_column,	\
-	      (Loc).last_line,  (Loc).last_column)
-# else
-#  define YY_LOCATION_PRINT(File, Loc) ((void) 0)
-# endif
-#endif
-
-
-/* YYLEX -- calling `yylex' with the right arguments.  */
-
-#ifdef YYLEX_PARAM
-# define YYLEX yylex (YYLEX_PARAM)
-#else
-# define YYLEX yylex ()
-#endif
 
 /* Enable debugging if requested.  */
 #if YYDEBUG
@@ -1045,80 +1103,58 @@ while (YYID (0))
 #  define YYFPRINTF fprintf
 # endif
 
-# define YYDPRINTF(Args)			\
-do {						\
-  if (yydebug)					\
-    YYFPRINTF Args;				\
-} while (YYID (0))
-
-# define YY_SYMBOL_PRINT(Title, Type, Value, Location)			  \
-do {									  \
-  if (yydebug)								  \
-    {									  \
-      YYFPRINTF (stderr, "%s ", Title);					  \
-      yy_symbol_print (stderr,						  \
-		  Type, Value); \
-      YYFPRINTF (stderr, "\n");						  \
-    }									  \
-} while (YYID (0))
+# define YYDPRINTF(Args)                        \
+do {                                            \
+  if (yydebug)                                  \
+    YYFPRINTF Args;                             \
+} while (0)
 
 
-/*--------------------------------.
-| Print this symbol on YYOUTPUT.  |
-`--------------------------------*/
 
-/*ARGSUSED*/
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
+
+# define YY_SYMBOL_PRINT(Title, Kind, Value, Location)                    \
+do {                                                                      \
+  if (yydebug)                                                            \
+    {                                                                     \
+      YYFPRINTF (stderr, "%s ", Title);                                   \
+      yy_symbol_print (stderr,                                            \
+                  Kind, Value); \
+      YYFPRINTF (stderr, "\n");                                           \
+    }                                                                     \
+} while (0)
+
+
+/*-----------------------------------.
+| Print this symbol's value on YYO.  |
+`-----------------------------------*/
+
 static void
-yy_symbol_value_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep)
-#else
-static void
-yy_symbol_value_print (yyoutput, yytype, yyvaluep)
-    FILE *yyoutput;
-    int yytype;
-    YYSTYPE const * const yyvaluep;
-#endif
+yy_symbol_value_print (FILE *yyo,
+                       yysymbol_kind_t yykind, YYSTYPE const * const yyvaluep)
 {
+  FILE *yyoutput = yyo;
+  YY_USE (yyoutput);
   if (!yyvaluep)
     return;
-# ifdef YYPRINT
-  if (yytype < YYNTOKENS)
-    YYPRINT (yyoutput, yytoknum[yytype], *yyvaluep);
-# else
-  YYUSE (yyoutput);
-# endif
-  switch (yytype)
-    {
-      default:
-	break;
-    }
+  YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
+  YY_USE (yykind);
+  YY_IGNORE_MAYBE_UNINITIALIZED_END
 }
 
 
-/*--------------------------------.
-| Print this symbol on YYOUTPUT.  |
-`--------------------------------*/
+/*---------------------------.
+| Print this symbol on YYO.  |
+`---------------------------*/
 
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
 static void
-yy_symbol_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep)
-#else
-static void
-yy_symbol_print (yyoutput, yytype, yyvaluep)
-    FILE *yyoutput;
-    int yytype;
-    YYSTYPE const * const yyvaluep;
-#endif
+yy_symbol_print (FILE *yyo,
+                 yysymbol_kind_t yykind, YYSTYPE const * const yyvaluep)
 {
-  if (yytype < YYNTOKENS)
-    YYFPRINTF (yyoutput, "token %s (", yytname[yytype]);
-  else
-    YYFPRINTF (yyoutput, "nterm %s (", yytname[yytype]);
+  YYFPRINTF (yyo, "%s %s (",
+             yykind < YYNTOKENS ? "token" : "nterm", yysymbol_name (yykind));
 
-  yy_symbol_value_print (yyoutput, yytype, yyvaluep);
-  YYFPRINTF (yyoutput, ")");
+  yy_symbol_value_print (yyo, yykind, yyvaluep);
+  YYFPRINTF (yyo, ")");
 }
 
 /*------------------------------------------------------------------.
@@ -1126,80 +1162,68 @@ yy_symbol_print (yyoutput, yytype, yyvaluep)
 | TOP (included).                                                   |
 `------------------------------------------------------------------*/
 
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
 static void
-yy_stack_print (yytype_int16 *bottom, yytype_int16 *top)
-#else
-static void
-yy_stack_print (bottom, top)
-    yytype_int16 *bottom;
-    yytype_int16 *top;
-#endif
+yy_stack_print (yy_state_t *yybottom, yy_state_t *yytop)
 {
   YYFPRINTF (stderr, "Stack now");
-  for (; bottom <= top; ++bottom)
-    YYFPRINTF (stderr, " %d", *bottom);
+  for (; yybottom <= yytop; yybottom++)
+    {
+      int yybot = *yybottom;
+      YYFPRINTF (stderr, " %d", yybot);
+    }
   YYFPRINTF (stderr, "\n");
 }
 
-# define YY_STACK_PRINT(Bottom, Top)				\
-do {								\
-  if (yydebug)							\
-    yy_stack_print ((Bottom), (Top));				\
-} while (YYID (0))
+# define YY_STACK_PRINT(Bottom, Top)                            \
+do {                                                            \
+  if (yydebug)                                                  \
+    yy_stack_print ((Bottom), (Top));                           \
+} while (0)
 
 
 /*------------------------------------------------.
 | Report that the YYRULE is going to be reduced.  |
 `------------------------------------------------*/
 
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
 static void
-yy_reduce_print (YYSTYPE *yyvsp, int yyrule)
-#else
-static void
-yy_reduce_print (yyvsp, yyrule)
-    YYSTYPE *yyvsp;
-    int yyrule;
-#endif
+yy_reduce_print (yy_state_t *yyssp, YYSTYPE *yyvsp,
+                 int yyrule)
 {
+  int yylno = yyrline[yyrule];
   int yynrhs = yyr2[yyrule];
   int yyi;
-  unsigned long int yylno = yyrline[yyrule];
-  YYFPRINTF (stderr, "Reducing stack by rule %d (line %lu):\n",
-	     yyrule - 1, yylno);
+  YYFPRINTF (stderr, "Reducing stack by rule %d (line %d):\n",
+             yyrule - 1, yylno);
   /* The symbols being reduced.  */
   for (yyi = 0; yyi < yynrhs; yyi++)
     {
-      fprintf (stderr, "   $%d = ", yyi + 1);
-      yy_symbol_print (stderr, yyrhs[yyprhs[yyrule] + yyi],
-		       &(yyvsp[(yyi + 1) - (yynrhs)])
-		       		       );
-      fprintf (stderr, "\n");
+      YYFPRINTF (stderr, "   $%d = ", yyi + 1);
+      yy_symbol_print (stderr,
+                       YY_ACCESSING_SYMBOL (+yyssp[yyi + 1 - yynrhs]),
+                       &yyvsp[(yyi + 1) - (yynrhs)]);
+      YYFPRINTF (stderr, "\n");
     }
 }
 
-# define YY_REDUCE_PRINT(Rule)		\
-do {					\
-  if (yydebug)				\
-    yy_reduce_print (yyvsp, Rule); \
-} while (YYID (0))
+# define YY_REDUCE_PRINT(Rule)          \
+do {                                    \
+  if (yydebug)                          \
+    yy_reduce_print (yyssp, yyvsp, Rule); \
+} while (0)
 
 /* Nonzero means print parse trace.  It is left uninitialized so that
    multiple parsers can coexist.  */
 int yydebug;
 #else /* !YYDEBUG */
-# define YYDPRINTF(Args)
-# define YY_SYMBOL_PRINT(Title, Type, Value, Location)
+# define YYDPRINTF(Args) ((void) 0)
+# define YY_SYMBOL_PRINT(Title, Kind, Value, Location)
 # define YY_STACK_PRINT(Bottom, Top)
 # define YY_REDUCE_PRINT(Rule)
 #endif /* !YYDEBUG */
 
 
 /* YYINITDEPTH -- initial size of the parser's stacks.  */
-#ifndef	YYINITDEPTH
+#ifndef YYINITDEPTH
 # define YYINITDEPTH 200
 #endif
 
@@ -1214,277 +1238,38 @@ int yydebug;
 # define YYMAXDEPTH 10000
 #endif
 
-
 
-#if YYERROR_VERBOSE
 
-# ifndef yystrlen
-#  if defined __GLIBC__ && defined _STRING_H
-#   define yystrlen strlen
-#  else
-/* Return the length of YYSTR.  */
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
-static YYSIZE_T
-yystrlen (const char *yystr)
-#else
-static YYSIZE_T
-yystrlen (yystr)
-    const char *yystr;
-#endif
-{
-  YYSIZE_T yylen;
-  for (yylen = 0; yystr[yylen]; yylen++)
-    continue;
-  return yylen;
-}
-#  endif
-# endif
 
-# ifndef yystpcpy
-#  if defined __GLIBC__ && defined _STRING_H && defined _GNU_SOURCE
-#   define yystpcpy stpcpy
-#  else
-/* Copy YYSRC to YYDEST, returning the address of the terminating '\0' in
-   YYDEST.  */
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
-static char *
-yystpcpy (char *yydest, const char *yysrc)
-#else
-static char *
-yystpcpy (yydest, yysrc)
-    char *yydest;
-    const char *yysrc;
-#endif
-{
-  char *yyd = yydest;
-  const char *yys = yysrc;
 
-  while ((*yyd++ = *yys++) != '\0')
-    continue;
-
-  return yyd - 1;
-}
-#  endif
-# endif
-
-# ifndef yytnamerr
-/* Copy to YYRES the contents of YYSTR after stripping away unnecessary
-   quotes and backslashes, so that it's suitable for yyerror.  The
-   heuristic is that double-quoting is unnecessary unless the string
-   contains an apostrophe, a comma, or backslash (other than
-   backslash-backslash).  YYSTR is taken from yytname.  If YYRES is
-   null, do not copy; instead, return the length of what the result
-   would have been.  */
-static YYSIZE_T
-yytnamerr (char *yyres, const char *yystr)
-{
-  if (*yystr == '"')
-    {
-      YYSIZE_T yyn = 0;
-      char const *yyp = yystr;
-
-      for (;;)
-	switch (*++yyp)
-	  {
-	  case '\'':
-	  case ',':
-	    goto do_not_strip_quotes;
-
-	  case '\\':
-	    if (*++yyp != '\\')
-	      goto do_not_strip_quotes;
-	    /* Fall through.  */
-	  default:
-	    if (yyres)
-	      yyres[yyn] = *yyp;
-	    yyn++;
-	    break;
-
-	  case '"':
-	    if (yyres)
-	      yyres[yyn] = '\0';
-	    return yyn;
-	  }
-    do_not_strip_quotes: ;
-    }
-
-  if (! yyres)
-    return yystrlen (yystr);
-
-  return yystpcpy (yyres, yystr) - yyres;
-}
-# endif
-
-/* Copy into YYRESULT an error message about the unexpected token
-   YYCHAR while in state YYSTATE.  Return the number of bytes copied,
-   including the terminating null byte.  If YYRESULT is null, do not
-   copy anything; just return the number of bytes that would be
-   copied.  As a special case, return 0 if an ordinary "syntax error"
-   message will do.  Return YYSIZE_MAXIMUM if overflow occurs during
-   size calculation.  */
-static YYSIZE_T
-yysyntax_error (char *yyresult, int yystate, int yychar)
-{
-  int yyn = yypact[yystate];
-
-  if (! (YYPACT_NINF < yyn && yyn <= YYLAST))
-    return 0;
-  else
-    {
-      int yytype = YYTRANSLATE (yychar);
-      YYSIZE_T yysize0 = yytnamerr (0, yytname[yytype]);
-      YYSIZE_T yysize = yysize0;
-      YYSIZE_T yysize1;
-      int yysize_overflow = 0;
-      enum { YYERROR_VERBOSE_ARGS_MAXIMUM = 5 };
-      char const *yyarg[YYERROR_VERBOSE_ARGS_MAXIMUM];
-      int yyx;
-
-# if 0
-      /* This is so xgettext sees the translatable formats that are
-	 constructed on the fly.  */
-      YY_("syntax error, unexpected %s");
-      YY_("syntax error, unexpected %s, expecting %s");
-      YY_("syntax error, unexpected %s, expecting %s or %s");
-      YY_("syntax error, unexpected %s, expecting %s or %s or %s");
-      YY_("syntax error, unexpected %s, expecting %s or %s or %s or %s");
-# endif
-      char *yyfmt;
-      char const *yyf;
-      static char const yyunexpected[] = "syntax error, unexpected %s";
-      static char const yyexpecting[] = ", expecting %s";
-      static char const yyor[] = " or %s";
-      char yyformat[sizeof yyunexpected
-		    + sizeof yyexpecting - 1
-		    + ((YYERROR_VERBOSE_ARGS_MAXIMUM - 2)
-		       * (sizeof yyor - 1))];
-      char const *yyprefix = yyexpecting;
-
-      /* Start YYX at -YYN if negative to avoid negative indexes in
-	 YYCHECK.  */
-      int yyxbegin = yyn < 0 ? -yyn : 0;
-
-      /* Stay within bounds of both yycheck and yytname.  */
-      int yychecklim = YYLAST - yyn + 1;
-      int yyxend = yychecklim < YYNTOKENS ? yychecklim : YYNTOKENS;
-      int yycount = 1;
-
-      yyarg[0] = yytname[yytype];
-      yyfmt = yystpcpy (yyformat, yyunexpected);
-
-      for (yyx = yyxbegin; yyx < yyxend; ++yyx)
-	if (yycheck[yyx + yyn] == yyx && yyx != YYTERROR)
-	  {
-	    if (yycount == YYERROR_VERBOSE_ARGS_MAXIMUM)
-	      {
-		yycount = 1;
-		yysize = yysize0;
-		yyformat[sizeof yyunexpected - 1] = '\0';
-		break;
-	      }
-	    yyarg[yycount++] = yytname[yyx];
-	    yysize1 = yysize + yytnamerr (0, yytname[yyx]);
-	    yysize_overflow |= (yysize1 < yysize);
-	    yysize = yysize1;
-	    yyfmt = yystpcpy (yyfmt, yyprefix);
-	    yyprefix = yyor;
-	  }
-
-      yyf = YY_(yyformat);
-      yysize1 = yysize + yystrlen (yyf);
-      yysize_overflow |= (yysize1 < yysize);
-      yysize = yysize1;
-
-      if (yysize_overflow)
-	return YYSIZE_MAXIMUM;
-
-      if (yyresult)
-	{
-	  /* Avoid sprintf, as that infringes on the user's name space.
-	     Don't have undefined behavior even if the translation
-	     produced a string with the wrong number of "%s"s.  */
-	  char *yyp = yyresult;
-	  int yyi = 0;
-	  while ((*yyp = *yyf) != '\0')
-	    {
-	      if (*yyp == '%' && yyf[1] == 's' && yyi < yycount)
-		{
-		  yyp += yytnamerr (yyp, yyarg[yyi++]);
-		  yyf += 2;
-		}
-	      else
-		{
-		  yyp++;
-		  yyf++;
-		}
-	    }
-	}
-      return yysize;
-    }
-}
-#endif /* YYERROR_VERBOSE */
-
 
 /*-----------------------------------------------.
 | Release the memory associated to this symbol.  |
 `-----------------------------------------------*/
 
-/*ARGSUSED*/
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
 static void
-yydestruct (const char *yymsg, int yytype, YYSTYPE *yyvaluep)
-#else
-static void
-yydestruct (yymsg, yytype, yyvaluep)
-    const char *yymsg;
-    int yytype;
-    YYSTYPE *yyvaluep;
-#endif
+yydestruct (const char *yymsg,
+            yysymbol_kind_t yykind, YYSTYPE *yyvaluep)
 {
-  YYUSE (yyvaluep);
-
+  YY_USE (yyvaluep);
   if (!yymsg)
     yymsg = "Deleting";
-  YY_SYMBOL_PRINT (yymsg, yytype, yyvaluep, yylocationp);
+  YY_SYMBOL_PRINT (yymsg, yykind, yyvaluep, yylocationp);
 
-  switch (yytype)
-    {
-
-      default:
-	break;
-    }
+  YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
+  YY_USE (yykind);
+  YY_IGNORE_MAYBE_UNINITIALIZED_END
 }
-
-
-/* Prevent warnings from -Wmissing-prototypes.  */
-
-#ifdef YYPARSE_PARAM
-#if defined __STDC__ || defined __cplusplus
-int yyparse (void *YYPARSE_PARAM);
-#else
-int yyparse ();
-#endif
-#else /* ! YYPARSE_PARAM */
-#if defined __STDC__ || defined __cplusplus
-int yyparse (void);
-#else
-int yyparse ();
-#endif
-#endif /* ! YYPARSE_PARAM */
 
 
-
-/* The look-ahead symbol.  */
+/* Lookahead token kind.  */
 int yychar;
 
-/* The semantic value of the look-ahead symbol.  */
+/* The semantic value of the lookahead symbol.  */
 YYSTYPE yylval;
-
 /* Number of syntax errors so far.  */
 int yynerrs;
+
 
 
 
@@ -1492,71 +1277,41 @@ int yynerrs;
 | yyparse.  |
 `----------*/
 
-#ifdef YYPARSE_PARAM
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
-int
-yyparse (void *YYPARSE_PARAM)
-#else
-int
-yyparse (YYPARSE_PARAM)
-    void *YYPARSE_PARAM;
-#endif
-#else /* ! YYPARSE_PARAM */
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
 int
 yyparse (void)
-#else
-int
-yyparse ()
-
-#endif
-#endif
 {
-  
-  int yystate;
+    yy_state_fast_t yystate = 0;
+    /* Number of tokens to shift before error messages enabled.  */
+    int yyerrstatus = 0;
+
+    /* Refer to the stacks through separate pointers, to allow yyoverflow
+       to reallocate them elsewhere.  */
+
+    /* Their size.  */
+    YYPTRDIFF_T yystacksize = YYINITDEPTH;
+
+    /* The state stack: array, bottom, top.  */
+    yy_state_t yyssa[YYINITDEPTH];
+    yy_state_t *yyss = yyssa;
+    yy_state_t *yyssp = yyss;
+
+    /* The semantic value stack: array, bottom, top.  */
+    YYSTYPE yyvsa[YYINITDEPTH];
+    YYSTYPE *yyvs = yyvsa;
+    YYSTYPE *yyvsp = yyvs;
+
   int yyn;
+  /* The return value of yyparse.  */
   int yyresult;
-  /* Number of tokens to shift before error messages enabled.  */
-  int yyerrstatus;
-  /* Look-ahead token as an internal (translated) token number.  */
-  int yytoken = 0;
-#if YYERROR_VERBOSE
-  /* Buffer for error messages, and its allocated size.  */
-  char yymsgbuf[128];
-  char *yymsg = yymsgbuf;
-  YYSIZE_T yymsg_alloc = sizeof yymsgbuf;
-#endif
-
-  /* Three stacks and their tools:
-     `yyss': related to states,
-     `yyvs': related to semantic values,
-     `yyls': related to locations.
-
-     Refer to the stacks thru separate pointers, to allow yyoverflow
-     to reallocate them elsewhere.  */
-
-  /* The state stack.  */
-  yytype_int16 yyssa[YYINITDEPTH];
-  yytype_int16 *yyss = yyssa;
-  yytype_int16 *yyssp;
-
-  /* The semantic value stack.  */
-  YYSTYPE yyvsa[YYINITDEPTH];
-  YYSTYPE *yyvs = yyvsa;
-  YYSTYPE *yyvsp;
-
-
-
-#define YYPOPSTACK(N)   (yyvsp -= (N), yyssp -= (N))
-
-  YYSIZE_T yystacksize = YYINITDEPTH;
-
+  /* Lookahead symbol kind.  */
+  yysymbol_kind_t yytoken = YYSYMBOL_YYEMPTY;
   /* The variables used to return semantic value and location from the
      action routines.  */
   YYSTYPE yyval;
 
+
+
+#define YYPOPSTACK(N)   (yyvsp -= (N), yyssp -= (N))
 
   /* The number of symbols on the RHS of the reduced rule.
      Keep to zero when no symbol should be popped.  */
@@ -1564,127 +1319,137 @@ yyparse ()
 
   YYDPRINTF ((stderr, "Starting parse\n"));
 
-  yystate = 0;
-  yyerrstatus = 0;
-  yynerrs = 0;
-  yychar = YYEMPTY;		/* Cause a token to be read.  */
-
-  /* Initialize stack pointers.
-     Waste one element of value and location stack
-     so that they stay on the same level as the state stack.
-     The wasted elements are never initialized.  */
-
-  yyssp = yyss;
-  yyvsp = yyvs;
+  yychar = YYEMPTY; /* Cause a token to be read.  */
 
   goto yysetstate;
 
+
 /*------------------------------------------------------------.
-| yynewstate -- Push a new state, which is found in yystate.  |
+| yynewstate -- push a new state, which is found in yystate.  |
 `------------------------------------------------------------*/
- yynewstate:
+yynewstate:
   /* In all cases, when you get here, the value and location stacks
      have just been pushed.  So pushing a state here evens the stacks.  */
   yyssp++;
 
- yysetstate:
-  *yyssp = yystate;
+
+/*--------------------------------------------------------------------.
+| yysetstate -- set current state (the top of the stack) to yystate.  |
+`--------------------------------------------------------------------*/
+yysetstate:
+  YYDPRINTF ((stderr, "Entering state %d\n", yystate));
+  YY_ASSERT (0 <= yystate && yystate < YYNSTATES);
+  YY_IGNORE_USELESS_CAST_BEGIN
+  *yyssp = YY_CAST (yy_state_t, yystate);
+  YY_IGNORE_USELESS_CAST_END
+  YY_STACK_PRINT (yyss, yyssp);
 
   if (yyss + yystacksize - 1 <= yyssp)
+#if !defined yyoverflow && !defined YYSTACK_RELOCATE
+    YYNOMEM;
+#else
     {
       /* Get the current used size of the three stacks, in elements.  */
-      YYSIZE_T yysize = yyssp - yyss + 1;
+      YYPTRDIFF_T yysize = yyssp - yyss + 1;
 
-#ifdef yyoverflow
+# if defined yyoverflow
       {
-	/* Give user a chance to reallocate the stack.  Use copies of
-	   these so that the &'s don't force the real ones into
-	   memory.  */
-	YYSTYPE *yyvs1 = yyvs;
-	yytype_int16 *yyss1 = yyss;
+        /* Give user a chance to reallocate the stack.  Use copies of
+           these so that the &'s don't force the real ones into
+           memory.  */
+        yy_state_t *yyss1 = yyss;
+        YYSTYPE *yyvs1 = yyvs;
 
-
-	/* Each stack pointer address is followed by the size of the
-	   data in use in that stack, in bytes.  This used to be a
-	   conditional around just the two extra args, but that might
-	   be undefined if yyoverflow is a macro.  */
-	yyoverflow (YY_("memory exhausted"),
-		    &yyss1, yysize * sizeof (*yyssp),
-		    &yyvs1, yysize * sizeof (*yyvsp),
-
-		    &yystacksize);
-
-	yyss = yyss1;
-	yyvs = yyvs1;
+        /* Each stack pointer address is followed by the size of the
+           data in use in that stack, in bytes.  This used to be a
+           conditional around just the two extra args, but that might
+           be undefined if yyoverflow is a macro.  */
+        yyoverflow (YY_("memory exhausted"),
+                    &yyss1, yysize * YYSIZEOF (*yyssp),
+                    &yyvs1, yysize * YYSIZEOF (*yyvsp),
+                    &yystacksize);
+        yyss = yyss1;
+        yyvs = yyvs1;
       }
-#else /* no yyoverflow */
-# ifndef YYSTACK_RELOCATE
-      goto yyexhaustedlab;
-# else
+# else /* defined YYSTACK_RELOCATE */
       /* Extend the stack our own way.  */
       if (YYMAXDEPTH <= yystacksize)
-	goto yyexhaustedlab;
+        YYNOMEM;
       yystacksize *= 2;
       if (YYMAXDEPTH < yystacksize)
-	yystacksize = YYMAXDEPTH;
+        yystacksize = YYMAXDEPTH;
 
       {
-	yytype_int16 *yyss1 = yyss;
-	union yyalloc *yyptr =
-	  (union yyalloc *) YYSTACK_ALLOC (YYSTACK_BYTES (yystacksize));
-	if (! yyptr)
-	  goto yyexhaustedlab;
-	YYSTACK_RELOCATE (yyss);
-	YYSTACK_RELOCATE (yyvs);
-
+        yy_state_t *yyss1 = yyss;
+        union yyalloc *yyptr =
+          YY_CAST (union yyalloc *,
+                   YYSTACK_ALLOC (YY_CAST (YYSIZE_T, YYSTACK_BYTES (yystacksize))));
+        if (! yyptr)
+          YYNOMEM;
+        YYSTACK_RELOCATE (yyss_alloc, yyss);
+        YYSTACK_RELOCATE (yyvs_alloc, yyvs);
 #  undef YYSTACK_RELOCATE
-	if (yyss1 != yyssa)
-	  YYSTACK_FREE (yyss1);
+        if (yyss1 != yyssa)
+          YYSTACK_FREE (yyss1);
       }
 # endif
-#endif /* no yyoverflow */
 
       yyssp = yyss + yysize - 1;
       yyvsp = yyvs + yysize - 1;
 
-
-      YYDPRINTF ((stderr, "Stack size increased to %lu\n",
-		  (unsigned long int) yystacksize));
+      YY_IGNORE_USELESS_CAST_BEGIN
+      YYDPRINTF ((stderr, "Stack size increased to %ld\n",
+                  YY_CAST (long, yystacksize)));
+      YY_IGNORE_USELESS_CAST_END
 
       if (yyss + yystacksize - 1 <= yyssp)
-	YYABORT;
+        YYABORT;
     }
+#endif /* !defined yyoverflow && !defined YYSTACK_RELOCATE */
 
-  YYDPRINTF ((stderr, "Entering state %d\n", yystate));
+
+  if (yystate == YYFINAL)
+    YYACCEPT;
 
   goto yybackup;
+
 
 /*-----------.
 | yybackup.  |
 `-----------*/
 yybackup:
-
   /* Do appropriate processing given the current state.  Read a
-     look-ahead token if we need one and don't already have one.  */
+     lookahead token if we need one and don't already have one.  */
 
-  /* First try to decide what to do without reference to look-ahead token.  */
+  /* First try to decide what to do without reference to lookahead token.  */
   yyn = yypact[yystate];
-  if (yyn == YYPACT_NINF)
+  if (yypact_value_is_default (yyn))
     goto yydefault;
 
-  /* Not known => get a look-ahead token if don't already have one.  */
+  /* Not known => get a lookahead token if don't already have one.  */
 
-  /* YYCHAR is either YYEMPTY or YYEOF or a valid look-ahead symbol.  */
+  /* YYCHAR is either empty, or end-of-input, or a valid lookahead.  */
   if (yychar == YYEMPTY)
     {
-      YYDPRINTF ((stderr, "Reading a token: "));
-      yychar = YYLEX;
+      YYDPRINTF ((stderr, "Reading a token\n"));
+      yychar = yylex ();
     }
 
   if (yychar <= YYEOF)
     {
-      yychar = yytoken = YYEOF;
+      yychar = YYEOF;
+      yytoken = YYSYMBOL_YYEOF;
       YYDPRINTF ((stderr, "Now at end of input.\n"));
+    }
+  else if (yychar == YYerror)
+    {
+      /* The scanner already issued an error message, process directly
+         to error recovery.  But do not keep the error token as
+         lookahead, it is too special and may lead us to an endless
+         loop in error recovery. */
+      yychar = YYUNDEF;
+      yytoken = YYSYMBOL_YYerror;
+      goto yyerrlab1;
     }
   else
     {
@@ -1700,30 +1465,26 @@ yybackup:
   yyn = yytable[yyn];
   if (yyn <= 0)
     {
-      if (yyn == 0 || yyn == YYTABLE_NINF)
-	goto yyerrlab;
+      if (yytable_value_is_error (yyn))
+        goto yyerrlab;
       yyn = -yyn;
       goto yyreduce;
     }
-
-  if (yyn == YYFINAL)
-    YYACCEPT;
 
   /* Count tokens shifted since error; after three, turn off error
      status.  */
   if (yyerrstatus)
     yyerrstatus--;
 
-  /* Shift the look-ahead token.  */
+  /* Shift the lookahead token.  */
   YY_SYMBOL_PRINT ("Shifting", yytoken, &yylval, &yylloc);
-
-  /* Discard the shifted token unless it is eof.  */
-  if (yychar != YYEOF)
-    yychar = YYEMPTY;
-
   yystate = yyn;
+  YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
   *++yyvsp = yylval;
+  YY_IGNORE_MAYBE_UNINITIALIZED_END
 
+  /* Discard the shifted token.  */
+  yychar = YYEMPTY;
   goto yynewstate;
 
 
@@ -1738,14 +1499,14 @@ yydefault:
 
 
 /*-----------------------------.
-| yyreduce -- Do a reduction.  |
+| yyreduce -- do a reduction.  |
 `-----------------------------*/
 yyreduce:
   /* yyn is the number of a rule to reduce with.  */
   yylen = yyr2[yyn];
 
   /* If YYLEN is nonzero, implement the default value of the action:
-     `$$ = $1'.
+     '$$ = $1'.
 
      Otherwise, the following line sets YYVAL to garbage.
      This behavior is undocumented and Bison
@@ -1758,24 +1519,27 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 3:
-#line 105 "syntaxic.y"
-    {strcpy(sauvType,"INTEGER");;}
-    break;
-
-  case 4:
-#line 106 "syntaxic.y"
-    {strcpy(sauvType,"FLOAT");;}
-    break;
-
-  case 5:
+  case 3: /* type: INTEGER  */
 #line 107 "syntaxic.y"
-    {strcpy(sauvType,"CHAR");;}
+            {strcpy(sauvType,"INTEGER");}
+#line 1526 "syntaxic.tab.c"
     break;
 
-  case 12:
-#line 130 "syntaxic.y"
-    {
+  case 4: /* type: FLOAT  */
+#line 108 "syntaxic.y"
+            {strcpy(sauvType,"FLOAT");}
+#line 1532 "syntaxic.tab.c"
+    break;
+
+  case 5: /* type: CHAR  */
+#line 109 "syntaxic.y"
+            {strcpy(sauvType,"CHAR");}
+#line 1538 "syntaxic.tab.c"
+    break;
+
+  case 12: /* declaration: type variable_list SEMICOLON  */
+#line 132 "syntaxic.y"
+                                 {
         //verification de la double declaration et insertion du type
         for(j=0;strcmp(saveIdf[j].idfTab,"")!=0;j++){
             if(verifdeclaration(saveIdf[j].idfTab)==0) insererType(sauvType,saveIdf[j].idfTab);
@@ -1785,25 +1549,26 @@ yyreduce:
             strcpy(saveIdf[j].idfTab,"");
         }  
         j=0;  
-    ;}
+    }
+#line 1554 "syntaxic.tab.c"
     break;
 
-  case 13:
-#line 141 "syntaxic.y"
-    {
+  case 13: /* declaration: CONST type cst EQUALS term SEMICOLON  */
+#line 143 "syntaxic.y"
+                                          {
     // Vérifie si la valeur affectée est compatible avec le type de la variable
-        if (strcmp(typeG, "INTEGER") == 0 && ((yyvsp[(5) - (6)].real) - floor((yyvsp[(5) - (6)].real)) != 0)) {
+        if (strcmp(typeG, "INTEGER") == 0 && ((yyvsp[-1].real) - floor((yyvsp[-1].real)) != 0)) {
             printf("Erreur sémantique à la ligne %d colonne %d  : tentative d'affectation d'un flottant à une variable entière.\n", nb_ligne,col);
              exit(0);
         }
          
         // Si c'est compatible, on sauvegarde la valeur dans la table des symboles
         if (strcmp(typeG, "INTEGER") == 0) {
-            sprintf(saveStr, "%d", (int)(yyvsp[(5) - (6)].real));  // Convertir en entier
+            sprintf(saveStr, "%d", (int)(yyvsp[-1].real));  // Convertir en entier
         } else if (strcmp(typeG, "FLOAT") == 0) {
-            sprintf(saveStr, "%f", (yyvsp[(5) - (6)].real));  // Convertir en flottant
+            sprintf(saveStr, "%f", (yyvsp[-1].real));  // Convertir en flottant
         }
-        sprintf(mDroit,"%s",(yyvsp[(3) - (6)].string));
+        sprintf(mDroit,"%s",(yyvsp[-3].string));
         // Génération du quadruplet d'affectation
         createQuad("=", saveStrq, "",mDroit);
 
@@ -1811,215 +1576,230 @@ yyreduce:
         //createQuad("CONST", sauvType, saveStr, saveIdf[0].idfTab);
         insererVal(saveIdf[0].idfTab,saveStr);
         strcpy(saveIdf[0].idfTab,"");
-    ;}
+    }
+#line 1581 "syntaxic.tab.c"
     break;
 
-  case 14:
-#line 166 "syntaxic.y"
-    {
-        strcpy(saveIdf[0].idfTab,(yyvsp[(1) - (1)].string));
+  case 14: /* cst: IDENTIFIER  */
+#line 168 "syntaxic.y"
+              {
+        strcpy(saveIdf[0].idfTab,(yyvsp[0].string));
         
         //verification de la double declaration et insertion du type
-            if(verifdeclaration(saveIdf[0].idfTab)==0) {insererType(sauvType,saveIdf[0].idfTab);strcpy(typeG,getType((yyvsp[(1) - (1)].string)));}
+            if(verifdeclaration(saveIdf[0].idfTab)==0) {insererType(sauvType,saveIdf[0].idfTab);strcpy(typeG,getType((yyvsp[0].string)));}
             else printf("Erreur semantique :double declaration de %s a la ligne %d colonne %d \n",saveIdf[0].idfTab,nb_ligne,col);
             
             
-    ;}
+    }
+#line 1595 "syntaxic.tab.c"
     break;
 
-  case 15:
-#line 179 "syntaxic.y"
-    {strcpy(saveIdf[j].idfTab,(yyvsp[(1) - (1)].string));j++;;}
+  case 15: /* variable_list: IDENTIFIER  */
+#line 181 "syntaxic.y"
+               {strcpy(saveIdf[j].idfTab,(yyvsp[0].string));j++;}
+#line 1601 "syntaxic.tab.c"
     break;
 
-  case 16:
-#line 180 "syntaxic.y"
-    {strcpy(saveIdf[j].idfTab,(yyvsp[(1) - (4)].string));modifierCode("IDF TAB",saveIdf[j].idfTab);j++;
-        if (atoi((yyvsp[(3) - (4)].string)) == 0) {
+  case 16: /* variable_list: IDENTIFIER LBRACKET INT_NUMBER RBRACKET  */
+#line 182 "syntaxic.y"
+                                             {strcpy(saveIdf[j].idfTab,(yyvsp[-3].string));modifierCode("IDF TAB",saveIdf[j].idfTab);j++;
+        if (atoi((yyvsp[-1].string)) == 0) {
             printf("Erreur semantique la ligne %d colonne %d : La taille du tableau doit etre strictement positive\n",nb_ligne,col);
              exit(0);
         } 
-        sprintf(buffer1, "%d", atoi((yyvsp[(3) - (4)].string))-1);
+        sprintf(buffer1, "%d", atoi((yyvsp[-1].string))-1);
         createQuad("BOUNDS", "0", buffer1,"");
-        createQuad("ADEC",(yyvsp[(1) - (4)].string),"","");
-        ;}
+        createQuad("ADEC",(yyvsp[-3].string),"","");
+        }
+#line 1615 "syntaxic.tab.c"
     break;
 
-  case 17:
-#line 189 "syntaxic.y"
-    {strcpy(saveIdf[j].idfTab,(yyvsp[(1) - (4)].string));modifierCode("IDF TAB",saveIdf[j].idfTab);j++;
+  case 17: /* variable_list: IDENTIFIER LBRACKET termtab RBRACKET  */
+#line 191 "syntaxic.y"
+                                          {strcpy(saveIdf[j].idfTab,(yyvsp[-3].string));modifierCode("IDF TAB",saveIdf[j].idfTab);j++;
 
         sprintf(buffer1, "T%d", cpttemp-1);
         createQuad("BOUNDS", "0", buffer1,"");
-        createQuad("ADEC",(yyvsp[(1) - (4)].string),"","");
+        createQuad("ADEC",(yyvsp[-3].string),"","");
          if (fmod(valind, 1.0) != 0.0) {
             printf("Erreur semantique la ligne %d colonne %d : La taille du tableau doit etre un entier (pas un nombre réel)\n",nb_ligne,col);
              exit(0);
         }
         
         // Vérifier que le nombre est un entier positif
-        if ((yyvsp[(3) - (4)].real) < 1) {
+        if ((yyvsp[-1].real) < 1) {
             printf("Erreur semantique la ligne %d colonne %d : La taille du tableau doit etre un entier strictement positif\n",nb_ligne,col);
              exit(0);
         }
-        ;}
+        }
+#line 1636 "syntaxic.tab.c"
     break;
 
-  case 18:
-#line 205 "syntaxic.y"
-    {strcpy(saveIdf[j].idfTab,(yyvsp[(1) - (3)].string));j++;;}
-    break;
-
-  case 19:
-#line 206 "syntaxic.y"
-    {strcpy(saveIdf[j].idfTab,(yyvsp[(1) - (6)].string));modifierCode("IDF TAB",saveIdf[j].idfTab);j++;;}
-    break;
-
-  case 20:
+  case 18: /* variable_list: IDENTIFIER COMMA variable_list  */
 #line 207 "syntaxic.y"
-    {strcpy(saveIdf[j].idfTab,(yyvsp[(1) - (9)].string));modifierCode("IDF TAB",saveIdf[j].idfTab);j++;;}
+                                      {strcpy(saveIdf[j].idfTab,(yyvsp[-2].string));j++;}
+#line 1642 "syntaxic.tab.c"
     break;
 
-  case 26:
-#line 230 "syntaxic.y"
-    {
+  case 19: /* variable_list: IDENTIFIER LBRACKET INT_NUMBER RBRACKET COMMA variable_list  */
+#line 208 "syntaxic.y"
+                                                                   {strcpy(saveIdf[j].idfTab,(yyvsp[-5].string));modifierCode("IDF TAB",saveIdf[j].idfTab);j++;}
+#line 1648 "syntaxic.tab.c"
+    break;
+
+  case 20: /* variable_list: IDENTIFIER LBRACKET LPAREN PLUS INT_NUMBER RPAREN RBRACKET COMMA variable_list  */
+#line 209 "syntaxic.y"
+                                                                                      {strcpy(saveIdf[j].idfTab,(yyvsp[-8].string));modifierCode("IDF TAB",saveIdf[j].idfTab);j++;}
+#line 1654 "syntaxic.tab.c"
+    break;
+
+  case 26: /* assignment: MDROIT EQUALS term SEMICOLON  */
+#line 224 "syntaxic.y"
+                                 {
   
         // Si c'est compatible, on sauvegarde la valeur dans la table des symboles
         if (strcmp(typeG, "INTEGER") == 0) {
-            sprintf(saveStr, "%d", (int)(yyvsp[(3) - (4)].real));  // Convertir en entier
+            sprintf(saveStr, "%d", (int)(yyvsp[-1].real));  // Convertir en entier
         } else if (strcmp(typeG, "FLOAT") == 0) {
-            sprintf(saveStr, "%f",(yyvsp[(3) - (4)].real));  // Convertir en flottant
+            sprintf(saveStr, "%f",(yyvsp[-1].real));  // Convertir en flottant
         }
         // Génération du quadruplet d'affectation
         createQuad("=", saveStrq, "",mDroit);
 
         insererVal(mDroit, saveStr);
-    ;}
+    }
+#line 1672 "syntaxic.tab.c"
     break;
 
-  case 27:
-#line 243 "syntaxic.y"
-    {
+  case 27: /* assignment: TAB EQUALS term SEMICOLON  */
+#line 237 "syntaxic.y"
+                               {
         // Si c'est compatible, on sauvegarde la valeur dans la table des symboles
         if (strcmp(typeG, "INTEGER") == 0) {
-            sprintf(saveStr, "%d", (int)(yyvsp[(3) - (4)].real));  // Convertir en entier
+            sprintf(saveStr, "%d", (int)(yyvsp[-1].real));  // Convertir en entier
         } else if (strcmp(typeG, "FLOAT") == 0) {
-            sprintf(saveStr, "%f",(yyvsp[(3) - (4)].real));  // Convertir en flottant
+            sprintf(saveStr, "%f",(yyvsp[-1].real));  // Convertir en flottant
         }
         // Génération du quadruplet d'affectation
         createQuad("=", saveStrq, "",tmp);
 
         insererVal(mDroit, saveStr);
-    ;}
+    }
+#line 1689 "syntaxic.tab.c"
     break;
 
-  case 28:
-#line 255 "syntaxic.y"
-    {
+  case 28: /* assignment: TAB EQUALS EXPRESSION_CHAR SEMICOLON  */
+#line 249 "syntaxic.y"
+                                         {
         createQuad("=", saveStrq, "",tmp);
 
         insererVal(mDroit, saveStr);
-    ;}
+    }
+#line 1699 "syntaxic.tab.c"
     break;
 
-  case 29:
-#line 260 "syntaxic.y"
-    {
+  case 29: /* assignment: MDROIT EQUALS EXPRESSION_CHAR SEMICOLON  */
+#line 254 "syntaxic.y"
+                                            {
         
         createQuad("=", saveStrq, "",mDroit);
 
         insererVal(mDroit, saveStr);
-    ;}
+    }
+#line 1710 "syntaxic.tab.c"
     break;
 
-  case 30:
-#line 269 "syntaxic.y"
-    {
+  case 30: /* MDROIT: IDENTIFIER  */
+#line 263 "syntaxic.y"
+               {
     // Vérification de la déclaration de la variable avant usage
-    if (verifdeclaration((yyvsp[(1) - (1)].string)) == 0) {
-        printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[(1) - (1)].string));
+    if (verifdeclaration((yyvsp[0].string)) == 0) {
+        printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[0].string));
          exit(0);
-    } else if(strcmp(getCode((yyvsp[(1) - (1)].string)),"IDF TAB")==0){
-        printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' est un tableau.\n",nb_ligne,col, (yyvsp[(1) - (1)].string));
+    } else if(strcmp(getCode((yyvsp[0].string)),"IDF TAB")==0){
+        printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' est un tableau.\n",nb_ligne,col, (yyvsp[0].string));
          exit(0);
-        strcpy(typeG, getType((yyvsp[(1) - (1)].string)));  // Récupérer le type de la variable à gauche
-        if (comparCode((yyvsp[(1) - (1)].string)) == 0) {
+        strcpy(typeG, getType((yyvsp[0].string)));  // Récupérer le type de la variable à gauche
+        if (comparCode((yyvsp[0].string)) == 0) {
             printf("Erreur sémantique à la ligne %d colonne %d : affectation d'une constante\n", nb_ligne,col);
         } else {
-            strcpy(mDroit, (yyvsp[(1) - (1)].string));
+            strcpy(mDroit, (yyvsp[0].string));
         }
         
     }
     else{
-        strcpy(typeG, getType((yyvsp[(1) - (1)].string)));  // Récupérer le type de la variable à gauche
-        if (comparCode((yyvsp[(1) - (1)].string)) == 0) {
+        strcpy(typeG, getType((yyvsp[0].string)));  // Récupérer le type de la variable à gauche
+        if (comparCode((yyvsp[0].string)) == 0) {
             printf("Erreur sémantique à la ligne %d colonne %d : affectation d'une constante\n", nb_ligne,col);
              exit(0);
         } else {
-            strcpy(mDroit, (yyvsp[(1) - (1)].string));
+            strcpy(mDroit, (yyvsp[0].string));
         }
     }
-    ;}
+    }
+#line 1741 "syntaxic.tab.c"
     break;
 
-  case 31:
-#line 297 "syntaxic.y"
-    {if(verifdeclaration((yyvsp[(1) - (4)].string))==0 )
-                    {printf("Erreur semantique a la ligne %d colonne %d :Tableau %s non declare\n",nb_ligne,col,(yyvsp[(1) - (4)].string)); exit(0);}
-                    else if(strcmp(getCode((yyvsp[(1) - (4)].string)),"IDF")==0){
-                        printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' est n'est pas un tableau.\n",nb_ligne,col, (yyvsp[(1) - (4)].string));
+  case 31: /* TAB: IDENTIFIER LBRACKET INT_NUMBER RBRACKET  */
+#line 291 "syntaxic.y"
+                                              {if(verifdeclaration((yyvsp[-3].string))==0 )
+                    {printf("Erreur semantique a la ligne %d colonne %d :Tableau %s non declare\n",nb_ligne,col,(yyvsp[-3].string)); exit(0);}
+                    else if(strcmp(getCode((yyvsp[-3].string)),"IDF")==0){
+                        printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' est n'est pas un tableau.\n",nb_ligne,col, (yyvsp[-3].string));
                          exit(0);
-                        strcpy(typeG, getType((yyvsp[(1) - (4)].string)));
+                        strcpy(typeG, getType((yyvsp[-3].string)));
                             }
                             else{
-                        strcpy(typeG, getType((yyvsp[(1) - (4)].string)));
+                        strcpy(typeG, getType((yyvsp[-3].string)));
 
                     } 
                       
-                        strcpy(mDroit,(yyvsp[(1) - (4)].string));
+                        strcpy(mDroit,(yyvsp[-3].string));
                         temp=newtemp();
-                        strcpy(temp,(yyvsp[(1) - (4)].string));
-                        strcpy(tmp,(yyvsp[(1) - (4)].string));
+                        strcpy(temp,(yyvsp[-3].string));
+                        strcpy(tmp,(yyvsp[-3].string));
                         strcat(tmp,"[");
-                        sprintf(buffer2,"%d",atoi((yyvsp[(3) - (4)].string)));
+                        sprintf(buffer2,"%d",atoi((yyvsp[-1].string)));
                         strcat(tmp,buffer2);
                         strcat(tmp,"]");
                     
                        
-                    ;}
+                    }
+#line 1769 "syntaxic.tab.c"
     break;
 
-  case 32:
-#line 322 "syntaxic.y"
-    {
-                if(verifdeclaration((yyvsp[(1) - (7)].string))==0 )
-                  {printf("Erreur semantique a la ligne %d colonne %d :Tableau %s non declare\n",nb_ligne,col,(yyvsp[(1) - (7)].string));
+  case 32: /* TAB: IDENTIFIER LBRACKET LPAREN PLUS INT_NUMBER RPAREN RBRACKET  */
+#line 316 "syntaxic.y"
+                                                                 {
+                if(verifdeclaration((yyvsp[-6].string))==0 )
+                  {printf("Erreur semantique a la ligne %d colonne %d :Tableau %s non declare\n",nb_ligne,col,(yyvsp[-6].string));
                    exit(0);}
-                  else if(strcmp(getCode((yyvsp[(1) - (7)].string)),"IDF")==0){
-                        printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' est n'est pas un tableau.\n",nb_ligne,col, (yyvsp[(1) - (7)].string));
+                  else if(strcmp(getCode((yyvsp[-6].string)),"IDF")==0){
+                        printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' est n'est pas un tableau.\n",nb_ligne,col, (yyvsp[-6].string));
                          exit(0);
-                        strcpy(typeG, getType((yyvsp[(1) - (7)].string)));
+                        strcpy(typeG, getType((yyvsp[-6].string)));
                             }
                             else{
-                        strcpy(typeG, getType((yyvsp[(1) - (7)].string)));
+                        strcpy(typeG, getType((yyvsp[-6].string)));
 
                     }  
-    ;}
+    }
+#line 1788 "syntaxic.tab.c"
     break;
 
-  case 33:
-#line 336 "syntaxic.y"
-    {
-                    if(verifdeclaration((yyvsp[(1) - (4)].string))==0 )
-                    {printf("Erreur semantique a la ligne %d colonne %d :Tableau %s non declare\n",nb_ligne,col,(yyvsp[(1) - (4)].string));
+  case 33: /* TAB: IDENTIFIER LBRACKET termtab RBRACKET  */
+#line 330 "syntaxic.y"
+                                            {
+                    if(verifdeclaration((yyvsp[-3].string))==0 )
+                    {printf("Erreur semantique a la ligne %d colonne %d :Tableau %s non declare\n",nb_ligne,col,(yyvsp[-3].string));
                      exit(0);}
-                    else if(strcmp(getCode((yyvsp[(1) - (4)].string)),"IDF")==0){
-                        printf("Erreur semantique la ligne %d colonne %d: La variable '%s' est n'est pasm un tableau.\n",nb_ligne,col, (yyvsp[(1) - (4)].string));
+                    else if(strcmp(getCode((yyvsp[-3].string)),"IDF")==0){
+                        printf("Erreur semantique la ligne %d colonne %d: La variable '%s' est n'est pasm un tableau.\n",nb_ligne,col, (yyvsp[-3].string));
                          exit(0);
-                        strcpy(typeG, getType((yyvsp[(1) - (4)].string)));
+                        strcpy(typeG, getType((yyvsp[-3].string)));
                             }
                             else{
-                        strcpy(typeG, getType((yyvsp[(1) - (4)].string)));
+                        strcpy(typeG, getType((yyvsp[-3].string)));
 
                     }  
                     // Vérifier si le nombre a une partie fractionnelle
@@ -2029,29 +1809,30 @@ yyreduce:
                     }
                     
                     // Vérifier que le nombre est un entier positif
-                    if ((yyvsp[(3) - (4)].real) < 0) {
+                    if ((yyvsp[-1].real) < 0) {
                         printf("Erreur semantique la ligne %d colonne %d : L'indice du tableau doit être un entier positif\n",nb_ligne,col);
                          exit(0);
                     }
                     
         
-                        strcpy(mDroit,(yyvsp[(1) - (4)].string));
+                        strcpy(mDroit,(yyvsp[-3].string));
                         temp=newtemp();
-                        strcpy(temp,(yyvsp[(1) - (4)].string));
-                        strcpy(tmp,(yyvsp[(1) - (4)].string));
+                        strcpy(temp,(yyvsp[-3].string));
+                        strcpy(tmp,(yyvsp[-3].string));
                         strcat(tmp,"[");
                         temp1=newtemp();
                         sprintf(buffer2,"T%d",cpttemp-1);
                         strcat(tmp,buffer2);
                         strcat(tmp,"]");
                        
-                    ;}
+                    }
+#line 1830 "syntaxic.tab.c"
     break;
 
-  case 35:
-#line 378 "syntaxic.y"
-    {
-        float t=(yyvsp[(1) - (3)].real)+(yyvsp[(3) - (3)].real);
+  case 35: /* termtab: termtab PLUS factortab  */
+#line 372 "syntaxic.y"
+                             {
+        float t=(yyvsp[-2].real)+(yyvsp[0].real);
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);
@@ -2068,13 +1849,14 @@ yyreduce:
         cpttemp++;
         
 
-    ;}
+    }
+#line 1854 "syntaxic.tab.c"
     break;
 
-  case 36:
-#line 397 "syntaxic.y"
-    {
-        float t=(yyvsp[(1) - (3)].real)-(yyvsp[(3) - (3)].real);
+  case 36: /* termtab: termtab MINUS factortab  */
+#line 391 "syntaxic.y"
+                              {
+        float t=(yyvsp[-2].real)-(yyvsp[0].real);
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);
@@ -2089,13 +1871,14 @@ yyreduce:
         strcpy(saveStrq,temp);
         empiler(&pile3,temp);
         cpttemp++;
-    ;}
+    }
+#line 1876 "syntaxic.tab.c"
     break;
 
-  case 38:
-#line 419 "syntaxic.y"
-    { 
-        float t=(yyvsp[(1) - (3)].real)*(yyvsp[(3) - (3)].real);
+  case 38: /* factortab: factortab MULTIPLY primarytab  */
+#line 413 "syntaxic.y"
+                                     { 
+        float t=(yyvsp[-2].real)*(yyvsp[0].real);
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);
@@ -2111,15 +1894,16 @@ yyreduce:
         strcpy(saveStrq,temp);
         cpttemp++;
 
-    ;}
+    }
+#line 1899 "syntaxic.tab.c"
     break;
 
-  case 39:
-#line 437 "syntaxic.y"
-    { 
-        if((yyvsp[(3) - (3)].real)==0) {printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
+  case 39: /* factortab: factortab DIVIDE primarytab  */
+#line 431 "syntaxic.y"
+                                      { 
+        if((yyvsp[0].real)==0) {printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
         else{   
-        float t=(yyvsp[(1) - (3)].real)/(yyvsp[(3) - (3)].real);        
+        float t=(yyvsp[-2].real)/(yyvsp[0].real);        
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);  
@@ -2135,162 +1919,177 @@ yyreduce:
         strcpy(saveStrq,temp);
         cpttemp++;
         }
-;}
+}
+#line 1924 "syntaxic.tab.c"
     break;
 
-  case 40:
-#line 461 "syntaxic.y"
-    {
+  case 40: /* primarytab: IDENTIFIER  */
+#line 455 "syntaxic.y"
+               {
         // Vérification de la déclaration de la variable avant usage dans READ
-        if (verifdeclaration((yyvsp[(1) - (1)].string)) == 0) {
-            printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[(1) - (1)].string)); exit(0);
-        }else {strcpy(typeD,getType((yyvsp[(1) - (1)].string)));
+        if (verifdeclaration((yyvsp[0].string)) == 0) {
+            printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[0].string)); exit(0);
+        }else {strcpy(typeD,getType((yyvsp[0].string)));
                              if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
                                                          printf("tentative d'affecter %s a un %s\n",typeD,typeG); exit(0);
                                                         }
-                                strcpy(valIdf,getVal((yyvsp[(1) - (1)].string)));
-                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d colonne %d : variable %s non initialisee\n",nb_ligne,col,(yyvsp[(1) - (1)].string)); exit(0);}
+                                strcpy(valIdf,getVal((yyvsp[0].string)));
+                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d colonne %d : variable %s non initialisee\n",nb_ligne,col,(yyvsp[0].string)); exit(0);}
                                  else
                                   (yyval.real)=atof(valIdf);
-                                  strcpy(saveStrq,(yyvsp[(1) - (1)].string));
-                                  strcpy(buffer1,(yyvsp[(1) - (1)].string));
+                                  strcpy(saveStrq,(yyvsp[0].string));
+                                  strcpy(buffer1,(yyvsp[0].string));
                                   empiler(&pile3,buffer1);
                                   
                              }
-    ;}
+    }
+#line 1947 "syntaxic.tab.c"
     break;
 
-  case 41:
-#line 479 "syntaxic.y"
-    {
-                  (yyval.real)=atof((yyvsp[(1) - (1)].string));
-                  strcpy(buffer1,(yyvsp[(1) - (1)].string));
+  case 41: /* primarytab: INT_NUMBER  */
+#line 473 "syntaxic.y"
+                 {
+                  (yyval.real)=atof((yyvsp[0].string));
+                  strcpy(buffer1,(yyvsp[0].string));
                   empiler(&pile3,buffer1);
                   
-    ;}
+    }
+#line 1958 "syntaxic.tab.c"
     break;
 
-  case 42:
-#line 485 "syntaxic.y"
-    {
-                   (yyval.real)=atof((yyvsp[(1) - (1)].string)); 
-                   strcpy(buffer1,(yyvsp[(1) - (1)].string));
+  case 42: /* primarytab: FLOAT_NUMBER  */
+#line 479 "syntaxic.y"
+                  {
+                   (yyval.real)=atof((yyvsp[0].string)); 
+                   strcpy(buffer1,(yyvsp[0].string));
                    empiler(&pile3,buffer1);
-                   ;}
+                   }
+#line 1968 "syntaxic.tab.c"
     break;
 
-  case 43:
-#line 490 "syntaxic.y"
-    {
-        (yyval.real)=atof((yyvsp[(3) - (4)].string));
-        strcpy(buffer1,(yyvsp[(3) - (4)].string));
+  case 43: /* primarytab: LPAREN PLUS INT_NUMBER RPAREN  */
+#line 484 "syntaxic.y"
+                                  {
+        (yyval.real)=atof((yyvsp[-1].string));
+        strcpy(buffer1,(yyvsp[-1].string));
         empiler(&pile3,buffer1);
         
-    ;}
+    }
+#line 1979 "syntaxic.tab.c"
     break;
 
-  case 44:
-#line 496 "syntaxic.y"
-    {
-                strcpy(saveStr,(yyvsp[(3) - (4)].string));
+  case 44: /* primarytab: LPAREN MINUS INT_NUMBER RPAREN  */
+#line 490 "syntaxic.y"
+                                   {
+                strcpy(saveStr,(yyvsp[-1].string));
                 strcat(strcpy(saveS,"-"),saveStr);
                 (yyval.real)=atoi(saveS);
                 strcpy(buffer1, saveS);
                 empiler(&pile3,buffer1);
             
-    ;}
+    }
+#line 1992 "syntaxic.tab.c"
     break;
 
-  case 45:
-#line 504 "syntaxic.y"
-    {(yyval.real)=atof((yyvsp[(3) - (4)].string));
-                                      strcpy(buffer1,(yyvsp[(3) - (4)].string));
+  case 45: /* primarytab: LPAREN PLUS FLOAT_NUMBER RPAREN  */
+#line 498 "syntaxic.y"
+                                      {(yyval.real)=atof((yyvsp[-1].string));
+                                      strcpy(buffer1,(yyvsp[-1].string));
                                       empiler(&pile3,buffer1);
                                       
-                   ;}
+                   }
+#line 2002 "syntaxic.tab.c"
     break;
 
-  case 46:
-#line 509 "syntaxic.y"
-    {
-                                           strcat(strcpy(saveS,"-"),(yyvsp[(3) - (4)].string));
+  case 46: /* primarytab: LPAREN MINUS FLOAT_NUMBER RPAREN  */
+#line 503 "syntaxic.y"
+                                       {
+                                           strcat(strcpy(saveS,"-"),(yyvsp[-1].string));
                                            (yyval.real)=atof(saveS);
                                            strcpy(buffer1, saveS);
                                            empiler(&pile3,buffer1);
                                        
-    ;}
+    }
+#line 2014 "syntaxic.tab.c"
     break;
 
-  case 47:
-#line 516 "syntaxic.y"
-    {(yyval.real)=(yyvsp[(2) - (3)].real);;}
+  case 47: /* primarytab: LPAREN term RPAREN  */
+#line 510 "syntaxic.y"
+                         {(yyval.real)=(yyvsp[-1].real);}
+#line 2020 "syntaxic.tab.c"
     break;
 
-  case 48:
-#line 517 "syntaxic.y"
-    {
-                                     strcpy(tmp,(yyvsp[(1) - (4)].string));
+  case 48: /* primarytab: IDENTIFIER LBRACKET INT_NUMBER RBRACKET  */
+#line 511 "syntaxic.y"
+                                             {
+                                     strcpy(tmp,(yyvsp[-3].string));
                                     strcat(tmp,"[");
-                                    sprintf(buffer1,"%d",atoi((yyvsp[(3) - (4)].string)));
+                                    sprintf(buffer1,"%d",atoi((yyvsp[-1].string)));
                                     strcat(tmp,buffer1);
                                     strcat(tmp,"]");
                                     strcpy(saveStrq,tmp);
                                     strcpy(buffer1,tmp);
                                     empiler(&pile3,buffer1);
                                  
-                ;}
+                }
+#line 2036 "syntaxic.tab.c"
     break;
 
-  case 49:
-#line 530 "syntaxic.y"
-    {if(strcmp(typeG,"CHAR")!=0)   
+  case 49: /* EXPRESSION_CHAR: CHARACTERE  */
+#line 524 "syntaxic.y"
+                            {if(strcmp(typeG,"CHAR")!=0)   
                                 {printf("Erreur semantique a la ligne %d colonne %d :type incompatible\n",nb_ligne,col);
                                  printf("tentative d'affecter CHAR a un %s\n",typeG); exit(0);
                                 }
-                            else {insererVal(mDroit,(yyvsp[(1) - (1)].string));}
-                            strcpy(saveStrq,(yyvsp[(1) - (1)].string));
-                            sprintf(saveStr, "%s",(yyvsp[(1) - (1)].string)); 
-                           ;}
+                            else {insererVal(mDroit,(yyvsp[0].string));}
+                            strcpy(saveStrq,(yyvsp[0].string));
+                            sprintf(saveStr, "%s",(yyvsp[0].string)); 
+                           }
+#line 2049 "syntaxic.tab.c"
     break;
 
-  case 50:
-#line 538 "syntaxic.y"
-    {   
+  case 50: /* EXPRESSION_CHAR: STRING_LITERAL  */
+#line 532 "syntaxic.y"
+                                {   
                                  printf("Erreur semantique a la ligne %d colonne %d:type incompatible\n",nb_ligne,col);
                                  if(strcmp(typeG,"CHAR")==0) {printf("On ne peut pas affecter STRING a CHAR(on doit le faire caractere par caratere dans un tableaux)\n");exit(0);}
                                  else{printf("tentative d'affecter STRING a un %s\n",typeG); exit(0);}
                                  
                             
-                            ;}
+                            }
+#line 2061 "syntaxic.tab.c"
     break;
 
-  case 51:
-#line 566 "syntaxic.y"
-    {
+  case 51: /* $@1: %empty  */
+#line 560 "syntaxic.y"
+                                   {
           createQuad("BZ","",QuadR[qc-1].res,"");
           empiler_Int(&pile1,qc-1);
-        ;}
+        }
+#line 2070 "syntaxic.tab.c"
     break;
 
-  case 52:
-#line 570 "syntaxic.y"
-    {
+  case 52: /* condition: IF LPAREN COND RPAREN LBRACE $@1 instruction_section RBRACE elsebloc SEMICOLON  */
+#line 564 "syntaxic.y"
+                                                     {
         QuadR[atoi(depiler(&pile1))].opd1=ToSTR(qc);
-        ;}
+        }
+#line 2078 "syntaxic.tab.c"
     break;
 
-  case 53:
-#line 574 "syntaxic.y"
-    {
+  case 53: /* $@2: %empty  */
+#line 568 "syntaxic.y"
+                      {
         QuadR[atoi(depiler(&pile1))].opd1=ToSTR(qc+1);
         empiler_Int(&pile1,qc);
         createQuad("BR","","","");
-        ;}
+        }
+#line 2088 "syntaxic.tab.c"
     break;
 
-  case 56:
-#line 583 "syntaxic.y"
-    {
+  case 56: /* assignment_int: MDROIT EQUALS term  */
+#line 577 "syntaxic.y"
+                       {
         
         // Si c'est compatible, on sauvegarde la valeur dans la table des symboles
         if (strcmp(typeG, "INTEGER") != 0) {
@@ -2301,12 +2100,13 @@ yyreduce:
             createQuad("=", saveStrq, "",mDroit);
         
         }
-    ;}
+    }
+#line 2105 "syntaxic.tab.c"
     break;
 
-  case 57:
-#line 595 "syntaxic.y"
-    {
+  case 57: /* assignment_int: TAB EQUALS term  */
+#line 589 "syntaxic.y"
+                      {
         if (strcmp(typeG, "INTEGER") != 0) {
             printf("Erreur semantique a la ligne %d colonne %d:type incompatible \n",nb_ligne,col);
             printf("Parametre de boucle doit etre un entier"); exit(0);
@@ -2315,12 +2115,13 @@ yyreduce:
         createQuad("=", saveStrq, "",tmp);
 
         insererVal(mDroit, saveStr);
-    ;}
+    }
+#line 2120 "syntaxic.tab.c"
     break;
 
-  case 58:
-#line 605 "syntaxic.y"
-    {
+  case 58: /* assignment_int: TAB EQUALS EXPRESSION_CHAR  */
+#line 599 "syntaxic.y"
+                                {
         if (strcmp(typeG, "INTEGER") != 0) {
             printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
             printf("Parametre de boucle doit etre un entier"); exit(0);
@@ -2328,12 +2129,13 @@ yyreduce:
         createQuad("=", saveStrq, "",tmp);
 
         insererVal(mDroit, saveStr);
-    ;}
+    }
+#line 2134 "syntaxic.tab.c"
     break;
 
-  case 59:
-#line 614 "syntaxic.y"
-    {
+  case 59: /* assignment_int: MDROIT EQUALS EXPRESSION_CHAR  */
+#line 608 "syntaxic.y"
+                                   {
         if (strcmp(typeG, "INTEGER") != 0) {
             printf("Erreur semantique a la la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
             printf("Parametre de boucle doit etre un entier"); exit(0);
@@ -2341,21 +2143,23 @@ yyreduce:
         createQuad("=", saveStrq, "",mDroit);
 
         insererVal(mDroit, saveStr);
-    ;}
+    }
+#line 2148 "syntaxic.tab.c"
     break;
 
-  case 60:
-#line 626 "syntaxic.y"
-    {
+  case 60: /* $@3: %empty  */
+#line 620 "syntaxic.y"
+                                          {
         valDepile = depiler(&pile3); 
         strcpy(pasfor, valDepile); 
         //$$ = atoi($6); // Capturer le pas
-    ;}
+    }
+#line 2158 "syntaxic.tab.c"
     break;
 
-  case 61:
-#line 631 "syntaxic.y"
-    {
+  case 61: /* $@4: %empty  */
+#line 625 "syntaxic.y"
+                {
         //char *cond_var = atoi($7); // Capturer la condition d'arrêt
         valDepile = depiler(&pile3); 
         strcpy(brnsup, valDepile); 
@@ -2363,12 +2167,13 @@ yyreduce:
         empiler_Int(&pile2, qc);
         createQuad("BG", "", mDroit, brnsup); 
         strcpy(cptfor,mDroit);
-    ;}
+    }
+#line 2172 "syntaxic.tab.c"
     break;
 
-  case 62:
-#line 640 "syntaxic.y"
-    {
+  case 62: /* loop: FOR LPAREN assignment_int COLON term3 $@3 COLON term4 $@4 RPAREN LBRACE instruction_section RBRACE SEMICOLON  */
+#line 634 "syntaxic.y"
+                                                       {
         temp = newtemp(); 
         sprintf(temp,"T%d",cpttemp);    
         cpttemp++;    
@@ -2376,31 +2181,34 @@ yyreduce:
         createQuad("=", temp, "", cptfor); 
         createQuad("BR", ToSTR(atoi(depiler(&pile1))), "", "");
         QuadR[atoi(depiler(&pile2))].opd1=ToSTR(qc);
-    ;}
+    }
+#line 2186 "syntaxic.tab.c"
     break;
 
-  case 63:
-#line 652 "syntaxic.y"
-    {
+  case 63: /* io_statement: READ LPAREN IDENTIFIER RPAREN SEMICOLON  */
+#line 646 "syntaxic.y"
+                                           {
         // Vérification de la déclaration de la variable avant usage dans READ
-        if (verifdeclaration((yyvsp[(3) - (5)].string)) == 0) {
-            printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col,(yyvsp[(3) - (5)].string)); exit(0);
+        if (verifdeclaration((yyvsp[-2].string)) == 0) {
+            printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col,(yyvsp[-2].string)); exit(0);
         }
-    ;}
+    }
+#line 2197 "syntaxic.tab.c"
     break;
 
-  case 67:
-#line 669 "syntaxic.y"
-    {
+  case 67: /* io_expr: IDENTIFIER  */
+#line 663 "syntaxic.y"
+               {
         // Vérification de la déclaration de la variable avant usage dans READ
-        if (verifdeclaration((yyvsp[(1) - (1)].string)) == 0) {
-            printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[(1) - (1)].string)); exit(0);
+        if (verifdeclaration((yyvsp[0].string)) == 0) {
+            printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[0].string)); exit(0);
         }
-    ;}
+    }
+#line 2208 "syntaxic.tab.c"
     break;
 
-  case 69:
-#line 682 "syntaxic.y"
+  case 69: /* COND: COND OR AND_EXPR  */
+#line 676 "syntaxic.y"
     {
         temp = newtemp();
         sprintf(temp, "T%d", cpttemp);
@@ -2411,11 +2219,12 @@ yyreduce:
         createQuadL(2, valcond1, valcond2, temp);
         empiler(&pile3,temp);
         cpttemp++;
-    ;}
+    }
+#line 2224 "syntaxic.tab.c"
     break;
 
-  case 71:
-#line 698 "syntaxic.y"
+  case 71: /* AND_EXPR: AND_EXPR AND NOT_EXPR  */
+#line 692 "syntaxic.y"
     {
         temp = newtemp();
         sprintf(temp, "T%d", cpttemp);
@@ -2426,11 +2235,12 @@ yyreduce:
         createQuadL(3, valcond1, valcond2, temp);
         empiler(&pile3,temp);
         cpttemp++;
-    ;}
+    }
+#line 2240 "syntaxic.tab.c"
     break;
 
-  case 73:
-#line 714 "syntaxic.y"
+  case 73: /* NOT_EXPR: NOT NOT_EXPR  */
+#line 708 "syntaxic.y"
     {
         temp = newtemp();
         sprintf(temp, "T%d", cpttemp);
@@ -2439,11 +2249,12 @@ yyreduce:
         createQuadL(1, valcond1, "", temp);
         empiler(&pile3,temp);
         cpttemp++;
-    ;}
+    }
+#line 2254 "syntaxic.tab.c"
     break;
 
-  case 76:
-#line 731 "syntaxic.y"
+  case 75: /* comparison_expr: term2 GT term1  */
+#line 725 "syntaxic.y"
     {
          char* temp=newtemp();
          sprintf(temp,"T%d",cpttemp);
@@ -2454,12 +2265,13 @@ yyreduce:
         strcpy(buffer1, valDepile);
         createQuadA(6,buffer1,buffer2,temp);
         empiler(&pile3,temp);
-    ;}
+    }
+#line 2270 "syntaxic.tab.c"
     break;
 
-  case 77:
-#line 742 "syntaxic.y"
-    {
+  case 76: /* comparison_expr: term2 LT term1  */
+#line 736 "syntaxic.y"
+                    {
         char* temp=newtemp();
         sprintf(temp,"T%d",cpttemp);
          cpttemp++;
@@ -2469,12 +2281,13 @@ yyreduce:
         strcpy(buffer1, valDepile);
         createQuadA(5,buffer1,buffer2,temp);
         empiler(&pile3,temp);
-    ;}
+    }
+#line 2286 "syntaxic.tab.c"
     break;
 
-  case 78:
-#line 753 "syntaxic.y"
-    {
+  case 77: /* comparison_expr: term2 EQ term1  */
+#line 747 "syntaxic.y"
+                   {
         char* temp=newtemp();
         sprintf(temp,"T%d",cpttemp);
          cpttemp++;
@@ -2484,12 +2297,13 @@ yyreduce:
         strcpy(buffer1, valDepile);
         createQuadA(1,buffer1,buffer2,temp);
         empiler(&pile3,temp);
-    ;}
+    }
+#line 2302 "syntaxic.tab.c"
     break;
 
-  case 79:
-#line 764 "syntaxic.y"
-    {
+  case 78: /* comparison_expr: term2 GEQ term1  */
+#line 758 "syntaxic.y"
+                    {
        char* temp=newtemp();
        sprintf(temp,"T%d",cpttemp);
          cpttemp++;
@@ -2499,12 +2313,13 @@ yyreduce:
         strcpy(buffer1, valDepile);
         createQuadA(3,buffer1,buffer2,temp);
         empiler(&pile3,temp);
-    ;}
+    }
+#line 2318 "syntaxic.tab.c"
     break;
 
-  case 80:
-#line 775 "syntaxic.y"
-    {
+  case 79: /* comparison_expr: term2 LEQ term1  */
+#line 769 "syntaxic.y"
+                    {
         char* temp=newtemp();
         sprintf(temp,"T%d",cpttemp);
          cpttemp++;
@@ -2514,12 +2329,13 @@ yyreduce:
         strcpy(buffer1, valDepile);
         createQuadA(4,buffer1,buffer2,temp);
         empiler(&pile3,temp);
-    ;}
+    }
+#line 2334 "syntaxic.tab.c"
     break;
 
-  case 81:
-#line 786 "syntaxic.y"
-    {
+  case 80: /* comparison_expr: term2 NEQ term1  */
+#line 780 "syntaxic.y"
+                    {
         char* temp=newtemp();
         sprintf(temp,"T%d",cpttemp);
          cpttemp++;
@@ -2529,95 +2345,109 @@ yyreduce:
         strcpy(buffer1, valDepile);
         createQuadA(2,buffer1,buffer2,temp);
         empiler(&pile3,temp);
-    ;}
+    }
+#line 2350 "syntaxic.tab.c"
     break;
 
-  case 82:
-#line 812 "syntaxic.y"
-    {
+  case 81: /* comparison_expr: DROIT OP_COMP term1  */
+#line 806 "syntaxic.y"
+                          {
                             printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
                           printf("on ne peut pas comparer CARACTERE avec avec %s\n",typeD); exit(0);
-                         ;}
+                         }
+#line 2359 "syntaxic.tab.c"
     break;
 
-  case 83:
-#line 816 "syntaxic.y"
-    {printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
+  case 82: /* comparison_expr: term2 OP_COMP GAUCHE  */
+#line 810 "syntaxic.y"
+                           {printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
                             printf("on ne peut pas comparer %s avec avec %s\n",typeG,typeD); exit(0);
-                            ;}
+                            }
+#line 2367 "syntaxic.tab.c"
     break;
 
-  case 84:
-#line 819 "syntaxic.y"
-    {
+  case 83: /* comparison_expr: DROIT OP_COMP GAUCHE  */
+#line 813 "syntaxic.y"
+                          {
         if(strcmp(typeD,typeG)!=0){
             printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
-            printf("on ne peut pas comparer %s avec avec %s\n",typeG,typeD); exit(0);
+            printf("on ne peut pas comparer %s avec %s\n",typeG,typeD); exit(0);
         }
         else{
             char* temp=newtemp();
             sprintf(temp,"T%d",cpttemp);
             cpttemp++;
-            createQuadA(nb_op,(yyvsp[(1) - (3)].string),(yyvsp[(3) - (3)].string),temp);
+            createQuadA(nb_op,(yyvsp[-2].string),(yyvsp[0].string),temp);
             empiler(&pile3,temp);
         }
-    ;}
+    }
+#line 2385 "syntaxic.tab.c"
     break;
 
-  case 85:
-#line 837 "syntaxic.y"
-    {strcpy(typeG,"CHAR");;}
+  case 84: /* DROIT: CHARACTERE  */
+#line 831 "syntaxic.y"
+              {strcpy(typeG,"CHAR");}
+#line 2391 "syntaxic.tab.c"
     break;
 
-  case 86:
-#line 838 "syntaxic.y"
-    {strcpy(typeG,"STRING");;}
+  case 85: /* DROIT: STRING_LITERAL  */
+#line 832 "syntaxic.y"
+                   {strcpy(typeG,"STRING");}
+#line 2397 "syntaxic.tab.c"
     break;
 
-  case 87:
+  case 86: /* GAUCHE: CHARACTERE  */
+#line 835 "syntaxic.y"
+             {strcpy(typeD,"CHAR");}
+#line 2403 "syntaxic.tab.c"
+    break;
+
+  case 87: /* GAUCHE: STRING_LITERAL  */
+#line 836 "syntaxic.y"
+                   {strcpy(typeD,"STRING");}
+#line 2409 "syntaxic.tab.c"
+    break;
+
+  case 88: /* OP_COMP: GT  */
+#line 839 "syntaxic.y"
+        {nb_op=6;}
+#line 2415 "syntaxic.tab.c"
+    break;
+
+  case 89: /* OP_COMP: LT  */
+#line 840 "syntaxic.y"
+        {nb_op=5;}
+#line 2421 "syntaxic.tab.c"
+    break;
+
+  case 90: /* OP_COMP: GEQ  */
 #line 841 "syntaxic.y"
-    {strcpy(typeD,"CHAR");;}
+          {nb_op=3;}
+#line 2427 "syntaxic.tab.c"
     break;
 
-  case 88:
+  case 91: /* OP_COMP: LEQ  */
 #line 842 "syntaxic.y"
-    {strcpy(typeD,"STRING");;}
+          {nb_op=4;}
+#line 2433 "syntaxic.tab.c"
     break;
 
-  case 89:
-#line 845 "syntaxic.y"
-    {nb_op=6;;}
+  case 92: /* OP_COMP: EQ  */
+#line 843 "syntaxic.y"
+        {nb_op=1;}
+#line 2439 "syntaxic.tab.c"
     break;
 
-  case 90:
-#line 846 "syntaxic.y"
-    {nb_op=5;;}
+  case 93: /* OP_COMP: NEQ  */
+#line 844 "syntaxic.y"
+         {nb_op=2;}
+#line 2445 "syntaxic.tab.c"
     break;
 
-  case 91:
-#line 847 "syntaxic.y"
-    {nb_op=3;;}
-    break;
-
-  case 92:
-#line 848 "syntaxic.y"
-    {nb_op=4;;}
-    break;
-
-  case 93:
-#line 849 "syntaxic.y"
-    {nb_op=1;;}
-    break;
-
-  case 94:
-#line 850 "syntaxic.y"
-    {nb_op=2;;}
-    break;
-
-  case 96:
-#line 857 "syntaxic.y"
-    {
-        float t=(yyvsp[(1) - (3)].real)+(yyvsp[(3) - (3)].real);
+  case 95: /* term: term PLUS factor  */
+#line 851 "syntaxic.y"
+                       {
+        float t=(yyvsp[-2].real)+(yyvsp[0].real);
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);
@@ -2634,13 +2464,14 @@ yyreduce:
         cpttemp++;
         
 
-    ;}
+    }
+#line 2469 "syntaxic.tab.c"
     break;
 
-  case 97:
-#line 876 "syntaxic.y"
-    {
-        float t=(yyvsp[(1) - (3)].real)-(yyvsp[(3) - (3)].real);
+  case 96: /* term: term MINUS factor  */
+#line 870 "syntaxic.y"
+                        {
+        float t=(yyvsp[-2].real)-(yyvsp[0].real);
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);
@@ -2655,13 +2486,14 @@ yyreduce:
         strcpy(saveStrq,temp);
         empiler(&pile3,temp);
         cpttemp++;
-    ;}
+    }
+#line 2491 "syntaxic.tab.c"
     break;
 
-  case 99:
-#line 898 "syntaxic.y"
-    { 
-        float t=(yyvsp[(1) - (3)].real)*(yyvsp[(3) - (3)].real);
+  case 98: /* factor: factor MULTIPLY primary  */
+#line 892 "syntaxic.y"
+                               { 
+        float t=(yyvsp[-2].real)*(yyvsp[0].real);
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);
@@ -2677,15 +2509,16 @@ yyreduce:
         strcpy(saveStrq,temp);
         cpttemp++;
 
-    ;}
+    }
+#line 2514 "syntaxic.tab.c"
     break;
 
-  case 100:
-#line 916 "syntaxic.y"
-    { 
-        if((yyvsp[(3) - (3)].real)==0) {printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
+  case 99: /* factor: factor DIVIDE primary  */
+#line 910 "syntaxic.y"
+                                { 
+        if((yyvsp[0].real)==0) {printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
         else{   
-        float t=(yyvsp[(1) - (3)].real)/(yyvsp[(3) - (3)].real);        
+        float t=(yyvsp[-2].real)/(yyvsp[0].real);        
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);  
@@ -2701,146 +2534,156 @@ yyreduce:
         strcpy(saveStrq,temp);
         cpttemp++;
         }
-;}
+}
+#line 2539 "syntaxic.tab.c"
     break;
 
-  case 101:
-#line 940 "syntaxic.y"
-    {
+  case 100: /* primary: IDENTIFIER  */
+#line 934 "syntaxic.y"
+               {
         // Vérification de la déclaration de la variable avant usage dans READ
-        if (verifdeclaration((yyvsp[(1) - (1)].string)) == 0) {
-            printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[(1) - (1)].string)); exit(0);
-        }else {strcpy(typeD,getType((yyvsp[(1) - (1)].string)));
+        if (verifdeclaration((yyvsp[0].string)) == 0) {
+            printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[0].string)); exit(0);
+        }else {strcpy(typeD,getType((yyvsp[0].string)));
                              if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 1\n",nb_ligne,col);
                                                             printf("tentative d'affecter %s a un %s\n",typeD,typeG); exit(0);}
-                                strcpy(valIdf,getVal((yyvsp[(1) - (1)].string)));
-                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d colonne %d : variable %s non initialisee\n",nb_ligne,col,(yyvsp[(1) - (1)].string)); exit(0);}
+                                strcpy(valIdf,getVal((yyvsp[0].string)));
+                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d colonne %d : variable %s non initialisee\n",nb_ligne,col,(yyvsp[0].string)); exit(0);}
                                  else
                                   (yyval.real)=atof(valIdf);
-                                  strcpy(saveStrq,(yyvsp[(1) - (1)].string));
-                                  strcpy(buffer1,(yyvsp[(1) - (1)].string));
+                                  strcpy(saveStrq,(yyvsp[0].string));
+                                  strcpy(buffer1,(yyvsp[0].string));
                                   empiler(&pile3,buffer1);
                                   
                              }
-    ;}
+    }
+#line 2561 "syntaxic.tab.c"
     break;
 
-  case 102:
-#line 957 "syntaxic.y"
-    {
+  case 101: /* primary: INT_NUMBER  */
+#line 951 "syntaxic.y"
+                 {
         if(strcmp(typeG,"INTEGER")!=0) {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 2\n",nb_ligne,col);
                                         printf("tentative d'affecter INTEGER a un %s\n",typeG); exit(0);}
-                   else{(yyval.real)=atof((yyvsp[(1) - (1)].string));}
-                  strcpy(saveStrq,(yyvsp[(1) - (1)].string));
-                  strcpy(buffer1,(yyvsp[(1) - (1)].string));
+                   else{(yyval.real)=atof((yyvsp[0].string));}
+                  strcpy(saveStrq,(yyvsp[0].string));
+                  strcpy(buffer1,(yyvsp[0].string));
                   empiler(&pile3,buffer1);
                   
-    ;}
+    }
+#line 2575 "syntaxic.tab.c"
     break;
 
-  case 103:
-#line 966 "syntaxic.y"
-    {
+  case 102: /* primary: FLOAT_NUMBER  */
+#line 960 "syntaxic.y"
+                  {
                     if(strcmp(typeG,"FLOAT")!=0) 
                    {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 3\n",nb_ligne,col);
                    printf("tentative d'affecter FLOAT a un %s\n",typeG); exit(0);}
                    else{
-                   (yyval.real)=atof((yyvsp[(1) - (1)].string)); }  
-                   strcpy(saveStrq,(yyvsp[(1) - (1)].string));
-                   strcpy(buffer1,(yyvsp[(1) - (1)].string));
+                   (yyval.real)=atof((yyvsp[0].string)); }  
+                   strcpy(saveStrq,(yyvsp[0].string));
+                   strcpy(buffer1,(yyvsp[0].string));
                    empiler(&pile3,buffer1);
-                   ;}
+                   }
+#line 2590 "syntaxic.tab.c"
     break;
 
-  case 104:
-#line 976 "syntaxic.y"
-    {
+  case 103: /* primary: LPAREN PLUS INT_NUMBER RPAREN  */
+#line 970 "syntaxic.y"
+                                  {
         if(strcmp(typeG,"INTEGER")!=0) 
         {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 4\n",nb_ligne,col);
         printf("tentative d'affecter INTEGER a un %s\n",typeG); exit(0);}
-        else{(yyval.real)=atof((yyvsp[(3) - (4)].string));
-        strcpy(saveStrq,(yyvsp[(3) - (4)].string));
-        strcpy(buffer1,(yyvsp[(3) - (4)].string));
+        else{(yyval.real)=atof((yyvsp[-1].string));
+        strcpy(saveStrq,(yyvsp[-1].string));
+        strcpy(buffer1,(yyvsp[-1].string));
         empiler(&pile3,buffer1);
         }
-    ;}
+    }
+#line 2605 "syntaxic.tab.c"
     break;
 
-  case 105:
-#line 986 "syntaxic.y"
-    {
+  case 104: /* primary: LPAREN MINUS INT_NUMBER RPAREN  */
+#line 980 "syntaxic.y"
+                                   {
         if(strcmp(typeG,"INTEGER")!=0) 
             {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 5\n",nb_ligne,col);
             printf("tentative d'affecter INTEGER a un %s\n",typeG); exit(0);}
                 else{
-                strcpy(saveStr,(yyvsp[(3) - (4)].string));
+                strcpy(saveStr,(yyvsp[-1].string));
                 strcat(strcpy(saveS,"-"),saveStr);
                 (yyval.real)=atoi(saveS);
                 strcpy(saveStrq, saveS);
                 strcpy(buffer1, saveS);
                 empiler(&pile3,buffer1);
             }
-    ;}
+    }
+#line 2623 "syntaxic.tab.c"
     break;
 
-  case 106:
-#line 999 "syntaxic.y"
-    {if(strcmp(typeG,"FLOAT")!=0) 
+  case 105: /* primary: LPAREN PLUS FLOAT_NUMBER RPAREN  */
+#line 993 "syntaxic.y"
+                                      {if(strcmp(typeG,"FLOAT")!=0) 
                                     {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 6\n",nb_ligne,col);
                                     printf("tentative d'affecter FLOAT a un %s\n",typeG); exit(0);}
-                                      else{(yyval.real)=atof((yyvsp[(3) - (4)].string));
-                                      strcpy(saveStrq,(yyvsp[(3) - (4)].string));
-                                      strcpy(buffer1,(yyvsp[(3) - (4)].string));
+                                      else{(yyval.real)=atof((yyvsp[-1].string));
+                                      strcpy(saveStrq,(yyvsp[-1].string));
+                                      strcpy(buffer1,(yyvsp[-1].string));
                                       empiler(&pile3,buffer1);
                                       }
-                   ;}
+                   }
+#line 2637 "syntaxic.tab.c"
     break;
 
-  case 107:
-#line 1008 "syntaxic.y"
-    {
+  case 106: /* primary: LPAREN MINUS FLOAT_NUMBER RPAREN  */
+#line 1002 "syntaxic.y"
+                                       {
         if(strcmp(typeG,"FLOAT")!=0) 
                                       {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 7\n",nb_ligne,col);
                                       printf("tentative d'affecter FlOAT a un %s\n",typeG); exit(0);}
                                        else{
-                                           strcat(strcpy(saveS,"-"),(yyvsp[(3) - (4)].string));
+                                           strcat(strcpy(saveS,"-"),(yyvsp[-1].string));
                                            (yyval.real)=atof(saveS);
                                            strcpy(saveStrq, saveS);
                                            strcpy(buffer1, saveS);
                                            empiler(&pile3,buffer1);
                                        }
-    ;}
+    }
+#line 2654 "syntaxic.tab.c"
     break;
 
-  case 108:
-#line 1020 "syntaxic.y"
-    {(yyval.real)=(yyvsp[(2) - (3)].real);;}
+  case 107: /* primary: LPAREN term RPAREN  */
+#line 1014 "syntaxic.y"
+                         {(yyval.real)=(yyvsp[-1].real);}
+#line 2660 "syntaxic.tab.c"
     break;
 
-  case 109:
-#line 1021 "syntaxic.y"
-    {if(verifdeclaration((yyvsp[(1) - (4)].string))==0 )
-                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d \n",(yyvsp[(1) - (4)].string),nb_ligne,col); exit(0);}
+  case 108: /* primary: IDENTIFIER LBRACKET INT_NUMBER RBRACKET  */
+#line 1015 "syntaxic.y"
+                                             {if(verifdeclaration((yyvsp[-3].string))==0 )
+                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d \n",(yyvsp[-3].string),nb_ligne,col); exit(0);}
                                 else {
-                                    strcpy(typeD,getType((yyvsp[(1) - (4)].string)));
+                                    strcpy(typeD,getType((yyvsp[-3].string)));
                                      if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 8\n",nb_ligne,col);
                                                                 printf("tentative d'affecter %s a un %s\n",typeD,typeG); exit(0);}
-                                     strcpy(tmp,(yyvsp[(1) - (4)].string));
+                                     strcpy(tmp,(yyvsp[-3].string));
                                     strcat(tmp,"[");
-                                    sprintf(buffer1,"%d",atoi((yyvsp[(3) - (4)].string)));
+                                    sprintf(buffer1,"%d",atoi((yyvsp[-1].string)));
                                     strcat(tmp,buffer1);
                                     strcat(tmp,"]");
                                     strcpy(saveStrq,tmp);
                                     strcpy(buffer1,tmp);
                                     empiler(&pile3,buffer1);
                                  }
-                ;}
+                }
+#line 2681 "syntaxic.tab.c"
     break;
 
-  case 111:
-#line 1041 "syntaxic.y"
-    {
-        float t=(yyvsp[(1) - (3)].real)+(yyvsp[(3) - (3)].real);
+  case 110: /* term1: term1 PLUS factor1  */
+#line 1035 "syntaxic.y"
+                         {
+        float t=(yyvsp[-2].real)+(yyvsp[0].real);
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);
@@ -2857,13 +2700,14 @@ yyreduce:
         cpttemp++;
         
 
-    ;}
+    }
+#line 2705 "syntaxic.tab.c"
     break;
 
-  case 112:
-#line 1060 "syntaxic.y"
-    {
-        float t=(yyvsp[(1) - (3)].real)-(yyvsp[(3) - (3)].real);
+  case 111: /* term1: term1 MINUS factor1  */
+#line 1054 "syntaxic.y"
+                          {
+        float t=(yyvsp[-2].real)-(yyvsp[0].real);
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);
@@ -2878,13 +2722,14 @@ yyreduce:
         strcpy(saveStrq,temp);
         empiler(&pile3,temp);
         cpttemp++;
-    ;}
+    }
+#line 2727 "syntaxic.tab.c"
     break;
 
-  case 114:
-#line 1082 "syntaxic.y"
-    { 
-        float t=(yyvsp[(1) - (3)].real)*(yyvsp[(3) - (3)].real);
+  case 113: /* factor1: factor1 MULTIPLY primary1  */
+#line 1076 "syntaxic.y"
+                                 { 
+        float t=(yyvsp[-2].real)*(yyvsp[0].real);
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);
@@ -2900,15 +2745,16 @@ yyreduce:
         strcpy(saveStrq,temp);
         cpttemp++;
 
-    ;}
+    }
+#line 2750 "syntaxic.tab.c"
     break;
 
-  case 115:
-#line 1100 "syntaxic.y"
-    { 
-        if((yyvsp[(3) - (3)].real)==0) {printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
+  case 114: /* factor1: factor1 DIVIDE primary1  */
+#line 1094 "syntaxic.y"
+                                  { 
+        if((yyvsp[0].real)==0) {printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
         else{   
-        float t=(yyvsp[(1) - (3)].real)/(yyvsp[(3) - (3)].real);        
+        float t=(yyvsp[-2].real)/(yyvsp[0].real);        
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);  
@@ -2924,152 +2770,162 @@ yyreduce:
         strcpy(saveStrq,temp);
         cpttemp++;
         }
-;}
+}
+#line 2775 "syntaxic.tab.c"
     break;
 
-  case 116:
-#line 1124 "syntaxic.y"
-    {
+  case 115: /* primary1: IDENTIFIER  */
+#line 1118 "syntaxic.y"
+               {
         // Vérification de la déclaration de la variable avant usage dans READ
-        if (verifdeclaration((yyvsp[(1) - (1)].string)) == 0) {
-            printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[(1) - (1)].string));
+        if (verifdeclaration((yyvsp[0].string)) == 0) {
+            printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[0].string));
              exit(0);
-        }else {strcpy(typeD,getType((yyvsp[(1) - (1)].string)));
+        }else {strcpy(typeD,getType((yyvsp[0].string)));
                              if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 1\n",nb_ligne,col);
                              printf("on ne peut pas comparer %s avec %s\n",typeD,typeG);
                               exit(0);
                              }
-                                strcpy(valIdf,getVal((yyvsp[(1) - (1)].string)));
-                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d colonne %d : variable %s non initialisee\n",nb_ligne,col,(yyvsp[(1) - (1)].string)); exit(0);}
+                                strcpy(valIdf,getVal((yyvsp[0].string)));
+                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d colonne %d : variable %s non initialisee\n",nb_ligne,col,(yyvsp[0].string)); exit(0);}
                                  else
                                   (yyval.real)=atof(valIdf);
-                                  strcpy(saveStrq,(yyvsp[(1) - (1)].string));
-                                  strcpy(buffer1,(yyvsp[(1) - (1)].string));
+                                  strcpy(saveStrq,(yyvsp[0].string));
+                                  strcpy(buffer1,(yyvsp[0].string));
                                   empiler(&pile3,buffer1);
                                   
                              }
-    ;}
+    }
+#line 2800 "syntaxic.tab.c"
     break;
 
-  case 117:
-#line 1144 "syntaxic.y"
-    {
+  case 116: /* primary1: INT_NUMBER  */
+#line 1138 "syntaxic.y"
+                 {
        
         if(strcmp(typeG,"INTEGER")!=0) {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 2\n",nb_ligne,col);
         printf("on ne peut pas comparer INTEGER avec %s\n",typeG); exit(0);}
-                   else{(yyval.real)=atof((yyvsp[(1) - (1)].string));}
-                  strcpy(saveStrq,(yyvsp[(1) - (1)].string));
-                  strcpy(buffer1,(yyvsp[(1) - (1)].string));
+                   else{(yyval.real)=atof((yyvsp[0].string));}
+                  strcpy(saveStrq,(yyvsp[0].string));
+                  strcpy(buffer1,(yyvsp[0].string));
                   empiler(&pile3,buffer1);
                   
-    ;}
+    }
+#line 2815 "syntaxic.tab.c"
     break;
 
-  case 118:
-#line 1154 "syntaxic.y"
-    {       
+  case 117: /* primary1: FLOAT_NUMBER  */
+#line 1148 "syntaxic.y"
+                  {       
 
                     if(strcmp(typeG,"FLOAT")!=0) 
                    {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 3\n",nb_ligne,col);
                    printf("on ne peut pas comparer FLOAT avec %s\n",typeG); exit(0);}
                    else{
-                   (yyval.real)=atof((yyvsp[(1) - (1)].string)); }  
-                   strcpy(saveStrq,(yyvsp[(1) - (1)].string));
-                   strcpy(buffer1,(yyvsp[(1) - (1)].string));
+                   (yyval.real)=atof((yyvsp[0].string)); }  
+                   strcpy(saveStrq,(yyvsp[0].string));
+                   strcpy(buffer1,(yyvsp[0].string));
                    empiler(&pile3,buffer1);
-                   ;}
+                   }
+#line 2831 "syntaxic.tab.c"
     break;
 
-  case 119:
-#line 1165 "syntaxic.y"
-    {
+  case 118: /* primary1: LPAREN PLUS INT_NUMBER RPAREN  */
+#line 1159 "syntaxic.y"
+                                  {
         if(strcmp(typeG,"INTEGER")!=0) 
         {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 4\n",nb_ligne,col);
         printf("on ne peut pas comparer INTEGER avec %s\n",typeG); exit(0);}
-        else{(yyval.real)=atof((yyvsp[(3) - (4)].string));
-        strcpy(saveStrq,(yyvsp[(3) - (4)].string));
-        strcpy(buffer1,(yyvsp[(3) - (4)].string));
+        else{(yyval.real)=atof((yyvsp[-1].string));
+        strcpy(saveStrq,(yyvsp[-1].string));
+        strcpy(buffer1,(yyvsp[-1].string));
         empiler(&pile3,buffer1);
         }
-    ;}
+    }
+#line 2846 "syntaxic.tab.c"
     break;
 
-  case 120:
-#line 1175 "syntaxic.y"
-    {
+  case 119: /* primary1: LPAREN MINUS INT_NUMBER RPAREN  */
+#line 1169 "syntaxic.y"
+                                   {
         if(strcmp(typeG,"INTEGER")!=0) 
             {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 5\n",nb_ligne,col);
             printf("on ne peut pas comparer INTEGER avec %s\n",typeG); exit(0);}
                 else{
-                strcpy(saveStr,(yyvsp[(3) - (4)].string));
+                strcpy(saveStr,(yyvsp[-1].string));
                 strcat(strcpy(saveS,"-"),saveStr);
                 (yyval.real)=atoi(saveS);
                 strcpy(saveStrq, saveS);
                 strcpy(buffer1, saveS);
                 empiler(&pile3,buffer1);
             }
-    ;}
+    }
+#line 2864 "syntaxic.tab.c"
     break;
 
-  case 121:
-#line 1188 "syntaxic.y"
-    {if(strcmp(typeG,"FLOAT")!=0) 
+  case 120: /* primary1: LPAREN PLUS FLOAT_NUMBER RPAREN  */
+#line 1182 "syntaxic.y"
+                                      {if(strcmp(typeG,"FLOAT")!=0) 
                                     {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 6\n",nb_ligne,col);
                                     printf("on ne peut pas comparer FLOAT avec %s\n",typeG); exit(0);}
-                                      else{(yyval.real)=atof((yyvsp[(3) - (4)].string));
-                                      strcpy(saveStrq,(yyvsp[(3) - (4)].string));
-                                      strcpy(buffer1,(yyvsp[(3) - (4)].string));
+                                      else{(yyval.real)=atof((yyvsp[-1].string));
+                                      strcpy(saveStrq,(yyvsp[-1].string));
+                                      strcpy(buffer1,(yyvsp[-1].string));
                                       empiler(&pile3,buffer1);
                                       }
-                   ;}
+                   }
+#line 2878 "syntaxic.tab.c"
     break;
 
-  case 122:
-#line 1197 "syntaxic.y"
-    {
+  case 121: /* primary1: LPAREN MINUS FLOAT_NUMBER RPAREN  */
+#line 1191 "syntaxic.y"
+                                       {
         if(strcmp(typeG,"FLOAT")!=0) 
                                       {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 7\n",nb_ligne,col);
                                       printf("on ne peut pas comparer FLOAT avec %s\n",typeG); exit(0);}
                                        else{
-                                           strcat(strcpy(saveS,"-"),(yyvsp[(3) - (4)].string));
+                                           strcat(strcpy(saveS,"-"),(yyvsp[-1].string));
                                            (yyval.real)=atof(saveS);
                                            strcpy(saveStrq, saveS);
                                            strcpy(buffer1, saveS);
                                            empiler(&pile3,buffer1);
                                        }
-    ;}
+    }
+#line 2895 "syntaxic.tab.c"
     break;
 
-  case 123:
-#line 1209 "syntaxic.y"
-    {(yyval.real)=(yyvsp[(2) - (3)].real);;}
+  case 122: /* primary1: LPAREN term1 RPAREN  */
+#line 1203 "syntaxic.y"
+                          {(yyval.real)=(yyvsp[-1].real);}
+#line 2901 "syntaxic.tab.c"
     break;
 
-  case 124:
-#line 1210 "syntaxic.y"
-    {if(verifdeclaration((yyvsp[(1) - (4)].string))==0 )
-                                         {printf("Erreur semantique  :Tableau %s non declaree a la ligne %d colonne %d\n",(yyvsp[(1) - (4)].string),nb_ligne,col);
+  case 123: /* primary1: IDENTIFIER LBRACKET INT_NUMBER RBRACKET  */
+#line 1204 "syntaxic.y"
+                                             {if(verifdeclaration((yyvsp[-3].string))==0 )
+                                         {printf("Erreur semantique  :Tableau %s non declaree a la ligne %d colonne %d\n",(yyvsp[-3].string),nb_ligne,col);
                                           exit(0);}
                                 else {
-                                    strcpy(typeD,getType((yyvsp[(1) - (4)].string)));
+                                    strcpy(typeD,getType((yyvsp[-3].string)));
                                      if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 8\n",nb_ligne,col);
                                      printf("on ne peut pas comparer %s avec %s\n",typeD,typeG); exit(0);}
-                                     strcpy(tmp,(yyvsp[(1) - (4)].string));
+                                     strcpy(tmp,(yyvsp[-3].string));
                                     strcat(tmp,"[");
-                                    sprintf(buffer1,"%d",atoi((yyvsp[(3) - (4)].string)));
+                                    sprintf(buffer1,"%d",atoi((yyvsp[-1].string)));
                                     strcat(tmp,buffer1);
                                     strcat(tmp,"]");
                                     strcpy(saveStrq,tmp);
                                     strcpy(buffer1,tmp);
                                     empiler(&pile3,buffer1);
                                  }
-                ;}
+                }
+#line 2923 "syntaxic.tab.c"
     break;
 
-  case 126:
-#line 1231 "syntaxic.y"
-    {
-        float t=(yyvsp[(1) - (3)].real)+(yyvsp[(3) - (3)].real);
+  case 125: /* term2: term2 PLUS factor2  */
+#line 1225 "syntaxic.y"
+                         {
+        float t=(yyvsp[-2].real)+(yyvsp[0].real);
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);
@@ -3086,13 +2942,14 @@ yyreduce:
         cpttemp++;
         
 
-    ;}
+    }
+#line 2947 "syntaxic.tab.c"
     break;
 
-  case 127:
-#line 1250 "syntaxic.y"
-    {
-        float t=(yyvsp[(1) - (3)].real)-(yyvsp[(3) - (3)].real);
+  case 126: /* term2: term2 MINUS factor2  */
+#line 1244 "syntaxic.y"
+                          {
+        float t=(yyvsp[-2].real)-(yyvsp[0].real);
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);
@@ -3107,13 +2964,14 @@ yyreduce:
         strcpy(saveStrq,temp);
         empiler(&pile3,temp);
         cpttemp++;
-    ;}
+    }
+#line 2969 "syntaxic.tab.c"
     break;
 
-  case 129:
-#line 1272 "syntaxic.y"
-    { 
-        float t=(yyvsp[(1) - (3)].real)*(yyvsp[(3) - (3)].real);
+  case 128: /* factor2: factor2 MULTIPLY primary2  */
+#line 1266 "syntaxic.y"
+                                 { 
+        float t=(yyvsp[-2].real)*(yyvsp[0].real);
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);
@@ -3129,15 +2987,16 @@ yyreduce:
         strcpy(saveStrq,temp);
         cpttemp++;
 
-    ;}
+    }
+#line 2992 "syntaxic.tab.c"
     break;
 
-  case 130:
-#line 1290 "syntaxic.y"
-    { 
-        if((yyvsp[(3) - (3)].real)==0){ printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
+  case 129: /* factor2: factor2 DIVIDE primary2  */
+#line 1284 "syntaxic.y"
+                                  { 
+        if((yyvsp[0].real)==0){ printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
         else{   
-        float t=(yyvsp[(1) - (3)].real)/(yyvsp[(3) - (3)].real);        
+        float t=(yyvsp[-2].real)/(yyvsp[0].real);        
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);  
@@ -3153,115 +3012,125 @@ yyreduce:
         strcpy(saveStrq,temp);
         cpttemp++;
         }
-;}
+}
+#line 3017 "syntaxic.tab.c"
     break;
 
-  case 131:
-#line 1314 "syntaxic.y"
-    {
+  case 130: /* primary2: IDENTIFIER  */
+#line 1308 "syntaxic.y"
+               {
         // Vérification de la déclaration de la variable avant usage dans READ
-        if (verifdeclaration((yyvsp[(1) - (1)].string)) == 0) {
-            printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[(1) - (1)].string)); exit(0);
-        }else {strcpy(typeG,getType((yyvsp[(1) - (1)].string)));
+        if (verifdeclaration((yyvsp[0].string)) == 0) {
+            printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[0].string)); exit(0);
+        }else {strcpy(typeG,getType((yyvsp[0].string)));
                                   (yyval.real)=atof(valIdf);
-                                  strcpy(buffer1,(yyvsp[(1) - (1)].string));
+                                  strcpy(buffer1,(yyvsp[0].string));
                                   empiler(&pile3,buffer1);
                                   
                              }
-    ;}
+    }
+#line 3033 "syntaxic.tab.c"
     break;
 
-  case 132:
-#line 1325 "syntaxic.y"
-    {
+  case 131: /* primary2: INT_NUMBER  */
+#line 1319 "syntaxic.y"
+                 {
        strcpy(typeG,"INTEGER");
-       (yyval.real)=atof((yyvsp[(1) - (1)].string));
-       strcpy(buffer1,(yyvsp[(1) - (1)].string));
+       (yyval.real)=atof((yyvsp[0].string));
+       strcpy(buffer1,(yyvsp[0].string));
        empiler(&pile3,buffer1);
                   
-    ;}
+    }
+#line 3045 "syntaxic.tab.c"
     break;
 
-  case 133:
-#line 1332 "syntaxic.y"
-    {strcpy(typeG,"FLOAT");
-                   (yyval.real)=atof((yyvsp[(1) - (1)].string));  
-                   strcpy(buffer1,(yyvsp[(1) - (1)].string));
+  case 132: /* primary2: FLOAT_NUMBER  */
+#line 1326 "syntaxic.y"
+                  {strcpy(typeG,"FLOAT");
+                   (yyval.real)=atof((yyvsp[0].string));  
+                   strcpy(buffer1,(yyvsp[0].string));
                    empiler(&pile3,buffer1);
-                   ;}
+                   }
+#line 3055 "syntaxic.tab.c"
     break;
 
-  case 134:
-#line 1337 "syntaxic.y"
-    {
+  case 133: /* primary2: LPAREN PLUS INT_NUMBER RPAREN  */
+#line 1331 "syntaxic.y"
+                                  {
         strcpy(typeG,"INTEGER");
-        (yyval.real)=atof((yyvsp[(3) - (4)].string));
-        strcpy(buffer1,(yyvsp[(3) - (4)].string));
+        (yyval.real)=atof((yyvsp[-1].string));
+        strcpy(buffer1,(yyvsp[-1].string));
         empiler(&pile3,buffer1);
         
-    ;}
+    }
+#line 3067 "syntaxic.tab.c"
     break;
 
-  case 135:
-#line 1344 "syntaxic.y"
-    {
+  case 134: /* primary2: LPAREN MINUS INT_NUMBER RPAREN  */
+#line 1338 "syntaxic.y"
+                                   {
         strcpy(typeG,"INTEGER");
-                strcpy(saveStr,(yyvsp[(3) - (4)].string));
+                strcpy(saveStr,(yyvsp[-1].string));
                 strcat(strcpy(saveS,"-"),saveStr);
                 (yyval.real)=atoi(saveS);
                 strcpy(buffer1, saveS);
                 empiler(&pile3,buffer1);
             
-    ;}
+    }
+#line 3081 "syntaxic.tab.c"
     break;
 
-  case 136:
-#line 1353 "syntaxic.y"
-    {strcpy(typeG,"FLOAT");
-                                      (yyval.real)=atof((yyvsp[(3) - (4)].string));;
-                                      strcpy(buffer1,(yyvsp[(3) - (4)].string));
+  case 135: /* primary2: LPAREN PLUS FLOAT_NUMBER RPAREN  */
+#line 1347 "syntaxic.y"
+                                      {strcpy(typeG,"FLOAT");
+                                      (yyval.real)=atof((yyvsp[-1].string));;
+                                      strcpy(buffer1,(yyvsp[-1].string));
                                       empiler(&pile3,buffer1);
                                       
-                   ;}
+                   }
+#line 3092 "syntaxic.tab.c"
     break;
 
-  case 137:
-#line 1359 "syntaxic.y"
-    {strcpy(typeG,"FLOAT");
-                                           strcat(strcpy(saveS,"-"),(yyvsp[(3) - (4)].string));
+  case 136: /* primary2: LPAREN MINUS FLOAT_NUMBER RPAREN  */
+#line 1353 "syntaxic.y"
+                                       {strcpy(typeG,"FLOAT");
+                                           strcat(strcpy(saveS,"-"),(yyvsp[-1].string));
                                            (yyval.real)=atof(saveS);
                                            strcpy(buffer1, saveS);
                                            empiler(&pile3,buffer1);
                                        
-    ;}
+    }
+#line 3104 "syntaxic.tab.c"
     break;
 
-  case 138:
-#line 1366 "syntaxic.y"
-    {(yyval.real)=(yyvsp[(2) - (3)].real);;}
+  case 137: /* primary2: LPAREN term2 RPAREN  */
+#line 1360 "syntaxic.y"
+                          {(yyval.real)=(yyvsp[-1].real);}
+#line 3110 "syntaxic.tab.c"
     break;
 
-  case 139:
-#line 1367 "syntaxic.y"
-    {if(verifdeclaration((yyvsp[(1) - (4)].string))==0 )
-                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d\n",(yyvsp[(1) - (4)].string),nb_ligne,col); exit(0);}
+  case 138: /* primary2: IDENTIFIER LBRACKET INT_NUMBER RBRACKET  */
+#line 1361 "syntaxic.y"
+                                             {if(verifdeclaration((yyvsp[-3].string))==0 )
+                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d\n",(yyvsp[-3].string),nb_ligne,col); exit(0);}
                                 else {
-                                    strcpy(typeG,getType((yyvsp[(1) - (4)].string)));
-                                     strcpy(tmp,(yyvsp[(1) - (4)].string));
+                                    strcpy(typeG,getType((yyvsp[-3].string)));
+                                     strcpy(tmp,(yyvsp[-3].string));
                                     strcat(tmp,"[");
-                                    sprintf(buffer1,"%d",atoi((yyvsp[(3) - (4)].string)));
+                                    sprintf(buffer1,"%d",atoi((yyvsp[-1].string)));
                                     strcat(tmp,buffer1);
                                     strcat(tmp,"]");
                                     strcpy(buffer1,tmp);
                                     empiler(&pile3,buffer1);
                                  }
-                ;}
+                }
+#line 3128 "syntaxic.tab.c"
     break;
 
-  case 141:
-#line 1384 "syntaxic.y"
-    {
-        float t=(yyvsp[(1) - (3)].real)+(yyvsp[(3) - (3)].real);
+  case 140: /* term4: term4 PLUS factor4  */
+#line 1378 "syntaxic.y"
+                         {
+        float t=(yyvsp[-2].real)+(yyvsp[0].real);
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);
@@ -3278,13 +3147,14 @@ yyreduce:
         cpttemp++;
         
 
-    ;}
+    }
+#line 3152 "syntaxic.tab.c"
     break;
 
-  case 142:
-#line 1403 "syntaxic.y"
-    {
-        float t=(yyvsp[(1) - (3)].real)-(yyvsp[(3) - (3)].real);
+  case 141: /* term4: term4 MINUS factor4  */
+#line 1397 "syntaxic.y"
+                          {
+        float t=(yyvsp[-2].real)-(yyvsp[0].real);
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);
@@ -3299,13 +3169,14 @@ yyreduce:
         strcpy(saveStrq,temp);
         empiler(&pile3,temp);
         cpttemp++;
-    ;}
+    }
+#line 3174 "syntaxic.tab.c"
     break;
 
-  case 144:
-#line 1425 "syntaxic.y"
-    { 
-        float t=(yyvsp[(1) - (3)].real)*(yyvsp[(3) - (3)].real);
+  case 143: /* factor4: factor4 MULTIPLY primary4  */
+#line 1419 "syntaxic.y"
+                                 { 
+        float t=(yyvsp[-2].real)*(yyvsp[0].real);
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);
@@ -3321,15 +3192,16 @@ yyreduce:
         strcpy(saveStrq,temp);
         cpttemp++;
 
-    ;}
+    }
+#line 3197 "syntaxic.tab.c"
     break;
 
-  case 145:
-#line 1443 "syntaxic.y"
-    { 
-        if((yyvsp[(3) - (3)].real)==0) {printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
+  case 144: /* factor4: factor4 DIVIDE primary4  */
+#line 1437 "syntaxic.y"
+                                  { 
+        if((yyvsp[0].real)==0) {printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
         else{   
-        float t=(yyvsp[(1) - (3)].real)/(yyvsp[(3) - (3)].real);        
+        float t=(yyvsp[-2].real)/(yyvsp[0].real);        
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);  
@@ -3345,137 +3217,149 @@ yyreduce:
         strcpy(saveStrq,temp);
         cpttemp++;
         }
-;}
+}
+#line 3222 "syntaxic.tab.c"
     break;
 
-  case 146:
-#line 1467 "syntaxic.y"
-    {
+  case 145: /* primary4: IDENTIFIER  */
+#line 1461 "syntaxic.y"
+               {
         // Vérification de la déclaration de la variable avant usage dans READ
-        if (verifdeclaration((yyvsp[(1) - (1)].string)) == 0) {
-            printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[(1) - (1)].string)); exit(0);
-        }else {strcpy(typeD,getType((yyvsp[(1) - (1)].string)));
+        if (verifdeclaration((yyvsp[0].string)) == 0) {
+            printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[0].string)); exit(0);
+        }else {strcpy(typeD,getType((yyvsp[0].string)));
                 if(strcmp(typeD,"CHAR")==0){printf("Erreur semantique a la ligne %d colonne %d :type incompatible parametre de boucle ne doit pas etre CHAR\n",nb_ligne,col);exit(0);}
 
-                                  strcpy(brnsup,(yyvsp[(1) - (1)].string));
+                                  strcpy(brnsup,(yyvsp[0].string));
                                   (yyval.real)=atof(valIdf);
-                                  strcpy(buffer1,(yyvsp[(1) - (1)].string));
+                                  strcpy(buffer1,(yyvsp[0].string));
                                   empiler(&pile3,buffer1);
                                   
                              }
-    ;}
+    }
+#line 3241 "syntaxic.tab.c"
     break;
 
-  case 147:
-#line 1481 "syntaxic.y"
-    {
-        strcpy(brnsup,(yyvsp[(1) - (1)].string));
+  case 146: /* primary4: INT_NUMBER  */
+#line 1475 "syntaxic.y"
+                 {
+        strcpy(brnsup,(yyvsp[0].string));
        strcpy(typeD,"INTEGER");
-       (yyval.real)=atof((yyvsp[(1) - (1)].string));
-       strcpy(buffer1,(yyvsp[(1) - (1)].string));
+       (yyval.real)=atof((yyvsp[0].string));
+       strcpy(buffer1,(yyvsp[0].string));
        empiler(&pile3,buffer1);
                   
-    ;}
+    }
+#line 3254 "syntaxic.tab.c"
     break;
 
-  case 148:
-#line 1489 "syntaxic.y"
-    {  strcpy(brnsup,(yyvsp[(1) - (1)].string));
+  case 147: /* primary4: FLOAT_NUMBER  */
+#line 1483 "syntaxic.y"
+                  {  strcpy(brnsup,(yyvsp[0].string));
         strcpy(typeD,"FLOAT");
-                   (yyval.real)=atof((yyvsp[(1) - (1)].string));  
-                   strcpy(buffer1,(yyvsp[(1) - (1)].string));
+                   (yyval.real)=atof((yyvsp[0].string));  
+                   strcpy(buffer1,(yyvsp[0].string));
                    empiler(&pile3,buffer1);
-                   ;}
+                   }
+#line 3265 "syntaxic.tab.c"
     break;
 
-  case 149:
-#line 1495 "syntaxic.y"
-    {
-         strcpy(brnsup,(yyvsp[(3) - (4)].string));
+  case 148: /* primary4: LPAREN PLUS INT_NUMBER RPAREN  */
+#line 1489 "syntaxic.y"
+                                  {
+         strcpy(brnsup,(yyvsp[-1].string));
         strcpy(typeD,"INTEGER");
-        (yyval.real)=atof((yyvsp[(3) - (4)].string));
-        strcpy(buffer1,(yyvsp[(3) - (4)].string));
+        (yyval.real)=atof((yyvsp[-1].string));
+        strcpy(buffer1,(yyvsp[-1].string));
         empiler(&pile3,buffer1);
         
-    ;}
+    }
+#line 3278 "syntaxic.tab.c"
     break;
 
-  case 150:
-#line 1503 "syntaxic.y"
-    {
+  case 149: /* primary4: LPAREN MINUS INT_NUMBER RPAREN  */
+#line 1497 "syntaxic.y"
+                                   {
         strcpy(typeD,"INTEGER");
-                strcpy(saveStr,(yyvsp[(3) - (4)].string));
+                strcpy(saveStr,(yyvsp[-1].string));
                 strcat(strcpy(saveS,"-"),saveStr);
                 (yyval.real)=atoi(saveS);
                  strcpy(brnsup,saveS);
                 strcpy(buffer1, saveS);
                 empiler(&pile3,buffer1);
             
-    ;}
+    }
+#line 3293 "syntaxic.tab.c"
     break;
 
-  case 151:
-#line 1513 "syntaxic.y"
-    {strcpy(typeD,"FLOAT");
-                                      (yyval.real)=atof((yyvsp[(3) - (4)].string));;
-                                       strcpy(brnsup,(yyvsp[(3) - (4)].string));
-                                      strcpy(buffer1,(yyvsp[(3) - (4)].string));
+  case 150: /* primary4: LPAREN PLUS FLOAT_NUMBER RPAREN  */
+#line 1507 "syntaxic.y"
+                                      {strcpy(typeD,"FLOAT");
+                                      (yyval.real)=atof((yyvsp[-1].string));;
+                                       strcpy(brnsup,(yyvsp[-1].string));
+                                      strcpy(buffer1,(yyvsp[-1].string));
                                       empiler(&pile3,buffer1);
                                       
-                   ;}
+                   }
+#line 3305 "syntaxic.tab.c"
     break;
 
-  case 152:
-#line 1520 "syntaxic.y"
-    {strcpy(typeD,"FLOAT");
-                                           strcat(strcpy(saveS,"-"),(yyvsp[(3) - (4)].string));
+  case 151: /* primary4: LPAREN MINUS FLOAT_NUMBER RPAREN  */
+#line 1514 "syntaxic.y"
+                                       {strcpy(typeD,"FLOAT");
+                                           strcat(strcpy(saveS,"-"),(yyvsp[-1].string));
                                            (yyval.real)=atof(saveS);
                                             strcpy(brnsup,saveS);
                                            strcpy(buffer1, saveS);
                                            empiler(&pile3,buffer1);
                                        
-    ;}
+    }
+#line 3318 "syntaxic.tab.c"
     break;
 
-  case 153:
-#line 1528 "syntaxic.y"
-    {(yyval.real)=(yyvsp[(2) - (3)].real);;}
+  case 152: /* primary4: LPAREN term4 RPAREN  */
+#line 1522 "syntaxic.y"
+                          {(yyval.real)=(yyvsp[-1].real);}
+#line 3324 "syntaxic.tab.c"
     break;
 
-  case 154:
-#line 1529 "syntaxic.y"
-    {if(verifdeclaration((yyvsp[(1) - (4)].string))==0 )
-                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d\n",(yyvsp[(1) - (4)].string),nb_ligne,col); exit(0);}
+  case 153: /* primary4: IDENTIFIER LBRACKET INT_NUMBER RBRACKET  */
+#line 1523 "syntaxic.y"
+                                             {if(verifdeclaration((yyvsp[-3].string))==0 )
+                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d\n",(yyvsp[-3].string),nb_ligne,col); exit(0);}
                                 else {
-                                    strcpy(typeD,getType((yyvsp[(1) - (4)].string)));
-                                     strcpy(tmp,(yyvsp[(1) - (4)].string));
+                                    strcpy(typeD,getType((yyvsp[-3].string)));
+                                     strcpy(tmp,(yyvsp[-3].string));
                                     strcat(tmp,"[");
-                                    sprintf(buffer1,"%d",atoi((yyvsp[(3) - (4)].string)));
+                                    sprintf(buffer1,"%d",atoi((yyvsp[-1].string)));
                                     strcat(tmp,buffer1);
                                     strcat(tmp,"]");
                                     strcpy(buffer1,tmp);
                                      strcpy(brnsup,tmp);
                                     empiler(&pile3,buffer1);
                                  }
-                ;}
+                }
+#line 3343 "syntaxic.tab.c"
     break;
 
-  case 155:
-#line 1543 "syntaxic.y"
-    {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
-                    printf("parametres de boucle doit pas etre characters\n");exit(0);;}
+  case 154: /* primary4: STRING_LITERAL  */
+#line 1537 "syntaxic.y"
+                   {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
+                    printf("parametres de boucle doit pas etre characters\n");exit(0);}
+#line 3350 "syntaxic.tab.c"
     break;
 
-  case 156:
-#line 1546 "syntaxic.y"
-    {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
-                    printf("parametres de boucle doit pas etre character\n");exit(0);;}
+  case 155: /* primary4: CHARACTERE  */
+#line 1540 "syntaxic.y"
+               {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
+                    printf("parametres de boucle doit pas etre character\n");exit(0);}
+#line 3357 "syntaxic.tab.c"
     break;
 
-  case 158:
-#line 1551 "syntaxic.y"
-    {
-        float t=(yyvsp[(1) - (3)].real)+(yyvsp[(3) - (3)].real);
+  case 157: /* term3: term3 PLUS factor3  */
+#line 1545 "syntaxic.y"
+                         {
+        float t=(yyvsp[-2].real)+(yyvsp[0].real);
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);
@@ -3492,13 +3376,14 @@ yyreduce:
         cpttemp++;
         
 
-    ;}
+    }
+#line 3381 "syntaxic.tab.c"
     break;
 
-  case 159:
-#line 1570 "syntaxic.y"
-    {
-        float t=(yyvsp[(1) - (3)].real)-(yyvsp[(3) - (3)].real);
+  case 158: /* term3: term3 MINUS factor3  */
+#line 1564 "syntaxic.y"
+                          {
+        float t=(yyvsp[-2].real)-(yyvsp[0].real);
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);
@@ -3513,13 +3398,14 @@ yyreduce:
         strcpy(saveStrq,temp);
         empiler(&pile3,temp);
         cpttemp++;
-    ;}
+    }
+#line 3403 "syntaxic.tab.c"
     break;
 
-  case 161:
-#line 1592 "syntaxic.y"
-    { 
-        float t=(yyvsp[(1) - (3)].real)*(yyvsp[(3) - (3)].real);
+  case 160: /* factor3: factor3 MULTIPLY primary3  */
+#line 1586 "syntaxic.y"
+                                 { 
+        float t=(yyvsp[-2].real)*(yyvsp[0].real);
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);
@@ -3535,15 +3421,16 @@ yyreduce:
         strcpy(saveStrq,temp);
         cpttemp++;
 
-    ;}
+    }
+#line 3426 "syntaxic.tab.c"
     break;
 
-  case 162:
-#line 1610 "syntaxic.y"
-    { 
-        if((yyvsp[(3) - (3)].real)==0) {printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
+  case 161: /* factor3: factor3 DIVIDE primary3  */
+#line 1604 "syntaxic.y"
+                                 { 
+        if((yyvsp[0].real)==0) {printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
         else{   
-        float t=(yyvsp[(1) - (3)].real)/(yyvsp[(3) - (3)].real);        
+        float t=(yyvsp[-2].real)/(yyvsp[0].real);        
         tt=newtemp();
         sprintf(tt,"%f",t);
         (yyval.real)=atoi(tt);  
@@ -3559,221 +3446,208 @@ yyreduce:
         strcpy(saveStrq,temp);
         cpttemp++;
         }
-;}
+}
+#line 3451 "syntaxic.tab.c"
     break;
 
-  case 163:
-#line 1634 "syntaxic.y"
-    {
+  case 162: /* primary3: IDENTIFIER  */
+#line 1628 "syntaxic.y"
+               {
         // Vérification de la déclaration de la variable avant usage dans READ
-        if (verifdeclaration((yyvsp[(1) - (1)].string)) == 0) {
-            printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n", nb_ligne,col,(yyvsp[(1) - (1)].string));
+        if (verifdeclaration((yyvsp[0].string)) == 0) {
+            printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n", nb_ligne,col,(yyvsp[0].string));
              exit(0);
-        }else {strcpy(typeG,getType((yyvsp[(1) - (1)].string)));
+        }else {strcpy(typeG,getType((yyvsp[0].string)));
                 if(strcmp(typeG,"CHAR")==0){printf("Erreur semantique a la ligne %d colonne %d :type incompatible parametre de boucle ne doit pas etre CHAR\n",nb_ligne,col);exit(0);}
                                   (yyval.real)=atof(valIdf);
-                                  strcpy(buffer1,(yyvsp[(1) - (1)].string));
+                                  strcpy(buffer1,(yyvsp[0].string));
                                   empiler(&pile3,buffer1);
                                   
                              }
-    ;}
+    }
+#line 3469 "syntaxic.tab.c"
     break;
 
-  case 164:
-#line 1647 "syntaxic.y"
-    {
+  case 163: /* primary3: INT_NUMBER  */
+#line 1641 "syntaxic.y"
+                 {
        strcpy(typeG,"INTEGER");
-       (yyval.real)=atof((yyvsp[(1) - (1)].string));
-       strcpy(buffer1,(yyvsp[(1) - (1)].string));
+       (yyval.real)=atof((yyvsp[0].string));
+       strcpy(buffer1,(yyvsp[0].string));
        empiler(&pile3,buffer1);
                   
-    ;}
+    }
+#line 3481 "syntaxic.tab.c"
     break;
 
-  case 165:
-#line 1654 "syntaxic.y"
-    {strcpy(typeG,"FLOAT");
-                   (yyval.real)=atof((yyvsp[(1) - (1)].string));  
-                   strcpy(buffer1,(yyvsp[(1) - (1)].string));
+  case 164: /* primary3: FLOAT_NUMBER  */
+#line 1648 "syntaxic.y"
+                  {strcpy(typeG,"FLOAT");
+                   (yyval.real)=atof((yyvsp[0].string));  
+                   strcpy(buffer1,(yyvsp[0].string));
                    empiler(&pile3,buffer1);
-                   ;}
+                   }
+#line 3491 "syntaxic.tab.c"
     break;
 
-  case 166:
-#line 1659 "syntaxic.y"
-    {
+  case 165: /* primary3: LPAREN PLUS INT_NUMBER RPAREN  */
+#line 1653 "syntaxic.y"
+                                  {
         strcpy(typeG,"INTEGER");
-        (yyval.real)=atof((yyvsp[(3) - (4)].string));
-        strcpy(buffer1,(yyvsp[(3) - (4)].string));
+        (yyval.real)=atof((yyvsp[-1].string));
+        strcpy(buffer1,(yyvsp[-1].string));
         empiler(&pile3,buffer1);
         
-    ;}
+    }
+#line 3503 "syntaxic.tab.c"
     break;
 
-  case 167:
-#line 1666 "syntaxic.y"
-    {
+  case 166: /* primary3: LPAREN MINUS INT_NUMBER RPAREN  */
+#line 1660 "syntaxic.y"
+                                   {
         strcpy(typeG,"INTEGER");
-                strcpy(saveStr,(yyvsp[(3) - (4)].string));
+                strcpy(saveStr,(yyvsp[-1].string));
                 strcat(strcpy(saveS,"-"),saveStr);
                 (yyval.real)=atoi(saveS);
                 strcpy(buffer1, saveS);
                 empiler(&pile3,buffer1);
             
-    ;}
+    }
+#line 3517 "syntaxic.tab.c"
     break;
 
-  case 168:
-#line 1675 "syntaxic.y"
-    {strcpy(typeG,"FLOAT");
-                                      (yyval.real)=atof((yyvsp[(3) - (4)].string));;
-                                      strcpy(buffer1,(yyvsp[(3) - (4)].string));
+  case 167: /* primary3: LPAREN PLUS FLOAT_NUMBER RPAREN  */
+#line 1669 "syntaxic.y"
+                                      {strcpy(typeG,"FLOAT");
+                                      (yyval.real)=atof((yyvsp[-1].string));;
+                                      strcpy(buffer1,(yyvsp[-1].string));
                                       empiler(&pile3,buffer1);
                                       
-                   ;}
+                   }
+#line 3528 "syntaxic.tab.c"
     break;
 
-  case 169:
-#line 1681 "syntaxic.y"
-    {strcpy(typeG,"FLOAT");
-                                           strcat(strcpy(saveS,"-"),(yyvsp[(3) - (4)].string));
+  case 168: /* primary3: LPAREN MINUS FLOAT_NUMBER RPAREN  */
+#line 1675 "syntaxic.y"
+                                       {strcpy(typeG,"FLOAT");
+                                           strcat(strcpy(saveS,"-"),(yyvsp[-1].string));
                                            (yyval.real)=atof(saveS);
                                            strcpy(buffer1, saveS);
                                            empiler(&pile3,buffer1);
                                        
-    ;}
+    }
+#line 3540 "syntaxic.tab.c"
     break;
 
-  case 170:
-#line 1688 "syntaxic.y"
-    {(yyval.real)=(yyvsp[(2) - (3)].real);;}
+  case 169: /* primary3: LPAREN term3 RPAREN  */
+#line 1682 "syntaxic.y"
+                          {(yyval.real)=(yyvsp[-1].real);}
+#line 3546 "syntaxic.tab.c"
     break;
 
-  case 171:
-#line 1689 "syntaxic.y"
-    {if(verifdeclaration((yyvsp[(1) - (4)].string))==0 )
-                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d \n",(yyvsp[(1) - (4)].string),nb_ligne,col); exit(0);}
+  case 170: /* primary3: IDENTIFIER LBRACKET INT_NUMBER RBRACKET  */
+#line 1683 "syntaxic.y"
+                                             {if(verifdeclaration((yyvsp[-3].string))==0 )
+                                         {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d \n",(yyvsp[-3].string),nb_ligne,col); exit(0);}
                                 else {
-                                    strcpy(typeG,getType((yyvsp[(1) - (4)].string)));
-                                     strcpy(tmp,(yyvsp[(1) - (4)].string));
+                                    strcpy(typeG,getType((yyvsp[-3].string)));
+                                     strcpy(tmp,(yyvsp[-3].string));
                                     strcat(tmp,"[");
-                                    sprintf(buffer1,"%d",atoi((yyvsp[(3) - (4)].string)));
+                                    sprintf(buffer1,"%d",atoi((yyvsp[-1].string)));
                                     strcat(tmp,buffer1);
                                     strcat(tmp,"]");
                                     strcpy(buffer1,tmp);
                                     empiler(&pile3,buffer1);
                                  }
-                ;}
+                }
+#line 3564 "syntaxic.tab.c"
     break;
 
-  case 172:
-#line 1702 "syntaxic.y"
-    {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
-                    printf("parametres de boucle doit pas etre characters\n");exit(0);;}
+  case 171: /* primary3: STRING_LITERAL  */
+#line 1696 "syntaxic.y"
+                   {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
+                    printf("parametres de boucle doit pas etre characters\n");exit(0);}
+#line 3571 "syntaxic.tab.c"
     break;
 
-  case 173:
-#line 1705 "syntaxic.y"
-    {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
-                    printf("parametres de boucle doit pas etre character\n");exit(0);;}
+  case 172: /* primary3: CHARACTERE  */
+#line 1699 "syntaxic.y"
+               {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
+                    printf("parametres de boucle doit pas etre character\n");exit(0);}
+#line 3578 "syntaxic.tab.c"
     break;
 
 
-/* Line 1267 of yacc.c.  */
-#line 3684 "syntaxic.tab.c"
+#line 3582 "syntaxic.tab.c"
+
       default: break;
     }
-  YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
+  /* User semantic actions sometimes alter yychar, and that requires
+     that yytoken be updated with the new translation.  We take the
+     approach of translating immediately before every use of yytoken.
+     One alternative is translating here after every semantic action,
+     but that translation would be missed if the semantic action invokes
+     YYABORT, YYACCEPT, or YYERROR immediately after altering yychar or
+     if it invokes YYBACKUP.  In the case of YYABORT or YYACCEPT, an
+     incorrect destructor might then be invoked immediately.  In the
+     case of YYERROR or YYBACKUP, subsequent parser actions might lead
+     to an incorrect destructor call or verbose syntax error message
+     before the lookahead is translated.  */
+  YY_SYMBOL_PRINT ("-> $$ =", YY_CAST (yysymbol_kind_t, yyr1[yyn]), &yyval, &yyloc);
 
   YYPOPSTACK (yylen);
   yylen = 0;
-  YY_STACK_PRINT (yyss, yyssp);
 
   *++yyvsp = yyval;
 
-
-  /* Now `shift' the result of the reduction.  Determine what state
+  /* Now 'shift' the result of the reduction.  Determine what state
      that goes to, based on the state we popped back to and the rule
      number reduced by.  */
-
-  yyn = yyr1[yyn];
-
-  yystate = yypgoto[yyn - YYNTOKENS] + *yyssp;
-  if (0 <= yystate && yystate <= YYLAST && yycheck[yystate] == *yyssp)
-    yystate = yytable[yystate];
-  else
-    yystate = yydefgoto[yyn - YYNTOKENS];
+  {
+    const int yylhs = yyr1[yyn] - YYNTOKENS;
+    const int yyi = yypgoto[yylhs] + *yyssp;
+    yystate = (0 <= yyi && yyi <= YYLAST && yycheck[yyi] == *yyssp
+               ? yytable[yyi]
+               : yydefgoto[yylhs]);
+  }
 
   goto yynewstate;
 
 
-/*------------------------------------.
-| yyerrlab -- here on detecting error |
-`------------------------------------*/
+/*--------------------------------------.
+| yyerrlab -- here on detecting error.  |
+`--------------------------------------*/
 yyerrlab:
+  /* Make sure we have latest lookahead translation.  See comments at
+     user semantic actions for why this is necessary.  */
+  yytoken = yychar == YYEMPTY ? YYSYMBOL_YYEMPTY : YYTRANSLATE (yychar);
   /* If not already recovering from an error, report this error.  */
   if (!yyerrstatus)
     {
       ++yynerrs;
-#if ! YYERROR_VERBOSE
       yyerror (YY_("syntax error"));
-#else
-      {
-	YYSIZE_T yysize = yysyntax_error (0, yystate, yychar);
-	if (yymsg_alloc < yysize && yymsg_alloc < YYSTACK_ALLOC_MAXIMUM)
-	  {
-	    YYSIZE_T yyalloc = 2 * yysize;
-	    if (! (yysize <= yyalloc && yyalloc <= YYSTACK_ALLOC_MAXIMUM))
-	      yyalloc = YYSTACK_ALLOC_MAXIMUM;
-	    if (yymsg != yymsgbuf)
-	      YYSTACK_FREE (yymsg);
-	    yymsg = (char *) YYSTACK_ALLOC (yyalloc);
-	    if (yymsg)
-	      yymsg_alloc = yyalloc;
-	    else
-	      {
-		yymsg = yymsgbuf;
-		yymsg_alloc = sizeof yymsgbuf;
-	      }
-	  }
-
-	if (0 < yysize && yysize <= yymsg_alloc)
-	  {
-	    (void) yysyntax_error (yymsg, yystate, yychar);
-	    yyerror (yymsg);
-	  }
-	else
-	  {
-	    yyerror (YY_("syntax error"));
-	    if (yysize != 0)
-	      goto yyexhaustedlab;
-	  }
-      }
-#endif
     }
-
-
 
   if (yyerrstatus == 3)
     {
-      /* If just tried and failed to reuse look-ahead token after an
-	 error, discard it.  */
+      /* If just tried and failed to reuse lookahead token after an
+         error, discard it.  */
 
       if (yychar <= YYEOF)
-	{
-	  /* Return failure if at end of input.  */
-	  if (yychar == YYEOF)
-	    YYABORT;
-	}
+        {
+          /* Return failure if at end of input.  */
+          if (yychar == YYEOF)
+            YYABORT;
+        }
       else
-	{
-	  yydestruct ("Error: discarding",
-		      yytoken, &yylval);
-	  yychar = YYEMPTY;
-	}
+        {
+          yydestruct ("Error: discarding",
+                      yytoken, &yylval);
+          yychar = YYEMPTY;
+        }
     }
 
-  /* Else will try to reuse look-ahead token after shifting the error
+  /* Else will try to reuse lookahead token after shifting the error
      token.  */
   goto yyerrlab1;
 
@@ -3782,14 +3656,13 @@ yyerrlab:
 | yyerrorlab -- error raised explicitly by YYERROR.  |
 `---------------------------------------------------*/
 yyerrorlab:
+  /* Pacify compilers when the user code never invokes YYERROR and the
+     label yyerrorlab therefore never appears in user code.  */
+  if (0)
+    YYERROR;
+  ++yynerrs;
 
-  /* Pacify compilers like GCC when the user code never invokes
-     YYERROR and the label yyerrorlab therefore never appears in user
-     code.  */
-  if (/*CONSTCOND*/ 0)
-     goto yyerrorlab;
-
-  /* Do not reclaim the symbols of the rule which action triggered
+  /* Do not reclaim the symbols of the rule whose action triggered
      this YYERROR.  */
   YYPOPSTACK (yylen);
   yylen = 0;
@@ -3802,42 +3675,42 @@ yyerrorlab:
 | yyerrlab1 -- common code for both syntax error and YYERROR.  |
 `-------------------------------------------------------------*/
 yyerrlab1:
-  yyerrstatus = 3;	/* Each real token shifted decrements this.  */
+  yyerrstatus = 3;      /* Each real token shifted decrements this.  */
 
+  /* Pop stack until we find a state that shifts the error token.  */
   for (;;)
     {
       yyn = yypact[yystate];
-      if (yyn != YYPACT_NINF)
-	{
-	  yyn += YYTERROR;
-	  if (0 <= yyn && yyn <= YYLAST && yycheck[yyn] == YYTERROR)
-	    {
-	      yyn = yytable[yyn];
-	      if (0 < yyn)
-		break;
-	    }
-	}
+      if (!yypact_value_is_default (yyn))
+        {
+          yyn += YYSYMBOL_YYerror;
+          if (0 <= yyn && yyn <= YYLAST && yycheck[yyn] == YYSYMBOL_YYerror)
+            {
+              yyn = yytable[yyn];
+              if (0 < yyn)
+                break;
+            }
+        }
 
       /* Pop the current state because it cannot handle the error token.  */
       if (yyssp == yyss)
-	YYABORT;
+        YYABORT;
 
 
       yydestruct ("Error: popping",
-		  yystos[yystate], yyvsp);
+                  YY_ACCESSING_SYMBOL (yystate), yyvsp);
       YYPOPSTACK (1);
       yystate = *yyssp;
       YY_STACK_PRINT (yyss, yyssp);
     }
 
-  if (yyn == YYFINAL)
-    YYACCEPT;
-
+  YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
   *++yyvsp = yylval;
+  YY_IGNORE_MAYBE_UNINITIALIZED_END
 
 
   /* Shift the error token.  */
-  YY_SYMBOL_PRINT ("Shifting", yystos[yyn], yyvsp, yylsp);
+  YY_SYMBOL_PRINT ("Shifting", YY_ACCESSING_SYMBOL (yyn), yyvsp, yylsp);
 
   yystate = yyn;
   goto yynewstate;
@@ -3848,53 +3721,57 @@ yyerrlab1:
 `-------------------------------------*/
 yyacceptlab:
   yyresult = 0;
-  goto yyreturn;
+  goto yyreturnlab;
+
 
 /*-----------------------------------.
 | yyabortlab -- YYABORT comes here.  |
 `-----------------------------------*/
 yyabortlab:
   yyresult = 1;
-  goto yyreturn;
+  goto yyreturnlab;
 
-#ifndef yyoverflow
-/*-------------------------------------------------.
-| yyexhaustedlab -- memory exhaustion comes here.  |
-`-------------------------------------------------*/
+
+/*-----------------------------------------------------------.
+| yyexhaustedlab -- YYNOMEM (memory exhaustion) comes here.  |
+`-----------------------------------------------------------*/
 yyexhaustedlab:
   yyerror (YY_("memory exhausted"));
   yyresult = 2;
-  /* Fall through.  */
-#endif
+  goto yyreturnlab;
 
-yyreturn:
-  if (yychar != YYEOF && yychar != YYEMPTY)
-     yydestruct ("Cleanup: discarding lookahead",
-		 yytoken, &yylval);
-  /* Do not reclaim the symbols of the rule which action triggered
+
+/*----------------------------------------------------------.
+| yyreturnlab -- parsing is finished, clean up and return.  |
+`----------------------------------------------------------*/
+yyreturnlab:
+  if (yychar != YYEMPTY)
+    {
+      /* Make sure we have latest lookahead translation.  See comments at
+         user semantic actions for why this is necessary.  */
+      yytoken = YYTRANSLATE (yychar);
+      yydestruct ("Cleanup: discarding lookahead",
+                  yytoken, &yylval);
+    }
+  /* Do not reclaim the symbols of the rule whose action triggered
      this YYABORT or YYACCEPT.  */
   YYPOPSTACK (yylen);
   YY_STACK_PRINT (yyss, yyssp);
   while (yyssp != yyss)
     {
       yydestruct ("Cleanup: popping",
-		  yystos[*yyssp], yyvsp);
+                  YY_ACCESSING_SYMBOL (+*yyssp), yyvsp);
       YYPOPSTACK (1);
     }
 #ifndef yyoverflow
   if (yyss != yyssa)
     YYSTACK_FREE (yyss);
 #endif
-#if YYERROR_VERBOSE
-  if (yymsg != yymsgbuf)
-    YYSTACK_FREE (yymsg);
-#endif
-  /* Make sure YYID is used.  */
-  return YYID (yyresult);
+
+  return yyresult;
 }
 
-
-#line 1709 "syntaxic.y"
+#line 1703 "syntaxic.y"
 
 
 // Main function to start the parser
@@ -3921,5 +3798,4 @@ void yyerror(const char *s) {
     fprintf(stderr, "Error: %s at line %d, column %d\n", s, nb_ligne, col);
     exit(0);
 }
-
 

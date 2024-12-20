@@ -27,6 +27,9 @@ if errorlevel 1 (
     exit /b 1
 )
 
+echo ---- Details conflis ----
+%BISON% -Wcounterexamples %YACC_FILE%
+
 echo ---- Compilation avec Flex ----
 %FLEX% %LEX_FILE%
 if errorlevel 1 (

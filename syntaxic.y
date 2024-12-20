@@ -62,7 +62,6 @@
 
 %left PLUS MINUS       
 %left MULTIPLY DIVIDE   
-%left AND OR            
 %left GT LT GEQ LEQ EQ NEQ  
 
 %type <string> cst
@@ -90,6 +89,9 @@
 %type <string>  OP_COMP
 %type <string>  DROIT
 %type <string>  GAUCHE
+%type <string> AND_EXPR
+%type <string> NOT_EXPR
+
 //%start program
 %%
 
@@ -206,14 +208,6 @@ variable_list:
     | IDENTIFIER LBRACKET INT_NUMBER RBRACKET COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);modifierCode("IDF TAB",saveIdf[j].idfTab);j++;} 
     | IDENTIFIER LBRACKET LPAREN PLUS INT_NUMBER RPAREN RBRACKET COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);modifierCode("IDF TAB",saveIdf[j].idfTab);j++;} 
 ;
-
-
-// Rule for a variable, which can be either simple or an array
-variable:
-    IDENTIFIER {strcpy(saveIdf.idfTab,$1);} 
-    | IDENTIFIER LBRACKET INT_NUMBER RBRACKET  {strcpy(saveIdf[j].idfTab,$1);j++;} 
-;
-
 
 
 // Define possible statements in the instruction section
@@ -727,7 +721,7 @@ NOT_EXPR:
 
 // Define comparison expressions (includes comparison operators)
 comparison_expr:
-    |term2 GT term1
+    term2 GT term1
     {
          char* temp=newtemp();
          sprintf(temp,"T%d",cpttemp);
@@ -819,7 +813,7 @@ comparison_expr:
     | DROIT OP_COMP GAUCHE{
         if(strcmp(typeD,typeG)!=0){
             printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
-            printf("on ne peut pas comparer %s avec avec %s\n",typeG,typeD); exit(0);
+            printf("on ne peut pas comparer %s avec %s\n",typeG,typeD); exit(0);
         }
         else{
             char* temp=newtemp();
