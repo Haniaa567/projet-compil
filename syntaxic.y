@@ -179,15 +179,7 @@ cst:
 // Rule for a list of variables separated by commas (converted to right-recursive)
 variable_list:
     IDENTIFIER {strcpy(saveIdf[j].idfTab,$1);j++;} 
-    | IDENTIFIER LBRACKET INT_NUMBER RBRACKET{strcpy(saveIdf[j].idfTab,$1);modifierCode("IDF TAB",saveIdf[j].idfTab);j++;
-        if (atoi($3) == 0) {
-            printf("Erreur semantique la ligne %d colonne %d : La taille du tableau doit etre strictement positive\n",nb_ligne,col);
-             exit(0);
-        } 
-        sprintf(buffer1, "%d", atoi($3)-1);
-        createQuad("BOUNDS", "0", buffer1,"");
-        createQuad("ADEC",$1,"","");
-        } 
+
     | IDENTIFIER LBRACKET termtab RBRACKET{strcpy(saveIdf[j].idfTab,$1);modifierCode("IDF TAB",saveIdf[j].idfTab);j++;
 
         sprintf(buffer1, "T%d", cpttemp-1);
