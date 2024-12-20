@@ -4,6 +4,7 @@
 #include "TableSymbole.h"
 
 int col= 1;
+int colPrd= 1;
 int nb_ligne=1;
 //Etape1: La définition des structures qu'on vas utlisé 
 typedef struct

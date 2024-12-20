@@ -1,5 +1,6 @@
+#line 1 "lex.yy.c"
 
-#line 2 "lex.yy.c"
+#line 3 "lex.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -46,6 +47,7 @@ typedef int16_t flex_int16_t;
 typedef uint16_t flex_uint16_t;
 typedef int32_t flex_int32_t;
 typedef uint32_t flex_uint32_t;
+typedef uint64_t flex_uint64_t;
 #else
 typedef signed char flex_int8_t;
 typedef short int flex_int16_t;
@@ -154,7 +156,7 @@ typedef struct yy_buffer_state *YY_BUFFER_STATE;
 typedef size_t yy_size_t;
 #endif
 
-extern int yyleng;
+extern yy_size_t yyleng;
 
 extern FILE *yyin, *yyout;
 
@@ -171,7 +173,7 @@ extern FILE *yyin, *yyout;
      */
     #define  YY_LESS_LINENO(n) \
             do { \
-                int yyl;\
+                yy_size_t yyl;\
                 for ( yyl = n; yyl < yyleng; ++yyl )\
                     if ( yytext[yyl] == '\n' )\
                         --yylineno;\
@@ -216,7 +218,7 @@ struct yy_buffer_state
 	/* Number of characters read into yy_ch_buf, not including EOB
 	 * characters.
 	 */
-	int yy_n_chars;
+	yy_size_t yy_n_chars;
 
 	/* Whether we "own" the buffer - i.e., we know we created it,
 	 * and can realloc() it to grow it, and should free() it to
@@ -285,8 +287,8 @@ static YY_BUFFER_STATE * yy_buffer_stack = NULL; /**< Stack as an array. */
 
 /* yy_hold_char holds the character lost when yytext is formed. */
 static char yy_hold_char;
-static int yy_n_chars;		/* number of characters read into yy_ch_buf */
-int yyleng;
+static yy_size_t yy_n_chars;		/* number of characters read into yy_ch_buf */
+yy_size_t yyleng;
 
 /* Points to current character in buffer. */
 static char *yy_c_buf_p = NULL;
@@ -313,7 +315,7 @@ static void yy_init_buffer ( YY_BUFFER_STATE b, FILE *file  );
 
 YY_BUFFER_STATE yy_scan_buffer ( char *base, yy_size_t size  );
 YY_BUFFER_STATE yy_scan_string ( const char *yy_str  );
-YY_BUFFER_STATE yy_scan_bytes ( const char *bytes, int len  );
+YY_BUFFER_STATE yy_scan_bytes ( const char *bytes, yy_size_t len  );
 
 void *yyalloc ( yy_size_t  );
 void *yyrealloc ( void *, yy_size_t  );
@@ -366,7 +368,7 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
  */
 #define YY_DO_BEFORE_ACTION \
 	(yytext_ptr) = yy_bp; \
-	yyleng = (int) (yy_cp - yy_bp); \
+	yyleng = (yy_size_t) (yy_cp - yy_bp); \
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
@@ -551,8 +553,8 @@ char *yytext;
     
     extern YYSTYPE yylval;
     
-#line 554 "lex.yy.c"
-#line 555 "lex.yy.c"
+#line 556 "lex.yy.c"
+#line 557 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -591,7 +593,7 @@ FILE *yyget_out ( void );
 
 void yyset_out  ( FILE * _out_str  );
 
-			int yyget_leng ( void );
+			yy_size_t yyget_leng ( void );
 
 char *yyget_text ( void );
 
@@ -660,7 +662,7 @@ static int input ( void );
 	if ( YY_CURRENT_BUFFER_LVALUE->yy_is_interactive ) \
 		{ \
 		int c = '*'; \
-		int n; \
+		yy_size_t n; \
 		for ( n = 0; n < max_size && \
 			     (c = getc( yyin )) != EOF && c != '\n'; ++n ) \
 			buf[n] = (char) c; \
@@ -771,7 +773,7 @@ YY_DECL
 	{
 #line 21 "lexical.l"
 
-#line 774 "lex.yy.c"
+#line 776 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -819,7 +821,7 @@ yy_find_action:
 
 		if ( yy_act != YY_END_OF_BUFFER && yy_rule_can_match_eol[yy_act] )
 			{
-			int yyl;
+			yy_size_t yyl;
 			for ( yyl = 0; yyl < yyleng; ++yyl )
 				if ( yytext[yyl] == '\n' )
 					
@@ -841,177 +843,177 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 22 "lexical.l"
-{ rechercher(yytext,"mot cle","","",1);  printf("VAR_GLOBAL\n"); col += strlen(yytext); return VAR_GLOBAL; }
+{ rechercher(yytext,"mot cle","","",1);  printf("VAR_GLOBAL\n"); colPrd=col;col += strlen(yytext); return VAR_GLOBAL; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
 #line 23 "lexical.l"
-{ rechercher(yytext,"mot cle","","",1); printf("DECLARATION\n"); col += strlen(yytext); return DECLARATION; }
+{ rechercher(yytext,"mot cle","","",1); printf("DECLARATION\n"); colPrd=col;col += strlen(yytext); return DECLARATION; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 24 "lexical.l"
-{ printf("INSTRUCTION\n"); col += strlen(yytext); return INSTRUCTION; }
+{ printf("INSTRUCTION\n"); colPrd=col;col += strlen(yytext); return INSTRUCTION; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 26 "lexical.l"
-{ rechercher(yytext,"mot cle","","",1); printf("INTEGER\n"); col += strlen(yytext); return INTEGER; }
+{ rechercher(yytext,"mot cle","","",1); printf("INTEGER\n"); colPrd=col;col += strlen(yytext); return INTEGER; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 27 "lexical.l"
-{ rechercher(yytext,"mot cle","","",1); printf("FLOAT\n"); col += strlen(yytext); return FLOAT; }
+{ rechercher(yytext,"mot cle","","",1); printf("FLOAT\n"); colPrd=col;col += strlen(yytext); return FLOAT; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 28 "lexical.l"
-{ rechercher(yytext,"mot cle","","",1); printf("CHAR\n"); col += strlen(yytext); return CHAR; }
+{ rechercher(yytext,"mot cle","","",1); printf("CHAR\n"); colPrd=col;col += strlen(yytext); return CHAR; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 29 "lexical.l"
-{ rechercher(yytext,"mot cle","","",1); printf("CONST\n"); col += strlen(yytext); return CONST; }
+{ rechercher(yytext,"mot cle","","",1); printf("CONST\n"); colPrd=col;col += strlen(yytext); return CONST; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 31 "lexical.l"
-{ rechercher(yytext,"mot cle","","",1); printf("IF\n"); col += strlen(yytext); return IF; }
+{ rechercher(yytext,"mot cle","","",1); printf("IF\n"); colPrd=col;col += strlen(yytext); return IF; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 32 "lexical.l"
-{ rechercher(yytext,"mot cle","","",1); printf("ELSE\n"); col += strlen(yytext); return ELSE; }
+{ rechercher(yytext,"mot cle","","",1); printf("ELSE\n"); colPrd=col;col += strlen(yytext); return ELSE; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 33 "lexical.l"
-{ rechercher(yytext,"mot cle","","",1); printf("FOR\n"); col += strlen(yytext); return FOR; }
+{ rechercher(yytext,"mot cle","","",1); printf("FOR\n"); colPrd=col;col += strlen(yytext); return FOR; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 34 "lexical.l"
-{ rechercher(yytext,"mot cle","","",1); printf("READ\n"); col += strlen(yytext); return READ; }
+{ rechercher(yytext,"mot cle","","",1); printf("READ\n"); colPrd=col;col += strlen(yytext); return READ; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 35 "lexical.l"
-{ rechercher(yytext,"mot cle","","",1); printf("WRITE\n"); col += strlen(yytext); return WRITE; }
+{ rechercher(yytext,"mot cle","","",1); printf("WRITE\n"); colPrd=col;col += strlen(yytext); return WRITE; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 37 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("AND\n"); col += strlen(yytext); return AND; }
+{ rechercher(yytext,"sep",0,"",2); printf("AND\n"); colPrd=col;col += strlen(yytext); return AND; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 38 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("OR\n"); col += strlen(yytext); return OR; }
+{ rechercher(yytext,"sep",0,"",2); printf("OR\n"); colPrd=col;col += strlen(yytext); return OR; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 39 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("NOT\n"); col += strlen(yytext); return NOT; }
+{ rechercher(yytext,"sep",0,"",2); printf("NOT\n"); colPrd=col;col += strlen(yytext); return NOT; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 41 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("EQ\n"); col += strlen(yytext); return EQ; }
+{ rechercher(yytext,"sep",0,"",2); printf("EQ\n"); colPrd=col;col += strlen(yytext); return EQ; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 42 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("NEQ\n"); col += strlen(yytext); return NEQ; }
+{ rechercher(yytext,"sep",0,"",2); printf("NEQ\n"); colPrd=col;col += strlen(yytext); return NEQ; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 43 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("GEQ\n"); col += strlen(yytext); return GEQ; }
+{ rechercher(yytext,"sep",0,"",2); printf("GEQ\n"); colPrd=col;col += strlen(yytext); return GEQ; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 44 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("LEQ\n"); col += strlen(yytext); return LEQ; }
+{ rechercher(yytext,"sep",0,"",2); printf("LEQ\n"); colPrd=col;col += strlen(yytext); return LEQ; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 45 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("GT\n"); col += strlen(yytext); return GT; }
+{ rechercher(yytext,"sep",0,"",2); printf("GT\n"); colPrd=col;col += strlen(yytext); return GT; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 46 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("LT\n"); col += strlen(yytext); return LT; }
+{ rechercher(yytext,"sep",0,"",2); printf("LT\n"); colPrd=col;col += strlen(yytext); return LT; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 48 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("EQUALS\n"); col += strlen(yytext); return EQUALS; }
+{ rechercher(yytext,"sep",0,"",2); printf("EQUALS\n"); colPrd=col;col += strlen(yytext); return EQUALS; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 49 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("PLUS\n"); col += strlen(yytext); return PLUS; }
+{ rechercher(yytext,"sep",0,"",2); printf("PLUS\n"); colPrd=col;col += strlen(yytext); return PLUS; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 50 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("MINUS\n"); col += strlen(yytext); return MINUS; }
+{ rechercher(yytext,"sep",0,"",2); printf("MINUS\n"); colPrd=col;col += strlen(yytext); return MINUS; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 51 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("MULTIPLY\n"); col += strlen(yytext); return MULTIPLY; }
+{ rechercher(yytext,"sep",0,"",2); printf("MULTIPLY\n"); colPrd=col;col += strlen(yytext); return MULTIPLY; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 52 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("DIVIDE\n"); col += strlen(yytext); return DIVIDE; }
+{ rechercher(yytext,"sep",0,"",2); printf("DIVIDE\n"); colPrd=col;col += strlen(yytext); return DIVIDE; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 54 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("LBRACE\n"); col += strlen(yytext); return LBRACE; }
+{ rechercher(yytext,"sep",0,"",2); printf("LBRACE\n"); colPrd=col;col += strlen(yytext); return LBRACE; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 55 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("RBRACE\n"); col += strlen(yytext); return RBRACE; }
+{ rechercher(yytext,"sep",0,"",2); printf("RBRACE\n"); colPrd=col;col += strlen(yytext); return RBRACE; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 56 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("LPAREN\n"); col += strlen(yytext); return LPAREN; }
+{ rechercher(yytext,"sep",0,"",2); printf("LPAREN\n"); colPrd=col;col += strlen(yytext); return LPAREN; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 57 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("RPAREN\n"); col += strlen(yytext); return RPAREN; }
+{ rechercher(yytext,"sep",0,"",2); printf("RPAREN\n"); colPrd=col;col += strlen(yytext); return RPAREN; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
 #line 58 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("LBRACKET\n"); col += strlen(yytext); return LBRACKET; }
+{ rechercher(yytext,"sep",0,"",2); printf("LBRACKET\n"); colPrd=col;col += strlen(yytext); return LBRACKET; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
 #line 59 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("RBRACKET\n"); col += strlen(yytext); return RBRACKET; }
+{ rechercher(yytext,"sep",0,"",2); printf("RBRACKET\n"); colPrd=col;col += strlen(yytext); return RBRACKET; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
 #line 60 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("SEMICOLON\n"); col += strlen(yytext); return SEMICOLON; }
+{ rechercher(yytext,"sep",0,"",2); printf("SEMICOLON\n"); colPrd=col;col += strlen(yytext); return SEMICOLON; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
 #line 61 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("COMMA\n"); col += strlen(yytext); return COMMA; }
+{ rechercher(yytext,"sep",0,"",2); printf("COMMA\n"); colPrd=col;col += strlen(yytext); return COMMA; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
 #line 62 "lexical.l"
-{ rechercher(yytext,"sep",0,"",2); printf("COLON\n"); col += strlen(yytext); return COLON; }
+{ rechercher(yytext,"sep",0,"",2); printf("COLON\n"); colPrd=col;col += strlen(yytext); return COLON; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
@@ -1023,7 +1025,7 @@ YY_RULE_SETUP
                    } else {
                        printf("Erreur Lexicale à la ligne %d à la colonne %d : l'entier n'est pas supporté\n", nb_ligne, col);
                    }
-                   col += strlen(yytext);
+                   colPrd=col;col += strlen(yytext);
                    return INT_NUMBER; }
 	YY_BREAK
 case 37:
@@ -1032,34 +1034,34 @@ YY_RULE_SETUP
 { yylval.string = strdup(yytext); 
                    rechercher(yytext,"CONSTANT","FLOAT",yytext,0); 
                    printf("FLOAT_NUMBER: %s\n", yytext); 
-                   col += strlen(yytext); 
+                   colPrd=col;col += strlen(yytext); 
                    return FLOAT_NUMBER; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 #line 79 "lexical.l"
-{ yylval.string = strdup(yytext); rechercher(yytext,"CONSTANT","CHAR",yytext,0); printf("CHARACTERE: %s\n", yytext); col += strlen(yytext); return CHARACTERE; }
+{ yylval.string = strdup(yytext); rechercher(yytext,"CONSTANT","CHAR",yytext,0); printf("CHARACTERE: %s\n", yytext); colPrd=col;col += strlen(yytext); return CHARACTERE; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
 #line 80 "lexical.l"
-{ yylval.string = strdup(yytext); rechercher(yytext,"IDF","","",0); col += strlen(yytext); if (yyleng < 9) { printf("IDENTIFIER: %s\n", yytext); return IDENTIFIER; } else { printf("Erreur Lexicale à la ligne %d à la colonne %d : IDF trop long\n", nb_ligne, col); } }
+{ yylval.string = strdup(yytext); rechercher(yytext,"IDF","","",0); colPrd=col;col += strlen(yytext); if (yyleng < 9) { printf("IDENTIFIER: %s\n", yytext); return IDENTIFIER; } else { printf("Erreur Lexicale à la ligne %d à la colonne %d : IDF trop long\n", nb_ligne, col); } }
 	YY_BREAK
 case 40:
 /* rule 40 can match eol */
 YY_RULE_SETUP
 #line 81 "lexical.l"
-{yylval.string = strdup(yytext); rechercher(yytext,"CONSTANT","STRING",yytext,0); printf("STRING: %s\n", yytext); col += strlen(yytext); return STRING_LITERAL; }
+{yylval.string = strdup(yytext); rechercher(yytext,"CONSTANT","STRING",yytext,0); printf("STRING: %s\n", yytext); colPrd=col;col += strlen(yytext); return STRING_LITERAL; }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
 #line 82 "lexical.l"
-{ /* Ignorer les commentaires */ col += strlen(yytext); }
+{ /* Ignorer les commentaires */ colPrd=col;col += strlen(yytext); }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
 #line 85 "lexical.l"
-{ /* Ignorer les espaces */col += strlen(yytext); }
+{ /* Ignorer les espaces */colPrd=col;col += strlen(yytext); }
 	YY_BREAK
 case 43:
 /* rule 43 can match eol */
@@ -1077,7 +1079,7 @@ YY_RULE_SETUP
 #line 90 "lexical.l"
 ECHO;
 	YY_BREAK
-#line 1080 "lex.yy.c"
+#line 1082 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1264,7 +1266,7 @@ static int yy_get_next_buffer (void)
 
 	else
 		{
-			int num_to_read =
+			yy_size_t num_to_read =
 			YY_CURRENT_BUFFER_LVALUE->yy_buf_size - number_to_move - 1;
 
 		while ( num_to_read <= 0 )
@@ -1278,7 +1280,7 @@ static int yy_get_next_buffer (void)
 
 			if ( b->yy_is_our_buffer )
 				{
-				int new_size = b->yy_buf_size * 2;
+				yy_size_t new_size = b->yy_buf_size * 2;
 
 				if ( new_size <= 0 )
 					b->yy_buf_size += b->yy_buf_size / 8;
@@ -1336,7 +1338,7 @@ static int yy_get_next_buffer (void)
 
 	if (((yy_n_chars) + number_to_move) > YY_CURRENT_BUFFER_LVALUE->yy_buf_size) {
 		/* Extend the array by 50%, plus the number we really need. */
-		int new_size = (yy_n_chars) + number_to_move + ((yy_n_chars) >> 1);
+		yy_size_t new_size = (yy_n_chars) + number_to_move + ((yy_n_chars) >> 1);
 		YY_CURRENT_BUFFER_LVALUE->yy_ch_buf = (char *) yyrealloc(
 			(void *) YY_CURRENT_BUFFER_LVALUE->yy_ch_buf, (yy_size_t) new_size  );
 		if ( ! YY_CURRENT_BUFFER_LVALUE->yy_ch_buf )
@@ -1425,7 +1427,7 @@ static int yy_get_next_buffer (void)
 	if ( yy_cp < YY_CURRENT_BUFFER_LVALUE->yy_ch_buf + 2 )
 		{ /* need to shift things up to make room */
 		/* +2 for EOB chars. */
-		int number_to_move = (yy_n_chars) + 2;
+		yy_size_t number_to_move = (yy_n_chars) + 2;
 		char *dest = &YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[
 					YY_CURRENT_BUFFER_LVALUE->yy_buf_size + 2];
 		char *source =
@@ -1480,7 +1482,7 @@ static int yy_get_next_buffer (void)
 
 		else
 			{ /* need more input */
-			int offset = (int) ((yy_c_buf_p) - (yytext_ptr));
+			yy_size_t offset = (yy_c_buf_p) - (yytext_ptr);
 			++(yy_c_buf_p);
 
 			switch ( yy_get_next_buffer(  ) )
@@ -1854,12 +1856,12 @@ YY_BUFFER_STATE yy_scan_string (const char * yystr )
  * 
  * @return the newly allocated buffer state object.
  */
-YY_BUFFER_STATE yy_scan_bytes  (const char * yybytes, int  _yybytes_len )
+YY_BUFFER_STATE yy_scan_bytes  (const char * yybytes, yy_size_t  _yybytes_len )
 {
 	YY_BUFFER_STATE b;
 	char *buf;
 	yy_size_t n;
-	int i;
+	yy_size_t i;
     
 	/* Get memory for full buffer, including space for trailing EOB's. */
 	n = (yy_size_t) (_yybytes_len + 2);
@@ -1901,7 +1903,7 @@ static void yynoreturn yy_fatal_error (const char* msg )
 	do \
 		{ \
 		/* Undo effects of setting up yytext. */ \
-        int yyless_macro_arg = (n); \
+        yy_size_t yyless_macro_arg = (n); \
         YY_LESS_LINENO(yyless_macro_arg);\
 		yytext[yyleng] = (yy_hold_char); \
 		(yy_c_buf_p) = yytext + yyless_macro_arg; \
@@ -1941,7 +1943,7 @@ FILE *yyget_out  (void)
 /** Get the length of the current token.
  * 
  */
-int yyget_leng  (void)
+yy_size_t yyget_leng  (void)
 {
         return yyleng;
 }

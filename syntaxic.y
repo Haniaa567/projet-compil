@@ -111,14 +111,17 @@ type:
 
 // Section for global variables (converted to right-recursive)
 global_var_section:
-    declaration
-    | declaration global_var_section
+    declaration SEMICOLON
+    | declaration SEMICOLON global_var_section
+    |declaration {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d apres declaration",nb_ligne,colPrd);exit(0);}
+
 ;
 
 // Section for declarations (converted to right-recursive)
 declaration_section:
-    declaration
-    | declaration declaration_section
+    declaration SEMICOLON
+    | declaration SEMICOLON global_var_section
+    |declaration {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d apres declaration",nb_ligne,colPrd);exit(0);}
 ;
 
 // Section for instructions (converted to right-recursive)
@@ -129,7 +132,7 @@ instruction_section:
 
 // Rule for different types of declarations
 declaration:
-    type variable_list SEMICOLON {
+    type variable_list  {
         //verification de la double declaration et insertion du type
         for(j=0;strcmp(saveIdf[j].idfTab,"")!=0;j++){
             if(verifdeclaration(saveIdf[j].idfTab)==0) insererType(sauvType,saveIdf[j].idfTab);
@@ -140,7 +143,7 @@ declaration:
         }  
         j=0;  
     }
-    | CONST type cst EQUALS term SEMICOLON{
+    | CONST type cst EQUALS term {
     // Vérifie si la valeur affectée est compatible avec le type de la variable
         if (strcmp(typeG, "INTEGER") == 0 && ($5 - floor($5) != 0)) {
             printf("Erreur sémantique à la ligne %d colonne %d  : tentative d'affectation d'un flottant à une variable entière.\n", nb_ligne,col);
@@ -204,16 +207,20 @@ variable_list:
 
 // Define possible statements in the instruction section
 statement:
-    assignment
-    | condition
-    | loop
-    | io_statement
+    assignment SEMICOLON
+    | condition SEMICOLON
+    | loop SEMICOLON
+    | io_statement SEMICOLON
     |assignment_int
+    |assignment {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d (';' apres chaque instruction)",nb_ligne,colPrd);exit(0);}
+    | condition {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d (';' apres chaque instruction)",nb_ligne,colPrd);exit(0);}
+    | loop {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d (';' apres chaque instruction)",nb_ligne,colPrd);exit(0);}
+    | io_statement {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d (';' apres chaque instruction)",nb_ligne,colPrd);exit(0);}
 ;
 
 // Define assignment statement
 assignment:
-    MDROIT EQUALS term SEMICOLON {
+    MDROIT EQUALS term  {
   
         // Si c'est compatible, on sauvegarde la valeur dans la table des symboles
         if (strcmp(typeG, "INTEGER") == 0) {
@@ -226,7 +233,7 @@ assignment:
 
         insererVal(mDroit, saveStr);
     }
-    |TAB EQUALS term SEMICOLON {
+    |TAB EQUALS term  {
         // Si c'est compatible, on sauvegarde la valeur dans la table des symboles
         if (strcmp(typeG, "INTEGER") == 0) {
             sprintf(saveStr, "%d", (int)$3);  // Convertir en entier
@@ -238,12 +245,12 @@ assignment:
 
         insererVal(mDroit, saveStr);
     }
-    |TAB EQUALS EXPRESSION_CHAR SEMICOLON{
+    |TAB EQUALS EXPRESSION_CHAR {
         createQuad("=", saveStrq, "",tmp);
 
         insererVal(mDroit, saveStr);
     }
-    |MDROIT EQUALS EXPRESSION_CHAR SEMICOLON{
+    |MDROIT EQUALS EXPRESSION_CHAR {
         
         createQuad("=", saveStrq, "",mDroit);
 
@@ -557,7 +564,7 @@ condition:
           createQuad("BZ","",QuadR[qc-1].res,"");
           empiler_Int(&pile1,qc-1);
         }
-        instruction_section RBRACE elsebloc SEMICOLON{
+        instruction_section RBRACE elsebloc {
         QuadR[atoi(depiler(&pile1))].opd1=ToSTR(qc);
         }
 ;
@@ -627,7 +634,7 @@ loop:
         createQuad("BG", "", mDroit, brnsup); 
         strcpy(cptfor,mDroit);
     }
-    RPAREN LBRACE instruction_section RBRACE SEMICOLON {
+    RPAREN LBRACE instruction_section RBRACE  {
         temp = newtemp(); 
         sprintf(temp,"T%d",cpttemp);    
         cpttemp++;    
@@ -639,13 +646,13 @@ loop:
 
 // Define input/output statements
 io_statement:
-    READ LPAREN IDENTIFIER RPAREN SEMICOLON{
+    READ LPAREN IDENTIFIER RPAREN {
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration($3) == 0) {
             printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col,$3); exit(0);
         }
     }
-    | WRITE LPAREN io_expr_list RPAREN SEMICOLON
+    | WRITE LPAREN io_expr_list RPAREN 
 ;
 
 // Define a list of expressions for the WRITE statement (converted to right-recursive)

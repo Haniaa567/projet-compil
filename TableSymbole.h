@@ -4,6 +4,7 @@
 #ifndef TEST
 #define TEST
 extern int col;
+extern int colPrd;
 extern int  nb_ligne;
 
 
