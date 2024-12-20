@@ -197,6 +197,7 @@ variable_list:
         }
         } 
     | IDENTIFIER COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
+    | IDENTIFIER LBRACKET termtab RBRACKET COMMA variable_list
 
 ;
 
