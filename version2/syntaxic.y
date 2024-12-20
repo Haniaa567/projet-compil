@@ -1495,9 +1495,7 @@ primary4:
             printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, $1); exit(0);
         }else {strcpy(typeD,getType($1));
                 if(strcmp(typeD,"CHAR")==0){printf("Erreur semantique a la ligne %d colonne %d :type incompatible parametre de boucle ne doit pas etre CHAR\n",nb_ligne,col);exit(0);}
-                else if(strcmp(typeD,"INTEGER")!=0){
-                    printf("Erreur semantique a la ligne %d colonne %d :type incompatible parametre de boucle doit etre INTEGER et pas FLOAT\n",nb_ligne,col);exit(0);
-                }
+
                                   strcpy(brnsup,$1);
                                   $$=atof(valIdf);
                                   strcpy(buffer1,$1);
@@ -1513,17 +1511,13 @@ primary4:
        empiler(&pile3,buffer1);
                   
     }
-    | FLOAT_NUMBER{  
-        printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
-                    printf("parametres de boucle doit pas etre FLOAT\n");exit(0);
-        strcpy(brnsup,$1);
+    | FLOAT_NUMBER{  strcpy(brnsup,$1);
         strcpy(typeD,"FLOAT");
                    $$=atof($1);  
                    strcpy(buffer1,$1);
                    empiler(&pile3,buffer1);
                    }
     |LPAREN PLUS INT_NUMBER RPAREN{
-        
          strcpy(brnsup,$3);
         strcpy(typeD,"INTEGER");
         $$=atof($3);
@@ -1532,8 +1526,6 @@ primary4:
         
     }
     |LPAREN MINUS INT_NUMBER RPAREN{
-        printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
-                    printf("parametres de boucle doit etre POSITIVE\n");exit(0);
         strcpy(typeD,"INTEGER");
                 strcpy(saveStr,$3);
                 strcat(strcpy(saveS,"-"),saveStr);
@@ -1543,20 +1535,14 @@ primary4:
                 empiler(&pile3,buffer1);
             
     }
-    | LPAREN PLUS FLOAT_NUMBER RPAREN {
-        printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
-                    printf("parametres de boucle doit pas etre FLOAT\n");exit(0);
-        strcpy(typeD,"FLOAT");
+    | LPAREN PLUS FLOAT_NUMBER RPAREN {strcpy(typeD,"FLOAT");
                                       $$=atof($3);;
                                        strcpy(brnsup,$3);
                                       strcpy(buffer1,$3);
                                       empiler(&pile3,buffer1);
                                       
                    }
-    | LPAREN MINUS FLOAT_NUMBER RPAREN {
-        printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
-                    printf("parametres de boucle doit pas etre FLOAT\n");exit(0);
-        strcpy(typeD,"FLOAT");
+    | LPAREN MINUS FLOAT_NUMBER RPAREN {strcpy(typeD,"FLOAT");
                                            strcat(strcpy(saveS,"-"),$3);
                                            $$=atof(saveS);
                                             strcpy(brnsup,saveS);
@@ -1569,10 +1555,6 @@ primary4:
                                          {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d\n",$1,nb_ligne,col); exit(0);}
                                 else {
                                     strcpy(typeD,getType($1));
-                                    if(strcmp(typeD,"CHAR")==0){printf("Erreur semantique a la ligne %d colonne %d :type incompatible parametre de boucle ne doit pas etre CHAR\n",nb_ligne,col);exit(0);}
-                else if(strcmp(typeD,"INTEGER")!=0){
-                    printf("Erreur semantique a la ligne %d colonne %d :type incompatible parametre de boucle doit etre INTEGER et pas FLOAT\n",nb_ligne,col);exit(0);
-                }
                                      strcpy(tmp,$1);
                                     strcat(tmp,"[");
                                     sprintf(buffer1,"%d",atoi($3));
@@ -1680,10 +1662,7 @@ primary3:
             printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n", nb_ligne,col,$1);
              exit(0);
         }else {strcpy(typeG,getType($1));
-                if(strcmp(typeG,"CHAR")==0 ){printf("Erreur semantique a la ligne %d colonne %d :type incompatible parametre de boucle ne doit pas etre CHAR\n",nb_ligne,col);exit(0);}
-                else if(strcmp(typeG,"INTEGER")!=0){
-                    printf("Erreur semantique a la ligne %d colonne %d :type incompatible parametre de boucle doit INTEGER pas FLOAT\n",nb_ligne,col);exit(0);
-                }
+                if(strcmp(typeG,"CHAR")==0){printf("Erreur semantique a la ligne %d colonne %d :type incompatible parametre de boucle ne doit pas etre CHAR\n",nb_ligne,col);exit(0);}
                                   $$=atof(valIdf);
                                   strcpy(buffer1,$1);
                                   empiler(&pile3,buffer1);
@@ -1697,16 +1676,12 @@ primary3:
        empiler(&pile3,buffer1);
                   
     }
-    | FLOAT_NUMBER{
-        printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
-                    printf("parametres de boucle doit pas etre FLOAT\n");exit(0);
-        strcpy(typeG,"FLOAT");
+    | FLOAT_NUMBER{strcpy(typeG,"FLOAT");
                    $$=atof($1);  
                    strcpy(buffer1,$1);
                    empiler(&pile3,buffer1);
                    }
     |LPAREN PLUS INT_NUMBER RPAREN{
-        
         strcpy(typeG,"INTEGER");
         $$=atof($3);
         strcpy(buffer1,$3);
@@ -1714,8 +1689,6 @@ primary3:
         
     }
     |LPAREN MINUS INT_NUMBER RPAREN{
-        printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
-                    printf("parametres de boucle doit etre positive\n");exit(0);
         strcpy(typeG,"INTEGER");
                 strcpy(saveStr,$3);
                 strcat(strcpy(saveS,"-"),saveStr);
@@ -1724,19 +1697,13 @@ primary3:
                 empiler(&pile3,buffer1);
             
     }
-    | LPAREN PLUS FLOAT_NUMBER RPAREN {
-        printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
-                    printf("parametres de boucle doit pas etre FLOAT\n");exit(0);
-        strcpy(typeG,"FLOAT");
+    | LPAREN PLUS FLOAT_NUMBER RPAREN {strcpy(typeG,"FLOAT");
                                       $$=atof($3);;
                                       strcpy(buffer1,$3);
                                       empiler(&pile3,buffer1);
                                       
                    }
-    | LPAREN MINUS FLOAT_NUMBER RPAREN {
-        printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
-                    printf("parametres de boucle doit pas etre FLOAT\n");exit(0);
-        strcpy(typeG,"FLOAT");
+    | LPAREN MINUS FLOAT_NUMBER RPAREN {strcpy(typeG,"FLOAT");
                                            strcat(strcpy(saveS,"-"),$3);
                                            $$=atof(saveS);
                                            strcpy(buffer1, saveS);
@@ -1747,12 +1714,7 @@ primary3:
     |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {if(verifdeclaration($1)==0 )
                                          {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d \n",$1,nb_ligne,col); exit(0);}
                                 else {
-                                    
                                     strcpy(typeG,getType($1));
-                                    if(strcmp(typeG,"CHAR")==0 ){printf("Erreur semantique a la ligne %d colonne %d :type incompatible parametre de boucle ne doit pas etre CHAR\n",nb_ligne,col);exit(0);}
-                else if(strcmp(typeG,"INTEGER")!=0){
-                    printf("Erreur semantique a la ligne %d colonne %d :type incompatible parametre de boucle doit INTEGER pas FLOAT\n",nb_ligne,col);exit(0);
-                }
                                      strcpy(tmp,$1);
                                     strcat(tmp,"[");
                                     sprintf(buffer1,"%d",atoi($3));

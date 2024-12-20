@@ -23,6 +23,10 @@ INSTRUCTION {
     IF ('c'==NUM[0] && "mimi"=="coucou"){
      ABC=2+1+3*5/(5+7);
       NUM3=2.3;} ;
+      FOR(NUM2[1]=1:5:1)
+      {
+        ABC=ABC+1;
+      };
 }
 
 
