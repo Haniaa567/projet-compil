@@ -1,0 +1,37 @@
+VAR_GLOBAL {
+   INTEGER TAB[10];
+   INTEGER RESULTAT;
+}
+
+DECLARATION {
+   INTEGER I, POS, TEMP;
+}
+
+INSTRUCTION {
+   %% Test accès tableau avec expressions
+   TAB[2-3] = 42;    
+   TAB[((8/2)-1)] = 15;
+   
+   %% Test expressions avec parenthèses imbriquées
+   TEMP = 5;
+   RESULTAT = (((((-1)*TEMP) + 3) * 2) - (1/TEMP));
+
+   %% Test accès tableau avec variable calculée
+   POS = 3;
+   TAB[(POS+1)] = TAB[POS] + 5;
+
+   %% Test division et conditions
+   FOR(I=0:1:4) {
+       IF(I == 0) {
+           RESULTAT = 1;
+       }ELSE{
+           IF(TAB[I] != 0) {
+               RESULTAT = RESULTAT/TAB[I];
+           };
+       };
+   };
+
+   WRITE("Resultat: %d\n", RESULTAT);
+   WRITE("TAB[5]: %d\n", TAB[5]);
+   WRITE("TAB[3]: %d\n", TAB[3]);
+}
