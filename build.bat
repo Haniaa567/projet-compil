@@ -21,14 +21,15 @@ REM Nom de l'exécutable final
 set EXECUTABLE=analyseur.exe
 
 echo ---- Compilation avec Bison ----
-%BISON% -d %YACC_FILE%
+%BISON% -d -Wno-conflicts-sr %YACC_FILE%
 if errorlevel 1 (
     echo Erreur lors de la génération de %YACC_C% avec Bison.
     exit /b 1
 )
 
-echo ---- Details conflis ----
-%BISON% -Wcounterexamples %YACC_FILE%
+:: echo ---- Details conflis ----
+:: %BISON% -Wcounterexamples %YACC_FILE%
+
 
 echo ---- Compilation avec Flex ----
 %FLEX% %LEX_FILE%
