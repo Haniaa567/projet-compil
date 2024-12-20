@@ -23,7 +23,7 @@ INSTRUCTION {
         } ELSE {
             IS_PRIME = 1;
             FOR (J = 2 : I-1 : 1) {
-                IF (I / D == 0) {
+                IF (I / D  == 0) {
                     IS_PRIME = 0;
                 };
             };

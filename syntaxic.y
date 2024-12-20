@@ -114,6 +114,7 @@ global_var_section:
     declaration SEMICOLON
     | declaration SEMICOLON global_var_section
     |declaration {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d apres declaration",nb_ligne,colPrd);exit(0);}
+    |
 
 ;
 
@@ -122,12 +123,14 @@ declaration_section:
     declaration SEMICOLON
     | declaration SEMICOLON global_var_section
     |declaration {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d apres declaration",nb_ligne,colPrd);exit(0);}
+    |
 ;
 
 // Section for instructions (converted to right-recursive)
 instruction_section:
     statement
     | statement instruction_section
+    |
 ;
 
 // Rule for different types of declarations

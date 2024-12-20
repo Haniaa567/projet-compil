@@ -1,0 +1,31 @@
+VAR_GLOBAL {
+    INTEGER N;
+    CHAR STRING[10];
+    INTEGER VOWELS ,CONS,I;
+}
+
+DECLARATION {
+    %% Pas de variable supplémentaire ici
+}
+
+INSTRUCTION {
+    FOR(I=0:10:1){
+        WRITE("Donner une chaîne de caractères :");
+        READ(STRING[i]);
+    }
+
+    VOWELS = 0;
+    CONS = 0;
+    N=10;
+    %% Comptage des voyelles et consonnes
+    FOR (I = 0 : 10 : 1) {
+        IF (STRING[I] == 'a' || STRING[I] == 'e' || STRING[I] == 'i' || STRING[I] == 'o' || STRING[I] == 'u' ||
+            STRING[I] == 'A' || STRING[I] == 'E' || STRING[I] == 'I' || STRING[I] == 'O' || STRING[I] == 'U') {
+            VOWELS = VOWELS + 1;
+        } ELSE IF (STRING[I] >= 'b' && STRING[I] <= 'z' || STRING[I] >= 'B' && STRING[I] <= 'Z') {
+            CONS = CONS + 1;
+        };
+    };
+
+    WRITE("Il y a ", VOWELS, " voyelles et ", CONS, " consonnes dans la chaîne.");
+}
