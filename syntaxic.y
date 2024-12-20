@@ -188,16 +188,6 @@ variable_list:
         sprintf(buffer1, "T%d", cpttemp-1);
         createQuad("BOUNDS", "0", buffer1,"");
         createQuad("ADEC",$1,"","");
-         if (fmod(valind, 1.0) != 0.0) {
-            printf("Erreur semantique la ligne %d colonne %d : La taille du tableau doit etre un entier (pas un nombre réel)\n",nb_ligne,col);
-             exit(0);
-        }
-        
-        // Vérifier que le nombre est un entier positif
-        if ($3 < 1) {
-            printf("Erreur semantique la ligne %d colonne %d : La taille du tableau doit etre un entier strictement positif\n",nb_ligne,col);
-             exit(0);
-        }
         } 
     | IDENTIFIER COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
     | IDENTIFIER LBRACKET termtab RBRACKET COMMA variable_list
@@ -299,11 +289,6 @@ TAB:
                         strcpy(typeG, getType($1));
 
                     }  
-                    // Vérifier que le nombre est un entier positif
-                    if ($3 < 0) {
-                        printf("Erreur semantique la ligne %d colonne %d : L'indice/taille du tableau doit être un entier positif\n",nb_ligne,col);
-                         exit(0);
-                    }
                     
                     
                         strcpy(mDroit,$1);
@@ -489,13 +474,7 @@ primarytab:
                          exit(0);
                         }
 
-                    }  
-                    
-                    // Vérifier que le nombre est un entier positif
-                    if ($3 < 0) {
-                        printf("Erreur semantique la ligne %d colonne %d : L'indice/taille du tableau doit être un entier positif\n",nb_ligne,col);
-                         exit(0);
-                    }
+                    } 
                                         
                         strcpy(tmp,$1);
                         strcat(tmp,"[");
@@ -666,6 +645,7 @@ io_expr:
         }
     }        // Handles identifiers and arithmetic expressions
     | STRING_LITERAL  // Handles direct string output
+    | TAB 
 ;
 
 
@@ -1040,7 +1020,7 @@ primary:
                                 else {
                                     strcpy(typeD,getType($1));
                                      if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 8\n",nb_ligne,col);
-                                                                printf("tentative d'affecter %s a un %s\n",typeD,typeG); exit(0);}
+                                                                printf("tentative d'affecter %s a un %s\n",typeD,typeG); exit(0);}     
                                      strcpy(tmp,$1);
                                     strcat(tmp,"[");
                                     valDepile = depiler(&pile3); 
@@ -1051,6 +1031,7 @@ primary:
                                     strcpy(buffer1,tmp);
                                     empiler(&pile3,buffer1);
                                  }
+                                 
                 }
 ;
 
