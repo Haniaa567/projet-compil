@@ -1,7 +1,7 @@
 @echo off
 REM Compilation de l'analyseur lexical et syntaxique avec Flex et Bison
 REM Assurez-vous d'exécuter ce script dans l'environnement MSYS2 ou d'ajouter les chemins de Flex, Bison et GCC
-
+chcp 65001 >nul
 setlocal
 
 REM Chemin vers le compilateur GCC, Flex et Bison dans MSYS2
@@ -29,7 +29,7 @@ if errorlevel 1 (
 )
 
 :: echo ---- Details conflis ----
- %BISON% -Wcounterexamples %YACC_FILE%
+:: %BISON% -Wcounterexamples %YACC_FILE%
 
 
 echo ---- Compilation avec Flex ----
