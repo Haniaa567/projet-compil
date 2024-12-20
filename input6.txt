@@ -11,8 +11,8 @@ DECLARATION {
 INSTRUCTION {
     FOR(I=0:10:1){
         WRITE("Donner une chaîne de caractères :");
-        READ(STRING[i]);
-    }
+        READ(STRING[I]);
+    };
 
     VOWELS = 0;
     CONS = 0;
@@ -22,8 +22,8 @@ INSTRUCTION {
         IF (STRING[I] == 'a' || STRING[I] == 'e' || STRING[I] == 'i' || STRING[I] == 'o' || STRING[I] == 'u' ||
             STRING[I] == 'A' || STRING[I] == 'E' || STRING[I] == 'I' || STRING[I] == 'O' || STRING[I] == 'U') {
             VOWELS = VOWELS + 1;
-        } ELSE IF (STRING[I] >= 'b' && STRING[I] <= 'z' || STRING[I] >= 'B' && STRING[I] <= 'Z') {
-            CONS = CONS + 1;
+        } ELSE{ IF (STRING[I] >= 'b' && STRING[I] <= 'z' || STRING[I] >= 'B' && STRING[I] <= 'Z') {
+            CONS = CONS + 1;};
         };
     };
 

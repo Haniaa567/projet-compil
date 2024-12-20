@@ -630,6 +630,7 @@ io_statement:
             printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col,$3); exit(0);
         }
     }
+    |READ LPAREN TAB RPAREN 
     | WRITE LPAREN io_expr_list RPAREN 
 ;
 
