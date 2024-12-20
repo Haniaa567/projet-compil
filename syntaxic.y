@@ -30,7 +30,7 @@
    char saveS[20];
    char mDroit[20];
    char buffer1[20], buffer2[20], tmp[20];
-   char *temp,*tt,*temp1,*temp2;
+   char *temp,*tt;
    int cpttemp=1;
    int nb_op;
    char *tempasg;
@@ -287,8 +287,7 @@ MDROIT:
     }
 ; 
 TAB:
-   
-    |IDENTIFIER LBRACKET termtab RBRACKET   {
+    IDENTIFIER LBRACKET termtab RBRACKET   {
                     if(verifdeclaration($1)==0 )
                     {printf("Erreur semantique a la ligne %d colonne %d :Tableau %s non declare\n",nb_ligne,col,$1);
                      exit(0);}
@@ -301,26 +300,20 @@ TAB:
                         strcpy(typeG, getType($1));
 
                     }  
-                    // Vérifier si le nombre a une partie fractionnelle
-                    if (fmod(valind, 1.0) != 0.0) {
-                        printf("Erreur semantique la ligne %d colonne %d: L'indice/taille du tableau doit etre un entier (pas un nombre reel)\n",nb_ligne,col);
-                         exit(0);
-                    }
-                    
                     // Vérifier que le nombre est un entier positif
                     if ($3 < 0) {
                         printf("Erreur semantique la ligne %d colonne %d : L'indice/taille du tableau doit être un entier positif\n",nb_ligne,col);
                          exit(0);
                     }
                     
-        
+                    
                         strcpy(mDroit,$1);
                         temp=newtemp();
                         strcpy(temp,$1);
                         strcpy(tmp,$1);
                         strcat(tmp,"[");
-                        temp1=newtemp();
-                        sprintf(buffer2,"T%d",cpttemp-1);
+                        valDepile = depiler(&pile3); 
+                        strcpy(buffer2, valDepile); 
                         strcat(tmp,buffer2);
                         strcat(tmp,"]");
                        
@@ -424,13 +417,15 @@ primarytab:
                             else if (strcmp("FLOAT",typeD)==0)
                             {printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
                                                          printf("l'indice/taille de tableau ne peut pas etre FLOAT\n",typeD,typeG); exit(0);}
-                                strcpy(valIdf,getVal($1));
-                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d colonne %d : variable %s non initialisee\n",nb_ligne,col,$1); exit(0);}
-                                 else
+                                
+                                // if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d colonne %d : variable %s non initialisee\n",nb_ligne,col,$1); exit(0);}
+                                 else{
+                                  strcpy(valIdf,getVal($1));
                                   $$=atof(valIdf);
                                   strcpy(saveStrq,$1);
                                   strcpy(buffer1,$1);
                                   empiler(&pile3,buffer1);
+                                  }
                                   
                              }
     }
@@ -491,32 +486,28 @@ primarytab:
                             }
                             else{
                         if(strcmp(getType($1),"INTEGER")!=0){
-                            printf("Erreur semantique la ligne %d colonne %d: L'indice/taille du tableau doit etre un entier (pas un nombre reel)\n",nb_ligne,col);
+                            printf("Erreur semantique la ligne %d colonne %d: L'indice/taille du tableau doit etre un entier\n",nb_ligne,col);
                          exit(0);
                         }
 
                     }  
-                    // Vérifier si le nombre a une partie fractionnelle
-                    if (fmod(valind, 1.0) != 0.0) {
-                        printf("Erreur semantique la ligne %d colonne %d: Le tableau '%s' est n'est pas un entier.\n",nb_ligne,col, $1);
-                         exit(0);
-                    }
                     
                     // Vérifier que le nombre est un entier positif
                     if ($3 < 0) {
                         printf("Erreur semantique la ligne %d colonne %d : L'indice/taille du tableau doit être un entier positif\n",nb_ligne,col);
                          exit(0);
                     }
-                    
-        /*
+                                        
                         strcpy(tmp,$1);
                         strcat(tmp,"[");
-                        sprintf(buffer1,"%d",atoi($3));
+                        valDepile = depiler(&pile3); 
+                        strcpy(buffer1, valDepile); 
                         strcat(tmp,buffer1);
                         strcat(tmp,"]");
                         strcpy(saveStrq,tmp);
                         strcpy(buffer1,tmp);
-                        empiler(&pile3,buffer1); */   
+                        empiler(&pile3,buffer1);  
+ 
                 }
         |CHARACTERE {printf("Erreur semantique a la ligne %d colonne %d :type incompatible\n",nb_ligne,col);
                                  printf("l'indice/taille ne peut pas etre CHAR\n"); exit(0);} 
@@ -808,10 +799,10 @@ comparison_expr:
     }*/
     | DROIT OP_COMP term1 {
                             printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
-                          printf("on ne peut pas comparer CARACTERE avec avec %s\n",typeD); exit(0);
+                          printf("on ne peut pas comparer CARACTERE avec %s\n",typeD); exit(0);
                          }       
     | term2 OP_COMP GAUCHE {printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
-                            printf("on ne peut pas comparer %s avec avec %s\n",typeG,typeD); exit(0);
+                            printf("on ne peut pas comparer %s avec %s\n",typeG,typeD); exit(0);
                             }
     | DROIT OP_COMP GAUCHE{
         if(strcmp(typeD,typeG)!=0){
@@ -942,8 +933,7 @@ primary:
                              if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 1\n",nb_ligne,col);
                                                             printf("tentative d'affecter %s a un %s\n",typeD,typeG); exit(0);}
                                 strcpy(valIdf,getVal($1));
-                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d colonne %d : variable %s non initialisee\n",nb_ligne,col,$1); exit(0);}
-                                 else
+                                 //if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d colonne %d : variable %s non initialisee\n",nb_ligne,col,$1); exit(0);}
                                   $$=atof(valIdf);
                                   strcpy(saveStrq,$1);
                                   strcpy(buffer1,$1);
@@ -1129,8 +1119,8 @@ primary1:
                               exit(0);
                              }
                                 strcpy(valIdf,getVal($1));
-                                 if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d colonne %d : variable %s non initialisee\n",nb_ligne,col,$1); exit(0);}
-                                 else
+                                 //if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d colonne %d : variable %s non initialisee\n",nb_ligne,col,$1); exit(0);}
+                            
                                   $$=atof(valIdf);
                                   strcpy(saveStrq,$1);
                                   strcpy(buffer1,$1);
