@@ -713,8 +713,6 @@ io_expr:
     | TAB 
 ;
 
-
-
 COND:
     COND OR AND_EXPR
     {
@@ -745,6 +743,7 @@ AND_EXPR:
         cpttemp++;
     }
     | NOT_EXPR
+    | LPAREN COND RPAREN
 ;
 
 NOT_EXPR:
@@ -759,8 +758,8 @@ NOT_EXPR:
         cpttemp++;
     }
     | comparison_expr
+    |LPAREN comparison_expr RPAREN
 ;
-
 
 
 // Define comparison expressions (includes comparison operators)

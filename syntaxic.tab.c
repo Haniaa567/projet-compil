@@ -562,16 +562,26 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
+<<<<<<< HEAD
 #define YYLAST   418
+=======
+#define YYLAST   403
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  43
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  50
 /* YYNRULES -- Number of rules.  */
+<<<<<<< HEAD
 #define YYNRULES  184
 /* YYNSTATES -- Number of states.  */
 #define YYNSTATES  358
+=======
+#define YYNRULES  182
+/* YYNSTATES -- Number of states.  */
+#define YYNSTATES  343
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   297
@@ -624,6 +634,7 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
+<<<<<<< HEAD
        0,   100,   100,   103,   106,   109,   112,   115,   118,   121,
      129,   130,   131,   136,   137,   138,   145,   146,   147,   153,
      154,   160,   171,   196,   209,   211,   217,   218,   225,   226,
@@ -643,6 +654,27 @@ static const yytype_int16 yyrline[] =
     1568,  1577,  1589,  1599,  1610,  1611,  1630,  1633,  1637,  1638,
     1657,  1678,  1679,  1697,  1721,  1738,  1745,  1753,  1761,  1772,
     1781,  1791,  1792,  1811,  1814
+=======
+       0,   100,   100,   107,   108,   109,   114,   115,   116,   117,
+     123,   124,   125,   126,   131,   132,   133,   138,   149,   174,
+     187,   189,   195,   196,   203,   204,   205,   206,   207,   208,
+     209,   210,   215,   228,   240,   245,   254,   282,   312,   313,
+     332,   353,   354,   372,   396,   419,   425,   432,   438,   448,
+     456,   465,   466,   493,   495,   499,   507,   535,   535,   543,
+     543,   548,   552,   566,   577,   587,   599,   604,   599,   627,
+     639,   673,   678,   679,   684,   690,   691,   695,   707,   711,
+     723,   724,   728,   738,   739,   745,   757,   768,   779,   790,
+     801,   813,   831,   847,   869,   872,   877,   880,   885,   886,
+     887,   888,   889,   890,   896,   897,   916,   937,   938,   956,
+     980,   996,  1005,  1015,  1025,  1038,  1047,  1059,  1060,  1081,
+    1082,  1101,  1122,  1123,  1141,  1165,  1185,  1195,  1206,  1216,
+    1229,  1238,  1250,  1251,  1272,  1273,  1292,  1313,  1314,  1332,
+    1356,  1368,  1375,  1380,  1387,  1396,  1402,  1409,  1410,  1427,
+    1428,  1447,  1468,  1469,  1487,  1511,  1528,  1536,  1545,  1554,
+    1566,  1576,  1587,  1588,  1607,  1610,  1614,  1615,  1634,  1655,
+    1656,  1674,  1698,  1715,  1722,  1730,  1738,  1749,  1758,  1768,
+    1769,  1788,  1791
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
 };
 #endif
 
@@ -683,7 +715,11 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
+<<<<<<< HEAD
 #define YYPACT_NINF (-184)
+=======
+#define YYPACT_NINF (-159)
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -697,6 +733,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
+<<<<<<< HEAD
       31,    11,    49,    12,  -184,  -184,  -184,  -184,   151,    52,
       65,    55,    84,   110,   130,    21,  -184,   140,   270,  -184,
       58,    16,    87,    65,   137,  -184,    53,   150,   138,   159,
@@ -733,6 +770,43 @@ static const yytype_int16 yypact[] =
      136,   136,   367,   136,   136,  -184,   214,   369,   371,   372,
      373,  -184,   292,   292,   377,  -184,  -184,   281,  -184,  -184,
     -184,  -184,  -184,   281,   378,   379,  -184,  -184
+=======
+      10,     1,    40,   234,  -159,  -159,  -159,  -159,   122,    30,
+      28,    26,    56,     2,  -159,    69,   234,  -159,    52,    43,
+      30,    49,  -159,   148,    58,  -159,  -159,  -159,    14,  -159,
+      84,   125,  -159,  -159,   234,    63,  -159,  -159,   152,   244,
+     161,  -159,    43,   274,   276,    95,    43,    43,    46,    43,
+      43,    77,    64,    43,   278,   280,   228,   148,   148,   148,
+     148,   117,    79,    96,   107,   126,  -159,   125,   125,    30,
+    -159,  -159,   153,   234,   179,   154,   176,   178,   182,  -159,
+     161,   161,  -159,  -159,  -159,  -159,  -159,  -159,  -159,  -159,
+     151,  -159,  -159,  -159,  -159,  -159,  -159,   267,   198,   211,
+     219,   263,   168,   193,   267,   205,   188,   203,   224,   236,
+     299,    81,   250,   252,    -5,    43,  -159,  -159,  -159,   103,
+     103,  -159,  -159,  -159,   270,  -159,  -159,  -159,    91,     6,
+    -159,    -8,   308,  -159,  -159,   262,   226,   268,  -159,   315,
+     318,   275,   265,   168,  -159,  -159,   319,   323,   181,  -159,
+    -159,  -159,   244,  -159,   244,    43,    37,  -159,   287,   289,
+      27,   320,   177,    81,   331,    91,  -159,  -159,  -159,  -159,
+    -159,  -159,   119,   163,   163,   163,   163,   163,   163,   180,
+     180,     8,   180,   180,   103,   103,   124,  -159,    43,  -159,
+      -5,  -159,   192,   156,   320,   329,   330,   332,   333,  -159,
+    -159,  -159,   308,  -159,  -159,   334,  -159,  -159,  -159,   159,
+    -159,  -159,   279,   281,  -159,   279,   279,   279,   279,   279,
+     279,   268,   268,  -159,  -159,  -159,  -159,   244,  -159,   244,
+     335,  -159,  -159,  -159,    59,  -159,   285,   286,  -159,   194,
+    -159,  -159,   230,  -159,  -159,  -159,  -159,   267,    43,   294,
+     303,   232,   163,   163,   163,   163,    43,   305,   307,   240,
+     124,   124,   326,   124,   124,   337,   336,   196,   338,   339,
+     340,   341,  -159,   281,   281,  -159,  -159,   207,   342,   343,
+     344,   345,  -159,   286,   286,   135,  -159,  -159,  -159,   371,
+    -159,  -159,  -159,  -159,  -159,  -159,  -159,  -159,  -159,  -159,
+     346,  -159,  -159,  -159,    75,  -159,   296,   297,  -159,   351,
+    -159,    43,   314,   316,   242,   135,   135,   349,   135,   135,
+    -159,   209,   350,   352,   353,   354,  -159,   297,   297,   358,
+    -159,  -159,   267,  -159,  -159,  -159,  -159,  -159,   267,   359,
+     360,  -159,  -159
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -740,12 +814,40 @@ static const yytype_int16 yypact[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
+<<<<<<< HEAD
        0,     0,     0,     0,     1,    10,    11,    12,     0,     0,
        0,     0,    15,     0,     0,    24,    21,     0,    13,    23,
        0,     0,     0,     0,     0,    14,     0,     0,     0,    18,
       48,    49,    50,    57,     0,    58,     0,    42,    45,    26,
        0,   112,   113,   114,     0,    22,   106,   109,     0,     0,
       16,     0,     0,     0,     0,     0,     0,    25,     0,     0,
+=======
+       0,     0,     0,     9,     1,     3,     4,     5,     0,     0,
+       0,     8,     0,    20,    17,     0,     6,    19,     0,     0,
+       0,     0,     7,     0,    44,    45,    46,    53,     0,    54,
+       0,    38,    41,    22,    13,   110,   111,   112,     0,    18,
+     104,   107,     0,     0,     0,     0,     0,     0,    21,     0,
+       0,     0,    12,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,    51,    39,    40,     0,
+      42,    43,     0,     9,     0,     0,     0,     0,     0,   117,
+     105,   106,   108,   109,    52,    47,    49,    48,    50,    23,
+       0,    11,   118,   113,   115,   114,   116,    16,     0,     0,
+       0,     0,    36,     0,    14,    28,     0,     0,    29,    30,
+      31,     0,     0,     0,     0,     0,     2,    15,    24,     0,
+       0,    25,    26,    27,   140,   141,   142,    94,     0,     0,
+      95,     0,    78,    80,    83,     0,     0,   134,   137,     0,
+       0,     0,     0,    74,    75,    76,     0,    72,     0,    55,
+      56,    35,    32,    34,    33,     0,     0,    82,     0,     0,
+       0,    83,     0,     0,     0,     0,   102,   103,   100,    99,
+     101,    98,     0,   102,   103,   100,    99,   101,    98,     0,
+       0,     0,     0,     0,     0,     0,     0,    69,     0,    71,
+       0,    37,     0,     0,     0,     0,     0,     0,     0,    81,
+      84,   147,    77,    57,    79,   125,   126,   127,    96,     0,
+      97,    93,    91,   119,   122,    87,    90,    88,    86,    89,
+      85,   135,   136,    92,   138,   139,    65,    62,    64,    63,
+     172,   173,   174,   182,     0,   181,    66,   166,   169,     0,
+      73,   148,     0,   143,   145,   144,   146,    16,     0,     0,
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,    17,     0,     0,     0,     0,     0,    55,    43,
       44,     0,    46,    47,     0,     0,     0,     0,     0,     0,
@@ -768,6 +870,7 @@ static const yytype_uint8 yydefact[] =
        0,   183,    70,   168,   171,     0,    77,   150,   145,   147,
      146,   148,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+<<<<<<< HEAD
        0,     0,     0,     0,     0,     0,     0,   134,   122,   123,
      125,   126,     0,     0,     0,     0,     0,   181,   169,   170,
        0,   172,   173,    74,    65,   135,   130,   132,   131,   133,
@@ -776,26 +879,52 @@ static const yytype_uint8 yydefact[] =
        0,     0,     0,     0,     0,    63,     0,     0,     0,     0,
        0,   164,   152,   153,     0,   155,   156,     0,   165,   160,
      162,   161,   163,     0,     0,     0,    64,    72
+=======
+       0,     0,   132,   120,   121,   123,   124,     0,     0,     0,
+       0,     0,   179,   167,   168,     0,   170,   171,    70,    61,
+     133,   128,   130,   129,   131,   180,   175,   177,   176,   178,
+     155,   156,   157,   165,     0,   164,    67,   149,   152,     0,
+      58,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+      59,     0,     0,     0,     0,     0,   162,   150,   151,     0,
+     153,   154,    16,   163,   158,   160,   159,   161,    16,     0,
+       0,    60,    68
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int16 yypgoto[] =
 {
+<<<<<<< HEAD
     -184,  -184,   380,    -2,   366,  -102,    19,  -184,   -17,  -184,
     -184,   264,  -122,   -34,   275,   276,  -129,  -184,  -184,  -184,
     -184,  -184,  -184,  -184,  -184,  -184,   205,  -184,  -184,   222,
     -139,  -184,  -184,   185,   262,   -42,   266,   268,  -183,    71,
       72,   271,   145,   144,    92,    17,    22,   165,    74,    73
+=======
+    -159,  -159,   379,    -9,  -159,  -103,   361,  -159,   -12,  -159,
+    -159,   291,  -109,   -28,   288,   290,  -116,  -159,  -159,  -159,
+    -159,  -159,  -159,  -159,  -159,  -159,   202,  -159,   269,   233,
+    -119,  -118,  -159,   216,   264,   -36,   284,   277,  -158,    92,
+      93,  -123,   170,   169,    97,    38,    39,   166,    99,    98
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int16 yydefgoto[] =
 {
+<<<<<<< HEAD
        0,     2,    10,    11,    28,   102,    12,    20,    16,   103,
      104,   105,   106,    36,    37,    38,   169,   107,   262,   325,
      347,   159,   108,   277,   332,   109,   164,   165,   149,   150,
      151,   152,   153,   227,   191,    45,    46,    47,   228,   229,
      230,   154,   155,   156,   321,   322,   323,   252,   253,   254
+=======
+       0,     2,     9,    10,    51,   103,    11,    18,    14,   104,
+     105,   106,   107,    30,    31,    32,   151,   108,   247,   310,
+     332,   141,   109,   262,   317,   110,   146,   147,   131,   132,
+     133,   134,   135,   211,   181,    39,    40,    41,   212,   213,
+     214,   136,   137,   138,   306,   307,   308,   236,   237,   238
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -803,6 +932,7 @@ static const yytype_int16 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int16 yytable[] =
 {
+<<<<<<< HEAD
       54,   130,    65,   158,   171,   163,    39,   178,   138,   231,
      232,   233,   234,   235,   236,   140,    25,    73,     5,     6,
        7,     8,     5,     6,     7,     8,    58,    59,    86,     5,
@@ -845,10 +975,54 @@ static const yytype_int16 yytable[] =
      304,   303,   300,   306,   307,   308,   309,   311,   312,   313,
      314,   335,   326,   344,   218,   349,    61,   350,   351,   352,
      353,   329,   356,   357,   256,   274,   200,     0,   181
+=======
+      45,   117,    56,   140,   153,   145,   162,    22,    33,   157,
+     143,   161,   163,     1,    61,   215,   216,   217,   218,   219,
+     220,   124,   125,   126,   127,    74,   208,   128,   164,    24,
+      25,    26,    27,   162,     3,   158,   159,   144,   194,    19,
+       4,   129,    20,    43,    44,    13,   204,   163,   130,    28,
+     210,   251,   124,   125,   126,   127,    29,    89,    24,    25,
+      26,    27,    15,   199,    91,    16,   158,   159,   226,   228,
+     242,    17,   193,    21,   230,   231,   232,   233,    28,   130,
+      23,   145,    34,   152,   154,    29,    69,   148,   257,   258,
+     300,   301,   302,   303,   234,    42,   124,   125,   126,   127,
+      53,   235,   128,    73,   312,   313,   124,   125,   126,   127,
+     304,    72,   128,    46,    47,    85,   129,   305,    35,    36,
+      37,   149,    48,   130,    46,    47,   156,   192,     5,     6,
+       7,    66,    86,   130,   205,   206,   207,   208,    38,   230,
+     231,   232,   233,    87,   266,   150,    46,    47,   227,   229,
+     300,   301,   302,   303,   209,    84,    49,    50,    90,   234,
+     239,   210,    88,    35,    36,    37,   235,    35,    36,    37,
+     304,   124,   125,   126,   205,   206,   207,   305,   205,   206,
+     207,    54,    55,    38,    97,   158,   159,    38,   249,   250,
+      93,   193,    59,    60,   209,   124,   125,   126,   209,   173,
+     174,   175,   176,   177,   178,   115,   179,   180,    46,    47,
+      46,    47,    94,   201,    95,   193,   119,    92,    96,   191,
+     267,    46,    47,    46,    47,    46,    47,   116,   277,   339,
+     241,   120,   265,   111,   290,   340,    46,    47,    46,    47,
+       5,     6,     7,     8,   118,   295,   112,   333,   173,   174,
+     175,   176,   177,   178,   113,   179,   180,    57,    58,   179,
+     180,   252,   253,   121,    79,   102,   201,   142,   272,   260,
+     261,   315,   316,    57,    58,   122,   282,    98,   326,    99,
+     100,   101,   102,   321,   166,   167,   168,   169,   170,   171,
+      62,    63,    64,    65,    75,    76,    77,    78,   114,   182,
+     183,   187,   188,   195,   196,   197,   198,   155,   252,   253,
+     268,   269,   254,   255,   260,   261,   186,   263,   264,   270,
+     271,   278,   279,   280,   281,   315,   316,   165,   318,   319,
+     322,   323,   324,   325,    67,    68,    82,    83,   123,    70,
+      71,    80,    81,   184,   273,   274,   185,   275,   276,   221,
+     222,   224,   225,   327,   328,   189,   200,   330,   331,   283,
+     284,   286,   287,   190,   203,   243,   244,   285,   245,   246,
+     289,   248,   256,   288,   291,   292,   293,   294,   296,   297,
+     298,   299,   309,   311,   320,   329,   334,    12,   335,   336,
+     337,   338,   240,   341,   342,    52,   202,   223,   160,   172,
+     259,   314,     0,   139
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
 };
 
 static const yytype_int16 yycheck[] =
 {
+<<<<<<< HEAD
       34,   103,    44,   125,   133,   127,    23,   146,   110,   192,
      193,   194,   195,   196,   197,   117,    18,    51,     6,     7,
        8,     9,     6,     7,     8,     9,    31,    32,    62,     6,
@@ -891,12 +1065,56 @@ static const yytype_int16 yycheck[] =
       34,    36,    41,    36,    36,    36,    36,    36,    36,    36,
       36,    33,    37,    36,   182,    36,    40,    36,    36,    36,
       33,   319,    34,    34,   209,   250,   154,    -1,   147
+=======
+      28,   104,    38,   112,   120,   114,   129,    16,    20,   128,
+      15,   129,    20,     3,    42,   173,   174,   175,   176,   177,
+     178,    15,    16,    17,    18,    53,    18,    21,    36,    15,
+      16,    17,    18,   156,    33,    29,    30,    42,   156,    37,
+       0,    35,    40,    29,    30,    15,   165,    20,    42,    35,
+      42,   209,    15,    16,    17,    18,    42,    69,    15,    16,
+      17,    18,    34,    36,    73,    39,    29,    30,   184,   185,
+     193,    15,    35,     4,    15,    16,    17,    18,    35,    42,
+      28,   190,    33,   119,   120,    42,    40,   115,    29,    30,
+      15,    16,    17,    18,    35,    37,    15,    16,    17,    18,
+      37,    42,    21,    39,    29,    30,    15,    16,    17,    18,
+      35,    34,    21,    29,    30,    36,    35,    42,    15,    16,
+      17,    18,    38,    42,    29,    30,    35,   155,     6,     7,
+       8,    36,    36,    42,    15,    16,    17,    18,    35,    15,
+      16,    17,    18,    36,   247,    42,    29,    30,   184,   185,
+      15,    16,    17,    18,    35,    38,    31,    32,     5,    35,
+     188,    42,    36,    15,    16,    17,    42,    15,    16,    17,
+      35,    15,    16,    17,    15,    16,    17,    42,    15,    16,
+      17,    29,    30,    35,    33,    29,    30,    35,    29,    30,
+      36,    35,    31,    32,    35,    15,    16,    17,    35,    22,
+      23,    24,    25,    26,    27,    37,    29,    30,    29,    30,
+      29,    30,    36,    36,    36,    35,    28,    38,    36,    38,
+     248,    29,    30,    29,    30,    29,    30,    34,   256,   332,
+      38,    28,    38,    35,    38,   338,    29,    30,    29,    30,
+       6,     7,     8,     9,    39,    38,    35,    38,    22,    23,
+      24,    25,    26,    27,    35,    29,    30,    29,    30,    29,
+      30,    29,    30,    39,    36,    15,    36,    15,    36,    29,
+      30,    29,    30,    29,    30,    39,    36,    10,    36,    12,
+      13,    14,    15,   311,    22,    23,    24,    25,    26,    27,
+      16,    17,    16,    17,    16,    17,    16,    17,    35,    31,
+      32,    36,    37,    16,    17,    16,    17,    37,    29,    30,
+      16,    17,    31,    32,    29,    30,    41,    31,    32,    16,
+      17,    16,    17,    16,    17,    29,    30,    19,    31,    32,
+      16,    17,    16,    17,    46,    47,    59,    60,    39,    49,
+      50,    57,    58,    28,   252,   253,    28,   254,   255,   179,
+     180,   182,   183,   315,   316,    36,    36,   318,   319,   260,
+     261,   263,   264,    40,    33,    36,    36,    41,    36,    36,
+      34,    37,    37,    36,    36,    36,    36,    36,    36,    36,
+      36,    36,    11,    37,    33,    36,    36,     8,    36,    36,
+      36,    33,   190,    34,    34,    34,   163,   181,   129,   135,
+     234,   304,    -1,   112
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
+<<<<<<< HEAD
        0,     3,    44,    33,     0,     6,     7,     8,     9,    34,
       45,    46,    49,    45,     4,    15,    51,    34,    39,    15,
       50,    33,    37,    40,     4,    46,    28,    34,    47,    49,
@@ -933,11 +1151,49 @@ static const yytype_int8 yystos[] =
       29,    30,    67,    31,    32,    33,    56,    16,    17,    16,
       17,    36,    88,    88,    36,    89,    89,    63,    38,    36,
       36,    36,    36,    33,    48,    48,    34,    34
+=======
+       0,     3,    44,    33,     0,     6,     7,     8,     9,    45,
+      46,    49,    45,    15,    51,    34,    39,    15,    50,    37,
+      40,     4,    46,    28,    15,    16,    17,    18,    35,    42,
+      56,    57,    58,    51,    33,    15,    16,    17,    35,    78,
+      79,    80,    37,    29,    30,    56,    29,    30,    38,    31,
+      32,    47,    49,    37,    29,    30,    78,    29,    30,    31,
+      32,    56,    16,    17,    16,    17,    36,    57,    57,    40,
+      58,    58,    34,    39,    56,    16,    17,    16,    17,    36,
+      79,    79,    80,    80,    38,    36,    36,    36,    36,    51,
+       5,    46,    38,    36,    36,    36,    36,    33,    10,    12,
+      13,    14,    15,    48,    52,    53,    54,    55,    60,    65,
+      68,    35,    35,    35,    35,    37,    34,    48,    39,    28,
+      28,    39,    39,    39,    15,    16,    17,    18,    21,    35,
+      42,    71,    72,    73,    74,    75,    84,    85,    86,    54,
+      55,    64,    15,    15,    42,    55,    69,    70,    56,    18,
+      42,    59,    78,    59,    78,    37,    35,    73,    29,    30,
+      71,    74,    84,    20,    36,    19,    22,    23,    24,    25,
+      26,    27,    77,    22,    23,    24,    25,    26,    27,    29,
+      30,    77,    31,    32,    28,    28,    41,    36,    37,    36,
+      40,    38,    56,    35,    74,    16,    17,    16,    17,    36,
+      36,    36,    72,    33,    73,    15,    16,    17,    18,    35,
+      42,    76,    81,    82,    83,    81,    81,    81,    81,    81,
+      81,    85,    85,    76,    86,    86,    59,    78,    59,    78,
+      15,    16,    17,    18,    35,    42,    90,    91,    92,    56,
+      69,    38,    84,    36,    36,    36,    36,    61,    37,    29,
+      30,    81,    29,    30,    31,    32,    37,    29,    30,    90,
+      29,    30,    66,    31,    32,    38,    48,    56,    16,    17,
+      16,    17,    36,    82,    82,    83,    83,    56,    16,    17,
+      16,    17,    36,    91,    91,    41,    92,    92,    36,    34,
+      38,    36,    36,    36,    36,    38,    36,    36,    36,    36,
+      15,    16,    17,    18,    35,    42,    87,    88,    89,    11,
+      62,    37,    29,    30,    87,    29,    30,    67,    31,    32,
+      33,    56,    16,    17,    16,    17,    36,    88,    88,    36,
+      89,    89,    63,    38,    36,    36,    36,    36,    33,    48,
+      48,    34,    34
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
+<<<<<<< HEAD
        0,    43,    44,    44,    44,    44,    44,    44,    44,    44,
       45,    45,    45,    46,    46,    46,    47,    47,    47,    48,
       48,    49,    49,    50,    51,    51,    51,    51,    52,    52,
@@ -957,6 +1213,27 @@ static const yytype_int8 yyr1[] =
       89,    89,    89,    89,    89,    89,    89,    89,    90,    90,
       90,    91,    91,    91,    92,    92,    92,    92,    92,    92,
       92,    92,    92,    92,    92
+=======
+       0,    43,    44,    45,    45,    45,    46,    46,    46,    46,
+      47,    47,    47,    47,    48,    48,    48,    49,    49,    50,
+      51,    51,    51,    51,    52,    52,    52,    52,    52,    52,
+      52,    52,    53,    53,    53,    53,    54,    55,    56,    56,
+      56,    57,    57,    57,    58,    58,    58,    58,    58,    58,
+      58,    58,    58,    58,    58,    59,    59,    61,    60,    63,
+      62,    62,    64,    64,    64,    64,    66,    67,    65,    68,
+      68,    68,    69,    69,    70,    70,    70,    71,    71,    72,
+      72,    72,    73,    73,    73,    74,    74,    74,    74,    74,
+      74,    74,    74,    74,    75,    75,    76,    76,    77,    77,
+      77,    77,    77,    77,    78,    78,    78,    79,    79,    79,
+      80,    80,    80,    80,    80,    80,    80,    80,    80,    81,
+      81,    81,    82,    82,    82,    83,    83,    83,    83,    83,
+      83,    83,    83,    83,    84,    84,    84,    85,    85,    85,
+      86,    86,    86,    86,    86,    86,    86,    86,    86,    87,
+      87,    87,    88,    88,    88,    89,    89,    89,    89,    89,
+      89,    89,    89,    89,    89,    89,    90,    90,    90,    91,
+      91,    91,    92,    92,    92,    92,    92,    92,    92,    92,
+      92,    92,    92
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -980,7 +1257,24 @@ static const yytype_int8 yyr2[] =
        4,     1,     3,     3,     1,     3,     3,     1,     1,     1,
        4,     4,     4,     4,     3,     4,     1,     1,     1,     3,
        3,     1,     3,     3,     1,     1,     1,     4,     4,     4,
+<<<<<<< HEAD
        4,     3,     4,     1,     1
+=======
+       4,     3,     4,     1,     1,     1,     1,     0,     9,     0,
+       5,     0,     3,     3,     3,     3,     0,     0,    13,     4,
+       7,     4,     1,     3,     1,     1,     1,     3,     1,     3,
+       1,     3,     2,     1,     3,     3,     3,     3,     3,     3,
+       3,     3,     3,     3,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     3,     3,     1,     3,     3,
+       1,     1,     1,     4,     4,     4,     4,     3,     4,     1,
+       3,     3,     1,     3,     3,     1,     1,     1,     4,     4,
+       4,     4,     3,     4,     1,     3,     3,     1,     3,     3,
+       1,     1,     1,     4,     4,     4,     4,     3,     4,     1,
+       3,     3,     1,     3,     3,     1,     1,     1,     4,     4,
+       4,     4,     3,     4,     1,     1,     1,     3,     3,     1,
+       3,     3,     1,     1,     1,     4,     4,     4,     4,     3,
+       4,     1,     1
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
 };
 
 
@@ -1446,22 +1740,49 @@ yyreduce:
   case 10: /* type: INTEGER  */
 #line 129 "syntaxic.y"
             {strcpy(sauvType,"INTEGER");}
+<<<<<<< HEAD
 #line 1450 "syntaxic.tab.c"
+=======
+#line 1445 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 11: /* type: FLOAT  */
 #line 130 "syntaxic.y"
             {strcpy(sauvType,"FLOAT");}
+<<<<<<< HEAD
 #line 1456 "syntaxic.tab.c"
+=======
+#line 1451 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 12: /* type: CHAR  */
 #line 131 "syntaxic.y"
             {strcpy(sauvType,"CHAR");}
+<<<<<<< HEAD
 #line 1462 "syntaxic.tab.c"
     break;
 
   case 15: /* global_var_section: declaration  */
+=======
+#line 1457 "syntaxic.tab.c"
+    break;
+
+  case 8: /* global_var_section: declaration  */
+#line 116 "syntaxic.y"
+                 {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d apres declaration",nb_ligne,colPrd);exit(0);}
+#line 1463 "syntaxic.tab.c"
+    break;
+
+  case 12: /* declaration_section: declaration  */
+#line 125 "syntaxic.y"
+                 {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d apres declaration",nb_ligne,colPrd);exit(0);}
+#line 1469 "syntaxic.tab.c"
+    break;
+
+  case 17: /* declaration: type variable_list  */
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
 #line 138 "syntaxic.y"
                  {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d apres declaration",nb_ligne,colPrd);exit(0);}
 #line 1468 "syntaxic.tab.c"
@@ -1486,7 +1807,11 @@ yyreduce:
         }  
         j=0;  
     }
+<<<<<<< HEAD
 #line 1490 "syntaxic.tab.c"
+=======
+#line 1485 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 22: /* declaration: CONST type cst EQUALS term  */
@@ -1513,7 +1838,11 @@ yyreduce:
         insererVal(saveIdf[0].idfTab,saveStr);
         strcpy(saveIdf[0].idfTab,"");
     }
+<<<<<<< HEAD
 #line 1517 "syntaxic.tab.c"
+=======
+#line 1512 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 23: /* cst: IDENTIFIER  */
@@ -1527,13 +1856,21 @@ yyreduce:
             
             
     }
+<<<<<<< HEAD
 #line 1531 "syntaxic.tab.c"
+=======
+#line 1526 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 24: /* variable_list: IDENTIFIER  */
 #line 209 "syntaxic.y"
                {strcpy(saveIdf[j].idfTab,(yyvsp[0].string));j++;}
+<<<<<<< HEAD
 #line 1537 "syntaxic.tab.c"
+=======
+#line 1532 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 25: /* variable_list: IDENTIFIER LBRACKET termtab RBRACKET  */
@@ -1544,37 +1881,61 @@ yyreduce:
         createQuad("BOUNDS", "0", buffer1,"");
         createQuad("ADEC",(yyvsp[-3].string),"","");
         }
+<<<<<<< HEAD
 #line 1548 "syntaxic.tab.c"
+=======
+#line 1543 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 26: /* variable_list: IDENTIFIER COMMA variable_list  */
 #line 217 "syntaxic.y"
                                       {strcpy(saveIdf[j].idfTab,(yyvsp[-2].string));j++;}
+<<<<<<< HEAD
 #line 1554 "syntaxic.tab.c"
+=======
+#line 1549 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 32: /* statement: assignment  */
 #line 229 "syntaxic.y"
                 {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d (';' apres chaque instruction)",nb_ligne,colPrd);exit(0);}
+<<<<<<< HEAD
 #line 1560 "syntaxic.tab.c"
+=======
+#line 1555 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 33: /* statement: condition  */
 #line 230 "syntaxic.y"
                 {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d (';' apres chaque instruction)",nb_ligne,colPrd);exit(0);}
+<<<<<<< HEAD
 #line 1566 "syntaxic.tab.c"
+=======
+#line 1561 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 34: /* statement: loop  */
 #line 231 "syntaxic.y"
            {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d (';' apres chaque instruction)",nb_ligne,colPrd);exit(0);}
+<<<<<<< HEAD
 #line 1572 "syntaxic.tab.c"
+=======
+#line 1567 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 35: /* statement: io_statement  */
 #line 232 "syntaxic.y"
                    {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d (';' apres chaque instruction)",nb_ligne,colPrd);exit(0);}
+<<<<<<< HEAD
 #line 1578 "syntaxic.tab.c"
+=======
+#line 1573 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 36: /* assignment: MDROIT EQUALS term  */
@@ -1592,7 +1953,11 @@ yyreduce:
 
         insererVal(mDroit, saveStr);
     }
+<<<<<<< HEAD
 #line 1596 "syntaxic.tab.c"
+=======
+#line 1591 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 37: /* assignment: TAB EQUALS term  */
@@ -1609,7 +1974,11 @@ yyreduce:
 
         insererVal(mDroit, saveStr);
     }
+<<<<<<< HEAD
 #line 1613 "syntaxic.tab.c"
+=======
+#line 1608 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 38: /* assignment: TAB EQUALS EXPRESSION_CHAR  */
@@ -1619,7 +1988,11 @@ yyreduce:
 
         insererVal(mDroit, saveStr);
     }
+<<<<<<< HEAD
 #line 1623 "syntaxic.tab.c"
+=======
+#line 1618 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 39: /* assignment: MDROIT EQUALS EXPRESSION_CHAR  */
@@ -1630,7 +2003,11 @@ yyreduce:
 
         insererVal(mDroit, saveStr);
     }
+<<<<<<< HEAD
 #line 1634 "syntaxic.tab.c"
+=======
+#line 1629 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 40: /* MDROIT: IDENTIFIER  */
@@ -1661,7 +2038,11 @@ yyreduce:
         }
     }
     }
+<<<<<<< HEAD
 #line 1665 "syntaxic.tab.c"
+=======
+#line 1660 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 41: /* TAB: IDENTIFIER LBRACKET termtab RBRACKET  */
@@ -1692,7 +2073,11 @@ yyreduce:
                         strcat(tmp,"]");
                        
                     }
+<<<<<<< HEAD
 #line 1696 "syntaxic.tab.c"
+=======
+#line 1691 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 43: /* termtab: termtab PLUS factortab  */
@@ -1716,7 +2101,11 @@ yyreduce:
         
 
     }
+<<<<<<< HEAD
 #line 1720 "syntaxic.tab.c"
+=======
+#line 1715 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 44: /* termtab: termtab MINUS factortab  */
@@ -1738,7 +2127,11 @@ yyreduce:
         empiler(&pile3,temp);
         cpttemp++;
     }
+<<<<<<< HEAD
 #line 1742 "syntaxic.tab.c"
+=======
+#line 1737 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 46: /* factortab: factortab MULTIPLY primarytab  */
@@ -1761,7 +2154,11 @@ yyreduce:
         cpttemp++;
 
     }
+<<<<<<< HEAD
 #line 1765 "syntaxic.tab.c"
+=======
+#line 1760 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 47: /* factortab: factortab DIVIDE primarytab  */
@@ -1786,7 +2183,11 @@ yyreduce:
         cpttemp++;
         }
 }
+<<<<<<< HEAD
 #line 1790 "syntaxic.tab.c"
+=======
+#line 1785 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 48: /* primarytab: IDENTIFIER  */
@@ -1814,7 +2215,11 @@ yyreduce:
                                   
                              }
     }
+<<<<<<< HEAD
 #line 1818 "syntaxic.tab.c"
+=======
+#line 1813 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 49: /* primarytab: INT_NUMBER  */
@@ -1825,7 +2230,11 @@ yyreduce:
                   empiler(&pile3,buffer1);
                   
     }
+<<<<<<< HEAD
 #line 1829 "syntaxic.tab.c"
+=======
+#line 1824 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 50: /* primarytab: FLOAT_NUMBER  */
@@ -1837,7 +2246,11 @@ yyreduce:
                    strcpy(buffer1,(yyvsp[0].string));
                    empiler(&pile3,buffer1);
                    }
+<<<<<<< HEAD
 #line 1841 "syntaxic.tab.c"
+=======
+#line 1836 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 51: /* primarytab: LPAREN PLUS INT_NUMBER RPAREN  */
@@ -1848,7 +2261,11 @@ yyreduce:
         empiler(&pile3,buffer1);
         
     }
+<<<<<<< HEAD
 #line 1852 "syntaxic.tab.c"
+=======
+#line 1847 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 52: /* primarytab: LPAREN MINUS INT_NUMBER RPAREN  */
@@ -1863,7 +2280,11 @@ yyreduce:
                 empiler(&pile3,buffer1);
             
     }
+<<<<<<< HEAD
 #line 1867 "syntaxic.tab.c"
+=======
+#line 1862 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 53: /* primarytab: LPAREN PLUS FLOAT_NUMBER RPAREN  */
@@ -1876,7 +2297,11 @@ yyreduce:
                                       empiler(&pile3,buffer1);
                                       
                    }
+<<<<<<< HEAD
 #line 1880 "syntaxic.tab.c"
+=======
+#line 1875 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 54: /* primarytab: LPAREN MINUS FLOAT_NUMBER RPAREN  */
@@ -1890,13 +2315,21 @@ yyreduce:
                                            empiler(&pile3,buffer1);
                                        
     }
+<<<<<<< HEAD
 #line 1894 "syntaxic.tab.c"
+=======
+#line 1889 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 55: /* primarytab: LPAREN termtab RPAREN  */
 #line 487 "syntaxic.y"
                             {(yyval.real)=(yyvsp[-1].real);}
+<<<<<<< HEAD
 #line 1900 "syntaxic.tab.c"
+=======
+#line 1895 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 56: /* primarytab: IDENTIFIER LBRACKET termtab RBRACKET  */
@@ -1928,21 +2361,33 @@ yyreduce:
                         empiler(&pile3,buffer1);  
  
                 }
+<<<<<<< HEAD
 #line 1932 "syntaxic.tab.c"
+=======
+#line 1927 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 57: /* primarytab: CHARACTERE  */
 #line 515 "syntaxic.y"
                     {printf("Erreur semantique a la ligne %d colonne %d :type incompatible\n",nb_ligne,col);
                                  printf("l'indice/taille ne peut pas etre CHAR\n"); exit(0);}
+<<<<<<< HEAD
 #line 1939 "syntaxic.tab.c"
+=======
+#line 1934 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 58: /* primarytab: STRING_LITERAL  */
 #line 517 "syntaxic.y"
                        {printf("Erreur semantique a la ligne %d colonne %d :type incompatible\n",nb_ligne,col);
                                  printf("l'indice/taille ne peut pas etre STRING\n"); exit(0);}
+<<<<<<< HEAD
 #line 1946 "syntaxic.tab.c"
+=======
+#line 1941 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 59: /* EXPRESSION_CHAR: CHARACTERE  */
@@ -1955,7 +2400,11 @@ yyreduce:
                             strcpy(saveStrq,(yyvsp[0].string));
                             sprintf(saveStr, "%s",(yyvsp[0].string)); 
                            }
+<<<<<<< HEAD
 #line 1959 "syntaxic.tab.c"
+=======
+#line 1954 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 60: /* EXPRESSION_CHAR: STRING_LITERAL  */
@@ -1967,7 +2416,11 @@ yyreduce:
                                  
                             
                             }
+<<<<<<< HEAD
 #line 1971 "syntaxic.tab.c"
+=======
+#line 1966 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 61: /* $@1: %empty  */
@@ -1976,7 +2429,11 @@ yyreduce:
           createQuad("BZ","",QuadR[qc-1].res,"");
           empiler_Int(&pile1,qc-1);
         }
+<<<<<<< HEAD
 #line 1980 "syntaxic.tab.c"
+=======
+#line 1975 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 62: /* condition: IF LPAREN COND RPAREN LBRACE $@1 instruction_section RBRACE elsebloc  */
@@ -1984,7 +2441,11 @@ yyreduce:
                                             {
         QuadR[atoi(depiler(&pile1))].opd1=ToSTR(qc);
         }
+<<<<<<< HEAD
 #line 1988 "syntaxic.tab.c"
+=======
+#line 1983 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 63: /* $@2: %empty  */
@@ -1994,7 +2455,11 @@ yyreduce:
         empiler_Int(&pile1,qc);
         createQuad("BR","","","");
         }
+<<<<<<< HEAD
 #line 1998 "syntaxic.tab.c"
+=======
+#line 1993 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 66: /* assignment_int: MDROIT EQUALS term  */
@@ -2013,7 +2478,11 @@ yyreduce:
         
         }
     }
+<<<<<<< HEAD
 #line 2017 "syntaxic.tab.c"
+=======
+#line 2012 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 67: /* assignment_int: TAB EQUALS term  */
@@ -2029,7 +2498,11 @@ yyreduce:
 
         insererVal(mDroit, saveStr);
     }
+<<<<<<< HEAD
 #line 2033 "syntaxic.tab.c"
+=======
+#line 2028 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 68: /* assignment_int: TAB EQUALS EXPRESSION_CHAR  */
@@ -2044,7 +2517,11 @@ yyreduce:
 
         insererVal(mDroit, saveStr);
     }
+<<<<<<< HEAD
 #line 2048 "syntaxic.tab.c"
+=======
+#line 2043 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 69: /* assignment_int: MDROIT EQUALS EXPRESSION_CHAR  */
@@ -2058,7 +2535,11 @@ yyreduce:
         empiler(&pile4,mDroit);
         insererVal(mDroit, saveStr);
     }
+<<<<<<< HEAD
 #line 2062 "syntaxic.tab.c"
+=======
+#line 2057 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 70: /* $@3: %empty  */
@@ -2068,7 +2549,11 @@ yyreduce:
         strcpy(pasfor, valDepile); 
         //$$ = atoi($6); // Capturer le pas
     }
+<<<<<<< HEAD
 #line 2072 "syntaxic.tab.c"
+=======
+#line 2067 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 71: /* $@4: %empty  */
@@ -2084,7 +2569,11 @@ yyreduce:
         createQuad("BG", "", mDroit, brnsup); 
         strcpy(cptfor,mDroit);
     }
+<<<<<<< HEAD
 #line 2088 "syntaxic.tab.c"
+=======
+#line 2083 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 72: /* loop: FOR LPAREN assignment_int COLON term3 $@3 COLON term4 $@4 RPAREN LBRACE instruction_section RBRACE  */
@@ -2098,7 +2587,11 @@ yyreduce:
         createQuad("BR", ToSTR(atoi(depiler(&pile1))), "", "");
         QuadR[atoi(depiler(&pile2))].opd1=ToSTR(qc);
     }
+<<<<<<< HEAD
 #line 2102 "syntaxic.tab.c"
+=======
+#line 2097 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 73: /* io_statement: READ LPAREN IDENTIFIER RPAREN  */
@@ -2115,7 +2608,11 @@ yyreduce:
             insererVal((yyvsp[-1].string),"1.0");
         }
     }
+<<<<<<< HEAD
 #line 2119 "syntaxic.tab.c"
+=======
+#line 2114 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 74: /* io_statement: READ LPAREN IDENTIFIER LBRACKET termtab RBRACKET RPAREN  */
@@ -2152,7 +2649,11 @@ yyreduce:
                         }
                        
                     }
+<<<<<<< HEAD
 #line 2156 "syntaxic.tab.c"
+=======
+#line 2151 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     break;
 
   case 78: /* io_expr: IDENTIFIER  */
@@ -2163,11 +2664,19 @@ yyreduce:
             printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[0].string)); exit(0);
         }
     }
+<<<<<<< HEAD
 #line 2167 "syntaxic.tab.c"
     break;
 
   case 81: /* COND: COND OR AND_EXPR  */
 #line 720 "syntaxic.y"
+=======
+#line 2162 "syntaxic.tab.c"
+    break;
+
+  case 77: /* COND: COND OR AND_EXPR  */
+#line 696 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     {
         temp = newtemp();
         sprintf(temp, "T%d", cpttemp);
@@ -2179,11 +2688,19 @@ yyreduce:
         empiler(&pile3,temp);
         cpttemp++;
     }
+<<<<<<< HEAD
 #line 2183 "syntaxic.tab.c"
     break;
 
   case 83: /* AND_EXPR: AND_EXPR AND NOT_EXPR  */
 #line 736 "syntaxic.y"
+=======
+#line 2178 "syntaxic.tab.c"
+    break;
+
+  case 79: /* AND_EXPR: AND_EXPR AND NOT_EXPR  */
+#line 712 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     {
         temp = newtemp();
         sprintf(temp, "T%d", cpttemp);
@@ -2195,11 +2712,19 @@ yyreduce:
         empiler(&pile3,temp);
         cpttemp++;
     }
+<<<<<<< HEAD
 #line 2199 "syntaxic.tab.c"
     break;
 
   case 85: /* NOT_EXPR: NOT NOT_EXPR  */
 #line 752 "syntaxic.y"
+=======
+#line 2194 "syntaxic.tab.c"
+    break;
+
+  case 82: /* NOT_EXPR: NOT NOT_EXPR  */
+#line 729 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     {
         temp = newtemp();
         sprintf(temp, "T%d", cpttemp);
@@ -2209,11 +2734,19 @@ yyreduce:
         empiler(&pile3,temp);
         cpttemp++;
     }
+<<<<<<< HEAD
 #line 2213 "syntaxic.tab.c"
     break;
 
   case 87: /* comparison_expr: term2 GT term1  */
 #line 769 "syntaxic.y"
+=======
+#line 2208 "syntaxic.tab.c"
+    break;
+
+  case 85: /* comparison_expr: term2 GT term1  */
+#line 746 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
     {
         temp=newtemp();
          sprintf(temp,"T%d",cpttemp);
@@ -2225,11 +2758,19 @@ yyreduce:
         createQuadA(6,buffer1,buffer2,temp);
         empiler(&pile3,temp);
     }
+<<<<<<< HEAD
 #line 2229 "syntaxic.tab.c"
     break;
 
   case 88: /* comparison_expr: term2 LT term1  */
 #line 780 "syntaxic.y"
+=======
+#line 2224 "syntaxic.tab.c"
+    break;
+
+  case 86: /* comparison_expr: term2 LT term1  */
+#line 757 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                     {
         temp=newtemp();
         sprintf(temp,"T%d",cpttemp);
@@ -2241,11 +2782,19 @@ yyreduce:
         createQuadA(5,buffer1,buffer2,temp);
         empiler(&pile3,temp);
     }
+<<<<<<< HEAD
 #line 2245 "syntaxic.tab.c"
     break;
 
   case 89: /* comparison_expr: term2 EQ term1  */
 #line 791 "syntaxic.y"
+=======
+#line 2240 "syntaxic.tab.c"
+    break;
+
+  case 87: /* comparison_expr: term2 EQ term1  */
+#line 768 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                    {
         temp=newtemp();
         sprintf(temp,"T%d",cpttemp);
@@ -2257,11 +2806,19 @@ yyreduce:
         createQuadA(1,buffer1,buffer2,temp);
         empiler(&pile3,temp);
     }
+<<<<<<< HEAD
 #line 2261 "syntaxic.tab.c"
     break;
 
   case 90: /* comparison_expr: term2 GEQ term1  */
 #line 802 "syntaxic.y"
+=======
+#line 2256 "syntaxic.tab.c"
+    break;
+
+  case 88: /* comparison_expr: term2 GEQ term1  */
+#line 779 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                     {
        temp=newtemp();
        sprintf(temp,"T%d",cpttemp);
@@ -2273,11 +2830,19 @@ yyreduce:
         createQuadA(3,buffer1,buffer2,temp);
         empiler(&pile3,temp);
     }
+<<<<<<< HEAD
 #line 2277 "syntaxic.tab.c"
     break;
 
   case 91: /* comparison_expr: term2 LEQ term1  */
 #line 813 "syntaxic.y"
+=======
+#line 2272 "syntaxic.tab.c"
+    break;
+
+  case 89: /* comparison_expr: term2 LEQ term1  */
+#line 790 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                     {
         temp=newtemp();
         sprintf(temp,"T%d",cpttemp);
@@ -2289,11 +2854,19 @@ yyreduce:
         createQuadA(4,buffer1,buffer2,temp);
         empiler(&pile3,temp);
     }
+<<<<<<< HEAD
 #line 2293 "syntaxic.tab.c"
     break;
 
   case 92: /* comparison_expr: term2 NEQ term1  */
 #line 824 "syntaxic.y"
+=======
+#line 2288 "syntaxic.tab.c"
+    break;
+
+  case 90: /* comparison_expr: term2 NEQ term1  */
+#line 801 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                     {
         temp=newtemp();
         sprintf(temp,"T%d",cpttemp);
@@ -2305,11 +2878,19 @@ yyreduce:
         createQuadA(2,buffer1,buffer2,temp);
         empiler(&pile3,temp);
     }
+<<<<<<< HEAD
 #line 2309 "syntaxic.tab.c"
     break;
 
   case 93: /* comparison_expr: DROIT OP_COMP term1  */
 #line 836 "syntaxic.y"
+=======
+#line 2304 "syntaxic.tab.c"
+    break;
+
+  case 91: /* comparison_expr: DROIT OP_COMP term1  */
+#line 813 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                           {
             if(strcmp(typeD,typeG)!=0){
             printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
@@ -2328,11 +2909,19 @@ yyreduce:
         }
         
     }
+<<<<<<< HEAD
 #line 2332 "syntaxic.tab.c"
     break;
 
   case 94: /* comparison_expr: term2 OP_COMP GAUCHE  */
 #line 854 "syntaxic.y"
+=======
+#line 2327 "syntaxic.tab.c"
+    break;
+
+  case 92: /* comparison_expr: term2 OP_COMP GAUCHE  */
+#line 831 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                            {if(strcmp(typeD,typeG)!=0){
             printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
             printf("on ne peut pas comparer %s avec %s\n",typeG,typeD); exit(0);
@@ -2349,11 +2938,19 @@ yyreduce:
             empiler(&pile3,temp);
         }
                             }
+<<<<<<< HEAD
 #line 2353 "syntaxic.tab.c"
     break;
 
   case 95: /* comparison_expr: DROIT OP_COMP GAUCHE  */
 #line 870 "syntaxic.y"
+=======
+#line 2348 "syntaxic.tab.c"
+    break;
+
+  case 93: /* comparison_expr: DROIT OP_COMP GAUCHE  */
+#line 847 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                           {
         if(strcmp(typeD,typeG)!=0){
             printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
@@ -2371,6 +2968,7 @@ yyreduce:
             empiler(&pile3,temp);
         }
     }
+<<<<<<< HEAD
 #line 2375 "syntaxic.tab.c"
     break;
 
@@ -2385,11 +2983,44 @@ yyreduce:
   case 97: /* DROIT: STRING_LITERAL  */
 #line 895 "syntaxic.y"
                    {strcpy(typeG,"STRING");
-    empiler(&pile3,(yyvsp[0].string));
-    }
-#line 2391 "syntaxic.tab.c"
+=======
+#line 2370 "syntaxic.tab.c"
     break;
 
+  case 94: /* DROIT: CHARACTERE  */
+#line 869 "syntaxic.y"
+              {strcpy(typeG,"CHAR");
+    empiler(&pile3,(yyvsp[0].string));
+    }
+#line 2378 "syntaxic.tab.c"
+    break;
+
+  case 95: /* DROIT: STRING_LITERAL  */
+#line 872 "syntaxic.y"
+                   {strcpy(typeG,"STRING");
+    empiler(&pile3,(yyvsp[0].string));
+    }
+#line 2386 "syntaxic.tab.c"
+    break;
+
+  case 96: /* GAUCHE: CHARACTERE  */
+#line 877 "syntaxic.y"
+             {strcpy(typeD,"CHAR");
+   empiler(&pile3,(yyvsp[0].string));
+   }
+#line 2394 "syntaxic.tab.c"
+    break;
+
+  case 97: /* GAUCHE: STRING_LITERAL  */
+#line 880 "syntaxic.y"
+                   {strcpy(typeD,"STRING");
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
+    empiler(&pile3,(yyvsp[0].string));
+    }
+#line 2402 "syntaxic.tab.c"
+    break;
+
+<<<<<<< HEAD
   case 98: /* GAUCHE: CHARACTERE  */
 #line 900 "syntaxic.y"
              {strcpy(typeD,"CHAR");
@@ -2444,6 +3075,46 @@ yyreduce:
 
   case 107: /* term: term PLUS factor  */
 #line 920 "syntaxic.y"
+=======
+  case 98: /* OP_COMP: GT  */
+#line 885 "syntaxic.y"
+        {nb_op=6;}
+#line 2408 "syntaxic.tab.c"
+    break;
+
+  case 99: /* OP_COMP: LT  */
+#line 886 "syntaxic.y"
+        {nb_op=5;}
+#line 2414 "syntaxic.tab.c"
+    break;
+
+  case 100: /* OP_COMP: GEQ  */
+#line 887 "syntaxic.y"
+          {nb_op=3;}
+#line 2420 "syntaxic.tab.c"
+    break;
+
+  case 101: /* OP_COMP: LEQ  */
+#line 888 "syntaxic.y"
+          {nb_op=4;}
+#line 2426 "syntaxic.tab.c"
+    break;
+
+  case 102: /* OP_COMP: EQ  */
+#line 889 "syntaxic.y"
+        {nb_op=1;}
+#line 2432 "syntaxic.tab.c"
+    break;
+
+  case 103: /* OP_COMP: NEQ  */
+#line 890 "syntaxic.y"
+         {nb_op=2;}
+#line 2438 "syntaxic.tab.c"
+    break;
+
+  case 105: /* term: term PLUS factor  */
+#line 897 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                        {
         float t=(yyvsp[-2].real)+(yyvsp[0].real);
         tt=newtemp();
@@ -2463,11 +3134,19 @@ yyreduce:
         
 
     }
+<<<<<<< HEAD
 #line 2467 "syntaxic.tab.c"
     break;
 
   case 108: /* term: term MINUS factor  */
 #line 939 "syntaxic.y"
+=======
+#line 2462 "syntaxic.tab.c"
+    break;
+
+  case 106: /* term: term MINUS factor  */
+#line 916 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                         {
         float t=(yyvsp[-2].real)-(yyvsp[0].real);
         tt=newtemp();
@@ -2485,11 +3164,19 @@ yyreduce:
         empiler(&pile3,temp);
         cpttemp++;
     }
+<<<<<<< HEAD
 #line 2489 "syntaxic.tab.c"
     break;
 
   case 110: /* factor: factor MULTIPLY primary  */
 #line 961 "syntaxic.y"
+=======
+#line 2484 "syntaxic.tab.c"
+    break;
+
+  case 108: /* factor: factor MULTIPLY primary  */
+#line 938 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                { 
         float t=(yyvsp[-2].real)*(yyvsp[0].real);
         tt=newtemp();
@@ -2508,11 +3195,19 @@ yyreduce:
         cpttemp++;
 
     }
+<<<<<<< HEAD
 #line 2512 "syntaxic.tab.c"
     break;
 
   case 111: /* factor: factor DIVIDE primary  */
 #line 979 "syntaxic.y"
+=======
+#line 2507 "syntaxic.tab.c"
+    break;
+
+  case 109: /* factor: factor DIVIDE primary  */
+#line 956 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                 { 
         if((yyvsp[0].real)==0) {printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
         else{   
@@ -2533,11 +3228,19 @@ yyreduce:
         cpttemp++;
         }
 }
+<<<<<<< HEAD
 #line 2537 "syntaxic.tab.c"
     break;
 
   case 112: /* primary: IDENTIFIER  */
 #line 1003 "syntaxic.y"
+=======
+#line 2532 "syntaxic.tab.c"
+    break;
+
+  case 110: /* primary: IDENTIFIER  */
+#line 980 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                {
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration((yyvsp[0].string)) == 0) {
@@ -2554,11 +3257,19 @@ yyreduce:
                                   
                              }
     }
+<<<<<<< HEAD
 #line 2558 "syntaxic.tab.c"
     break;
 
   case 113: /* primary: INT_NUMBER  */
 #line 1019 "syntaxic.y"
+=======
+#line 2553 "syntaxic.tab.c"
+    break;
+
+  case 111: /* primary: INT_NUMBER  */
+#line 996 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                  {
         if(strcmp(typeG,"INTEGER")!=0) {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 2\n",nb_ligne,col);
                                         printf("tentative d'affecter INTEGER a un %s\n",typeG); exit(0);}
@@ -2568,11 +3279,19 @@ yyreduce:
                   empiler(&pile3,buffer1);
                   
     }
+<<<<<<< HEAD
 #line 2572 "syntaxic.tab.c"
     break;
 
   case 114: /* primary: FLOAT_NUMBER  */
 #line 1028 "syntaxic.y"
+=======
+#line 2567 "syntaxic.tab.c"
+    break;
+
+  case 112: /* primary: FLOAT_NUMBER  */
+#line 1005 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                   {
                     if(strcmp(typeG,"FLOAT")!=0) 
                    {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 3\n",nb_ligne,col);
@@ -2583,11 +3302,19 @@ yyreduce:
                    strcpy(buffer1,(yyvsp[0].string));
                    empiler(&pile3,buffer1);
                    }
+<<<<<<< HEAD
 #line 2587 "syntaxic.tab.c"
     break;
 
   case 115: /* primary: LPAREN PLUS INT_NUMBER RPAREN  */
 #line 1038 "syntaxic.y"
+=======
+#line 2582 "syntaxic.tab.c"
+    break;
+
+  case 113: /* primary: LPAREN PLUS INT_NUMBER RPAREN  */
+#line 1015 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                   {
         if(strcmp(typeG,"INTEGER")!=0) 
         {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 4\n",nb_ligne,col);
@@ -2598,11 +3325,19 @@ yyreduce:
         empiler(&pile3,buffer1);
         }
     }
+<<<<<<< HEAD
 #line 2602 "syntaxic.tab.c"
     break;
 
   case 116: /* primary: LPAREN MINUS INT_NUMBER RPAREN  */
 #line 1048 "syntaxic.y"
+=======
+#line 2597 "syntaxic.tab.c"
+    break;
+
+  case 114: /* primary: LPAREN MINUS INT_NUMBER RPAREN  */
+#line 1025 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                    {
         if(strcmp(typeG,"INTEGER")!=0) 
             {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 5\n",nb_ligne,col);
@@ -2616,11 +3351,19 @@ yyreduce:
                 empiler(&pile3,buffer1);
             }
     }
+<<<<<<< HEAD
 #line 2620 "syntaxic.tab.c"
     break;
 
   case 117: /* primary: LPAREN PLUS FLOAT_NUMBER RPAREN  */
 #line 1061 "syntaxic.y"
+=======
+#line 2615 "syntaxic.tab.c"
+    break;
+
+  case 115: /* primary: LPAREN PLUS FLOAT_NUMBER RPAREN  */
+#line 1038 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                       {if(strcmp(typeG,"FLOAT")!=0) 
                                     {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 6\n",nb_ligne,col);
                                     printf("tentative d'affecter FLOAT a un %s\n",typeG); exit(0);}
@@ -2630,11 +3373,19 @@ yyreduce:
                                       empiler(&pile3,buffer1);
                                       }
                    }
+<<<<<<< HEAD
 #line 2634 "syntaxic.tab.c"
     break;
 
   case 118: /* primary: LPAREN MINUS FLOAT_NUMBER RPAREN  */
 #line 1070 "syntaxic.y"
+=======
+#line 2629 "syntaxic.tab.c"
+    break;
+
+  case 116: /* primary: LPAREN MINUS FLOAT_NUMBER RPAREN  */
+#line 1047 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                        {
         if(strcmp(typeG,"FLOAT")!=0) 
                                       {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 7\n",nb_ligne,col);
@@ -2647,6 +3398,7 @@ yyreduce:
                                            empiler(&pile3,buffer1);
                                        }
     }
+<<<<<<< HEAD
 #line 2651 "syntaxic.tab.c"
     break;
 
@@ -2658,6 +3410,19 @@ yyreduce:
 
   case 120: /* primary: IDENTIFIER LBRACKET termtab RBRACKET  */
 #line 1083 "syntaxic.y"
+=======
+#line 2646 "syntaxic.tab.c"
+    break;
+
+  case 117: /* primary: LPAREN term RPAREN  */
+#line 1059 "syntaxic.y"
+                         {(yyval.real)=(yyvsp[-1].real);}
+#line 2652 "syntaxic.tab.c"
+    break;
+
+  case 118: /* primary: IDENTIFIER LBRACKET termtab RBRACKET  */
+#line 1060 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                           {if(verifdeclaration((yyvsp[-3].string))==0 )
                                          {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d \n",(yyvsp[-3].string),nb_ligne,col); exit(0);}
                                 else {
@@ -2676,11 +3441,19 @@ yyreduce:
                                  }
                                  
                 }
+<<<<<<< HEAD
 #line 2680 "syntaxic.tab.c"
     break;
 
   case 122: /* term1: term1 PLUS factor1  */
 #line 1105 "syntaxic.y"
+=======
+#line 2675 "syntaxic.tab.c"
+    break;
+
+  case 120: /* term1: term1 PLUS factor1  */
+#line 1082 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                          {
         float t=(yyvsp[-2].real)+(yyvsp[0].real);
         tt=newtemp();
@@ -2700,11 +3473,19 @@ yyreduce:
         
 
     }
+<<<<<<< HEAD
 #line 2704 "syntaxic.tab.c"
     break;
 
   case 123: /* term1: term1 MINUS factor1  */
 #line 1124 "syntaxic.y"
+=======
+#line 2699 "syntaxic.tab.c"
+    break;
+
+  case 121: /* term1: term1 MINUS factor1  */
+#line 1101 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                           {
         float t=(yyvsp[-2].real)-(yyvsp[0].real);
         tt=newtemp();
@@ -2722,11 +3503,19 @@ yyreduce:
         empiler(&pile3,temp);
         cpttemp++;
     }
+<<<<<<< HEAD
 #line 2726 "syntaxic.tab.c"
     break;
 
   case 125: /* factor1: factor1 MULTIPLY primary1  */
 #line 1146 "syntaxic.y"
+=======
+#line 2721 "syntaxic.tab.c"
+    break;
+
+  case 123: /* factor1: factor1 MULTIPLY primary1  */
+#line 1123 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                  { 
         float t=(yyvsp[-2].real)*(yyvsp[0].real);
         tt=newtemp();
@@ -2745,11 +3534,19 @@ yyreduce:
         cpttemp++;
 
     }
+<<<<<<< HEAD
 #line 2749 "syntaxic.tab.c"
     break;
 
   case 126: /* factor1: factor1 DIVIDE primary1  */
 #line 1164 "syntaxic.y"
+=======
+#line 2744 "syntaxic.tab.c"
+    break;
+
+  case 124: /* factor1: factor1 DIVIDE primary1  */
+#line 1141 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                   { 
         if((yyvsp[0].real)==0) {printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
         else{   
@@ -2770,11 +3567,19 @@ yyreduce:
         cpttemp++;
         }
 }
+<<<<<<< HEAD
 #line 2774 "syntaxic.tab.c"
     break;
 
   case 127: /* primary1: IDENTIFIER  */
 #line 1188 "syntaxic.y"
+=======
+#line 2769 "syntaxic.tab.c"
+    break;
+
+  case 125: /* primary1: IDENTIFIER  */
+#line 1165 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                {
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration((yyvsp[0].string)) == 0) {
@@ -2795,11 +3600,19 @@ yyreduce:
                                   
                              }
     }
+<<<<<<< HEAD
 #line 2799 "syntaxic.tab.c"
     break;
 
   case 128: /* primary1: INT_NUMBER  */
 #line 1208 "syntaxic.y"
+=======
+#line 2794 "syntaxic.tab.c"
+    break;
+
+  case 126: /* primary1: INT_NUMBER  */
+#line 1185 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                  {
        
         if(strcmp(typeG,"INTEGER")!=0) {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 2\n",nb_ligne,col);
@@ -2810,11 +3623,19 @@ yyreduce:
                   empiler(&pile3,buffer1);
                   
     }
+<<<<<<< HEAD
 #line 2814 "syntaxic.tab.c"
     break;
 
   case 129: /* primary1: FLOAT_NUMBER  */
 #line 1218 "syntaxic.y"
+=======
+#line 2809 "syntaxic.tab.c"
+    break;
+
+  case 127: /* primary1: FLOAT_NUMBER  */
+#line 1195 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                   {       
 
                     if(strcmp(typeG,"FLOAT")!=0) 
@@ -2826,11 +3647,19 @@ yyreduce:
                    strcpy(buffer1,(yyvsp[0].string));
                    empiler(&pile3,buffer1);
                    }
+<<<<<<< HEAD
 #line 2830 "syntaxic.tab.c"
     break;
 
   case 130: /* primary1: LPAREN PLUS INT_NUMBER RPAREN  */
 #line 1229 "syntaxic.y"
+=======
+#line 2825 "syntaxic.tab.c"
+    break;
+
+  case 128: /* primary1: LPAREN PLUS INT_NUMBER RPAREN  */
+#line 1206 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                   {
         if(strcmp(typeG,"INTEGER")!=0) 
         {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 4\n",nb_ligne,col);
@@ -2841,11 +3670,19 @@ yyreduce:
         empiler(&pile3,buffer1);
         }
     }
+<<<<<<< HEAD
 #line 2845 "syntaxic.tab.c"
     break;
 
   case 131: /* primary1: LPAREN MINUS INT_NUMBER RPAREN  */
 #line 1239 "syntaxic.y"
+=======
+#line 2840 "syntaxic.tab.c"
+    break;
+
+  case 129: /* primary1: LPAREN MINUS INT_NUMBER RPAREN  */
+#line 1216 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                    {
         if(strcmp(typeG,"INTEGER")!=0) 
             {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 5\n",nb_ligne,col);
@@ -2859,11 +3696,19 @@ yyreduce:
                 empiler(&pile3,buffer1);
             }
     }
+<<<<<<< HEAD
 #line 2863 "syntaxic.tab.c"
     break;
 
   case 132: /* primary1: LPAREN PLUS FLOAT_NUMBER RPAREN  */
 #line 1252 "syntaxic.y"
+=======
+#line 2858 "syntaxic.tab.c"
+    break;
+
+  case 130: /* primary1: LPAREN PLUS FLOAT_NUMBER RPAREN  */
+#line 1229 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                       {if(strcmp(typeG,"FLOAT")!=0) 
                                     {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 6\n",nb_ligne,col);
                                     printf("on ne peut pas comparer FLOAT avec %s\n",typeG); exit(0);}
@@ -2873,11 +3718,19 @@ yyreduce:
                                       empiler(&pile3,buffer1);
                                       }
                    }
+<<<<<<< HEAD
 #line 2877 "syntaxic.tab.c"
     break;
 
   case 133: /* primary1: LPAREN MINUS FLOAT_NUMBER RPAREN  */
 #line 1261 "syntaxic.y"
+=======
+#line 2872 "syntaxic.tab.c"
+    break;
+
+  case 131: /* primary1: LPAREN MINUS FLOAT_NUMBER RPAREN  */
+#line 1238 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                        {
         if(strcmp(typeG,"FLOAT")!=0) 
                                       {printf("Erreur semantique a la ligne %d colonne %d :type incompatible 7\n",nb_ligne,col);
@@ -2890,6 +3743,7 @@ yyreduce:
                                            empiler(&pile3,buffer1);
                                        }
     }
+<<<<<<< HEAD
 #line 2894 "syntaxic.tab.c"
     break;
 
@@ -2901,6 +3755,19 @@ yyreduce:
 
   case 135: /* primary1: IDENTIFIER LBRACKET termtab RBRACKET  */
 #line 1274 "syntaxic.y"
+=======
+#line 2889 "syntaxic.tab.c"
+    break;
+
+  case 132: /* primary1: LPAREN term1 RPAREN  */
+#line 1250 "syntaxic.y"
+                          {(yyval.real)=(yyvsp[-1].real);}
+#line 2895 "syntaxic.tab.c"
+    break;
+
+  case 133: /* primary1: IDENTIFIER LBRACKET termtab RBRACKET  */
+#line 1251 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                           {if(verifdeclaration((yyvsp[-3].string))==0 )
                                          {printf("Erreur semantique  :Tableau %s non declaree a la ligne %d colonne %d\n",(yyvsp[-3].string),nb_ligne,col);
                                           exit(0);}
@@ -2919,11 +3786,19 @@ yyreduce:
                                     empiler(&pile3,buffer1);
                                  }
                 }
+<<<<<<< HEAD
 #line 2923 "syntaxic.tab.c"
     break;
 
   case 137: /* term2: term2 PLUS factor2  */
 #line 1296 "syntaxic.y"
+=======
+#line 2918 "syntaxic.tab.c"
+    break;
+
+  case 135: /* term2: term2 PLUS factor2  */
+#line 1273 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                          {
         float t=(yyvsp[-2].real)+(yyvsp[0].real);
         tt=newtemp();
@@ -2943,11 +3818,19 @@ yyreduce:
         
 
     }
+<<<<<<< HEAD
 #line 2947 "syntaxic.tab.c"
     break;
 
   case 138: /* term2: term2 MINUS factor2  */
 #line 1315 "syntaxic.y"
+=======
+#line 2942 "syntaxic.tab.c"
+    break;
+
+  case 136: /* term2: term2 MINUS factor2  */
+#line 1292 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                           {
         float t=(yyvsp[-2].real)-(yyvsp[0].real);
         tt=newtemp();
@@ -2965,11 +3848,19 @@ yyreduce:
         empiler(&pile3,temp);
         cpttemp++;
     }
+<<<<<<< HEAD
 #line 2969 "syntaxic.tab.c"
     break;
 
   case 140: /* factor2: factor2 MULTIPLY primary2  */
 #line 1337 "syntaxic.y"
+=======
+#line 2964 "syntaxic.tab.c"
+    break;
+
+  case 138: /* factor2: factor2 MULTIPLY primary2  */
+#line 1314 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                  { 
         float t=(yyvsp[-2].real)*(yyvsp[0].real);
         tt=newtemp();
@@ -2988,11 +3879,19 @@ yyreduce:
         cpttemp++;
 
     }
+<<<<<<< HEAD
 #line 2992 "syntaxic.tab.c"
     break;
 
   case 141: /* factor2: factor2 DIVIDE primary2  */
 #line 1355 "syntaxic.y"
+=======
+#line 2987 "syntaxic.tab.c"
+    break;
+
+  case 139: /* factor2: factor2 DIVIDE primary2  */
+#line 1332 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                   { 
         if((yyvsp[0].real)==0){ printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
         else{   
@@ -3013,11 +3912,19 @@ yyreduce:
         cpttemp++;
         }
 }
+<<<<<<< HEAD
 #line 3017 "syntaxic.tab.c"
     break;
 
   case 142: /* primary2: IDENTIFIER  */
 #line 1379 "syntaxic.y"
+=======
+#line 3012 "syntaxic.tab.c"
+    break;
+
+  case 140: /* primary2: IDENTIFIER  */
+#line 1356 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                {
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration((yyvsp[0].string)) == 0) {
@@ -3030,11 +3937,19 @@ yyreduce:
                                   
                              }
     }
+<<<<<<< HEAD
 #line 3034 "syntaxic.tab.c"
     break;
 
   case 143: /* primary2: INT_NUMBER  */
 #line 1391 "syntaxic.y"
+=======
+#line 3029 "syntaxic.tab.c"
+    break;
+
+  case 141: /* primary2: INT_NUMBER  */
+#line 1368 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                  {
        strcpy(typeG,"INTEGER");
        (yyval.real)=atof((yyvsp[0].string));
@@ -3042,21 +3957,37 @@ yyreduce:
        empiler(&pile3,buffer1);
                   
     }
+<<<<<<< HEAD
 #line 3046 "syntaxic.tab.c"
     break;
 
   case 144: /* primary2: FLOAT_NUMBER  */
 #line 1398 "syntaxic.y"
+=======
+#line 3041 "syntaxic.tab.c"
+    break;
+
+  case 142: /* primary2: FLOAT_NUMBER  */
+#line 1375 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                   {strcpy(typeG,"FLOAT");
                    (yyval.real)=atof((yyvsp[0].string));  
                    strcpy(buffer1,(yyvsp[0].string));
                    empiler(&pile3,buffer1);
                    }
+<<<<<<< HEAD
 #line 3056 "syntaxic.tab.c"
     break;
 
   case 145: /* primary2: LPAREN PLUS INT_NUMBER RPAREN  */
 #line 1403 "syntaxic.y"
+=======
+#line 3051 "syntaxic.tab.c"
+    break;
+
+  case 143: /* primary2: LPAREN PLUS INT_NUMBER RPAREN  */
+#line 1380 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                   {
         strcpy(typeG,"INTEGER");
         (yyval.real)=atof((yyvsp[-1].string));
@@ -3064,11 +3995,19 @@ yyreduce:
         empiler(&pile3,buffer1);
         
     }
+<<<<<<< HEAD
 #line 3068 "syntaxic.tab.c"
     break;
 
   case 146: /* primary2: LPAREN MINUS INT_NUMBER RPAREN  */
 #line 1410 "syntaxic.y"
+=======
+#line 3063 "syntaxic.tab.c"
+    break;
+
+  case 144: /* primary2: LPAREN MINUS INT_NUMBER RPAREN  */
+#line 1387 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                    {
         strcpy(typeG,"INTEGER");
                 strcpy(saveStr,(yyvsp[-1].string));
@@ -3078,22 +4017,38 @@ yyreduce:
                 empiler(&pile3,buffer1);
             
     }
+<<<<<<< HEAD
 #line 3082 "syntaxic.tab.c"
     break;
 
   case 147: /* primary2: LPAREN PLUS FLOAT_NUMBER RPAREN  */
 #line 1419 "syntaxic.y"
+=======
+#line 3077 "syntaxic.tab.c"
+    break;
+
+  case 145: /* primary2: LPAREN PLUS FLOAT_NUMBER RPAREN  */
+#line 1396 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                       {strcpy(typeG,"FLOAT");
                                       (yyval.real)=atof((yyvsp[-1].string));;
                                       strcpy(buffer1,(yyvsp[-1].string));
                                       empiler(&pile3,buffer1);
                                       
                    }
+<<<<<<< HEAD
 #line 3093 "syntaxic.tab.c"
     break;
 
   case 148: /* primary2: LPAREN MINUS FLOAT_NUMBER RPAREN  */
 #line 1425 "syntaxic.y"
+=======
+#line 3088 "syntaxic.tab.c"
+    break;
+
+  case 146: /* primary2: LPAREN MINUS FLOAT_NUMBER RPAREN  */
+#line 1402 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                        {strcpy(typeG,"FLOAT");
                                            strcat(strcpy(saveS,"-"),(yyvsp[-1].string));
                                            (yyval.real)=atof(saveS);
@@ -3101,6 +4056,7 @@ yyreduce:
                                            empiler(&pile3,buffer1);
                                        
     }
+<<<<<<< HEAD
 #line 3105 "syntaxic.tab.c"
     break;
 
@@ -3112,6 +4068,19 @@ yyreduce:
 
   case 150: /* primary2: IDENTIFIER LBRACKET termtab RBRACKET  */
 #line 1433 "syntaxic.y"
+=======
+#line 3100 "syntaxic.tab.c"
+    break;
+
+  case 147: /* primary2: LPAREN term2 RPAREN  */
+#line 1409 "syntaxic.y"
+                          {(yyval.real)=(yyvsp[-1].real);}
+#line 3106 "syntaxic.tab.c"
+    break;
+
+  case 148: /* primary2: IDENTIFIER LBRACKET termtab RBRACKET  */
+#line 1410 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                           {if(verifdeclaration((yyvsp[-3].string))==0 )
                                          {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d\n",(yyvsp[-3].string),nb_ligne,col); exit(0);}
                                 else {
@@ -3126,11 +4095,19 @@ yyreduce:
                                     empiler(&pile3,buffer1);
                                  }
                 }
+<<<<<<< HEAD
 #line 3130 "syntaxic.tab.c"
     break;
 
   case 152: /* term4: term4 PLUS factor4  */
 #line 1451 "syntaxic.y"
+=======
+#line 3125 "syntaxic.tab.c"
+    break;
+
+  case 150: /* term4: term4 PLUS factor4  */
+#line 1428 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                          {
         float t=(yyvsp[-2].real)+(yyvsp[0].real);
         tt=newtemp();
@@ -3150,11 +4127,19 @@ yyreduce:
         
 
     }
+<<<<<<< HEAD
 #line 3154 "syntaxic.tab.c"
     break;
 
   case 153: /* term4: term4 MINUS factor4  */
 #line 1470 "syntaxic.y"
+=======
+#line 3149 "syntaxic.tab.c"
+    break;
+
+  case 151: /* term4: term4 MINUS factor4  */
+#line 1447 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                           {
         float t=(yyvsp[-2].real)-(yyvsp[0].real);
         tt=newtemp();
@@ -3172,11 +4157,19 @@ yyreduce:
         empiler(&pile3,temp);
         cpttemp++;
     }
+<<<<<<< HEAD
 #line 3176 "syntaxic.tab.c"
     break;
 
   case 155: /* factor4: factor4 MULTIPLY primary4  */
 #line 1492 "syntaxic.y"
+=======
+#line 3171 "syntaxic.tab.c"
+    break;
+
+  case 153: /* factor4: factor4 MULTIPLY primary4  */
+#line 1469 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                  { 
         float t=(yyvsp[-2].real)*(yyvsp[0].real);
         tt=newtemp();
@@ -3195,11 +4188,19 @@ yyreduce:
         cpttemp++;
 
     }
+<<<<<<< HEAD
 #line 3199 "syntaxic.tab.c"
     break;
 
   case 156: /* factor4: factor4 DIVIDE primary4  */
 #line 1510 "syntaxic.y"
+=======
+#line 3194 "syntaxic.tab.c"
+    break;
+
+  case 154: /* factor4: factor4 DIVIDE primary4  */
+#line 1487 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                   { 
         if((yyvsp[0].real)==0) {printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
         else{   
@@ -3220,11 +4221,19 @@ yyreduce:
         cpttemp++;
         }
 }
+<<<<<<< HEAD
 #line 3224 "syntaxic.tab.c"
     break;
 
   case 157: /* primary4: IDENTIFIER  */
 #line 1534 "syntaxic.y"
+=======
+#line 3219 "syntaxic.tab.c"
+    break;
+
+  case 155: /* primary4: IDENTIFIER  */
+#line 1511 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                {
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration((yyvsp[0].string)) == 0) {
@@ -3242,11 +4251,19 @@ yyreduce:
                                   
                              }
     }
+<<<<<<< HEAD
 #line 3246 "syntaxic.tab.c"
     break;
 
   case 158: /* primary4: INT_NUMBER  */
 #line 1551 "syntaxic.y"
+=======
+#line 3241 "syntaxic.tab.c"
+    break;
+
+  case 156: /* primary4: INT_NUMBER  */
+#line 1528 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                  {
         strcpy(brnsup,(yyvsp[0].string));
        strcpy(typeD,"INTEGER");
@@ -3255,11 +4272,19 @@ yyreduce:
        empiler(&pile3,buffer1);
                   
     }
+<<<<<<< HEAD
 #line 3259 "syntaxic.tab.c"
     break;
 
   case 159: /* primary4: FLOAT_NUMBER  */
 #line 1559 "syntaxic.y"
+=======
+#line 3254 "syntaxic.tab.c"
+    break;
+
+  case 157: /* primary4: FLOAT_NUMBER  */
+#line 1536 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                   {  
         printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
                     printf("parametres de boucle doit pas etre FLOAT\n");exit(0);
@@ -3269,11 +4294,19 @@ yyreduce:
                    strcpy(buffer1,(yyvsp[0].string));
                    empiler(&pile3,buffer1);
                    }
+<<<<<<< HEAD
 #line 3273 "syntaxic.tab.c"
     break;
 
   case 160: /* primary4: LPAREN PLUS INT_NUMBER RPAREN  */
 #line 1568 "syntaxic.y"
+=======
+#line 3268 "syntaxic.tab.c"
+    break;
+
+  case 158: /* primary4: LPAREN PLUS INT_NUMBER RPAREN  */
+#line 1545 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                   {
         
          strcpy(brnsup,(yyvsp[-1].string));
@@ -3283,11 +4316,19 @@ yyreduce:
         empiler(&pile3,buffer1);
         
     }
+<<<<<<< HEAD
 #line 3287 "syntaxic.tab.c"
     break;
 
   case 161: /* primary4: LPAREN MINUS INT_NUMBER RPAREN  */
 #line 1577 "syntaxic.y"
+=======
+#line 3282 "syntaxic.tab.c"
+    break;
+
+  case 159: /* primary4: LPAREN MINUS INT_NUMBER RPAREN  */
+#line 1554 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                    {
         printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
                     printf("parametres de boucle doit etre POSITIVE\n");exit(0);
@@ -3300,11 +4341,19 @@ yyreduce:
                 empiler(&pile3,buffer1);
             
     }
+<<<<<<< HEAD
 #line 3304 "syntaxic.tab.c"
     break;
 
   case 162: /* primary4: LPAREN PLUS FLOAT_NUMBER RPAREN  */
 #line 1589 "syntaxic.y"
+=======
+#line 3299 "syntaxic.tab.c"
+    break;
+
+  case 160: /* primary4: LPAREN PLUS FLOAT_NUMBER RPAREN  */
+#line 1566 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                       {
         printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
                     printf("parametres de boucle doit pas etre FLOAT\n");exit(0);
@@ -3315,11 +4364,19 @@ yyreduce:
                                       empiler(&pile3,buffer1);
                                       
                    }
+<<<<<<< HEAD
 #line 3319 "syntaxic.tab.c"
     break;
 
   case 163: /* primary4: LPAREN MINUS FLOAT_NUMBER RPAREN  */
 #line 1599 "syntaxic.y"
+=======
+#line 3314 "syntaxic.tab.c"
+    break;
+
+  case 161: /* primary4: LPAREN MINUS FLOAT_NUMBER RPAREN  */
+#line 1576 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                        {
         printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
                     printf("parametres de boucle doit pas etre FLOAT\n");exit(0);
@@ -3331,6 +4388,7 @@ yyreduce:
                                            empiler(&pile3,buffer1);
                                        
     }
+<<<<<<< HEAD
 #line 3335 "syntaxic.tab.c"
     break;
 
@@ -3342,6 +4400,19 @@ yyreduce:
 
   case 165: /* primary4: IDENTIFIER LBRACKET termtab RBRACKET  */
 #line 1611 "syntaxic.y"
+=======
+#line 3330 "syntaxic.tab.c"
+    break;
+
+  case 162: /* primary4: LPAREN term4 RPAREN  */
+#line 1587 "syntaxic.y"
+                          {(yyval.real)=(yyvsp[-1].real);}
+#line 3336 "syntaxic.tab.c"
+    break;
+
+  case 163: /* primary4: IDENTIFIER LBRACKET termtab RBRACKET  */
+#line 1588 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                           {if(verifdeclaration((yyvsp[-3].string))==0 )
                                          {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d\n",(yyvsp[-3].string),nb_ligne,col); exit(0);}
                                 else {
@@ -3361,6 +4432,7 @@ yyreduce:
                                     empiler(&pile3,buffer1);
                                  }
                 }
+<<<<<<< HEAD
 #line 3365 "syntaxic.tab.c"
     break;
 
@@ -3380,6 +4452,27 @@ yyreduce:
 
   case 169: /* term3: term3 PLUS factor3  */
 #line 1638 "syntaxic.y"
+=======
+#line 3360 "syntaxic.tab.c"
+    break;
+
+  case 164: /* primary4: STRING_LITERAL  */
+#line 1607 "syntaxic.y"
+                   {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
+                    printf("parametres de boucle doit pas etre characters\n");exit(0);}
+#line 3367 "syntaxic.tab.c"
+    break;
+
+  case 165: /* primary4: CHARACTERE  */
+#line 1610 "syntaxic.y"
+               {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
+                    printf("parametres de boucle doit pas etre character\n");exit(0);}
+#line 3374 "syntaxic.tab.c"
+    break;
+
+  case 167: /* term3: term3 PLUS factor3  */
+#line 1615 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                          {
         float t=(yyvsp[-2].real)+(yyvsp[0].real);
         tt=newtemp();
@@ -3399,11 +4492,19 @@ yyreduce:
         
 
     }
+<<<<<<< HEAD
 #line 3403 "syntaxic.tab.c"
     break;
 
   case 170: /* term3: term3 MINUS factor3  */
 #line 1657 "syntaxic.y"
+=======
+#line 3398 "syntaxic.tab.c"
+    break;
+
+  case 168: /* term3: term3 MINUS factor3  */
+#line 1634 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                           {
         float t=(yyvsp[-2].real)-(yyvsp[0].real);
         tt=newtemp();
@@ -3421,11 +4522,19 @@ yyreduce:
         empiler(&pile3,temp);
         cpttemp++;
     }
+<<<<<<< HEAD
 #line 3425 "syntaxic.tab.c"
     break;
 
   case 172: /* factor3: factor3 MULTIPLY primary3  */
 #line 1679 "syntaxic.y"
+=======
+#line 3420 "syntaxic.tab.c"
+    break;
+
+  case 170: /* factor3: factor3 MULTIPLY primary3  */
+#line 1656 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                  { 
         float t=(yyvsp[-2].real)*(yyvsp[0].real);
         tt=newtemp();
@@ -3444,11 +4553,19 @@ yyreduce:
         cpttemp++;
 
     }
+<<<<<<< HEAD
 #line 3448 "syntaxic.tab.c"
     break;
 
   case 173: /* factor3: factor3 DIVIDE primary3  */
 #line 1697 "syntaxic.y"
+=======
+#line 3443 "syntaxic.tab.c"
+    break;
+
+  case 171: /* factor3: factor3 DIVIDE primary3  */
+#line 1674 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                  { 
         if((yyvsp[0].real)==0) {printf("Erreur semantique a la ligne %d colonne %d :division sur 0\n",nb_ligne,col); exit(0);}
         else{   
@@ -3469,11 +4586,19 @@ yyreduce:
         cpttemp++;
         }
 }
+<<<<<<< HEAD
 #line 3473 "syntaxic.tab.c"
     break;
 
   case 174: /* primary3: IDENTIFIER  */
 #line 1721 "syntaxic.y"
+=======
+#line 3468 "syntaxic.tab.c"
+    break;
+
+  case 172: /* primary3: IDENTIFIER  */
+#line 1698 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                {
         // Vérification de la déclaration de la variable avant usage dans READ
         if (verifdeclaration((yyvsp[0].string)) == 0) {
@@ -3491,11 +4616,19 @@ yyreduce:
                                   
                              }
     }
+<<<<<<< HEAD
 #line 3495 "syntaxic.tab.c"
     break;
 
   case 175: /* primary3: INT_NUMBER  */
 #line 1738 "syntaxic.y"
+=======
+#line 3490 "syntaxic.tab.c"
+    break;
+
+  case 173: /* primary3: INT_NUMBER  */
+#line 1715 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                  {
        strcpy(typeG,"INTEGER");
        (yyval.real)=atof((yyvsp[0].string));
@@ -3503,11 +4636,19 @@ yyreduce:
        empiler(&pile3,buffer1);
                   
     }
+<<<<<<< HEAD
 #line 3507 "syntaxic.tab.c"
     break;
 
   case 176: /* primary3: FLOAT_NUMBER  */
 #line 1745 "syntaxic.y"
+=======
+#line 3502 "syntaxic.tab.c"
+    break;
+
+  case 174: /* primary3: FLOAT_NUMBER  */
+#line 1722 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                   {
         printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
                     printf("parametres de boucle doit pas etre FLOAT\n");exit(0);
@@ -3516,11 +4657,19 @@ yyreduce:
                    strcpy(buffer1,(yyvsp[0].string));
                    empiler(&pile3,buffer1);
                    }
+<<<<<<< HEAD
 #line 3520 "syntaxic.tab.c"
     break;
 
   case 177: /* primary3: LPAREN PLUS INT_NUMBER RPAREN  */
 #line 1753 "syntaxic.y"
+=======
+#line 3515 "syntaxic.tab.c"
+    break;
+
+  case 175: /* primary3: LPAREN PLUS INT_NUMBER RPAREN  */
+#line 1730 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                   {
         
         strcpy(typeG,"INTEGER");
@@ -3529,11 +4678,19 @@ yyreduce:
         empiler(&pile3,buffer1);
         
     }
+<<<<<<< HEAD
 #line 3533 "syntaxic.tab.c"
     break;
 
   case 178: /* primary3: LPAREN MINUS INT_NUMBER RPAREN  */
 #line 1761 "syntaxic.y"
+=======
+#line 3528 "syntaxic.tab.c"
+    break;
+
+  case 176: /* primary3: LPAREN MINUS INT_NUMBER RPAREN  */
+#line 1738 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                    {
         printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
                     printf("parametres de boucle doit etre positive\n");exit(0);
@@ -3545,11 +4702,19 @@ yyreduce:
                 empiler(&pile3,buffer1);
             
     }
+<<<<<<< HEAD
 #line 3549 "syntaxic.tab.c"
     break;
 
   case 179: /* primary3: LPAREN PLUS FLOAT_NUMBER RPAREN  */
 #line 1772 "syntaxic.y"
+=======
+#line 3544 "syntaxic.tab.c"
+    break;
+
+  case 177: /* primary3: LPAREN PLUS FLOAT_NUMBER RPAREN  */
+#line 1749 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                       {
         printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
                     printf("parametres de boucle doit pas etre FLOAT\n");exit(0);
@@ -3559,11 +4724,19 @@ yyreduce:
                                       empiler(&pile3,buffer1);
                                       
                    }
+<<<<<<< HEAD
 #line 3563 "syntaxic.tab.c"
     break;
 
   case 180: /* primary3: LPAREN MINUS FLOAT_NUMBER RPAREN  */
 #line 1781 "syntaxic.y"
+=======
+#line 3558 "syntaxic.tab.c"
+    break;
+
+  case 178: /* primary3: LPAREN MINUS FLOAT_NUMBER RPAREN  */
+#line 1758 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                        {
         printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
                     printf("parametres de boucle doit pas etre FLOAT\n");exit(0);
@@ -3574,6 +4747,7 @@ yyreduce:
                                            empiler(&pile3,buffer1);
                                        
     }
+<<<<<<< HEAD
 #line 3578 "syntaxic.tab.c"
     break;
 
@@ -3585,6 +4759,19 @@ yyreduce:
 
   case 182: /* primary3: IDENTIFIER LBRACKET termtab RBRACKET  */
 #line 1792 "syntaxic.y"
+=======
+#line 3573 "syntaxic.tab.c"
+    break;
+
+  case 179: /* primary3: LPAREN term3 RPAREN  */
+#line 1768 "syntaxic.y"
+                          {(yyval.real)=(yyvsp[-1].real);}
+#line 3579 "syntaxic.tab.c"
+    break;
+
+  case 180: /* primary3: IDENTIFIER LBRACKET termtab RBRACKET  */
+#line 1769 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                                           {if(verifdeclaration((yyvsp[-3].string))==0 )
                                          {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d \n",(yyvsp[-3].string),nb_ligne,col); exit(0);}
                                 else {
@@ -3604,6 +4791,7 @@ yyreduce:
                                     empiler(&pile3,buffer1);
                                  }
                 }
+<<<<<<< HEAD
 #line 3608 "syntaxic.tab.c"
     break;
 
@@ -3623,6 +4811,27 @@ yyreduce:
 
 
 #line 3626 "syntaxic.tab.c"
+=======
+#line 3603 "syntaxic.tab.c"
+    break;
+
+  case 181: /* primary3: STRING_LITERAL  */
+#line 1788 "syntaxic.y"
+                   {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
+                    printf("parametres de boucle doit pas etre characters\n");exit(0);}
+#line 3610 "syntaxic.tab.c"
+    break;
+
+  case 182: /* primary3: CHARACTERE  */
+#line 1791 "syntaxic.y"
+               {printf("Erreur semantique a la ligne %d colonne %d:type incompatible 7\n",nb_ligne,col);
+                    printf("parametres de boucle doit pas etre character\n");exit(0);}
+#line 3617 "syntaxic.tab.c"
+    break;
+
+
+#line 3621 "syntaxic.tab.c"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
 
       default: break;
     }
@@ -3815,7 +5024,11 @@ yyreturnlab:
   return yyresult;
 }
 
+<<<<<<< HEAD
 #line 1818 "syntaxic.y"
+=======
+#line 1795 "syntaxic.y"
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
 
 
 // Main function to start the parser

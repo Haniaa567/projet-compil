@@ -72,7 +72,11 @@ INSTRUCTION {
             WRITE("Calcul pour I = ", I, " et J = ", J, " : ", RESULT);
 
             %% Vérification de conditions logiques complexes
+<<<<<<< HEAD
             IF (I > J || RESULT < 5 && I == J ){
+=======
+            IF ((I > J) && (RESULT < 5) || (I == J && RESULT > 0)) {
+>>>>>>> e9aac4d53c8baf125bece796ddd4e0e64ea2cbf0
                 WRITE("Les conditions sont remplies pour I = ", I, " et J = ", J);
             } ELSE {IF (I != J && RESULT <= 0) {
                 WRITE("Les conditions sont remplies pour I = ", I, " et J = ", J, " mais avec un résultat <= 0");
