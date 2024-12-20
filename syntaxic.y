@@ -743,7 +743,7 @@ AND_EXPR:
         cpttemp++;
     }
     | NOT_EXPR
-    | LPAREN COND RPAREN
+    | LPAREN COND RPAREN{ $$ = $2; }
 ;
 
 NOT_EXPR:
@@ -758,7 +758,7 @@ NOT_EXPR:
         cpttemp++;
     }
     | comparison_expr
-    |LPAREN comparison_expr RPAREN
+    |LPAREN comparison_expr RPAREN{ $$ = $2;  }
 ;
 
 
