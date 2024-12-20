@@ -626,11 +626,50 @@ loop:
 io_statement:
     READ LPAREN IDENTIFIER RPAREN {
         // Vérification de la déclaration de la variable avant usage dans READ
-        if (verifdeclaration($3) == 0) {
+       if (verifdeclaration($3) == 0) {
             printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col,$3); exit(0);
         }
+        if(strcmp(getType($3),"INTEGER")==0){
+            insererVal($3,"1");
+        }
+        else if(strcmp(getType($3),"FLOAT")==0){
+            insererVal($3,"1.0");
+        }
     }
-    |READ LPAREN TAB RPAREN 
+    |READ LPAREN IDENTIFIER LBRACKET termtab RBRACKET RPAREN 
+        {
+                    if(verifdeclaration($3)==0 )
+                    {printf("Erreur semantique a la ligne %d colonne %d :Tableau %s non declare\n",nb_ligne,col,$3);
+                     exit(0);}
+                    else if(strcmp(getCode($3),"IDF")==0){
+                        printf("Erreur semantique la ligne %d colonne %d: La variable '%s' est n'est pasm un tableau.\n",nb_ligne,col, $3);
+                         exit(0);
+                        strcpy(typeG, getType($3));
+                            }
+                            else{
+                        strcpy(typeG, getType($3));
+
+                    }  
+                    
+                    
+                        strcpy(mDroit,$3);
+                        temp=newtemp();
+                        strcpy(temp,$3);
+                        strcpy(tmp,$3);
+                        strcat(tmp,"[");
+                        valDepile = depiler(&pile3); 
+                        strcpy(buffer2, valDepile); 
+                        strcat(tmp,buffer2);
+                        strcat(tmp,"]");
+                        if(strcmp(getType($3),"INTEGER")==0){
+                        insererVal($3,"1");
+                        }
+                        else if(strcmp(getType($3),"FLOAT")==0){
+                            insererVal($3,"1.0");
+                        }
+                       
+                    }
+        
     | WRITE LPAREN io_expr_list RPAREN 
 ;
 

@@ -31,7 +31,6 @@ INSTRUCTION {
     } ELSE {
         WRITE("La somme est inférieure à 20.");
     };};
-    D=15;
     %% Calcul du résultat de (A * B) - (C / D)
     RESULT = (A * B) - (C / D);
     WRITE("Le résultat de (A * B) - (C / D) est : ", RESULT);
