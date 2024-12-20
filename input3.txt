@@ -1,7 +1,8 @@
 VAR_GLOBAL {
     INTEGER Nbr[20];
     INTEGER Resultat[10];
-    CONST INTEGER X=3,Y=2,Z=4;    
+    INTEGER X3,Y2,Z4;    
+    INTEGER X,Y,Z;
 }
 DECLARATION {
     INTEGER I, Max_pos, Min_pos, Cpt,Tmp;
@@ -14,9 +15,9 @@ INSTRUCTION {
             Nbr[I]=((I*3+5)*(I+1))+(I/3)*2;
         }ELSE{
             IF(I/2 == 0){
-                Nbr[I]=((i - 10) * 4 - 3) * ((i - 10) + 2);
+                Nbr[I]=((I - 10) * 4 - 3) * ((I - 10) + 2);
             }ELSE{
-            Nbr[i]=(i * i) - (15 * i) + 50;
+            Nbr[I]=(I * I) - (15 * I) + 50;
             };
         };
     };
@@ -35,15 +36,16 @@ INSTRUCTION {
             };
         };
     };
-    Som=0.0;
+    Som=0;
     Cpt=0;
+    X=1;
     FOR(I=0:1:10){
         IF(Nbr[I]>Nbr[I+1]){
             Resultat[I] = (Nbr[I]*X+Nbr[I+1]*Y)/(X+Y);
             Som = Som+Resultat[I];
             Cpt = Cpt+1;
         }ELSE{
-            IF(Nbr[i]<Nbr[I+1]){
+            IF(Nbr[I]<Nbr[I+1]){
                 Resultat[I] = (Nbr[I]*Z+Nbr[I+1]*X)/(Z+X);
                 Som = Som+Resultat[I];
                 Cpt = Cpt+1;
@@ -57,6 +59,7 @@ INSTRUCTION {
     }ELSE{
         Moy = 0;
     };
+    Z=2;
     Tmp = ((Resultat[Max_pos/10]*X +Resultat[Min_pos/10]* Y )/Z)+1;
 
     WRITE("Position max: %d\n", Max_pos);
