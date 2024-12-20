@@ -1,57 +1,85 @@
 VAR_GLOBAL {
-    INTEGER A, B, C, SUM;
-    INTEGER Tab[3];
+    INTEGER A, B, C, D, SUM, RESULT;
+    INTEGER I, J;
 }
 
 DECLARATION {
-    INTEGER ABS_VAL;
-    INTEGER I; %% Variable pour parcourir le tableau
+    INTEGER FACT;
+    FLOAT SQRT;
 }
 
 INSTRUCTION {
-    %% Lire les trois nombres
+    %% Lire les valeurs de A, B, C et D
     WRITE("Donner la valeur de A :");
     READ(A);
     WRITE("Donner la valeur de B :");
     READ(B);
     WRITE("Donner la valeur de C :");
     READ(C);
+    WRITE("Donner la valeur de D :");
+    READ(D);
 
-    %% Calculer la somme
-    SUM = A + B + C;
-    WRITE("La somme de A, B, et C est :", SUM, ".");
+    %% Calculer la somme de A, B, C et D
+    SUM = A + B + C + D;
+    WRITE("La somme de A, B, C et D est : ", SUM);
 
-    %% Vérifier si A est négatif, afficher sa valeur absolue
-    IF (A < 0) {
-        ABS_VAL = (-1)*A;
-        WRITE("La valeur absolue de A est :", ABS_VAL, ".");
+    %% Vérification si la somme est supérieure à un seuil
+    IF (SUM > 20) {
+        WRITE("La somme est supérieure à 20.");
+    } ELSE{ IF (SUM == 20) {
+        WRITE("La somme est égale à 20.");
     } ELSE {
-        ABS_VAL = A;
+        WRITE("La somme est inférieure à 20.");
+    };};
+    D=15;
+    %% Calcul du résultat de (A * B) - (C / D)
+    RESULT = (A * B) - (C / D);
+    WRITE("Le résultat de (A * B) - (C / D) est : ", RESULT);
+
+    %% Vérifier si le résultat est positif, négatif ou nul
+    IF (RESULT > 0) {
+        WRITE("Le résultat est positif.");
+    } ELSE {IF (RESULT < 0) {
+        WRITE("Le résultat est négatif.");
+    } ELSE {
+        WRITE("Le résultat est nul.");
+    };};
+
+    %% Calculer la factorielle de A, mais seulement si A est positif
+    IF (A > 0) {
+        FACT = 1;
+        FOR (I = 1 : A : 1) {
+            FACT = FACT * I;
+        };
+        WRITE("La factorielle de A est : ", FACT);
+    } ELSE {
+        WRITE("A doit être positif pour calculer la factorielle.");
     };
 
-    %% Vérifier si B est négatif, afficher sa valeur absolue
-    IF (B < 0) {
-        ABS_VAL = (-1)*B;
-        WRITE("La valeur absolue de B est :", ABS_VAL, ".");
+    %% Calculer la racine carrée de B, si B est positif
+    IF (B > 0) {
+        SQRT = 0.5;
+        WRITE("La racine carrée de B est : ", SQRT);
     } ELSE {
-        ABS_VAL = B;
+        WRITE("B doit être positif pour calculer la racine carrée.");
     };
 
-    %% Vérifier si C est négatif, afficher sa valeur absolue
-    IF (C < 0) {
-        ABS_VAL = (-1)*C;
-        WRITE("La valeur absolue de C est :", ABS_VAL, ".");
-    } ELSE {
-        ABS_VAL = C;
-    };
+    %% Boucle imbriquée pour des calculs complexes
+    WRITE("Calculs dans les boucles imbriquées...");
+    FOR (I = 1 : 5 : 1) {
+        FOR (J = 1 : 3 : 1) {
+            %% Effectuer un calcul arithmétique complexe
+            RESULT = (I * J * 3) - (I + J * 2) / (I + 1);
+            WRITE("Calcul pour I = ", I, " et J = ", J, " : ", RESULT);
 
-    %% Placer A, B, et C dans un tableau
-    Tab[0] = A;
-    Tab[1] = B;
-    Tab[2] = C;
-
-    %% Parcourir le tableau et afficher chaque élément
-    FOR (I = 0 : 2 : 1) {
-        WRITE("Element Tab[", I, "] = ", Tab[I], ".");
+            %% Vérification de conditions logiques complexes
+            IF ((I > J && RESULT < 5) || (I == J && RESULT > 0)) {
+                WRITE("Les conditions sont remplies pour I = ", I, " et J = ", J);
+            } ELSE {IF (I != J && RESULT <= 0) {
+                WRITE("Les conditions sont remplies pour I = ", I, " et J = ", J, " mais avec un résultat <= 0");
+            } ELSE {
+                WRITE("Les conditions ne sont pas remplies pour I = ", I, " et J = ", J);
+            };};
+        };
     };
 }
