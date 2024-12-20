@@ -798,11 +798,15 @@ comparison_expr:
        empiler(&pile3,temp);
     }*/
     | DROIT OP_COMP term1 {
-                            printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
-                          printf("on ne peut pas comparer CARACTERE avec %s\n",typeD); exit(0);
+            if(strcmp(typeD,typeG)!=0){
+            printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
+            printf("on ne peut pas comparer %s avec %s\n",typeG,typeD); exit(0);
+        }
                          }       
-    | term2 OP_COMP GAUCHE {printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
-                            printf("on ne peut pas comparer %s avec %s\n",typeG,typeD); exit(0);
+    | term2 OP_COMP GAUCHE {if(strcmp(typeD,typeG)!=0){
+            printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
+            printf("on ne peut pas comparer %s avec %s\n",typeG,typeD); exit(0);
+        }
                             }
     | DROIT OP_COMP GAUCHE{
         if(strcmp(typeD,typeG)!=0){
