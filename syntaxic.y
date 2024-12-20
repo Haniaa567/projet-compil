@@ -211,7 +211,6 @@ statement:
     | condition SEMICOLON
     | loop SEMICOLON
     | io_statement SEMICOLON
-    |assignment_int
     |assignment {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d (';' apres chaque instruction)",nb_ligne,colPrd);exit(0);}
     | condition {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d (';' apres chaque instruction)",nb_ligne,colPrd);exit(0);}
     | loop {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d (';' apres chaque instruction)",nb_ligne,colPrd);exit(0);}
