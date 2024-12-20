@@ -576,6 +576,7 @@ assignment_int:
         }else{
             //sprintf(saveStr, "%d", (int)$3); 
             createQuad("=", saveStrq, "",mDroit);
+            empiler(&pile4,mDroit);
         
         }
     }
@@ -586,6 +587,7 @@ assignment_int:
         }
         // Génération du quadruplet d'affectation
         createQuad("=", saveStrq, "",tmp);
+        empiler(&pile4,tmp);
 
         insererVal(mDroit, saveStr);
     }
@@ -595,6 +597,7 @@ assignment_int:
             printf("Parametre de boucle doit etre un entier"); exit(0);
         }
         createQuad("=", saveStrq, "",tmp);
+        empiler(&pile4,tmp);
 
         insererVal(mDroit, saveStr);
     }
@@ -604,7 +607,7 @@ assignment_int:
             printf("Parametre de boucle doit etre un entier"); exit(0);
         }
         createQuad("=", saveStrq, "",mDroit);
-
+        empiler(&pile4,mDroit);
         insererVal(mDroit, saveStr);
     }
 ;    
@@ -621,6 +624,8 @@ loop:
         strcpy(brnsup, valDepile); 
         empiler_Int(&pile1, qc);
         empiler_Int(&pile2, qc);
+        valDepile = depiler(&pile4); 
+        strcpy(mDroit, valDepile);
         createQuad("BG", "", mDroit, brnsup); 
         strcpy(cptfor,mDroit);
     }
@@ -781,21 +786,7 @@ comparison_expr:
         createQuadA(2,buffer1,buffer2,temp);
         empiler(&pile3,temp);
     }
-    //probleme coflit
-    /*|STRING_LITERAL OP_COMP STRING_LITERAL{
-        char* temp=newtemp();
-        sprintf(temp,"T%d",cpttemp);
-         cpttemp++;
-        createQuadA(nb_op,$1,$3,temp);
-        empiler(&pile3,temp);
-    }
-    |CHARACTERE OP_COMP CHARACTERE {
-        char* temp=newtemp();
-        sprintf(temp,"T%d",cpttemp);
-         cpttemp++;
-       createQuadA(nb_op,$1,$3,temp);
-       empiler(&pile3,temp);
-    }*/
+
     | DROIT OP_COMP term1 {
             if(strcmp(typeD,typeG)!=0){
             printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
@@ -1043,7 +1034,7 @@ primary:
                                        }
     }
     | LPAREN term RPAREN {$$=$2;}
-    |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {if(verifdeclaration($1)==0 )
+    |IDENTIFIER LBRACKET termtab RBRACKET {if(verifdeclaration($1)==0 )
                                          {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d \n",$1,nb_ligne,col); exit(0);}
                                 else {
                                     strcpy(typeD,getType($1));
@@ -1051,7 +1042,8 @@ primary:
                                                                 printf("tentative d'affecter %s a un %s\n",typeD,typeG); exit(0);}
                                      strcpy(tmp,$1);
                                     strcat(tmp,"[");
-                                    sprintf(buffer1,"%d",atoi($3));
+                                    valDepile = depiler(&pile3); 
+                                    strcpy(buffer1, valDepile);
                                     strcat(tmp,buffer1);
                                     strcat(tmp,"]");
                                     strcpy(saveStrq,tmp);
@@ -1232,7 +1224,7 @@ primary1:
                                        }
     }
     | LPAREN term1 RPAREN {$$=$2;}
-    |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {if(verifdeclaration($1)==0 )
+    |IDENTIFIER LBRACKET termtab RBRACKET {if(verifdeclaration($1)==0 )
                                          {printf("Erreur semantique  :Tableau %s non declaree a la ligne %d colonne %d\n",$1,nb_ligne,col);
                                           exit(0);}
                                 else {
@@ -1241,7 +1233,8 @@ primary1:
                                      printf("on ne peut pas comparer %s avec %s\n",typeD,typeG); exit(0);}
                                      strcpy(tmp,$1);
                                     strcat(tmp,"[");
-                                    sprintf(buffer1,"%d",atoi($3));
+                                    valDepile = depiler(&pile3); 
+                                    strcpy(buffer1, valDepile);
                                     strcat(tmp,buffer1);
                                     strcat(tmp,"]");
                                     strcpy(saveStrq,tmp);
@@ -1389,13 +1382,14 @@ primary2:
                                        
     }
     | LPAREN term2 RPAREN {$$=$2;}
-    |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {if(verifdeclaration($1)==0 )
+    |IDENTIFIER LBRACKET termtab RBRACKET {if(verifdeclaration($1)==0 )
                                          {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d\n",$1,nb_ligne,col); exit(0);}
                                 else {
                                     strcpy(typeG,getType($1));
                                      strcpy(tmp,$1);
                                     strcat(tmp,"[");
-                                    sprintf(buffer1,"%d",atoi($3));
+                                    valDepile = depiler(&pile3); 
+                                    strcpy(buffer1, valDepile);
                                     strcat(tmp,buffer1);
                                     strcat(tmp,"]");
                                     strcpy(buffer1,tmp);
@@ -1565,7 +1559,7 @@ primary4:
                                        
     }
     | LPAREN term4 RPAREN {$$=$2;}
-    |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {if(verifdeclaration($1)==0 )
+    |IDENTIFIER LBRACKET termtab RBRACKET {if(verifdeclaration($1)==0 )
                                          {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d\n",$1,nb_ligne,col); exit(0);}
                                 else {
                                     strcpy(typeD,getType($1));
@@ -1575,7 +1569,8 @@ primary4:
                 }
                                      strcpy(tmp,$1);
                                     strcat(tmp,"[");
-                                    sprintf(buffer1,"%d",atoi($3));
+                                    valDepile = depiler(&pile3); 
+                                    strcpy(buffer1, valDepile); 
                                     strcat(tmp,buffer1);
                                     strcat(tmp,"]");
                                     strcpy(buffer1,tmp);
@@ -1744,7 +1739,7 @@ primary3:
                                        
     }
     | LPAREN term3 RPAREN {$$=$2;}
-    |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {if(verifdeclaration($1)==0 )
+    |IDENTIFIER LBRACKET termtab RBRACKET {if(verifdeclaration($1)==0 )
                                          {printf("Erreur semantique :Tableau %s non declaree a la ligne %d colonne %d \n",$1,nb_ligne,col); exit(0);}
                                 else {
                                     
@@ -1755,7 +1750,8 @@ primary3:
                 }
                                      strcpy(tmp,$1);
                                     strcat(tmp,"[");
-                                    sprintf(buffer1,"%d",atoi($3));
+                                    valDepile = depiler(&pile3); 
+                                    strcpy(buffer1, valDepile); 
                                     strcat(tmp,buffer1);
                                     strcat(tmp,"]");
                                     strcpy(buffer1,tmp);
