@@ -1,5 +1,6 @@
+#line 1 "lex.yy.c"
 
-#line 2 "lex.yy.c"
+#line 3 "lex.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -551,8 +552,8 @@ char *yytext;
     
     extern YYSTYPE yylval;
     
-#line 554 "lex.yy.c"
 #line 555 "lex.yy.c"
+#line 556 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -771,7 +772,7 @@ YY_DECL
 	{
 #line 21 "lexical.l"
 
-#line 774 "lex.yy.c"
+#line 775 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1077,7 +1078,7 @@ YY_RULE_SETUP
 #line 90 "lexical.l"
 ECHO;
 	YY_BREAK
-#line 1080 "lex.yy.c"
+#line 1081 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
