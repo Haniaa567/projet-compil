@@ -14,7 +14,7 @@ INSTRUCTION {
     ABC=2*8+(16+2-13);
     CAR='a';
     NUM[0]='o';
-    NUM[2]='h';
+    NUM[2]='h'; 
     NUM3=2.3;
     IF (2>5 || (-2)==2){
      ABC=2+1;

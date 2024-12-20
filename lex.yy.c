@@ -1072,7 +1072,7 @@ YY_RULE_SETUP
 case 44:
 YY_RULE_SETUP
 #line 88 "lexical.l"
-{ printf("Erreur lexicale : %s \nligne %d Colonne %d\n",yytext ,yylineno, col);col= col +strlen(yytext); }
+{ printf("Erreur lexicale : %s \nligne %d Colonne %d\n",yytext ,yylineno, col);col= col +strlen(yytext);exit(0); }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP

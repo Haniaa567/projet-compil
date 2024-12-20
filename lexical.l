@@ -85,7 +85,7 @@ WRITE            { rechercher(yytext,"mot cle","","",1); printf("WRITE\n"); col 
 [ \t]+             { /* Ignorer les espaces */col += strlen(yytext); }
 
 \n                 { nb_ligne++; col =1;}
-.                  { printf("Erreur lexicale : %s \nligne %d Colonne %d\n",yytext ,yylineno, col);col= col +strlen(yytext); }
+.                  { printf("Erreur lexicale : %s \nligne %d Colonne %d\n",yytext ,yylineno, col);col= col +strlen(yytext);exit(0); }
 
 %%
 
