@@ -89,7 +89,7 @@ int i;
          }
 		 
         else if (strcmp(entite,tab[i].name)==0){
-          printf("entite (%s) existe deja\n",entite);
+          //printf("entite (%s) existe deja\n",entite);
 		}
 		else if (i>=1000)
 		{ printf("La table des symboles des idfs est pleine");}
@@ -112,7 +112,8 @@ int i;
         if(tabm[i].state==0){
 		insererKeywords(entite,code,type,val,i);}
         else if (strcmp(entite,tabm[i].name)==0){
-		printf("entite (%s) existe deja\n",entite);}
+		//printf("entite (%s) existe deja\n",entite);
+        }
 		else if (i>=40){
 		printf ("La table des mots cles est pleine");}
    
@@ -132,9 +133,11 @@ int i;
   //verifier si la case dans la tables des séparateurs est libre si 1 on affiche un message d'erreur si 0 on insére
          for (i=0;((i<40)&&(tabs[i].state==1))&&(strcmp(entite,tabs[i].name)!=0);i++); 
         if(i<40)
-         insererseparateur(entite,code,type,val,i);
-        else
-   	       printf("entite (%s) existe deja\n",entite);
+        {
+         insererseparateur(entite,code,type,val,i);}
+        else{
+   	       //printf("entite (%s) existe deja\n",entite);
+        }
       
     
 
@@ -155,7 +158,7 @@ void rechercher(char entite[], char code[], char type[], char val[], int choix) 
                 insererIDFCONST(entite,code,type,val,i); 
             }
             else if (strcmp(entite,tab[i].name)==0){
-                printf("entite (%s) existe deja\n",entite);
+                //printf("entite (%s) existe deja\n",entite);
             }
             else if (i>=1000)
             { 
@@ -170,7 +173,7 @@ void rechercher(char entite[], char code[], char type[], char val[], int choix) 
                 insererKeywords(entite,code,type,val,i);
             }
             else if (strcmp(entite,tabm[i].name)==0){
-                printf("entite (%s) existe deja\n",entite);
+                //printf("entite (%s) existe deja\n",entite);
             }
             else if (i>=40){
                 printf ("La table des mots cles est pleine");
@@ -180,10 +183,11 @@ void rechercher(char entite[], char code[], char type[], char val[], int choix) 
         case 2: // rechercherseparateur
             //verifier si la case dans la tables des séparateurs est libre si 1 on affiche un message d'erreur si 0 on insére
             for (i=0;((i<40)&&(tabs[i].state==1))&&(strcmp(entite,tabs[i].name)!=0);i++); 
-            if(i<40)
-                insererseparateur(entite,code,type,val,i);
-            else
-                printf("entite (%s) existe deja\n",entite);
+            if(i<40){
+                insererseparateur(entite,code,type,val,i);}
+            else{
+                //printf("entite (%s) existe deja\n",entite);
+                }
             break;
             
         default:
@@ -327,7 +331,7 @@ void insererCode(char entite[])
 int verifdeclaration(char entite[])
 {
     int pos;
-    printf("Vérification de la déclaration pour : %s\n", entite);
+    //printf("Vérification de la déclaration pour : %s\n", entite);
     pos=positionIDF(entite);
      if( strcmp(tab[pos].type,"")==0){return(0);}//la variable n'est pas déclaré 
      else{return(1);}
@@ -461,9 +465,9 @@ void insererTableauElement(char entite[], char code[],int index, char val[], cha
         strcpy(tab[i].type, type);
         strcpy(tab[i].val, val);
         strcpy(tab[i].code, code);
-        printf("Insertion de l'élément %s avec la valeur %s\n", nomComplet, val);
+        //printf("Insertion de l'élément %s avec la valeur %s\n", nomComplet, val);
     } else if (i < 1000 && strcmp(nomComplet, tab[i].name) == 0) {
-        printf("L'élément %s existe déjà avec la valeur %s\n", nomComplet, tab[i].val);
+        //printf("L'élément %s existe déjà avec la valeur %s\n", nomComplet, tab[i].val);
     } else {
         printf("La table des symboles est pleine\n");
     }
