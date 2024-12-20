@@ -350,7 +350,7 @@ int verifconstante(char entite[])
 		if (strcmp(tab[position].code,"IDF CONSTANT")==0){return 1;}
 		else {return -1;}
 	}
-
+    return -1;
 }
 // la fonction qui vérfie si une entité a une valeur
 
@@ -365,6 +365,7 @@ int verifvaleurvide(char entite[])
     else{
         return(-1);
     }
+    return -1;
 }
 //cette fonction qui vérifie si deux type sont compatible
 int verifcmpType(char entite[],char type[])
@@ -376,6 +377,7 @@ int verifcmpType(char entite[],char type[])
 		if (strcmp(tab[position].type,type)==0){return 1;}//le type est compatible
 		else {return 0;}//le type n'est pas compatible
 	}
+    return 0;
 }
 //verifie la double declaration au cas du 2 tableau
 int DoubleDecKeyworld(char entite[]){
@@ -403,6 +405,7 @@ char* getType(char entite[]){
   if (position!=-1){
     return tab[position].type;
   }
+  return "";
 }
 
 
@@ -412,6 +415,7 @@ char* getVal(char entite[]){
   if (position!=-1){
     return tab[position].val;
   }
+  return "";
 }
 
 char* getNom(char entite[]){
@@ -420,6 +424,7 @@ char* getNom(char entite[]){
   if (position!=-1){
     return tab[position].name;
   }
+  return "";
 }
 
 char* getCode(char entite[]){
@@ -428,6 +433,7 @@ char* getCode(char entite[]){
   if (position!=-1){
     return tab[position].code;
   }
+  return "";
 }
 //comparer code
 int comparCode(char entite[])

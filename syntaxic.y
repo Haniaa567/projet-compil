@@ -121,7 +121,7 @@ program:
     |VAR_GLOBAL LBRACE global_var_section RBRACE
     DECLARATION LBRACE declaration_section RBRACE
     INSTRUCTION LBRACE  RBRACE
-    
+
 ;
 
 // Define valid types for variables
@@ -421,11 +421,11 @@ primarytab:
             printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, $1); exit(0);
         }else {strcpy(typeD,getType($1));
                              if(strcmp("CHAR",typeD)==0 || strcmp("STRING",typeD)==0  ) {printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
-                                                         printf("l'indice/taille de tableau ne peut pas etre CHARACTERS\n",typeD,typeG); exit(0);
+                                                         printf("l'indice/taille de tableau ne peut pas etre CHARACTERS\n"); exit(0);
                                                         }
                             else if (strcmp("FLOAT",typeD)==0)
                             {printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
-                                                         printf("l'indice/taille de tableau ne peut pas etre FLOAT\n",typeD,typeG); exit(0);}
+                                                         printf("l'indice/taille de tableau ne peut pas etre FLOAT\n"); exit(0);}
                                 
                                 // if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d colonne %d : variable %s non initialisee\n",nb_ligne,col,$1); exit(0);}
                                  else{
@@ -446,7 +446,7 @@ primarytab:
     }
     | FLOAT_NUMBER{
         printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
-        printf("l'indice/taille de tableau ne peut pas etre FLOAT\n",typeD,typeG); exit(0);
+        printf("l'indice/taille de tableau ne peut pas etre FLOAT\n"); exit(0);
                    $$=atof($1); 
                    strcpy(buffer1,$1);
                    empiler(&pile3,buffer1);
@@ -459,7 +459,7 @@ primarytab:
     }
     |LPAREN MINUS INT_NUMBER RPAREN{
         printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
-        printf("l'indice/taille de tableau ne peut pas etre NEGATIVE\n",typeD,typeG); exit(0);
+        printf("l'indice/taille de tableau ne peut pas etre NEGATIVE\n"); exit(0);
                 strcpy(saveStr,$3);
                 strcat(strcpy(saveS,"-"),saveStr);
                 $$=atoi(saveS);
@@ -469,7 +469,7 @@ primarytab:
     }
     | LPAREN PLUS FLOAT_NUMBER RPAREN {
                                    printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
-                                                         printf("l'indice/taille de tableau ne peut pas etre FLOAT\n",typeD,typeG); exit(0); 
+                                                         printf("l'indice/taille de tableau ne peut pas etre FLOAT\n"); exit(0); 
                                     $$=atof($3);
                                       strcpy(buffer1,$3);
                                       empiler(&pile3,buffer1);
@@ -477,7 +477,7 @@ primarytab:
                    }
     | LPAREN MINUS FLOAT_NUMBER RPAREN {
         printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
-                                                         printf("l'indice/taille de tableau ne peut pas etre FLOAT\n",typeD,typeG); exit(0);
+                                                         printf("l'indice/taille de tableau ne peut pas etre FLOAT\n"); exit(0);
                                            strcat(strcpy(saveS,"-"),$3);
                                            $$=atof(saveS);
                                            strcpy(buffer1, saveS);

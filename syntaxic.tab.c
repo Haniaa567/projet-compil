@@ -1808,11 +1808,11 @@ yyreduce:
             printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, (yyvsp[0].string)); exit(0);
         }else {strcpy(typeD,getType((yyvsp[0].string)));
                              if(strcmp("CHAR",typeD)==0 || strcmp("STRING",typeD)==0  ) {printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
-                                                         printf("l'indice/taille de tableau ne peut pas etre CHARACTERS\n",typeD,typeG); exit(0);
+                                                         printf("l'indice/taille de tableau ne peut pas etre CHARACTERS\n"); exit(0);
                                                         }
                             else if (strcmp("FLOAT",typeD)==0)
                             {printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
-                                                         printf("l'indice/taille de tableau ne peut pas etre FLOAT\n",typeD,typeG); exit(0);}
+                                                         printf("l'indice/taille de tableau ne peut pas etre FLOAT\n"); exit(0);}
                                 
                                 // if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d colonne %d : variable %s non initialisee\n",nb_ligne,col,$1); exit(0);}
                                  else{
@@ -1843,7 +1843,7 @@ yyreduce:
 #line 447 "syntaxic.y"
                   {
         printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
-        printf("l'indice/taille de tableau ne peut pas etre FLOAT\n",typeD,typeG); exit(0);
+        printf("l'indice/taille de tableau ne peut pas etre FLOAT\n"); exit(0);
                    (yyval.real)=atof((yyvsp[0].string)); 
                    strcpy(buffer1,(yyvsp[0].string));
                    empiler(&pile3,buffer1);
@@ -1866,7 +1866,7 @@ yyreduce:
 #line 460 "syntaxic.y"
                                    {
         printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
-        printf("l'indice/taille de tableau ne peut pas etre NEGATIVE\n",typeD,typeG); exit(0);
+        printf("l'indice/taille de tableau ne peut pas etre NEGATIVE\n"); exit(0);
                 strcpy(saveStr,(yyvsp[-1].string));
                 strcat(strcpy(saveS,"-"),saveStr);
                 (yyval.real)=atoi(saveS);
@@ -1881,7 +1881,7 @@ yyreduce:
 #line 470 "syntaxic.y"
                                       {
                                    printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
-                                                         printf("l'indice/taille de tableau ne peut pas etre FLOAT\n",typeD,typeG); exit(0); 
+                                                         printf("l'indice/taille de tableau ne peut pas etre FLOAT\n"); exit(0); 
                                     (yyval.real)=atof((yyvsp[-1].string));
                                       strcpy(buffer1,(yyvsp[-1].string));
                                       empiler(&pile3,buffer1);
@@ -1894,7 +1894,7 @@ yyreduce:
 #line 478 "syntaxic.y"
                                        {
         printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
-                                                         printf("l'indice/taille de tableau ne peut pas etre FLOAT\n",typeD,typeG); exit(0);
+                                                         printf("l'indice/taille de tableau ne peut pas etre FLOAT\n"); exit(0);
                                            strcat(strcpy(saveS,"-"),(yyvsp[-1].string));
                                            (yyval.real)=atof(saveS);
                                            strcpy(buffer1, saveS);

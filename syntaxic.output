@@ -1,11 +1,4 @@
-Rules useless in parser due to conflicts
-
-    9 declaration_section: declaration SEMICOLON
-
-
-State 16 conflicts: 1 reduce/reduce
-State 73 conflicts: 1 reduce/reduce
-State 104 conflicts: 1 reduce/reduce
+State 183 conflicts: 1 shift/reduce
 
 
 Grammar
@@ -13,278 +6,284 @@ Grammar
     0 $accept: program $end
 
     1 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    2        | VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE RBRACE
+    3        | VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    4        | VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE RBRACE
+    5        | VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    6        | VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE RBRACE
+    7        | VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    8        | VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE RBRACE
 
-    2 type: INTEGER
-    3     | FLOAT
-    4     | CHAR
+    9 type: INTEGER
+   10     | FLOAT
+   11     | CHAR
 
-    5 global_var_section: declaration SEMICOLON
-    6                   | declaration SEMICOLON global_var_section
-    7                   | declaration
-    8                   | ε
+   12 global_var_section: declaration SEMICOLON
+   13                   | declaration SEMICOLON global_var_section
+   14                   | declaration
 
-    9 declaration_section: declaration SEMICOLON
-   10                    | declaration SEMICOLON global_var_section
-   11                    | declaration
-   12                    | ε
+   15 declaration_section: declaration SEMICOLON
+   16                    | declaration SEMICOLON global_var_section
+   17                    | declaration
 
-   13 instruction_section: statement
-   14                    | statement instruction_section
-   15                    | ε
+   18 instruction_section: statement
+   19                    | statement instruction_section
 
-   16 declaration: type variable_list
-   17            | CONST type cst EQUALS term
+   20 declaration: type variable_list
+   21            | CONST type cst EQUALS term
 
-   18 cst: IDENTIFIER
+   22 cst: IDENTIFIER
 
-   19 variable_list: IDENTIFIER
-   20              | IDENTIFIER LBRACKET termtab RBRACKET
-   21              | IDENTIFIER COMMA variable_list
-   22              | IDENTIFIER LBRACKET termtab RBRACKET COMMA variable_list
+   23 variable_list: IDENTIFIER
+   24              | IDENTIFIER LBRACKET termtab RBRACKET
+   25              | IDENTIFIER COMMA variable_list
+   26              | IDENTIFIER LBRACKET termtab RBRACKET COMMA variable_list
 
-   23 statement: assignment SEMICOLON
-   24          | condition SEMICOLON
-   25          | loop SEMICOLON
-   26          | io_statement SEMICOLON
-   27          | assignment
-   28          | condition
-   29          | loop
-   30          | io_statement
+   27 statement: assignment SEMICOLON
+   28          | condition SEMICOLON
+   29          | loop SEMICOLON
+   30          | io_statement SEMICOLON
+   31          | assignment
+   32          | condition
+   33          | loop
+   34          | io_statement
 
-   31 assignment: MDROIT EQUALS term
-   32           | TAB EQUALS term
-   33           | TAB EQUALS EXPRESSION_CHAR
-   34           | MDROIT EQUALS EXPRESSION_CHAR
+   35 assignment: MDROIT EQUALS term
+   36           | TAB EQUALS term
+   37           | TAB EQUALS EXPRESSION_CHAR
+   38           | MDROIT EQUALS EXPRESSION_CHAR
 
-   35 MDROIT: IDENTIFIER
+   39 MDROIT: IDENTIFIER
 
-   36 TAB: IDENTIFIER LBRACKET termtab RBRACKET
+   40 TAB: IDENTIFIER LBRACKET termtab RBRACKET
 
-   37 termtab: factortab
-   38        | termtab PLUS factortab
-   39        | termtab MINUS factortab
+   41 termtab: factortab
+   42        | termtab PLUS factortab
+   43        | termtab MINUS factortab
 
-   40 factortab: primarytab
-   41          | factortab MULTIPLY primarytab
-   42          | factortab DIVIDE primarytab
+   44 factortab: primarytab
+   45          | factortab MULTIPLY primarytab
+   46          | factortab DIVIDE primarytab
 
-   43 primarytab: IDENTIFIER
-   44           | INT_NUMBER
-   45           | FLOAT_NUMBER
-   46           | LPAREN PLUS INT_NUMBER RPAREN
-   47           | LPAREN MINUS INT_NUMBER RPAREN
-   48           | LPAREN PLUS FLOAT_NUMBER RPAREN
-   49           | LPAREN MINUS FLOAT_NUMBER RPAREN
-   50           | LPAREN termtab RPAREN
-   51           | IDENTIFIER LBRACKET termtab RBRACKET
-   52           | CHARACTERE
-   53           | STRING_LITERAL
+   47 primarytab: IDENTIFIER
+   48           | INT_NUMBER
+   49           | FLOAT_NUMBER
+   50           | LPAREN PLUS INT_NUMBER RPAREN
+   51           | LPAREN MINUS INT_NUMBER RPAREN
+   52           | LPAREN PLUS FLOAT_NUMBER RPAREN
+   53           | LPAREN MINUS FLOAT_NUMBER RPAREN
+   54           | LPAREN termtab RPAREN
+   55           | IDENTIFIER LBRACKET termtab RBRACKET
+   56           | CHARACTERE
+   57           | STRING_LITERAL
 
-   54 EXPRESSION_CHAR: CHARACTERE
-   55                | STRING_LITERAL
+   58 EXPRESSION_CHAR: CHARACTERE
+   59                | STRING_LITERAL
 
-   56 $@1: ε
+   60 $@1: ε
 
-   57 condition: IF LPAREN COND RPAREN LBRACE $@1 instruction_section RBRACE elsebloc
+   61 condition: IF LPAREN COND RPAREN LBRACE $@1 instruction_section RBRACE elsebloc
 
-   58 $@2: ε
+   62 $@2: ε
 
-   59 elsebloc: ELSE LBRACE $@2 instruction_section RBRACE
-   60         | ε
+   63 elsebloc: ELSE LBRACE $@2 instruction_section RBRACE
+   64         | ε
 
-   61 assignment_int: MDROIT EQUALS term
-   62               | TAB EQUALS term
-   63               | TAB EQUALS EXPRESSION_CHAR
-   64               | MDROIT EQUALS EXPRESSION_CHAR
+   65 assignment_int: MDROIT EQUALS term
+   66               | TAB EQUALS term
+   67               | TAB EQUALS EXPRESSION_CHAR
+   68               | MDROIT EQUALS EXPRESSION_CHAR
 
-   65 $@3: ε
+   69 $@3: ε
 
-   66 $@4: ε
+   70 $@4: ε
 
-   67 loop: FOR LPAREN assignment_int COLON term3 $@3 COLON term4 $@4 RPAREN LBRACE instruction_section RBRACE
+   71 loop: FOR LPAREN assignment_int COLON term3 $@3 COLON term4 $@4 RPAREN LBRACE instruction_section RBRACE
 
-   68 io_statement: READ LPAREN IDENTIFIER RPAREN
-   69             | READ LPAREN IDENTIFIER LBRACKET termtab RBRACKET RPAREN
-   70             | WRITE LPAREN io_expr_list RPAREN
+   72 io_statement: READ LPAREN IDENTIFIER RPAREN
+   73             | READ LPAREN IDENTIFIER LBRACKET termtab RBRACKET RPAREN
+   74             | WRITE LPAREN io_expr_list RPAREN
 
-   71 io_expr_list: io_expr
-   72             | io_expr COMMA io_expr_list
+   75 io_expr_list: io_expr
+   76             | io_expr COMMA io_expr_list
 
-   73 io_expr: IDENTIFIER
-   74        | STRING_LITERAL
-   75        | TAB
+   77 io_expr: IDENTIFIER
+   78        | STRING_LITERAL
+   79        | TAB
 
-   76 COND: COND OR AND_EXPR
-   77     | AND_EXPR
+   80 COND: COND OR AND_EXPR
+   81     | AND_EXPR
 
-   78 AND_EXPR: AND_EXPR AND NOT_EXPR
-   79         | NOT_EXPR
+   82 AND_EXPR: AND_EXPR AND NOT_EXPR
+   83         | NOT_EXPR
+   84         | LPAREN COND RPAREN
 
-   80 NOT_EXPR: NOT NOT_EXPR
-   81         | comparison_expr
+   85 NOT_EXPR: NOT NOT_EXPR
+   86         | comparison_expr
+   87         | LPAREN comparison_expr RPAREN
 
-   82 comparison_expr: term2 GT term1
-   83                | term2 LT term1
-   84                | term2 EQ term1
-   85                | term2 GEQ term1
-   86                | term2 LEQ term1
-   87                | term2 NEQ term1
-   88                | DROIT OP_COMP term1
-   89                | term2 OP_COMP GAUCHE
-   90                | DROIT OP_COMP GAUCHE
+   88 comparison_expr: term2 GT term1
+   89                | term2 LT term1
+   90                | term2 EQ term1
+   91                | term2 GEQ term1
+   92                | term2 LEQ term1
+   93                | term2 NEQ term1
+   94                | DROIT OP_COMP term1
+   95                | term2 OP_COMP GAUCHE
+   96                | DROIT OP_COMP GAUCHE
 
-   91 DROIT: CHARACTERE
-   92      | STRING_LITERAL
+   97 DROIT: CHARACTERE
+   98      | STRING_LITERAL
 
-   93 GAUCHE: CHARACTERE
-   94       | STRING_LITERAL
+   99 GAUCHE: CHARACTERE
+  100       | STRING_LITERAL
 
-   95 OP_COMP: GT
-   96        | LT
-   97        | GEQ
-   98        | LEQ
-   99        | EQ
-  100        | NEQ
+  101 OP_COMP: GT
+  102        | LT
+  103        | GEQ
+  104        | LEQ
+  105        | EQ
+  106        | NEQ
 
-  101 term: factor
-  102     | term PLUS factor
-  103     | term MINUS factor
+  107 term: factor
+  108     | term PLUS factor
+  109     | term MINUS factor
 
-  104 factor: primary
-  105       | factor MULTIPLY primary
-  106       | factor DIVIDE primary
+  110 factor: primary
+  111       | factor MULTIPLY primary
+  112       | factor DIVIDE primary
 
-  107 primary: IDENTIFIER
-  108        | INT_NUMBER
-  109        | FLOAT_NUMBER
-  110        | LPAREN PLUS INT_NUMBER RPAREN
-  111        | LPAREN MINUS INT_NUMBER RPAREN
-  112        | LPAREN PLUS FLOAT_NUMBER RPAREN
-  113        | LPAREN MINUS FLOAT_NUMBER RPAREN
-  114        | LPAREN term RPAREN
-  115        | IDENTIFIER LBRACKET termtab RBRACKET
+  113 primary: IDENTIFIER
+  114        | INT_NUMBER
+  115        | FLOAT_NUMBER
+  116        | LPAREN PLUS INT_NUMBER RPAREN
+  117        | LPAREN MINUS INT_NUMBER RPAREN
+  118        | LPAREN PLUS FLOAT_NUMBER RPAREN
+  119        | LPAREN MINUS FLOAT_NUMBER RPAREN
+  120        | LPAREN term RPAREN
+  121        | IDENTIFIER LBRACKET termtab RBRACKET
 
-  116 term1: factor1
-  117      | term1 PLUS factor1
-  118      | term1 MINUS factor1
+  122 term1: factor1
+  123      | term1 PLUS factor1
+  124      | term1 MINUS factor1
 
-  119 factor1: primary1
-  120        | factor1 MULTIPLY primary1
-  121        | factor1 DIVIDE primary1
+  125 factor1: primary1
+  126        | factor1 MULTIPLY primary1
+  127        | factor1 DIVIDE primary1
 
-  122 primary1: IDENTIFIER
-  123         | INT_NUMBER
-  124         | FLOAT_NUMBER
-  125         | LPAREN PLUS INT_NUMBER RPAREN
-  126         | LPAREN MINUS INT_NUMBER RPAREN
-  127         | LPAREN PLUS FLOAT_NUMBER RPAREN
-  128         | LPAREN MINUS FLOAT_NUMBER RPAREN
-  129         | LPAREN term1 RPAREN
-  130         | IDENTIFIER LBRACKET termtab RBRACKET
+  128 primary1: IDENTIFIER
+  129         | INT_NUMBER
+  130         | FLOAT_NUMBER
+  131         | LPAREN PLUS INT_NUMBER RPAREN
+  132         | LPAREN MINUS INT_NUMBER RPAREN
+  133         | LPAREN PLUS FLOAT_NUMBER RPAREN
+  134         | LPAREN MINUS FLOAT_NUMBER RPAREN
+  135         | LPAREN term1 RPAREN
+  136         | IDENTIFIER LBRACKET termtab RBRACKET
 
-  131 term2: factor2
-  132      | term2 PLUS factor2
-  133      | term2 MINUS factor2
+  137 term2: factor2
+  138      | term2 PLUS factor2
+  139      | term2 MINUS factor2
 
-  134 factor2: primary2
-  135        | factor2 MULTIPLY primary2
-  136        | factor2 DIVIDE primary2
+  140 factor2: primary2
+  141        | factor2 MULTIPLY primary2
+  142        | factor2 DIVIDE primary2
 
-  137 primary2: IDENTIFIER
-  138         | INT_NUMBER
-  139         | FLOAT_NUMBER
-  140         | LPAREN PLUS INT_NUMBER RPAREN
-  141         | LPAREN MINUS INT_NUMBER RPAREN
-  142         | LPAREN PLUS FLOAT_NUMBER RPAREN
-  143         | LPAREN MINUS FLOAT_NUMBER RPAREN
-  144         | LPAREN term2 RPAREN
-  145         | IDENTIFIER LBRACKET termtab RBRACKET
+  143 primary2: IDENTIFIER
+  144         | INT_NUMBER
+  145         | FLOAT_NUMBER
+  146         | LPAREN PLUS INT_NUMBER RPAREN
+  147         | LPAREN MINUS INT_NUMBER RPAREN
+  148         | LPAREN PLUS FLOAT_NUMBER RPAREN
+  149         | LPAREN MINUS FLOAT_NUMBER RPAREN
+  150         | LPAREN term2 RPAREN
+  151         | IDENTIFIER LBRACKET termtab RBRACKET
 
-  146 term4: factor4
-  147      | term4 PLUS factor4
-  148      | term4 MINUS factor4
+  152 term4: factor4
+  153      | term4 PLUS factor4
+  154      | term4 MINUS factor4
 
-  149 factor4: primary4
-  150        | factor4 MULTIPLY primary4
-  151        | factor4 DIVIDE primary4
+  155 factor4: primary4
+  156        | factor4 MULTIPLY primary4
+  157        | factor4 DIVIDE primary4
 
-  152 primary4: IDENTIFIER
-  153         | INT_NUMBER
-  154         | FLOAT_NUMBER
-  155         | LPAREN PLUS INT_NUMBER RPAREN
-  156         | LPAREN MINUS INT_NUMBER RPAREN
-  157         | LPAREN PLUS FLOAT_NUMBER RPAREN
-  158         | LPAREN MINUS FLOAT_NUMBER RPAREN
-  159         | LPAREN term4 RPAREN
-  160         | IDENTIFIER LBRACKET termtab RBRACKET
-  161         | STRING_LITERAL
-  162         | CHARACTERE
+  158 primary4: IDENTIFIER
+  159         | INT_NUMBER
+  160         | FLOAT_NUMBER
+  161         | LPAREN PLUS INT_NUMBER RPAREN
+  162         | LPAREN MINUS INT_NUMBER RPAREN
+  163         | LPAREN PLUS FLOAT_NUMBER RPAREN
+  164         | LPAREN MINUS FLOAT_NUMBER RPAREN
+  165         | LPAREN term4 RPAREN
+  166         | IDENTIFIER LBRACKET termtab RBRACKET
+  167         | STRING_LITERAL
+  168         | CHARACTERE
 
-  163 term3: factor3
-  164      | term3 PLUS factor3
-  165      | term3 MINUS factor3
+  169 term3: factor3
+  170      | term3 PLUS factor3
+  171      | term3 MINUS factor3
 
-  166 factor3: primary3
-  167        | factor3 MULTIPLY primary3
-  168        | factor3 DIVIDE primary3
+  172 factor3: primary3
+  173        | factor3 MULTIPLY primary3
+  174        | factor3 DIVIDE primary3
 
-  169 primary3: IDENTIFIER
-  170         | INT_NUMBER
-  171         | FLOAT_NUMBER
-  172         | LPAREN PLUS INT_NUMBER RPAREN
-  173         | LPAREN MINUS INT_NUMBER RPAREN
-  174         | LPAREN PLUS FLOAT_NUMBER RPAREN
-  175         | LPAREN MINUS FLOAT_NUMBER RPAREN
-  176         | LPAREN term3 RPAREN
-  177         | IDENTIFIER LBRACKET termtab RBRACKET
-  178         | STRING_LITERAL
-  179         | CHARACTERE
+  175 primary3: IDENTIFIER
+  176         | INT_NUMBER
+  177         | FLOAT_NUMBER
+  178         | LPAREN PLUS INT_NUMBER RPAREN
+  179         | LPAREN MINUS INT_NUMBER RPAREN
+  180         | LPAREN PLUS FLOAT_NUMBER RPAREN
+  181         | LPAREN MINUS FLOAT_NUMBER RPAREN
+  182         | LPAREN term3 RPAREN
+  183         | IDENTIFIER LBRACKET termtab RBRACKET
+  184         | STRING_LITERAL
+  185         | CHARACTERE
 
 
 Terminals, with rules where they appear
 
     $end (0) 0
     error (256)
-    VAR_GLOBAL (258) 1
-    DECLARATION (259) 1
-    INSTRUCTION (260) 1
-    INTEGER (261) 2
-    FLOAT (262) 3
-    CHAR (263) 4
-    CONST (264) 17
-    IF (265) 57
-    ELSE (266) 59
-    FOR (267) 67
-    READ (268) 68 69
-    WRITE (269) 70
-    IDENTIFIER <string> (270) 18 19 20 21 22 35 36 43 51 68 69 73 107 115 122 130 137 145 152 160 169 177
-    INT_NUMBER <string> (271) 44 46 47 108 110 111 123 125 126 138 140 141 153 155 156 170 172 173
-    FLOAT_NUMBER <string> (272) 45 48 49 109 112 113 124 127 128 139 142 143 154 157 158 171 174 175
-    CHARACTERE <string> (273) 52 54 91 93 162 179
-    AND (274) 78
-    OR (275) 76
-    NOT (276) 80
-    EQ (277) 84 99
-    NEQ (278) 87 100
-    GEQ (279) 85 97
-    LT (280) 83 96
-    LEQ (281) 86 98
-    GT (282) 82 95
-    EQUALS (283) 17 31 32 33 34 61 62 63 64
-    PLUS (284) 38 46 48 102 110 112 117 125 127 132 140 142 147 155 157 164 172 174
-    MINUS (285) 39 47 49 103 111 113 118 126 128 133 141 143 148 156 158 165 173 175
-    MULTIPLY (286) 41 105 120 135 150 167
-    DIVIDE (287) 42 106 121 136 151 168
-    LBRACE (288) 1 57 59 67
-    RBRACE (289) 1 57 59 67
-    LPAREN (290) 46 47 48 49 50 57 67 68 69 70 110 111 112 113 114 125 126 127 128 129 140 141 142 143 144 155 156 157 158 159 172 173 174 175 176
-    RPAREN (291) 46 47 48 49 50 57 67 68 69 70 110 111 112 113 114 125 126 127 128 129 140 141 142 143 144 155 156 157 158 159 172 173 174 175 176
-    LBRACKET (292) 20 22 36 51 69 115 130 145 160 177
-    RBRACKET (293) 20 22 36 51 69 115 130 145 160 177
-    SEMICOLON (294) 5 6 9 10 23 24 25 26
-    COMMA (295) 21 22 72
-    COLON (296) 67
-    STRING_LITERAL <string> (297) 53 55 74 92 94 161 178
+    VAR_GLOBAL (258) 1 2 3 4 5 6 7 8
+    DECLARATION (259) 1 2 3 4 5 6 7 8
+    INSTRUCTION (260) 1 2 3 4 5 6 7 8
+    INTEGER (261) 9
+    FLOAT (262) 10
+    CHAR (263) 11
+    CONST (264) 21
+    IF (265) 61
+    ELSE (266) 63
+    FOR (267) 71
+    READ (268) 72 73
+    WRITE (269) 74
+    IDENTIFIER <string> (270) 22 23 24 25 26 39 40 47 55 72 73 77 113 121 128 136 143 151 158 166 175 183
+    INT_NUMBER <string> (271) 48 50 51 114 116 117 129 131 132 144 146 147 159 161 162 176 178 179
+    FLOAT_NUMBER <string> (272) 49 52 53 115 118 119 130 133 134 145 148 149 160 163 164 177 180 181
+    CHARACTERE <string> (273) 56 58 97 99 168 185
+    AND (274) 82
+    OR (275) 80
+    NOT (276) 85
+    EQ (277) 90 105
+    NEQ (278) 93 106
+    GEQ (279) 91 103
+    LT (280) 89 102
+    LEQ (281) 92 104
+    GT (282) 88 101
+    EQUALS (283) 21 35 36 37 38 65 66 67 68
+    PLUS (284) 42 50 52 108 116 118 123 131 133 138 146 148 153 161 163 170 178 180
+    MINUS (285) 43 51 53 109 117 119 124 132 134 139 147 149 154 162 164 171 179 181
+    MULTIPLY (286) 45 111 126 141 156 173
+    DIVIDE (287) 46 112 127 142 157 174
+    LBRACE (288) 1 2 3 4 5 6 7 8 61 63 71
+    RBRACE (289) 1 2 3 4 5 6 7 8 61 63 71
+    LPAREN (290) 50 51 52 53 54 61 71 72 73 74 84 87 116 117 118 119 120 131 132 133 134 135 146 147 148 149 150 161 162 163 164 165 178 179 180 181 182
+    RPAREN (291) 50 51 52 53 54 61 71 72 73 74 84 87 116 117 118 119 120 131 132 133 134 135 146 147 148 149 150 161 162 163 164 165 178 179 180 181 182
+    LBRACKET (292) 24 26 40 55 73 121 136 151 166 183
+    RBRACKET (293) 24 26 40 55 73 121 136 151 166 183
+    SEMICOLON (294) 12 13 15 16 27 28 29 30
+    COMMA (295) 25 26 76
+    COLON (296) 71
+    STRING_LITERAL <string> (297) 57 59 78 98 100 167 184
 
 
 Nonterminals, with rules where they appear
@@ -292,152 +291,152 @@ Nonterminals, with rules where they appear
     $accept (43)
         on left: 0
     program (44)
-        on left: 1
+        on left: 1 2 3 4 5 6 7 8
         on right: 0
     type (45)
-        on left: 2 3 4
-        on right: 16 17
+        on left: 9 10 11
+        on right: 20 21
     global_var_section (46)
-        on left: 5 6 7 8
-        on right: 1 6 10
+        on left: 12 13 14
+        on right: 1 6 7 8 13 16
     declaration_section (47)
-        on left: 9 10 11 12
-        on right: 1
+        on left: 15 16 17
+        on right: 1 4 5 8
     instruction_section (48)
-        on left: 13 14 15
-        on right: 1 14 57 59 67
+        on left: 18 19
+        on right: 1 3 5 7 19 61 63 71
     declaration (49)
-        on left: 16 17
-        on right: 5 6 7 9 10 11
+        on left: 20 21
+        on right: 12 13 14 15 16 17
     cst <string> (50)
-        on left: 18
-        on right: 17
+        on left: 22
+        on right: 21
     variable_list (51)
-        on left: 19 20 21 22
-        on right: 16 21 22
+        on left: 23 24 25 26
+        on right: 20 25 26
     statement (52)
-        on left: 23 24 25 26 27 28 29 30
-        on right: 13 14
+        on left: 27 28 29 30 31 32 33 34
+        on right: 18 19
     assignment <string> (53)
-        on left: 31 32 33 34
-        on right: 23 27
+        on left: 35 36 37 38
+        on right: 27 31
     MDROIT (54)
-        on left: 35
-        on right: 31 34 61 64
+        on left: 39
+        on right: 35 38 65 68
     TAB (55)
-        on left: 36
-        on right: 32 33 62 63 75
+        on left: 40
+        on right: 36 37 66 67 79
     termtab <real> (56)
-        on left: 37 38 39
-        on right: 20 22 36 38 39 50 51 69 115 130 145 160 177
+        on left: 41 42 43
+        on right: 24 26 40 42 43 54 55 73 121 136 151 166 183
     factortab <real> (57)
-        on left: 40 41 42
-        on right: 37 38 39 41 42
+        on left: 44 45 46
+        on right: 41 42 43 45 46
     primarytab <real> (58)
-        on left: 43 44 45 46 47 48 49 50 51 52 53
-        on right: 40 41 42
+        on left: 47 48 49 50 51 52 53 54 55 56 57
+        on right: 44 45 46
     EXPRESSION_CHAR (59)
-        on left: 54 55
-        on right: 33 34 63 64
+        on left: 58 59
+        on right: 37 38 67 68
     condition (60)
-        on left: 57
-        on right: 24 28
+        on left: 61
+        on right: 28 32
     $@1 (61)
-        on left: 56
-        on right: 57
+        on left: 60
+        on right: 61
     elsebloc (62)
-        on left: 59 60
-        on right: 57
+        on left: 63 64
+        on right: 61
     $@2 (63)
-        on left: 58
-        on right: 59
+        on left: 62
+        on right: 63
     assignment_int (64)
-        on left: 61 62 63 64
-        on right: 67
+        on left: 65 66 67 68
+        on right: 71
     loop (65)
-        on left: 67
-        on right: 25 29
+        on left: 71
+        on right: 29 33
     $@3 (66)
-        on left: 65
-        on right: 67
+        on left: 69
+        on right: 71
     $@4 (67)
-        on left: 66
-        on right: 67
+        on left: 70
+        on right: 71
     io_statement (68)
-        on left: 68 69 70
-        on right: 26 30
+        on left: 72 73 74
+        on right: 30 34
     io_expr_list (69)
-        on left: 71 72
-        on right: 70 72
+        on left: 75 76
+        on right: 74 76
     io_expr (70)
-        on left: 73 74 75
-        on right: 71 72
+        on left: 77 78 79
+        on right: 75 76
     COND <string> (71)
-        on left: 76 77
-        on right: 57 76
-    AND_EXPR <string> (72)
-        on left: 78 79
-        on right: 76 77 78
-    NOT_EXPR <string> (73)
         on left: 80 81
-        on right: 78 79 80
+        on right: 61 80 84
+    AND_EXPR <string> (72)
+        on left: 82 83 84
+        on right: 80 81 82
+    NOT_EXPR <string> (73)
+        on left: 85 86 87
+        on right: 82 83 85
     comparison_expr <string> (74)
-        on left: 82 83 84 85 86 87 88 89 90
-        on right: 81
+        on left: 88 89 90 91 92 93 94 95 96
+        on right: 86 87
     DROIT <string> (75)
-        on left: 91 92
-        on right: 88 90
+        on left: 97 98
+        on right: 94 96
     GAUCHE <string> (76)
-        on left: 93 94
-        on right: 89 90
+        on left: 99 100
+        on right: 95 96
     OP_COMP <string> (77)
-        on left: 95 96 97 98 99 100
-        on right: 88 89 90
+        on left: 101 102 103 104 105 106
+        on right: 94 95 96
     term <real> (78)
-        on left: 101 102 103
-        on right: 17 31 32 61 62 102 103 114
+        on left: 107 108 109
+        on right: 21 35 36 65 66 108 109 120
     factor <real> (79)
-        on left: 104 105 106
-        on right: 101 102 103 105 106
+        on left: 110 111 112
+        on right: 107 108 109 111 112
     primary <real> (80)
-        on left: 107 108 109 110 111 112 113 114 115
-        on right: 104 105 106
+        on left: 113 114 115 116 117 118 119 120 121
+        on right: 110 111 112
     term1 <real> (81)
-        on left: 116 117 118
-        on right: 82 83 84 85 86 87 88 117 118 129
+        on left: 122 123 124
+        on right: 88 89 90 91 92 93 94 123 124 135
     factor1 <real> (82)
-        on left: 119 120 121
-        on right: 116 117 118 120 121
+        on left: 125 126 127
+        on right: 122 123 124 126 127
     primary1 <real> (83)
-        on left: 122 123 124 125 126 127 128 129 130
-        on right: 119 120 121
+        on left: 128 129 130 131 132 133 134 135 136
+        on right: 125 126 127
     term2 <real> (84)
-        on left: 131 132 133
-        on right: 82 83 84 85 86 87 89 132 133 144
+        on left: 137 138 139
+        on right: 88 89 90 91 92 93 95 138 139 150
     factor2 <real> (85)
-        on left: 134 135 136
-        on right: 131 132 133 135 136
+        on left: 140 141 142
+        on right: 137 138 139 141 142
     primary2 <real> (86)
-        on left: 137 138 139 140 141 142 143 144 145
-        on right: 134 135 136
+        on left: 143 144 145 146 147 148 149 150 151
+        on right: 140 141 142
     term4 <real> (87)
-        on left: 146 147 148
-        on right: 67 147 148 159
+        on left: 152 153 154
+        on right: 71 153 154 165
     factor4 <real> (88)
-        on left: 149 150 151
-        on right: 146 147 148 150 151
+        on left: 155 156 157
+        on right: 152 153 154 156 157
     primary4 <real> (89)
-        on left: 152 153 154 155 156 157 158 159 160 161 162
-        on right: 149 150 151
+        on left: 158 159 160 161 162 163 164 165 166 167 168
+        on right: 155 156 157
     term3 <real> (90)
-        on left: 163 164 165
-        on right: 67 164 165 176
+        on left: 169 170 171
+        on right: 71 170 171 182
     factor3 <real> (91)
-        on left: 166 167 168
-        on right: 163 164 165 167 168
+        on left: 172 173 174
+        on right: 169 170 171 173 174
     primary3 <real> (92)
-        on left: 169 170 171 172 173 174 175 176 177 178 179
-        on right: 166 167 168
+        on left: 175 176 177 178 179 180 181 182 183 184 185
+        on right: 172 173 174
 
 
 State 0
@@ -452,6 +451,13 @@ State 0
 State 1
 
     1 program: VAR_GLOBAL • LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    2        | VAR_GLOBAL • LBRACE RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE RBRACE
+    3        | VAR_GLOBAL • LBRACE RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    4        | VAR_GLOBAL • LBRACE RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE RBRACE
+    5        | VAR_GLOBAL • LBRACE RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    6        | VAR_GLOBAL • LBRACE global_var_section RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE RBRACE
+    7        | VAR_GLOBAL • LBRACE global_var_section RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    8        | VAR_GLOBAL • LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE RBRACE
 
     LBRACE  shift, and go to state 3
 
@@ -466,17 +472,23 @@ State 2
 State 3
 
     1 program: VAR_GLOBAL LBRACE • global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    2        | VAR_GLOBAL LBRACE • RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE RBRACE
+    3        | VAR_GLOBAL LBRACE • RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    4        | VAR_GLOBAL LBRACE • RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE RBRACE
+    5        | VAR_GLOBAL LBRACE • RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    6        | VAR_GLOBAL LBRACE • global_var_section RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE RBRACE
+    7        | VAR_GLOBAL LBRACE • global_var_section RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    8        | VAR_GLOBAL LBRACE • global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE RBRACE
 
     INTEGER  shift, and go to state 5
     FLOAT    shift, and go to state 6
     CHAR     shift, and go to state 7
     CONST    shift, and go to state 8
+    RBRACE   shift, and go to state 9
 
-    $default  reduce using rule 8 (global_var_section)
-
-    type                go to state 9
-    global_var_section  go to state 10
-    declaration         go to state 11
+    type                go to state 10
+    global_var_section  go to state 11
+    declaration         go to state 12
 
 
 State 4
@@ -488,3359 +500,3690 @@ State 4
 
 State 5
 
-    2 type: INTEGER •
+    9 type: INTEGER •
 
-    $default  reduce using rule 2 (type)
+    $default  reduce using rule 9 (type)
 
 
 State 6
 
-    3 type: FLOAT •
+   10 type: FLOAT •
 
-    $default  reduce using rule 3 (type)
+    $default  reduce using rule 10 (type)
 
 
 State 7
 
-    4 type: CHAR •
+   11 type: CHAR •
 
-    $default  reduce using rule 4 (type)
+    $default  reduce using rule 11 (type)
 
 
 State 8
 
-   17 declaration: CONST • type cst EQUALS term
+   21 declaration: CONST • type cst EQUALS term
 
     INTEGER  shift, and go to state 5
     FLOAT    shift, and go to state 6
     CHAR     shift, and go to state 7
 
-    type  go to state 12
+    type  go to state 13
 
 
 State 9
 
-   16 declaration: type • variable_list
+    2 program: VAR_GLOBAL LBRACE RBRACE • DECLARATION LBRACE RBRACE INSTRUCTION LBRACE RBRACE
+    3        | VAR_GLOBAL LBRACE RBRACE • DECLARATION LBRACE RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    4        | VAR_GLOBAL LBRACE RBRACE • DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE RBRACE
+    5        | VAR_GLOBAL LBRACE RBRACE • DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE
 
-    IDENTIFIER  shift, and go to state 13
-
-    variable_list  go to state 14
+    DECLARATION  shift, and go to state 14
 
 
 State 10
 
-    1 program: VAR_GLOBAL LBRACE global_var_section • RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+   20 declaration: type • variable_list
 
-    RBRACE  shift, and go to state 15
+    IDENTIFIER  shift, and go to state 15
+
+    variable_list  go to state 16
 
 
 State 11
 
-    5 global_var_section: declaration • SEMICOLON
-    6                   | declaration • SEMICOLON global_var_section
-    7                   | declaration •
+    1 program: VAR_GLOBAL LBRACE global_var_section • RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    6        | VAR_GLOBAL LBRACE global_var_section • RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE RBRACE
+    7        | VAR_GLOBAL LBRACE global_var_section • RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    8        | VAR_GLOBAL LBRACE global_var_section • RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE RBRACE
 
-    SEMICOLON  shift, and go to state 16
-
-    $default  reduce using rule 7 (global_var_section)
+    RBRACE  shift, and go to state 17
 
 
 State 12
 
-   17 declaration: CONST type • cst EQUALS term
+   12 global_var_section: declaration • SEMICOLON
+   13                   | declaration • SEMICOLON global_var_section
+   14                   | declaration •
 
-    IDENTIFIER  shift, and go to state 17
+    SEMICOLON  shift, and go to state 18
 
-    cst  go to state 18
+    $default  reduce using rule 14 (global_var_section)
 
 
 State 13
 
-   19 variable_list: IDENTIFIER •
-   20              | IDENTIFIER • LBRACKET termtab RBRACKET
-   21              | IDENTIFIER • COMMA variable_list
-   22              | IDENTIFIER • LBRACKET termtab RBRACKET COMMA variable_list
+   21 declaration: CONST type • cst EQUALS term
 
-    LBRACKET  shift, and go to state 19
-    COMMA     shift, and go to state 20
+    IDENTIFIER  shift, and go to state 19
 
-    $default  reduce using rule 19 (variable_list)
+    cst  go to state 20
 
 
 State 14
 
-   16 declaration: type variable_list •
+    2 program: VAR_GLOBAL LBRACE RBRACE DECLARATION • LBRACE RBRACE INSTRUCTION LBRACE RBRACE
+    3        | VAR_GLOBAL LBRACE RBRACE DECLARATION • LBRACE RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    4        | VAR_GLOBAL LBRACE RBRACE DECLARATION • LBRACE declaration_section RBRACE INSTRUCTION LBRACE RBRACE
+    5        | VAR_GLOBAL LBRACE RBRACE DECLARATION • LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE
 
-    $default  reduce using rule 16 (declaration)
+    LBRACE  shift, and go to state 21
 
 
 State 15
 
-    1 program: VAR_GLOBAL LBRACE global_var_section RBRACE • DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+   23 variable_list: IDENTIFIER •
+   24              | IDENTIFIER • LBRACKET termtab RBRACKET
+   25              | IDENTIFIER • COMMA variable_list
+   26              | IDENTIFIER • LBRACKET termtab RBRACKET COMMA variable_list
 
-    DECLARATION  shift, and go to state 21
+    LBRACKET  shift, and go to state 22
+    COMMA     shift, and go to state 23
+
+    $default  reduce using rule 23 (variable_list)
 
 
 State 16
 
-    5 global_var_section: declaration SEMICOLON •
-    6                   | declaration SEMICOLON • global_var_section
+   20 declaration: type variable_list •
 
-    INTEGER  shift, and go to state 5
-    FLOAT    shift, and go to state 6
-    CHAR     shift, and go to state 7
-    CONST    shift, and go to state 8
-
-    RBRACE    reduce using rule 5 (global_var_section)
-    RBRACE    [reduce using rule 8 (global_var_section)]
-    $default  reduce using rule 5 (global_var_section)
-
-    type                go to state 9
-    global_var_section  go to state 22
-    declaration         go to state 11
-
-    reduce/reduce conflict on token RBRACE:
-        5 global_var_section: declaration SEMICOLON •
-        8 global_var_section: ε •
-      Example: declaration SEMICOLON •
-      First reduce derivation
-        global_var_section
-        ↳ 5: declaration SEMICOLON •
-      Second reduce derivation
-        global_var_section
-        ↳ 6: declaration SEMICOLON global_var_section
-                                   ↳ 8: ε •
-
+    $default  reduce using rule 20 (declaration)
 
 
 State 17
 
-   18 cst: IDENTIFIER •
+    1 program: VAR_GLOBAL LBRACE global_var_section RBRACE • DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    6        | VAR_GLOBAL LBRACE global_var_section RBRACE • DECLARATION LBRACE RBRACE INSTRUCTION LBRACE RBRACE
+    7        | VAR_GLOBAL LBRACE global_var_section RBRACE • DECLARATION LBRACE RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    8        | VAR_GLOBAL LBRACE global_var_section RBRACE • DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE RBRACE
 
-    $default  reduce using rule 18 (cst)
+    DECLARATION  shift, and go to state 24
 
 
 State 18
 
-   17 declaration: CONST type cst • EQUALS term
+   12 global_var_section: declaration SEMICOLON •
+   13                   | declaration SEMICOLON • global_var_section
 
-    EQUALS  shift, and go to state 23
+    INTEGER  shift, and go to state 5
+    FLOAT    shift, and go to state 6
+    CHAR     shift, and go to state 7
+    CONST    shift, and go to state 8
+
+    $default  reduce using rule 12 (global_var_section)
+
+    type                go to state 10
+    global_var_section  go to state 25
+    declaration         go to state 12
 
 
 State 19
 
-   20 variable_list: IDENTIFIER LBRACKET • termtab RBRACKET
-   22              | IDENTIFIER LBRACKET • termtab RBRACKET COMMA variable_list
+   22 cst: IDENTIFIER •
 
-    IDENTIFIER      shift, and go to state 24
-    INT_NUMBER      shift, and go to state 25
-    FLOAT_NUMBER    shift, and go to state 26
-    CHARACTERE      shift, and go to state 27
-    LPAREN          shift, and go to state 28
-    STRING_LITERAL  shift, and go to state 29
-
-    termtab     go to state 30
-    factortab   go to state 31
-    primarytab  go to state 32
+    $default  reduce using rule 22 (cst)
 
 
 State 20
 
-   21 variable_list: IDENTIFIER COMMA • variable_list
+   21 declaration: CONST type cst • EQUALS term
 
-    IDENTIFIER  shift, and go to state 13
-
-    variable_list  go to state 33
+    EQUALS  shift, and go to state 26
 
 
 State 21
 
-    1 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION • LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    2 program: VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE • RBRACE INSTRUCTION LBRACE RBRACE
+    3        | VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE • RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    4        | VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE • declaration_section RBRACE INSTRUCTION LBRACE RBRACE
+    5        | VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE • declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE
 
-    LBRACE  shift, and go to state 34
+    INTEGER  shift, and go to state 5
+    FLOAT    shift, and go to state 6
+    CHAR     shift, and go to state 7
+    CONST    shift, and go to state 8
+    RBRACE   shift, and go to state 27
+
+    type                 go to state 10
+    declaration_section  go to state 28
+    declaration          go to state 29
 
 
 State 22
 
-    6 global_var_section: declaration SEMICOLON global_var_section •
+   24 variable_list: IDENTIFIER LBRACKET • termtab RBRACKET
+   26              | IDENTIFIER LBRACKET • termtab RBRACKET COMMA variable_list
 
-    $default  reduce using rule 6 (global_var_section)
+    IDENTIFIER      shift, and go to state 30
+    INT_NUMBER      shift, and go to state 31
+    FLOAT_NUMBER    shift, and go to state 32
+    CHARACTERE      shift, and go to state 33
+    LPAREN          shift, and go to state 34
+    STRING_LITERAL  shift, and go to state 35
+
+    termtab     go to state 36
+    factortab   go to state 37
+    primarytab  go to state 38
 
 
 State 23
 
-   17 declaration: CONST type cst EQUALS • term
+   25 variable_list: IDENTIFIER COMMA • variable_list
 
-    IDENTIFIER    shift, and go to state 35
-    INT_NUMBER    shift, and go to state 36
-    FLOAT_NUMBER  shift, and go to state 37
-    LPAREN        shift, and go to state 38
+    IDENTIFIER  shift, and go to state 15
 
-    term     go to state 39
-    factor   go to state 40
-    primary  go to state 41
+    variable_list  go to state 39
 
 
 State 24
 
-   43 primarytab: IDENTIFIER •
-   51           | IDENTIFIER • LBRACKET termtab RBRACKET
+    1 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION • LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    6        | VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION • LBRACE RBRACE INSTRUCTION LBRACE RBRACE
+    7        | VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION • LBRACE RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    8        | VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION • LBRACE declaration_section RBRACE INSTRUCTION LBRACE RBRACE
 
-    LBRACKET  shift, and go to state 42
-
-    $default  reduce using rule 43 (primarytab)
+    LBRACE  shift, and go to state 40
 
 
 State 25
 
-   44 primarytab: INT_NUMBER •
+   13 global_var_section: declaration SEMICOLON global_var_section •
 
-    $default  reduce using rule 44 (primarytab)
+    $default  reduce using rule 13 (global_var_section)
 
 
 State 26
 
-   45 primarytab: FLOAT_NUMBER •
+   21 declaration: CONST type cst EQUALS • term
 
-    $default  reduce using rule 45 (primarytab)
+    IDENTIFIER    shift, and go to state 41
+    INT_NUMBER    shift, and go to state 42
+    FLOAT_NUMBER  shift, and go to state 43
+    LPAREN        shift, and go to state 44
+
+    term     go to state 45
+    factor   go to state 46
+    primary  go to state 47
 
 
 State 27
 
-   52 primarytab: CHARACTERE •
+    2 program: VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE RBRACE • INSTRUCTION LBRACE RBRACE
+    3        | VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE RBRACE • INSTRUCTION LBRACE instruction_section RBRACE
 
-    $default  reduce using rule 52 (primarytab)
+    INSTRUCTION  shift, and go to state 48
 
 
 State 28
 
-   46 primarytab: LPAREN • PLUS INT_NUMBER RPAREN
-   47           | LPAREN • MINUS INT_NUMBER RPAREN
-   48           | LPAREN • PLUS FLOAT_NUMBER RPAREN
-   49           | LPAREN • MINUS FLOAT_NUMBER RPAREN
-   50           | LPAREN • termtab RPAREN
+    4 program: VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE declaration_section • RBRACE INSTRUCTION LBRACE RBRACE
+    5        | VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE declaration_section • RBRACE INSTRUCTION LBRACE instruction_section RBRACE
 
-    IDENTIFIER      shift, and go to state 24
-    INT_NUMBER      shift, and go to state 25
-    FLOAT_NUMBER    shift, and go to state 26
-    CHARACTERE      shift, and go to state 27
-    PLUS            shift, and go to state 43
-    MINUS           shift, and go to state 44
-    LPAREN          shift, and go to state 28
-    STRING_LITERAL  shift, and go to state 29
-
-    termtab     go to state 45
-    factortab   go to state 31
-    primarytab  go to state 32
+    RBRACE  shift, and go to state 49
 
 
 State 29
 
-   53 primarytab: STRING_LITERAL •
+   15 declaration_section: declaration • SEMICOLON
+   16                    | declaration • SEMICOLON global_var_section
+   17                    | declaration •
 
-    $default  reduce using rule 53 (primarytab)
+    SEMICOLON  shift, and go to state 50
+
+    $default  reduce using rule 17 (declaration_section)
 
 
 State 30
 
-   20 variable_list: IDENTIFIER LBRACKET termtab • RBRACKET
-   22              | IDENTIFIER LBRACKET termtab • RBRACKET COMMA variable_list
-   38 termtab: termtab • PLUS factortab
-   39        | termtab • MINUS factortab
+   47 primarytab: IDENTIFIER •
+   55           | IDENTIFIER • LBRACKET termtab RBRACKET
 
-    PLUS      shift, and go to state 46
-    MINUS     shift, and go to state 47
-    RBRACKET  shift, and go to state 48
-
-
-State 31
-
-   37 termtab: factortab •
-   41 factortab: factortab • MULTIPLY primarytab
-   42          | factortab • DIVIDE primarytab
-
-    MULTIPLY  shift, and go to state 49
-    DIVIDE    shift, and go to state 50
-
-    $default  reduce using rule 37 (termtab)
-
-
-State 32
-
-   40 factortab: primarytab •
-
-    $default  reduce using rule 40 (factortab)
-
-
-State 33
-
-   21 variable_list: IDENTIFIER COMMA variable_list •
-
-    $default  reduce using rule 21 (variable_list)
-
-
-State 34
-
-    1 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE • declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE
-
-    INTEGER  shift, and go to state 5
-    FLOAT    shift, and go to state 6
-    CHAR     shift, and go to state 7
-    CONST    shift, and go to state 8
-
-    $default  reduce using rule 12 (declaration_section)
-
-    type                 go to state 9
-    declaration_section  go to state 51
-    declaration          go to state 52
-
-
-State 35
-
-  107 primary: IDENTIFIER •
-  115        | IDENTIFIER • LBRACKET termtab RBRACKET
-
-    LBRACKET  shift, and go to state 53
-
-    $default  reduce using rule 107 (primary)
-
-
-State 36
-
-  108 primary: INT_NUMBER •
-
-    $default  reduce using rule 108 (primary)
-
-
-State 37
-
-  109 primary: FLOAT_NUMBER •
-
-    $default  reduce using rule 109 (primary)
-
-
-State 38
-
-  110 primary: LPAREN • PLUS INT_NUMBER RPAREN
-  111        | LPAREN • MINUS INT_NUMBER RPAREN
-  112        | LPAREN • PLUS FLOAT_NUMBER RPAREN
-  113        | LPAREN • MINUS FLOAT_NUMBER RPAREN
-  114        | LPAREN • term RPAREN
-
-    IDENTIFIER    shift, and go to state 35
-    INT_NUMBER    shift, and go to state 36
-    FLOAT_NUMBER  shift, and go to state 37
-    PLUS          shift, and go to state 54
-    MINUS         shift, and go to state 55
-    LPAREN        shift, and go to state 38
-
-    term     go to state 56
-    factor   go to state 40
-    primary  go to state 41
-
-
-State 39
-
-   17 declaration: CONST type cst EQUALS term •
-  102 term: term • PLUS factor
-  103     | term • MINUS factor
-
-    PLUS   shift, and go to state 57
-    MINUS  shift, and go to state 58
-
-    $default  reduce using rule 17 (declaration)
-
-
-State 40
-
-  101 term: factor •
-  105 factor: factor • MULTIPLY primary
-  106       | factor • DIVIDE primary
-
-    MULTIPLY  shift, and go to state 59
-    DIVIDE    shift, and go to state 60
-
-    $default  reduce using rule 101 (term)
-
-
-State 41
-
-  104 factor: primary •
-
-    $default  reduce using rule 104 (factor)
-
-
-State 42
-
-   51 primarytab: IDENTIFIER LBRACKET • termtab RBRACKET
-
-    IDENTIFIER      shift, and go to state 24
-    INT_NUMBER      shift, and go to state 25
-    FLOAT_NUMBER    shift, and go to state 26
-    CHARACTERE      shift, and go to state 27
-    LPAREN          shift, and go to state 28
-    STRING_LITERAL  shift, and go to state 29
-
-    termtab     go to state 61
-    factortab   go to state 31
-    primarytab  go to state 32
-
-
-State 43
-
-   46 primarytab: LPAREN PLUS • INT_NUMBER RPAREN
-   48           | LPAREN PLUS • FLOAT_NUMBER RPAREN
-
-    INT_NUMBER    shift, and go to state 62
-    FLOAT_NUMBER  shift, and go to state 63
-
-
-State 44
-
-   47 primarytab: LPAREN MINUS • INT_NUMBER RPAREN
-   49           | LPAREN MINUS • FLOAT_NUMBER RPAREN
-
-    INT_NUMBER    shift, and go to state 64
-    FLOAT_NUMBER  shift, and go to state 65
-
-
-State 45
-
-   38 termtab: termtab • PLUS factortab
-   39        | termtab • MINUS factortab
-   50 primarytab: LPAREN termtab • RPAREN
-
-    PLUS    shift, and go to state 46
-    MINUS   shift, and go to state 47
-    RPAREN  shift, and go to state 66
-
-
-State 46
-
-   38 termtab: termtab PLUS • factortab
-
-    IDENTIFIER      shift, and go to state 24
-    INT_NUMBER      shift, and go to state 25
-    FLOAT_NUMBER    shift, and go to state 26
-    CHARACTERE      shift, and go to state 27
-    LPAREN          shift, and go to state 28
-    STRING_LITERAL  shift, and go to state 29
-
-    factortab   go to state 67
-    primarytab  go to state 32
-
-
-State 47
-
-   39 termtab: termtab MINUS • factortab
-
-    IDENTIFIER      shift, and go to state 24
-    INT_NUMBER      shift, and go to state 25
-    FLOAT_NUMBER    shift, and go to state 26
-    CHARACTERE      shift, and go to state 27
-    LPAREN          shift, and go to state 28
-    STRING_LITERAL  shift, and go to state 29
-
-    factortab   go to state 68
-    primarytab  go to state 32
-
-
-State 48
-
-   20 variable_list: IDENTIFIER LBRACKET termtab RBRACKET •
-   22              | IDENTIFIER LBRACKET termtab RBRACKET • COMMA variable_list
-
-    COMMA  shift, and go to state 69
-
-    $default  reduce using rule 20 (variable_list)
-
-
-State 49
-
-   41 factortab: factortab MULTIPLY • primarytab
-
-    IDENTIFIER      shift, and go to state 24
-    INT_NUMBER      shift, and go to state 25
-    FLOAT_NUMBER    shift, and go to state 26
-    CHARACTERE      shift, and go to state 27
-    LPAREN          shift, and go to state 28
-    STRING_LITERAL  shift, and go to state 29
-
-    primarytab  go to state 70
-
-
-State 50
-
-   42 factortab: factortab DIVIDE • primarytab
-
-    IDENTIFIER      shift, and go to state 24
-    INT_NUMBER      shift, and go to state 25
-    FLOAT_NUMBER    shift, and go to state 26
-    CHARACTERE      shift, and go to state 27
-    LPAREN          shift, and go to state 28
-    STRING_LITERAL  shift, and go to state 29
-
-    primarytab  go to state 71
-
-
-State 51
-
-    1 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section • RBRACE INSTRUCTION LBRACE instruction_section RBRACE
-
-    RBRACE  shift, and go to state 72
-
-
-State 52
-
-    9 declaration_section: declaration • SEMICOLON
-   10                    | declaration • SEMICOLON global_var_section
-   11                    | declaration •
-
-    SEMICOLON  shift, and go to state 73
-
-    $default  reduce using rule 11 (declaration_section)
-
-
-State 53
-
-  115 primary: IDENTIFIER LBRACKET • termtab RBRACKET
-
-    IDENTIFIER      shift, and go to state 24
-    INT_NUMBER      shift, and go to state 25
-    FLOAT_NUMBER    shift, and go to state 26
-    CHARACTERE      shift, and go to state 27
-    LPAREN          shift, and go to state 28
-    STRING_LITERAL  shift, and go to state 29
-
-    termtab     go to state 74
-    factortab   go to state 31
-    primarytab  go to state 32
-
-
-State 54
-
-  110 primary: LPAREN PLUS • INT_NUMBER RPAREN
-  112        | LPAREN PLUS • FLOAT_NUMBER RPAREN
-
-    INT_NUMBER    shift, and go to state 75
-    FLOAT_NUMBER  shift, and go to state 76
-
-
-State 55
-
-  111 primary: LPAREN MINUS • INT_NUMBER RPAREN
-  113        | LPAREN MINUS • FLOAT_NUMBER RPAREN
-
-    INT_NUMBER    shift, and go to state 77
-    FLOAT_NUMBER  shift, and go to state 78
-
-
-State 56
-
-  102 term: term • PLUS factor
-  103     | term • MINUS factor
-  114 primary: LPAREN term • RPAREN
-
-    PLUS    shift, and go to state 57
-    MINUS   shift, and go to state 58
-    RPAREN  shift, and go to state 79
-
-
-State 57
-
-  102 term: term PLUS • factor
-
-    IDENTIFIER    shift, and go to state 35
-    INT_NUMBER    shift, and go to state 36
-    FLOAT_NUMBER  shift, and go to state 37
-    LPAREN        shift, and go to state 38
-
-    factor   go to state 80
-    primary  go to state 41
-
-
-State 58
-
-  103 term: term MINUS • factor
-
-    IDENTIFIER    shift, and go to state 35
-    INT_NUMBER    shift, and go to state 36
-    FLOAT_NUMBER  shift, and go to state 37
-    LPAREN        shift, and go to state 38
-
-    factor   go to state 81
-    primary  go to state 41
-
-
-State 59
-
-  105 factor: factor MULTIPLY • primary
-
-    IDENTIFIER    shift, and go to state 35
-    INT_NUMBER    shift, and go to state 36
-    FLOAT_NUMBER  shift, and go to state 37
-    LPAREN        shift, and go to state 38
-
-    primary  go to state 82
-
-
-State 60
-
-  106 factor: factor DIVIDE • primary
-
-    IDENTIFIER    shift, and go to state 35
-    INT_NUMBER    shift, and go to state 36
-    FLOAT_NUMBER  shift, and go to state 37
-    LPAREN        shift, and go to state 38
-
-    primary  go to state 83
-
-
-State 61
-
-   38 termtab: termtab • PLUS factortab
-   39        | termtab • MINUS factortab
-   51 primarytab: IDENTIFIER LBRACKET termtab • RBRACKET
-
-    PLUS      shift, and go to state 46
-    MINUS     shift, and go to state 47
-    RBRACKET  shift, and go to state 84
-
-
-State 62
-
-   46 primarytab: LPAREN PLUS INT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 85
-
-
-State 63
-
-   48 primarytab: LPAREN PLUS FLOAT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 86
-
-
-State 64
-
-   47 primarytab: LPAREN MINUS INT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 87
-
-
-State 65
-
-   49 primarytab: LPAREN MINUS FLOAT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 88
-
-
-State 66
-
-   50 primarytab: LPAREN termtab RPAREN •
-
-    $default  reduce using rule 50 (primarytab)
-
-
-State 67
-
-   38 termtab: termtab PLUS factortab •
-   41 factortab: factortab • MULTIPLY primarytab
-   42          | factortab • DIVIDE primarytab
-
-    MULTIPLY  shift, and go to state 49
-    DIVIDE    shift, and go to state 50
-
-    $default  reduce using rule 38 (termtab)
-
-
-State 68
-
-   39 termtab: termtab MINUS factortab •
-   41 factortab: factortab • MULTIPLY primarytab
-   42          | factortab • DIVIDE primarytab
-
-    MULTIPLY  shift, and go to state 49
-    DIVIDE    shift, and go to state 50
-
-    $default  reduce using rule 39 (termtab)
-
-
-State 69
-
-   22 variable_list: IDENTIFIER LBRACKET termtab RBRACKET COMMA • variable_list
-
-    IDENTIFIER  shift, and go to state 13
-
-    variable_list  go to state 89
-
-
-State 70
-
-   41 factortab: factortab MULTIPLY primarytab •
-
-    $default  reduce using rule 41 (factortab)
-
-
-State 71
-
-   42 factortab: factortab DIVIDE primarytab •
-
-    $default  reduce using rule 42 (factortab)
-
-
-State 72
-
-    1 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE • INSTRUCTION LBRACE instruction_section RBRACE
-
-    INSTRUCTION  shift, and go to state 90
-
-
-State 73
-
-    9 declaration_section: declaration SEMICOLON •
-   10                    | declaration SEMICOLON • global_var_section
-
-    INTEGER  shift, and go to state 5
-    FLOAT    shift, and go to state 6
-    CHAR     shift, and go to state 7
-    CONST    shift, and go to state 8
-
-    RBRACE    reduce using rule 8 (global_var_section)
-    RBRACE    [reduce using rule 9 (declaration_section)]
-    $default  reduce using rule 8 (global_var_section)
-
-    type                go to state 9
-    global_var_section  go to state 91
-    declaration         go to state 11
-
-    reduce/reduce conflict on token RBRACE:
-        8 global_var_section: ε •
-        9 declaration_section: declaration SEMICOLON •
-      Example: declaration SEMICOLON •
-      First reduce derivation
-        declaration_section
-        ↳ 10: declaration SEMICOLON global_var_section
-                                    ↳ 8: ε •
-      Second reduce derivation
-        declaration_section
-        ↳ 9: declaration SEMICOLON •
-
-
-
-State 74
-
-   38 termtab: termtab • PLUS factortab
-   39        | termtab • MINUS factortab
-  115 primary: IDENTIFIER LBRACKET termtab • RBRACKET
-
-    PLUS      shift, and go to state 46
-    MINUS     shift, and go to state 47
-    RBRACKET  shift, and go to state 92
-
-
-State 75
-
-  110 primary: LPAREN PLUS INT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 93
-
-
-State 76
-
-  112 primary: LPAREN PLUS FLOAT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 94
-
-
-State 77
-
-  111 primary: LPAREN MINUS INT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 95
-
-
-State 78
-
-  113 primary: LPAREN MINUS FLOAT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 96
-
-
-State 79
-
-  114 primary: LPAREN term RPAREN •
-
-    $default  reduce using rule 114 (primary)
-
-
-State 80
-
-  102 term: term PLUS factor •
-  105 factor: factor • MULTIPLY primary
-  106       | factor • DIVIDE primary
-
-    MULTIPLY  shift, and go to state 59
-    DIVIDE    shift, and go to state 60
-
-    $default  reduce using rule 102 (term)
-
-
-State 81
-
-  103 term: term MINUS factor •
-  105 factor: factor • MULTIPLY primary
-  106       | factor • DIVIDE primary
-
-    MULTIPLY  shift, and go to state 59
-    DIVIDE    shift, and go to state 60
-
-    $default  reduce using rule 103 (term)
-
-
-State 82
-
-  105 factor: factor MULTIPLY primary •
-
-    $default  reduce using rule 105 (factor)
-
-
-State 83
-
-  106 factor: factor DIVIDE primary •
-
-    $default  reduce using rule 106 (factor)
-
-
-State 84
-
-   51 primarytab: IDENTIFIER LBRACKET termtab RBRACKET •
-
-    $default  reduce using rule 51 (primarytab)
-
-
-State 85
-
-   46 primarytab: LPAREN PLUS INT_NUMBER RPAREN •
-
-    $default  reduce using rule 46 (primarytab)
-
-
-State 86
-
-   48 primarytab: LPAREN PLUS FLOAT_NUMBER RPAREN •
-
-    $default  reduce using rule 48 (primarytab)
-
-
-State 87
-
-   47 primarytab: LPAREN MINUS INT_NUMBER RPAREN •
+    LBRACKET  shift, and go to state 51
 
     $default  reduce using rule 47 (primarytab)
 
 
-State 88
+State 31
 
-   49 primarytab: LPAREN MINUS FLOAT_NUMBER RPAREN •
+   48 primarytab: INT_NUMBER •
+
+    $default  reduce using rule 48 (primarytab)
+
+
+State 32
+
+   49 primarytab: FLOAT_NUMBER •
 
     $default  reduce using rule 49 (primarytab)
 
 
-State 89
+State 33
 
-   22 variable_list: IDENTIFIER LBRACKET termtab RBRACKET COMMA variable_list •
+   56 primarytab: CHARACTERE •
 
-    $default  reduce using rule 22 (variable_list)
-
-
-State 90
-
-    1 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION • LBRACE instruction_section RBRACE
-
-    LBRACE  shift, and go to state 97
+    $default  reduce using rule 56 (primarytab)
 
 
-State 91
+State 34
 
-   10 declaration_section: declaration SEMICOLON global_var_section •
+   50 primarytab: LPAREN • PLUS INT_NUMBER RPAREN
+   51           | LPAREN • MINUS INT_NUMBER RPAREN
+   52           | LPAREN • PLUS FLOAT_NUMBER RPAREN
+   53           | LPAREN • MINUS FLOAT_NUMBER RPAREN
+   54           | LPAREN • termtab RPAREN
 
-    $default  reduce using rule 10 (declaration_section)
+    IDENTIFIER      shift, and go to state 30
+    INT_NUMBER      shift, and go to state 31
+    FLOAT_NUMBER    shift, and go to state 32
+    CHARACTERE      shift, and go to state 33
+    PLUS            shift, and go to state 52
+    MINUS           shift, and go to state 53
+    LPAREN          shift, and go to state 34
+    STRING_LITERAL  shift, and go to state 35
 
-
-State 92
-
-  115 primary: IDENTIFIER LBRACKET termtab RBRACKET •
-
-    $default  reduce using rule 115 (primary)
-
-
-State 93
-
-  110 primary: LPAREN PLUS INT_NUMBER RPAREN •
-
-    $default  reduce using rule 110 (primary)
-
-
-State 94
-
-  112 primary: LPAREN PLUS FLOAT_NUMBER RPAREN •
-
-    $default  reduce using rule 112 (primary)
+    termtab     go to state 54
+    factortab   go to state 37
+    primarytab  go to state 38
 
 
-State 95
+State 35
 
-  111 primary: LPAREN MINUS INT_NUMBER RPAREN •
+   57 primarytab: STRING_LITERAL •
 
-    $default  reduce using rule 111 (primary)
+    $default  reduce using rule 57 (primarytab)
 
 
-State 96
+State 36
 
-  113 primary: LPAREN MINUS FLOAT_NUMBER RPAREN •
+   24 variable_list: IDENTIFIER LBRACKET termtab • RBRACKET
+   26              | IDENTIFIER LBRACKET termtab • RBRACKET COMMA variable_list
+   42 termtab: termtab • PLUS factortab
+   43        | termtab • MINUS factortab
+
+    PLUS      shift, and go to state 55
+    MINUS     shift, and go to state 56
+    RBRACKET  shift, and go to state 57
+
+
+State 37
+
+   41 termtab: factortab •
+   45 factortab: factortab • MULTIPLY primarytab
+   46          | factortab • DIVIDE primarytab
+
+    MULTIPLY  shift, and go to state 58
+    DIVIDE    shift, and go to state 59
+
+    $default  reduce using rule 41 (termtab)
+
+
+State 38
+
+   44 factortab: primarytab •
+
+    $default  reduce using rule 44 (factortab)
+
+
+State 39
+
+   25 variable_list: IDENTIFIER COMMA variable_list •
+
+    $default  reduce using rule 25 (variable_list)
+
+
+State 40
+
+    1 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE • declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    6        | VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE • RBRACE INSTRUCTION LBRACE RBRACE
+    7        | VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE • RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    8        | VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE • declaration_section RBRACE INSTRUCTION LBRACE RBRACE
+
+    INTEGER  shift, and go to state 5
+    FLOAT    shift, and go to state 6
+    CHAR     shift, and go to state 7
+    CONST    shift, and go to state 8
+    RBRACE   shift, and go to state 60
+
+    type                 go to state 10
+    declaration_section  go to state 61
+    declaration          go to state 29
+
+
+State 41
+
+  113 primary: IDENTIFIER •
+  121        | IDENTIFIER • LBRACKET termtab RBRACKET
+
+    LBRACKET  shift, and go to state 62
 
     $default  reduce using rule 113 (primary)
 
 
+State 42
+
+  114 primary: INT_NUMBER •
+
+    $default  reduce using rule 114 (primary)
+
+
+State 43
+
+  115 primary: FLOAT_NUMBER •
+
+    $default  reduce using rule 115 (primary)
+
+
+State 44
+
+  116 primary: LPAREN • PLUS INT_NUMBER RPAREN
+  117        | LPAREN • MINUS INT_NUMBER RPAREN
+  118        | LPAREN • PLUS FLOAT_NUMBER RPAREN
+  119        | LPAREN • MINUS FLOAT_NUMBER RPAREN
+  120        | LPAREN • term RPAREN
+
+    IDENTIFIER    shift, and go to state 41
+    INT_NUMBER    shift, and go to state 42
+    FLOAT_NUMBER  shift, and go to state 43
+    PLUS          shift, and go to state 63
+    MINUS         shift, and go to state 64
+    LPAREN        shift, and go to state 44
+
+    term     go to state 65
+    factor   go to state 46
+    primary  go to state 47
+
+
+State 45
+
+   21 declaration: CONST type cst EQUALS term •
+  108 term: term • PLUS factor
+  109     | term • MINUS factor
+
+    PLUS   shift, and go to state 66
+    MINUS  shift, and go to state 67
+
+    $default  reduce using rule 21 (declaration)
+
+
+State 46
+
+  107 term: factor •
+  111 factor: factor • MULTIPLY primary
+  112       | factor • DIVIDE primary
+
+    MULTIPLY  shift, and go to state 68
+    DIVIDE    shift, and go to state 69
+
+    $default  reduce using rule 107 (term)
+
+
+State 47
+
+  110 factor: primary •
+
+    $default  reduce using rule 110 (factor)
+
+
+State 48
+
+    2 program: VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE RBRACE INSTRUCTION • LBRACE RBRACE
+    3        | VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE RBRACE INSTRUCTION • LBRACE instruction_section RBRACE
+
+    LBRACE  shift, and go to state 70
+
+
+State 49
+
+    4 program: VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE declaration_section RBRACE • INSTRUCTION LBRACE RBRACE
+    5        | VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE declaration_section RBRACE • INSTRUCTION LBRACE instruction_section RBRACE
+
+    INSTRUCTION  shift, and go to state 71
+
+
+State 50
+
+   15 declaration_section: declaration SEMICOLON •
+   16                    | declaration SEMICOLON • global_var_section
+
+    INTEGER  shift, and go to state 5
+    FLOAT    shift, and go to state 6
+    CHAR     shift, and go to state 7
+    CONST    shift, and go to state 8
+
+    $default  reduce using rule 15 (declaration_section)
+
+    type                go to state 10
+    global_var_section  go to state 72
+    declaration         go to state 12
+
+
+State 51
+
+   55 primarytab: IDENTIFIER LBRACKET • termtab RBRACKET
+
+    IDENTIFIER      shift, and go to state 30
+    INT_NUMBER      shift, and go to state 31
+    FLOAT_NUMBER    shift, and go to state 32
+    CHARACTERE      shift, and go to state 33
+    LPAREN          shift, and go to state 34
+    STRING_LITERAL  shift, and go to state 35
+
+    termtab     go to state 73
+    factortab   go to state 37
+    primarytab  go to state 38
+
+
+State 52
+
+   50 primarytab: LPAREN PLUS • INT_NUMBER RPAREN
+   52           | LPAREN PLUS • FLOAT_NUMBER RPAREN
+
+    INT_NUMBER    shift, and go to state 74
+    FLOAT_NUMBER  shift, and go to state 75
+
+
+State 53
+
+   51 primarytab: LPAREN MINUS • INT_NUMBER RPAREN
+   53           | LPAREN MINUS • FLOAT_NUMBER RPAREN
+
+    INT_NUMBER    shift, and go to state 76
+    FLOAT_NUMBER  shift, and go to state 77
+
+
+State 54
+
+   42 termtab: termtab • PLUS factortab
+   43        | termtab • MINUS factortab
+   54 primarytab: LPAREN termtab • RPAREN
+
+    PLUS    shift, and go to state 55
+    MINUS   shift, and go to state 56
+    RPAREN  shift, and go to state 78
+
+
+State 55
+
+   42 termtab: termtab PLUS • factortab
+
+    IDENTIFIER      shift, and go to state 30
+    INT_NUMBER      shift, and go to state 31
+    FLOAT_NUMBER    shift, and go to state 32
+    CHARACTERE      shift, and go to state 33
+    LPAREN          shift, and go to state 34
+    STRING_LITERAL  shift, and go to state 35
+
+    factortab   go to state 79
+    primarytab  go to state 38
+
+
+State 56
+
+   43 termtab: termtab MINUS • factortab
+
+    IDENTIFIER      shift, and go to state 30
+    INT_NUMBER      shift, and go to state 31
+    FLOAT_NUMBER    shift, and go to state 32
+    CHARACTERE      shift, and go to state 33
+    LPAREN          shift, and go to state 34
+    STRING_LITERAL  shift, and go to state 35
+
+    factortab   go to state 80
+    primarytab  go to state 38
+
+
+State 57
+
+   24 variable_list: IDENTIFIER LBRACKET termtab RBRACKET •
+   26              | IDENTIFIER LBRACKET termtab RBRACKET • COMMA variable_list
+
+    COMMA  shift, and go to state 81
+
+    $default  reduce using rule 24 (variable_list)
+
+
+State 58
+
+   45 factortab: factortab MULTIPLY • primarytab
+
+    IDENTIFIER      shift, and go to state 30
+    INT_NUMBER      shift, and go to state 31
+    FLOAT_NUMBER    shift, and go to state 32
+    CHARACTERE      shift, and go to state 33
+    LPAREN          shift, and go to state 34
+    STRING_LITERAL  shift, and go to state 35
+
+    primarytab  go to state 82
+
+
+State 59
+
+   46 factortab: factortab DIVIDE • primarytab
+
+    IDENTIFIER      shift, and go to state 30
+    INT_NUMBER      shift, and go to state 31
+    FLOAT_NUMBER    shift, and go to state 32
+    CHARACTERE      shift, and go to state 33
+    LPAREN          shift, and go to state 34
+    STRING_LITERAL  shift, and go to state 35
+
+    primarytab  go to state 83
+
+
+State 60
+
+    6 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE RBRACE • INSTRUCTION LBRACE RBRACE
+    7        | VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE RBRACE • INSTRUCTION LBRACE instruction_section RBRACE
+
+    INSTRUCTION  shift, and go to state 84
+
+
+State 61
+
+    1 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section • RBRACE INSTRUCTION LBRACE instruction_section RBRACE
+    8        | VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section • RBRACE INSTRUCTION LBRACE RBRACE
+
+    RBRACE  shift, and go to state 85
+
+
+State 62
+
+  121 primary: IDENTIFIER LBRACKET • termtab RBRACKET
+
+    IDENTIFIER      shift, and go to state 30
+    INT_NUMBER      shift, and go to state 31
+    FLOAT_NUMBER    shift, and go to state 32
+    CHARACTERE      shift, and go to state 33
+    LPAREN          shift, and go to state 34
+    STRING_LITERAL  shift, and go to state 35
+
+    termtab     go to state 86
+    factortab   go to state 37
+    primarytab  go to state 38
+
+
+State 63
+
+  116 primary: LPAREN PLUS • INT_NUMBER RPAREN
+  118        | LPAREN PLUS • FLOAT_NUMBER RPAREN
+
+    INT_NUMBER    shift, and go to state 87
+    FLOAT_NUMBER  shift, and go to state 88
+
+
+State 64
+
+  117 primary: LPAREN MINUS • INT_NUMBER RPAREN
+  119        | LPAREN MINUS • FLOAT_NUMBER RPAREN
+
+    INT_NUMBER    shift, and go to state 89
+    FLOAT_NUMBER  shift, and go to state 90
+
+
+State 65
+
+  108 term: term • PLUS factor
+  109     | term • MINUS factor
+  120 primary: LPAREN term • RPAREN
+
+    PLUS    shift, and go to state 66
+    MINUS   shift, and go to state 67
+    RPAREN  shift, and go to state 91
+
+
+State 66
+
+  108 term: term PLUS • factor
+
+    IDENTIFIER    shift, and go to state 41
+    INT_NUMBER    shift, and go to state 42
+    FLOAT_NUMBER  shift, and go to state 43
+    LPAREN        shift, and go to state 44
+
+    factor   go to state 92
+    primary  go to state 47
+
+
+State 67
+
+  109 term: term MINUS • factor
+
+    IDENTIFIER    shift, and go to state 41
+    INT_NUMBER    shift, and go to state 42
+    FLOAT_NUMBER  shift, and go to state 43
+    LPAREN        shift, and go to state 44
+
+    factor   go to state 93
+    primary  go to state 47
+
+
+State 68
+
+  111 factor: factor MULTIPLY • primary
+
+    IDENTIFIER    shift, and go to state 41
+    INT_NUMBER    shift, and go to state 42
+    FLOAT_NUMBER  shift, and go to state 43
+    LPAREN        shift, and go to state 44
+
+    primary  go to state 94
+
+
+State 69
+
+  112 factor: factor DIVIDE • primary
+
+    IDENTIFIER    shift, and go to state 41
+    INT_NUMBER    shift, and go to state 42
+    FLOAT_NUMBER  shift, and go to state 43
+    LPAREN        shift, and go to state 44
+
+    primary  go to state 95
+
+
+State 70
+
+    2 program: VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE • RBRACE
+    3        | VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE • instruction_section RBRACE
+
+    IF          shift, and go to state 96
+    FOR         shift, and go to state 97
+    READ        shift, and go to state 98
+    WRITE       shift, and go to state 99
+    IDENTIFIER  shift, and go to state 100
+    RBRACE      shift, and go to state 101
+
+    instruction_section  go to state 102
+    statement            go to state 103
+    assignment           go to state 104
+    MDROIT               go to state 105
+    TAB                  go to state 106
+    condition            go to state 107
+    loop                 go to state 108
+    io_statement         go to state 109
+
+
+State 71
+
+    4 program: VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION • LBRACE RBRACE
+    5        | VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION • LBRACE instruction_section RBRACE
+
+    LBRACE  shift, and go to state 110
+
+
+State 72
+
+   16 declaration_section: declaration SEMICOLON global_var_section •
+
+    $default  reduce using rule 16 (declaration_section)
+
+
+State 73
+
+   42 termtab: termtab • PLUS factortab
+   43        | termtab • MINUS factortab
+   55 primarytab: IDENTIFIER LBRACKET termtab • RBRACKET
+
+    PLUS      shift, and go to state 55
+    MINUS     shift, and go to state 56
+    RBRACKET  shift, and go to state 111
+
+
+State 74
+
+   50 primarytab: LPAREN PLUS INT_NUMBER • RPAREN
+
+    RPAREN  shift, and go to state 112
+
+
+State 75
+
+   52 primarytab: LPAREN PLUS FLOAT_NUMBER • RPAREN
+
+    RPAREN  shift, and go to state 113
+
+
+State 76
+
+   51 primarytab: LPAREN MINUS INT_NUMBER • RPAREN
+
+    RPAREN  shift, and go to state 114
+
+
+State 77
+
+   53 primarytab: LPAREN MINUS FLOAT_NUMBER • RPAREN
+
+    RPAREN  shift, and go to state 115
+
+
+State 78
+
+   54 primarytab: LPAREN termtab RPAREN •
+
+    $default  reduce using rule 54 (primarytab)
+
+
+State 79
+
+   42 termtab: termtab PLUS factortab •
+   45 factortab: factortab • MULTIPLY primarytab
+   46          | factortab • DIVIDE primarytab
+
+    MULTIPLY  shift, and go to state 58
+    DIVIDE    shift, and go to state 59
+
+    $default  reduce using rule 42 (termtab)
+
+
+State 80
+
+   43 termtab: termtab MINUS factortab •
+   45 factortab: factortab • MULTIPLY primarytab
+   46          | factortab • DIVIDE primarytab
+
+    MULTIPLY  shift, and go to state 58
+    DIVIDE    shift, and go to state 59
+
+    $default  reduce using rule 43 (termtab)
+
+
+State 81
+
+   26 variable_list: IDENTIFIER LBRACKET termtab RBRACKET COMMA • variable_list
+
+    IDENTIFIER  shift, and go to state 15
+
+    variable_list  go to state 116
+
+
+State 82
+
+   45 factortab: factortab MULTIPLY primarytab •
+
+    $default  reduce using rule 45 (factortab)
+
+
+State 83
+
+   46 factortab: factortab DIVIDE primarytab •
+
+    $default  reduce using rule 46 (factortab)
+
+
+State 84
+
+    6 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE RBRACE INSTRUCTION • LBRACE RBRACE
+    7        | VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE RBRACE INSTRUCTION • LBRACE instruction_section RBRACE
+
+    LBRACE  shift, and go to state 117
+
+
+State 85
+
+    1 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE • INSTRUCTION LBRACE instruction_section RBRACE
+    8        | VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE • INSTRUCTION LBRACE RBRACE
+
+    INSTRUCTION  shift, and go to state 118
+
+
+State 86
+
+   42 termtab: termtab • PLUS factortab
+   43        | termtab • MINUS factortab
+  121 primary: IDENTIFIER LBRACKET termtab • RBRACKET
+
+    PLUS      shift, and go to state 55
+    MINUS     shift, and go to state 56
+    RBRACKET  shift, and go to state 119
+
+
+State 87
+
+  116 primary: LPAREN PLUS INT_NUMBER • RPAREN
+
+    RPAREN  shift, and go to state 120
+
+
+State 88
+
+  118 primary: LPAREN PLUS FLOAT_NUMBER • RPAREN
+
+    RPAREN  shift, and go to state 121
+
+
+State 89
+
+  117 primary: LPAREN MINUS INT_NUMBER • RPAREN
+
+    RPAREN  shift, and go to state 122
+
+
+State 90
+
+  119 primary: LPAREN MINUS FLOAT_NUMBER • RPAREN
+
+    RPAREN  shift, and go to state 123
+
+
+State 91
+
+  120 primary: LPAREN term RPAREN •
+
+    $default  reduce using rule 120 (primary)
+
+
+State 92
+
+  108 term: term PLUS factor •
+  111 factor: factor • MULTIPLY primary
+  112       | factor • DIVIDE primary
+
+    MULTIPLY  shift, and go to state 68
+    DIVIDE    shift, and go to state 69
+
+    $default  reduce using rule 108 (term)
+
+
+State 93
+
+  109 term: term MINUS factor •
+  111 factor: factor • MULTIPLY primary
+  112       | factor • DIVIDE primary
+
+    MULTIPLY  shift, and go to state 68
+    DIVIDE    shift, and go to state 69
+
+    $default  reduce using rule 109 (term)
+
+
+State 94
+
+  111 factor: factor MULTIPLY primary •
+
+    $default  reduce using rule 111 (factor)
+
+
+State 95
+
+  112 factor: factor DIVIDE primary •
+
+    $default  reduce using rule 112 (factor)
+
+
+State 96
+
+   61 condition: IF • LPAREN COND RPAREN LBRACE $@1 instruction_section RBRACE elsebloc
+
+    LPAREN  shift, and go to state 124
+
+
 State 97
 
-    1 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE • instruction_section RBRACE
+   71 loop: FOR • LPAREN assignment_int COLON term3 $@3 COLON term4 $@4 RPAREN LBRACE instruction_section RBRACE
 
-    IF          shift, and go to state 98
-    FOR         shift, and go to state 99
-    READ        shift, and go to state 100
-    WRITE       shift, and go to state 101
-    IDENTIFIER  shift, and go to state 102
-
-    $default  reduce using rule 15 (instruction_section)
-
-    instruction_section  go to state 103
-    statement            go to state 104
-    assignment           go to state 105
-    MDROIT               go to state 106
-    TAB                  go to state 107
-    condition            go to state 108
-    loop                 go to state 109
-    io_statement         go to state 110
+    LPAREN  shift, and go to state 125
 
 
 State 98
 
-   57 condition: IF • LPAREN COND RPAREN LBRACE $@1 instruction_section RBRACE elsebloc
+   72 io_statement: READ • LPAREN IDENTIFIER RPAREN
+   73             | READ • LPAREN IDENTIFIER LBRACKET termtab RBRACKET RPAREN
 
-    LPAREN  shift, and go to state 111
+    LPAREN  shift, and go to state 126
 
 
 State 99
 
-   67 loop: FOR • LPAREN assignment_int COLON term3 $@3 COLON term4 $@4 RPAREN LBRACE instruction_section RBRACE
+   74 io_statement: WRITE • LPAREN io_expr_list RPAREN
 
-    LPAREN  shift, and go to state 112
+    LPAREN  shift, and go to state 127
 
 
 State 100
 
-   68 io_statement: READ • LPAREN IDENTIFIER RPAREN
-   69             | READ • LPAREN IDENTIFIER LBRACKET termtab RBRACKET RPAREN
+   39 MDROIT: IDENTIFIER •
+   40 TAB: IDENTIFIER • LBRACKET termtab RBRACKET
 
-    LPAREN  shift, and go to state 113
+    LBRACKET  shift, and go to state 128
+
+    $default  reduce using rule 39 (MDROIT)
 
 
 State 101
 
-   70 io_statement: WRITE • LPAREN io_expr_list RPAREN
+    2 program: VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE RBRACE •
 
-    LPAREN  shift, and go to state 114
+    $default  reduce using rule 2 (program)
 
 
 State 102
 
-   35 MDROIT: IDENTIFIER •
-   36 TAB: IDENTIFIER • LBRACKET termtab RBRACKET
+    3 program: VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE instruction_section • RBRACE
 
-    LBRACKET  shift, and go to state 115
-
-    $default  reduce using rule 35 (MDROIT)
+    RBRACE  shift, and go to state 129
 
 
 State 103
 
-    1 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section • RBRACE
+   18 instruction_section: statement •
+   19                    | statement • instruction_section
 
-    RBRACE  shift, and go to state 116
+    IF          shift, and go to state 96
+    FOR         shift, and go to state 97
+    READ        shift, and go to state 98
+    WRITE       shift, and go to state 99
+    IDENTIFIER  shift, and go to state 100
+
+    $default  reduce using rule 18 (instruction_section)
+
+    instruction_section  go to state 130
+    statement            go to state 103
+    assignment           go to state 104
+    MDROIT               go to state 105
+    TAB                  go to state 106
+    condition            go to state 107
+    loop                 go to state 108
+    io_statement         go to state 109
 
 
 State 104
 
-   13 instruction_section: statement •
-   14                    | statement • instruction_section
+   27 statement: assignment • SEMICOLON
+   31          | assignment •
 
-    IF          shift, and go to state 98
-    FOR         shift, and go to state 99
-    READ        shift, and go to state 100
-    WRITE       shift, and go to state 101
-    IDENTIFIER  shift, and go to state 102
+    SEMICOLON  shift, and go to state 131
 
-    RBRACE    reduce using rule 13 (instruction_section)
-    RBRACE    [reduce using rule 15 (instruction_section)]
-    $default  reduce using rule 13 (instruction_section)
-
-    instruction_section  go to state 117
-    statement            go to state 104
-    assignment           go to state 105
-    MDROIT               go to state 106
-    TAB                  go to state 107
-    condition            go to state 108
-    loop                 go to state 109
-    io_statement         go to state 110
-
-    reduce/reduce conflict on token RBRACE:
-       13 instruction_section: statement •
-       15 instruction_section: ε •
-      Example: statement •
-      First reduce derivation
-        instruction_section
-        ↳ 13: statement •
-      Second reduce derivation
-        instruction_section
-        ↳ 14: statement instruction_section
-                        ↳ 15: ε •
-
+    $default  reduce using rule 31 (statement)
 
 
 State 105
 
-   23 statement: assignment • SEMICOLON
-   27          | assignment •
+   35 assignment: MDROIT • EQUALS term
+   38           | MDROIT • EQUALS EXPRESSION_CHAR
 
-    SEMICOLON  shift, and go to state 118
-
-    $default  reduce using rule 27 (statement)
+    EQUALS  shift, and go to state 132
 
 
 State 106
 
-   31 assignment: MDROIT • EQUALS term
-   34           | MDROIT • EQUALS EXPRESSION_CHAR
+   36 assignment: TAB • EQUALS term
+   37           | TAB • EQUALS EXPRESSION_CHAR
 
-    EQUALS  shift, and go to state 119
+    EQUALS  shift, and go to state 133
 
 
 State 107
 
-   32 assignment: TAB • EQUALS term
-   33           | TAB • EQUALS EXPRESSION_CHAR
+   28 statement: condition • SEMICOLON
+   32          | condition •
 
-    EQUALS  shift, and go to state 120
+    SEMICOLON  shift, and go to state 134
+
+    $default  reduce using rule 32 (statement)
 
 
 State 108
 
-   24 statement: condition • SEMICOLON
-   28          | condition •
+   29 statement: loop • SEMICOLON
+   33          | loop •
 
-    SEMICOLON  shift, and go to state 121
+    SEMICOLON  shift, and go to state 135
 
-    $default  reduce using rule 28 (statement)
+    $default  reduce using rule 33 (statement)
 
 
 State 109
 
-   25 statement: loop • SEMICOLON
-   29          | loop •
+   30 statement: io_statement • SEMICOLON
+   34          | io_statement •
 
-    SEMICOLON  shift, and go to state 122
+    SEMICOLON  shift, and go to state 136
 
-    $default  reduce using rule 29 (statement)
+    $default  reduce using rule 34 (statement)
 
 
 State 110
 
-   26 statement: io_statement • SEMICOLON
-   30          | io_statement •
+    4 program: VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE • RBRACE
+    5        | VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE • instruction_section RBRACE
 
-    SEMICOLON  shift, and go to state 123
+    IF          shift, and go to state 96
+    FOR         shift, and go to state 97
+    READ        shift, and go to state 98
+    WRITE       shift, and go to state 99
+    IDENTIFIER  shift, and go to state 100
+    RBRACE      shift, and go to state 137
 
-    $default  reduce using rule 30 (statement)
+    instruction_section  go to state 138
+    statement            go to state 103
+    assignment           go to state 104
+    MDROIT               go to state 105
+    TAB                  go to state 106
+    condition            go to state 107
+    loop                 go to state 108
+    io_statement         go to state 109
 
 
 State 111
 
-   57 condition: IF LPAREN • COND RPAREN LBRACE $@1 instruction_section RBRACE elsebloc
+   55 primarytab: IDENTIFIER LBRACKET termtab RBRACKET •
 
-    IDENTIFIER      shift, and go to state 124
-    INT_NUMBER      shift, and go to state 125
-    FLOAT_NUMBER    shift, and go to state 126
-    CHARACTERE      shift, and go to state 127
-    NOT             shift, and go to state 128
-    LPAREN          shift, and go to state 129
-    STRING_LITERAL  shift, and go to state 130
-
-    COND             go to state 131
-    AND_EXPR         go to state 132
-    NOT_EXPR         go to state 133
-    comparison_expr  go to state 134
-    DROIT            go to state 135
-    term2            go to state 136
-    factor2          go to state 137
-    primary2         go to state 138
+    $default  reduce using rule 55 (primarytab)
 
 
 State 112
 
-   67 loop: FOR LPAREN • assignment_int COLON term3 $@3 COLON term4 $@4 RPAREN LBRACE instruction_section RBRACE
+   50 primarytab: LPAREN PLUS INT_NUMBER RPAREN •
 
-    IDENTIFIER  shift, and go to state 102
-
-    MDROIT          go to state 139
-    TAB             go to state 140
-    assignment_int  go to state 141
+    $default  reduce using rule 50 (primarytab)
 
 
 State 113
 
-   68 io_statement: READ LPAREN • IDENTIFIER RPAREN
-   69             | READ LPAREN • IDENTIFIER LBRACKET termtab RBRACKET RPAREN
+   52 primarytab: LPAREN PLUS FLOAT_NUMBER RPAREN •
 
-    IDENTIFIER  shift, and go to state 142
+    $default  reduce using rule 52 (primarytab)
 
 
 State 114
 
-   70 io_statement: WRITE LPAREN • io_expr_list RPAREN
+   51 primarytab: LPAREN MINUS INT_NUMBER RPAREN •
 
-    IDENTIFIER      shift, and go to state 143
-    STRING_LITERAL  shift, and go to state 144
-
-    TAB           go to state 145
-    io_expr_list  go to state 146
-    io_expr       go to state 147
+    $default  reduce using rule 51 (primarytab)
 
 
 State 115
 
-   36 TAB: IDENTIFIER LBRACKET • termtab RBRACKET
+   53 primarytab: LPAREN MINUS FLOAT_NUMBER RPAREN •
 
-    IDENTIFIER      shift, and go to state 24
-    INT_NUMBER      shift, and go to state 25
-    FLOAT_NUMBER    shift, and go to state 26
-    CHARACTERE      shift, and go to state 27
-    LPAREN          shift, and go to state 28
-    STRING_LITERAL  shift, and go to state 29
-
-    termtab     go to state 148
-    factortab   go to state 31
-    primarytab  go to state 32
+    $default  reduce using rule 53 (primarytab)
 
 
 State 116
+
+   26 variable_list: IDENTIFIER LBRACKET termtab RBRACKET COMMA variable_list •
+
+    $default  reduce using rule 26 (variable_list)
+
+
+State 117
+
+    6 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE • RBRACE
+    7        | VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE • instruction_section RBRACE
+
+    IF          shift, and go to state 96
+    FOR         shift, and go to state 97
+    READ        shift, and go to state 98
+    WRITE       shift, and go to state 99
+    IDENTIFIER  shift, and go to state 100
+    RBRACE      shift, and go to state 139
+
+    instruction_section  go to state 140
+    statement            go to state 103
+    assignment           go to state 104
+    MDROIT               go to state 105
+    TAB                  go to state 106
+    condition            go to state 107
+    loop                 go to state 108
+    io_statement         go to state 109
+
+
+State 118
+
+    1 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION • LBRACE instruction_section RBRACE
+    8        | VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION • LBRACE RBRACE
+
+    LBRACE  shift, and go to state 141
+
+
+State 119
+
+  121 primary: IDENTIFIER LBRACKET termtab RBRACKET •
+
+    $default  reduce using rule 121 (primary)
+
+
+State 120
+
+  116 primary: LPAREN PLUS INT_NUMBER RPAREN •
+
+    $default  reduce using rule 116 (primary)
+
+
+State 121
+
+  118 primary: LPAREN PLUS FLOAT_NUMBER RPAREN •
+
+    $default  reduce using rule 118 (primary)
+
+
+State 122
+
+  117 primary: LPAREN MINUS INT_NUMBER RPAREN •
+
+    $default  reduce using rule 117 (primary)
+
+
+State 123
+
+  119 primary: LPAREN MINUS FLOAT_NUMBER RPAREN •
+
+    $default  reduce using rule 119 (primary)
+
+
+State 124
+
+   61 condition: IF LPAREN • COND RPAREN LBRACE $@1 instruction_section RBRACE elsebloc
+
+    IDENTIFIER      shift, and go to state 142
+    INT_NUMBER      shift, and go to state 143
+    FLOAT_NUMBER    shift, and go to state 144
+    CHARACTERE      shift, and go to state 145
+    NOT             shift, and go to state 146
+    LPAREN          shift, and go to state 147
+    STRING_LITERAL  shift, and go to state 148
+
+    COND             go to state 149
+    AND_EXPR         go to state 150
+    NOT_EXPR         go to state 151
+    comparison_expr  go to state 152
+    DROIT            go to state 153
+    term2            go to state 154
+    factor2          go to state 155
+    primary2         go to state 156
+
+
+State 125
+
+   71 loop: FOR LPAREN • assignment_int COLON term3 $@3 COLON term4 $@4 RPAREN LBRACE instruction_section RBRACE
+
+    IDENTIFIER  shift, and go to state 100
+
+    MDROIT          go to state 157
+    TAB             go to state 158
+    assignment_int  go to state 159
+
+
+State 126
+
+   72 io_statement: READ LPAREN • IDENTIFIER RPAREN
+   73             | READ LPAREN • IDENTIFIER LBRACKET termtab RBRACKET RPAREN
+
+    IDENTIFIER  shift, and go to state 160
+
+
+State 127
+
+   74 io_statement: WRITE LPAREN • io_expr_list RPAREN
+
+    IDENTIFIER      shift, and go to state 161
+    STRING_LITERAL  shift, and go to state 162
+
+    TAB           go to state 163
+    io_expr_list  go to state 164
+    io_expr       go to state 165
+
+
+State 128
+
+   40 TAB: IDENTIFIER LBRACKET • termtab RBRACKET
+
+    IDENTIFIER      shift, and go to state 30
+    INT_NUMBER      shift, and go to state 31
+    FLOAT_NUMBER    shift, and go to state 32
+    CHARACTERE      shift, and go to state 33
+    LPAREN          shift, and go to state 34
+    STRING_LITERAL  shift, and go to state 35
+
+    termtab     go to state 166
+    factortab   go to state 37
+    primarytab  go to state 38
+
+
+State 129
+
+    3 program: VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE instruction_section RBRACE •
+
+    $default  reduce using rule 3 (program)
+
+
+State 130
+
+   19 instruction_section: statement instruction_section •
+
+    $default  reduce using rule 19 (instruction_section)
+
+
+State 131
+
+   27 statement: assignment SEMICOLON •
+
+    $default  reduce using rule 27 (statement)
+
+
+State 132
+
+   35 assignment: MDROIT EQUALS • term
+   38           | MDROIT EQUALS • EXPRESSION_CHAR
+
+    IDENTIFIER      shift, and go to state 41
+    INT_NUMBER      shift, and go to state 42
+    FLOAT_NUMBER    shift, and go to state 43
+    CHARACTERE      shift, and go to state 167
+    LPAREN          shift, and go to state 44
+    STRING_LITERAL  shift, and go to state 168
+
+    EXPRESSION_CHAR  go to state 169
+    term             go to state 170
+    factor           go to state 46
+    primary          go to state 47
+
+
+State 133
+
+   36 assignment: TAB EQUALS • term
+   37           | TAB EQUALS • EXPRESSION_CHAR
+
+    IDENTIFIER      shift, and go to state 41
+    INT_NUMBER      shift, and go to state 42
+    FLOAT_NUMBER    shift, and go to state 43
+    CHARACTERE      shift, and go to state 167
+    LPAREN          shift, and go to state 44
+    STRING_LITERAL  shift, and go to state 168
+
+    EXPRESSION_CHAR  go to state 171
+    term             go to state 172
+    factor           go to state 46
+    primary          go to state 47
+
+
+State 134
+
+   28 statement: condition SEMICOLON •
+
+    $default  reduce using rule 28 (statement)
+
+
+State 135
+
+   29 statement: loop SEMICOLON •
+
+    $default  reduce using rule 29 (statement)
+
+
+State 136
+
+   30 statement: io_statement SEMICOLON •
+
+    $default  reduce using rule 30 (statement)
+
+
+State 137
+
+    4 program: VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE RBRACE •
+
+    $default  reduce using rule 4 (program)
+
+
+State 138
+
+    5 program: VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section • RBRACE
+
+    RBRACE  shift, and go to state 173
+
+
+State 139
+
+    6 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE RBRACE •
+
+    $default  reduce using rule 6 (program)
+
+
+State 140
+
+    7 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE instruction_section • RBRACE
+
+    RBRACE  shift, and go to state 174
+
+
+State 141
+
+    1 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE • instruction_section RBRACE
+    8        | VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE • RBRACE
+
+    IF          shift, and go to state 96
+    FOR         shift, and go to state 97
+    READ        shift, and go to state 98
+    WRITE       shift, and go to state 99
+    IDENTIFIER  shift, and go to state 100
+    RBRACE      shift, and go to state 175
+
+    instruction_section  go to state 176
+    statement            go to state 103
+    assignment           go to state 104
+    MDROIT               go to state 105
+    TAB                  go to state 106
+    condition            go to state 107
+    loop                 go to state 108
+    io_statement         go to state 109
+
+
+State 142
+
+  143 primary2: IDENTIFIER •
+  151         | IDENTIFIER • LBRACKET termtab RBRACKET
+
+    LBRACKET  shift, and go to state 177
+
+    $default  reduce using rule 143 (primary2)
+
+
+State 143
+
+  144 primary2: INT_NUMBER •
+
+    $default  reduce using rule 144 (primary2)
+
+
+State 144
+
+  145 primary2: FLOAT_NUMBER •
+
+    $default  reduce using rule 145 (primary2)
+
+
+State 145
+
+   97 DROIT: CHARACTERE •
+
+    $default  reduce using rule 97 (DROIT)
+
+
+State 146
+
+   85 NOT_EXPR: NOT • NOT_EXPR
+
+    IDENTIFIER      shift, and go to state 142
+    INT_NUMBER      shift, and go to state 143
+    FLOAT_NUMBER    shift, and go to state 144
+    CHARACTERE      shift, and go to state 145
+    NOT             shift, and go to state 146
+    LPAREN          shift, and go to state 178
+    STRING_LITERAL  shift, and go to state 148
+
+    NOT_EXPR         go to state 179
+    comparison_expr  go to state 152
+    DROIT            go to state 153
+    term2            go to state 154
+    factor2          go to state 155
+    primary2         go to state 156
+
+
+State 147
+
+   84 AND_EXPR: LPAREN • COND RPAREN
+   87 NOT_EXPR: LPAREN • comparison_expr RPAREN
+  146 primary2: LPAREN • PLUS INT_NUMBER RPAREN
+  147         | LPAREN • MINUS INT_NUMBER RPAREN
+  148         | LPAREN • PLUS FLOAT_NUMBER RPAREN
+  149         | LPAREN • MINUS FLOAT_NUMBER RPAREN
+  150         | LPAREN • term2 RPAREN
+
+    IDENTIFIER      shift, and go to state 142
+    INT_NUMBER      shift, and go to state 143
+    FLOAT_NUMBER    shift, and go to state 144
+    CHARACTERE      shift, and go to state 145
+    NOT             shift, and go to state 146
+    PLUS            shift, and go to state 180
+    MINUS           shift, and go to state 181
+    LPAREN          shift, and go to state 147
+    STRING_LITERAL  shift, and go to state 148
+
+    COND             go to state 182
+    AND_EXPR         go to state 150
+    NOT_EXPR         go to state 151
+    comparison_expr  go to state 183
+    DROIT            go to state 153
+    term2            go to state 184
+    factor2          go to state 155
+    primary2         go to state 156
+
+
+State 148
+
+   98 DROIT: STRING_LITERAL •
+
+    $default  reduce using rule 98 (DROIT)
+
+
+State 149
+
+   61 condition: IF LPAREN COND • RPAREN LBRACE $@1 instruction_section RBRACE elsebloc
+   80 COND: COND • OR AND_EXPR
+
+    OR      shift, and go to state 185
+    RPAREN  shift, and go to state 186
+
+
+State 150
+
+   81 COND: AND_EXPR •
+   82 AND_EXPR: AND_EXPR • AND NOT_EXPR
+
+    AND  shift, and go to state 187
+
+    $default  reduce using rule 81 (COND)
+
+
+State 151
+
+   83 AND_EXPR: NOT_EXPR •
+
+    $default  reduce using rule 83 (AND_EXPR)
+
+
+State 152
+
+   86 NOT_EXPR: comparison_expr •
+
+    $default  reduce using rule 86 (NOT_EXPR)
+
+
+State 153
+
+   94 comparison_expr: DROIT • OP_COMP term1
+   96                | DROIT • OP_COMP GAUCHE
+
+    EQ   shift, and go to state 188
+    NEQ  shift, and go to state 189
+    GEQ  shift, and go to state 190
+    LT   shift, and go to state 191
+    LEQ  shift, and go to state 192
+    GT   shift, and go to state 193
+
+    OP_COMP  go to state 194
+
+
+State 154
+
+   88 comparison_expr: term2 • GT term1
+   89                | term2 • LT term1
+   90                | term2 • EQ term1
+   91                | term2 • GEQ term1
+   92                | term2 • LEQ term1
+   93                | term2 • NEQ term1
+   95                | term2 • OP_COMP GAUCHE
+  138 term2: term2 • PLUS factor2
+  139      | term2 • MINUS factor2
+
+    EQ     shift, and go to state 195
+    NEQ    shift, and go to state 196
+    GEQ    shift, and go to state 197
+    LT     shift, and go to state 198
+    LEQ    shift, and go to state 199
+    GT     shift, and go to state 200
+    PLUS   shift, and go to state 201
+    MINUS  shift, and go to state 202
+
+    OP_COMP  go to state 203
+
+
+State 155
+
+  137 term2: factor2 •
+  141 factor2: factor2 • MULTIPLY primary2
+  142        | factor2 • DIVIDE primary2
+
+    MULTIPLY  shift, and go to state 204
+    DIVIDE    shift, and go to state 205
+
+    $default  reduce using rule 137 (term2)
+
+
+State 156
+
+  140 factor2: primary2 •
+
+    $default  reduce using rule 140 (factor2)
+
+
+State 157
+
+   65 assignment_int: MDROIT • EQUALS term
+   68               | MDROIT • EQUALS EXPRESSION_CHAR
+
+    EQUALS  shift, and go to state 206
+
+
+State 158
+
+   66 assignment_int: TAB • EQUALS term
+   67               | TAB • EQUALS EXPRESSION_CHAR
+
+    EQUALS  shift, and go to state 207
+
+
+State 159
+
+   71 loop: FOR LPAREN assignment_int • COLON term3 $@3 COLON term4 $@4 RPAREN LBRACE instruction_section RBRACE
+
+    COLON  shift, and go to state 208
+
+
+State 160
+
+   72 io_statement: READ LPAREN IDENTIFIER • RPAREN
+   73             | READ LPAREN IDENTIFIER • LBRACKET termtab RBRACKET RPAREN
+
+    RPAREN    shift, and go to state 209
+    LBRACKET  shift, and go to state 210
+
+
+State 161
+
+   40 TAB: IDENTIFIER • LBRACKET termtab RBRACKET
+   77 io_expr: IDENTIFIER •
+
+    LBRACKET  shift, and go to state 128
+
+    $default  reduce using rule 77 (io_expr)
+
+
+State 162
+
+   78 io_expr: STRING_LITERAL •
+
+    $default  reduce using rule 78 (io_expr)
+
+
+State 163
+
+   79 io_expr: TAB •
+
+    $default  reduce using rule 79 (io_expr)
+
+
+State 164
+
+   74 io_statement: WRITE LPAREN io_expr_list • RPAREN
+
+    RPAREN  shift, and go to state 211
+
+
+State 165
+
+   75 io_expr_list: io_expr •
+   76             | io_expr • COMMA io_expr_list
+
+    COMMA  shift, and go to state 212
+
+    $default  reduce using rule 75 (io_expr_list)
+
+
+State 166
+
+   40 TAB: IDENTIFIER LBRACKET termtab • RBRACKET
+   42 termtab: termtab • PLUS factortab
+   43        | termtab • MINUS factortab
+
+    PLUS      shift, and go to state 55
+    MINUS     shift, and go to state 56
+    RBRACKET  shift, and go to state 213
+
+
+State 167
+
+   58 EXPRESSION_CHAR: CHARACTERE •
+
+    $default  reduce using rule 58 (EXPRESSION_CHAR)
+
+
+State 168
+
+   59 EXPRESSION_CHAR: STRING_LITERAL •
+
+    $default  reduce using rule 59 (EXPRESSION_CHAR)
+
+
+State 169
+
+   38 assignment: MDROIT EQUALS EXPRESSION_CHAR •
+
+    $default  reduce using rule 38 (assignment)
+
+
+State 170
+
+   35 assignment: MDROIT EQUALS term •
+  108 term: term • PLUS factor
+  109     | term • MINUS factor
+
+    PLUS   shift, and go to state 66
+    MINUS  shift, and go to state 67
+
+    $default  reduce using rule 35 (assignment)
+
+
+State 171
+
+   37 assignment: TAB EQUALS EXPRESSION_CHAR •
+
+    $default  reduce using rule 37 (assignment)
+
+
+State 172
+
+   36 assignment: TAB EQUALS term •
+  108 term: term • PLUS factor
+  109     | term • MINUS factor
+
+    PLUS   shift, and go to state 66
+    MINUS  shift, and go to state 67
+
+    $default  reduce using rule 36 (assignment)
+
+
+State 173
+
+    5 program: VAR_GLOBAL LBRACE RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE •
+
+    $default  reduce using rule 5 (program)
+
+
+State 174
+
+    7 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE RBRACE INSTRUCTION LBRACE instruction_section RBRACE •
+
+    $default  reduce using rule 7 (program)
+
+
+State 175
+
+    8 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE RBRACE •
+
+    $default  reduce using rule 8 (program)
+
+
+State 176
+
+    1 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section • RBRACE
+
+    RBRACE  shift, and go to state 214
+
+
+State 177
+
+  151 primary2: IDENTIFIER LBRACKET • termtab RBRACKET
+
+    IDENTIFIER      shift, and go to state 30
+    INT_NUMBER      shift, and go to state 31
+    FLOAT_NUMBER    shift, and go to state 32
+    CHARACTERE      shift, and go to state 33
+    LPAREN          shift, and go to state 34
+    STRING_LITERAL  shift, and go to state 35
+
+    termtab     go to state 215
+    factortab   go to state 37
+    primarytab  go to state 38
+
+
+State 178
+
+   87 NOT_EXPR: LPAREN • comparison_expr RPAREN
+  146 primary2: LPAREN • PLUS INT_NUMBER RPAREN
+  147         | LPAREN • MINUS INT_NUMBER RPAREN
+  148         | LPAREN • PLUS FLOAT_NUMBER RPAREN
+  149         | LPAREN • MINUS FLOAT_NUMBER RPAREN
+  150         | LPAREN • term2 RPAREN
+
+    IDENTIFIER      shift, and go to state 142
+    INT_NUMBER      shift, and go to state 143
+    FLOAT_NUMBER    shift, and go to state 144
+    CHARACTERE      shift, and go to state 145
+    PLUS            shift, and go to state 180
+    MINUS           shift, and go to state 181
+    LPAREN          shift, and go to state 216
+    STRING_LITERAL  shift, and go to state 148
+
+    comparison_expr  go to state 217
+    DROIT            go to state 153
+    term2            go to state 184
+    factor2          go to state 155
+    primary2         go to state 156
+
+
+State 179
+
+   85 NOT_EXPR: NOT NOT_EXPR •
+
+    $default  reduce using rule 85 (NOT_EXPR)
+
+
+State 180
+
+  146 primary2: LPAREN PLUS • INT_NUMBER RPAREN
+  148         | LPAREN PLUS • FLOAT_NUMBER RPAREN
+
+    INT_NUMBER    shift, and go to state 218
+    FLOAT_NUMBER  shift, and go to state 219
+
+
+State 181
+
+  147 primary2: LPAREN MINUS • INT_NUMBER RPAREN
+  149         | LPAREN MINUS • FLOAT_NUMBER RPAREN
+
+    INT_NUMBER    shift, and go to state 220
+    FLOAT_NUMBER  shift, and go to state 221
+
+
+State 182
+
+   80 COND: COND • OR AND_EXPR
+   84 AND_EXPR: LPAREN COND • RPAREN
+
+    OR      shift, and go to state 185
+    RPAREN  shift, and go to state 222
+
+
+State 183
+
+   86 NOT_EXPR: comparison_expr •
+   87         | LPAREN comparison_expr • RPAREN
+
+    RPAREN  shift, and go to state 223
+
+    RPAREN    [reduce using rule 86 (NOT_EXPR)]
+    $default  reduce using rule 86 (NOT_EXPR)
+
+    shift/reduce conflict on token RPAREN:
+       86 NOT_EXPR: comparison_expr •
+       87 NOT_EXPR: LPAREN comparison_expr • RPAREN
+      Example: LPAREN comparison_expr • RPAREN
+      Shift derivation
+        AND_EXPR
+        ↳ 83: NOT_EXPR
+              ↳ 87: LPAREN comparison_expr • RPAREN
+      Reduce derivation
+        AND_EXPR
+        ↳ 84: LPAREN COND                                RPAREN
+                     ↳ 81: AND_EXPR
+                           ↳ 83: NOT_EXPR
+                                 ↳ 86: comparison_expr •
+
+
+
+State 184
+
+   88 comparison_expr: term2 • GT term1
+   89                | term2 • LT term1
+   90                | term2 • EQ term1
+   91                | term2 • GEQ term1
+   92                | term2 • LEQ term1
+   93                | term2 • NEQ term1
+   95                | term2 • OP_COMP GAUCHE
+  138 term2: term2 • PLUS factor2
+  139      | term2 • MINUS factor2
+  150 primary2: LPAREN term2 • RPAREN
+
+    EQ      shift, and go to state 195
+    NEQ     shift, and go to state 196
+    GEQ     shift, and go to state 197
+    LT      shift, and go to state 198
+    LEQ     shift, and go to state 199
+    GT      shift, and go to state 200
+    PLUS    shift, and go to state 201
+    MINUS   shift, and go to state 202
+    RPAREN  shift, and go to state 224
+
+    OP_COMP  go to state 203
+
+
+State 185
+
+   80 COND: COND OR • AND_EXPR
+
+    IDENTIFIER      shift, and go to state 142
+    INT_NUMBER      shift, and go to state 143
+    FLOAT_NUMBER    shift, and go to state 144
+    CHARACTERE      shift, and go to state 145
+    NOT             shift, and go to state 146
+    LPAREN          shift, and go to state 147
+    STRING_LITERAL  shift, and go to state 148
+
+    AND_EXPR         go to state 225
+    NOT_EXPR         go to state 151
+    comparison_expr  go to state 152
+    DROIT            go to state 153
+    term2            go to state 154
+    factor2          go to state 155
+    primary2         go to state 156
+
+
+State 186
+
+   61 condition: IF LPAREN COND RPAREN • LBRACE $@1 instruction_section RBRACE elsebloc
+
+    LBRACE  shift, and go to state 226
+
+
+State 187
+
+   82 AND_EXPR: AND_EXPR AND • NOT_EXPR
+
+    IDENTIFIER      shift, and go to state 142
+    INT_NUMBER      shift, and go to state 143
+    FLOAT_NUMBER    shift, and go to state 144
+    CHARACTERE      shift, and go to state 145
+    NOT             shift, and go to state 146
+    LPAREN          shift, and go to state 178
+    STRING_LITERAL  shift, and go to state 148
+
+    NOT_EXPR         go to state 227
+    comparison_expr  go to state 152
+    DROIT            go to state 153
+    term2            go to state 154
+    factor2          go to state 155
+    primary2         go to state 156
+
+
+State 188
+
+  105 OP_COMP: EQ •
+
+    $default  reduce using rule 105 (OP_COMP)
+
+
+State 189
+
+  106 OP_COMP: NEQ •
+
+    $default  reduce using rule 106 (OP_COMP)
+
+
+State 190
+
+  103 OP_COMP: GEQ •
+
+    $default  reduce using rule 103 (OP_COMP)
+
+
+State 191
+
+  102 OP_COMP: LT •
+
+    $default  reduce using rule 102 (OP_COMP)
+
+
+State 192
+
+  104 OP_COMP: LEQ •
+
+    $default  reduce using rule 104 (OP_COMP)
+
+
+State 193
+
+  101 OP_COMP: GT •
+
+    $default  reduce using rule 101 (OP_COMP)
+
+
+State 194
+
+   94 comparison_expr: DROIT OP_COMP • term1
+   96                | DROIT OP_COMP • GAUCHE
+
+    IDENTIFIER      shift, and go to state 228
+    INT_NUMBER      shift, and go to state 229
+    FLOAT_NUMBER    shift, and go to state 230
+    CHARACTERE      shift, and go to state 231
+    LPAREN          shift, and go to state 232
+    STRING_LITERAL  shift, and go to state 233
+
+    GAUCHE    go to state 234
+    term1     go to state 235
+    factor1   go to state 236
+    primary1  go to state 237
+
+
+State 195
+
+   90 comparison_expr: term2 EQ • term1
+  105 OP_COMP: EQ •
+
+    IDENTIFIER    shift, and go to state 228
+    INT_NUMBER    shift, and go to state 229
+    FLOAT_NUMBER  shift, and go to state 230
+    LPAREN        shift, and go to state 232
+
+    $default  reduce using rule 105 (OP_COMP)
+
+    term1     go to state 238
+    factor1   go to state 236
+    primary1  go to state 237
+
+
+State 196
+
+   93 comparison_expr: term2 NEQ • term1
+  106 OP_COMP: NEQ •
+
+    IDENTIFIER    shift, and go to state 228
+    INT_NUMBER    shift, and go to state 229
+    FLOAT_NUMBER  shift, and go to state 230
+    LPAREN        shift, and go to state 232
+
+    $default  reduce using rule 106 (OP_COMP)
+
+    term1     go to state 239
+    factor1   go to state 236
+    primary1  go to state 237
+
+
+State 197
+
+   91 comparison_expr: term2 GEQ • term1
+  103 OP_COMP: GEQ •
+
+    IDENTIFIER    shift, and go to state 228
+    INT_NUMBER    shift, and go to state 229
+    FLOAT_NUMBER  shift, and go to state 230
+    LPAREN        shift, and go to state 232
+
+    $default  reduce using rule 103 (OP_COMP)
+
+    term1     go to state 240
+    factor1   go to state 236
+    primary1  go to state 237
+
+
+State 198
+
+   89 comparison_expr: term2 LT • term1
+  102 OP_COMP: LT •
+
+    IDENTIFIER    shift, and go to state 228
+    INT_NUMBER    shift, and go to state 229
+    FLOAT_NUMBER  shift, and go to state 230
+    LPAREN        shift, and go to state 232
+
+    $default  reduce using rule 102 (OP_COMP)
+
+    term1     go to state 241
+    factor1   go to state 236
+    primary1  go to state 237
+
+
+State 199
+
+   92 comparison_expr: term2 LEQ • term1
+  104 OP_COMP: LEQ •
+
+    IDENTIFIER    shift, and go to state 228
+    INT_NUMBER    shift, and go to state 229
+    FLOAT_NUMBER  shift, and go to state 230
+    LPAREN        shift, and go to state 232
+
+    $default  reduce using rule 104 (OP_COMP)
+
+    term1     go to state 242
+    factor1   go to state 236
+    primary1  go to state 237
+
+
+State 200
+
+   88 comparison_expr: term2 GT • term1
+  101 OP_COMP: GT •
+
+    IDENTIFIER    shift, and go to state 228
+    INT_NUMBER    shift, and go to state 229
+    FLOAT_NUMBER  shift, and go to state 230
+    LPAREN        shift, and go to state 232
+
+    $default  reduce using rule 101 (OP_COMP)
+
+    term1     go to state 243
+    factor1   go to state 236
+    primary1  go to state 237
+
+
+State 201
+
+  138 term2: term2 PLUS • factor2
+
+    IDENTIFIER    shift, and go to state 142
+    INT_NUMBER    shift, and go to state 143
+    FLOAT_NUMBER  shift, and go to state 144
+    LPAREN        shift, and go to state 216
+
+    factor2   go to state 244
+    primary2  go to state 156
+
+
+State 202
+
+  139 term2: term2 MINUS • factor2
+
+    IDENTIFIER    shift, and go to state 142
+    INT_NUMBER    shift, and go to state 143
+    FLOAT_NUMBER  shift, and go to state 144
+    LPAREN        shift, and go to state 216
+
+    factor2   go to state 245
+    primary2  go to state 156
+
+
+State 203
+
+   95 comparison_expr: term2 OP_COMP • GAUCHE
+
+    CHARACTERE      shift, and go to state 231
+    STRING_LITERAL  shift, and go to state 233
+
+    GAUCHE  go to state 246
+
+
+State 204
+
+  141 factor2: factor2 MULTIPLY • primary2
+
+    IDENTIFIER    shift, and go to state 142
+    INT_NUMBER    shift, and go to state 143
+    FLOAT_NUMBER  shift, and go to state 144
+    LPAREN        shift, and go to state 216
+
+    primary2  go to state 247
+
+
+State 205
+
+  142 factor2: factor2 DIVIDE • primary2
+
+    IDENTIFIER    shift, and go to state 142
+    INT_NUMBER    shift, and go to state 143
+    FLOAT_NUMBER  shift, and go to state 144
+    LPAREN        shift, and go to state 216
+
+    primary2  go to state 248
+
+
+State 206
+
+   65 assignment_int: MDROIT EQUALS • term
+   68               | MDROIT EQUALS • EXPRESSION_CHAR
+
+    IDENTIFIER      shift, and go to state 41
+    INT_NUMBER      shift, and go to state 42
+    FLOAT_NUMBER    shift, and go to state 43
+    CHARACTERE      shift, and go to state 167
+    LPAREN          shift, and go to state 44
+    STRING_LITERAL  shift, and go to state 168
+
+    EXPRESSION_CHAR  go to state 249
+    term             go to state 250
+    factor           go to state 46
+    primary          go to state 47
+
+
+State 207
+
+   66 assignment_int: TAB EQUALS • term
+   67               | TAB EQUALS • EXPRESSION_CHAR
+
+    IDENTIFIER      shift, and go to state 41
+    INT_NUMBER      shift, and go to state 42
+    FLOAT_NUMBER    shift, and go to state 43
+    CHARACTERE      shift, and go to state 167
+    LPAREN          shift, and go to state 44
+    STRING_LITERAL  shift, and go to state 168
+
+    EXPRESSION_CHAR  go to state 251
+    term             go to state 252
+    factor           go to state 46
+    primary          go to state 47
+
+
+State 208
+
+   71 loop: FOR LPAREN assignment_int COLON • term3 $@3 COLON term4 $@4 RPAREN LBRACE instruction_section RBRACE
+
+    IDENTIFIER      shift, and go to state 253
+    INT_NUMBER      shift, and go to state 254
+    FLOAT_NUMBER    shift, and go to state 255
+    CHARACTERE      shift, and go to state 256
+    LPAREN          shift, and go to state 257
+    STRING_LITERAL  shift, and go to state 258
+
+    term3     go to state 259
+    factor3   go to state 260
+    primary3  go to state 261
+
+
+State 209
+
+   72 io_statement: READ LPAREN IDENTIFIER RPAREN •
+
+    $default  reduce using rule 72 (io_statement)
+
+
+State 210
+
+   73 io_statement: READ LPAREN IDENTIFIER LBRACKET • termtab RBRACKET RPAREN
+
+    IDENTIFIER      shift, and go to state 30
+    INT_NUMBER      shift, and go to state 31
+    FLOAT_NUMBER    shift, and go to state 32
+    CHARACTERE      shift, and go to state 33
+    LPAREN          shift, and go to state 34
+    STRING_LITERAL  shift, and go to state 35
+
+    termtab     go to state 262
+    factortab   go to state 37
+    primarytab  go to state 38
+
+
+State 211
+
+   74 io_statement: WRITE LPAREN io_expr_list RPAREN •
+
+    $default  reduce using rule 74 (io_statement)
+
+
+State 212
+
+   76 io_expr_list: io_expr COMMA • io_expr_list
+
+    IDENTIFIER      shift, and go to state 161
+    STRING_LITERAL  shift, and go to state 162
+
+    TAB           go to state 163
+    io_expr_list  go to state 263
+    io_expr       go to state 165
+
+
+State 213
+
+   40 TAB: IDENTIFIER LBRACKET termtab RBRACKET •
+
+    $default  reduce using rule 40 (TAB)
+
+
+State 214
 
     1 program: VAR_GLOBAL LBRACE global_var_section RBRACE DECLARATION LBRACE declaration_section RBRACE INSTRUCTION LBRACE instruction_section RBRACE •
 
     $default  reduce using rule 1 (program)
 
 
-State 117
-
-   14 instruction_section: statement instruction_section •
-
-    $default  reduce using rule 14 (instruction_section)
-
-
-State 118
-
-   23 statement: assignment SEMICOLON •
-
-    $default  reduce using rule 23 (statement)
-
-
-State 119
-
-   31 assignment: MDROIT EQUALS • term
-   34           | MDROIT EQUALS • EXPRESSION_CHAR
-
-    IDENTIFIER      shift, and go to state 35
-    INT_NUMBER      shift, and go to state 36
-    FLOAT_NUMBER    shift, and go to state 37
-    CHARACTERE      shift, and go to state 149
-    LPAREN          shift, and go to state 38
-    STRING_LITERAL  shift, and go to state 150
-
-    EXPRESSION_CHAR  go to state 151
-    term             go to state 152
-    factor           go to state 40
-    primary          go to state 41
-
-
-State 120
-
-   32 assignment: TAB EQUALS • term
-   33           | TAB EQUALS • EXPRESSION_CHAR
-
-    IDENTIFIER      shift, and go to state 35
-    INT_NUMBER      shift, and go to state 36
-    FLOAT_NUMBER    shift, and go to state 37
-    CHARACTERE      shift, and go to state 149
-    LPAREN          shift, and go to state 38
-    STRING_LITERAL  shift, and go to state 150
-
-    EXPRESSION_CHAR  go to state 153
-    term             go to state 154
-    factor           go to state 40
-    primary          go to state 41
-
-
-State 121
-
-   24 statement: condition SEMICOLON •
-
-    $default  reduce using rule 24 (statement)
-
-
-State 122
-
-   25 statement: loop SEMICOLON •
-
-    $default  reduce using rule 25 (statement)
-
-
-State 123
-
-   26 statement: io_statement SEMICOLON •
-
-    $default  reduce using rule 26 (statement)
-
-
-State 124
-
-  137 primary2: IDENTIFIER •
-  145         | IDENTIFIER • LBRACKET termtab RBRACKET
-
-    LBRACKET  shift, and go to state 155
-
-    $default  reduce using rule 137 (primary2)
-
-
-State 125
-
-  138 primary2: INT_NUMBER •
-
-    $default  reduce using rule 138 (primary2)
-
-
-State 126
-
-  139 primary2: FLOAT_NUMBER •
-
-    $default  reduce using rule 139 (primary2)
-
-
-State 127
-
-   91 DROIT: CHARACTERE •
-
-    $default  reduce using rule 91 (DROIT)
-
-
-State 128
-
-   80 NOT_EXPR: NOT • NOT_EXPR
-
-    IDENTIFIER      shift, and go to state 124
-    INT_NUMBER      shift, and go to state 125
-    FLOAT_NUMBER    shift, and go to state 126
-    CHARACTERE      shift, and go to state 127
-    NOT             shift, and go to state 128
-    LPAREN          shift, and go to state 129
-    STRING_LITERAL  shift, and go to state 130
-
-    NOT_EXPR         go to state 156
-    comparison_expr  go to state 134
-    DROIT            go to state 135
-    term2            go to state 136
-    factor2          go to state 137
-    primary2         go to state 138
-
-
-State 129
-
-  140 primary2: LPAREN • PLUS INT_NUMBER RPAREN
-  141         | LPAREN • MINUS INT_NUMBER RPAREN
-  142         | LPAREN • PLUS FLOAT_NUMBER RPAREN
-  143         | LPAREN • MINUS FLOAT_NUMBER RPAREN
-  144         | LPAREN • term2 RPAREN
-
-    IDENTIFIER    shift, and go to state 124
-    INT_NUMBER    shift, and go to state 125
-    FLOAT_NUMBER  shift, and go to state 126
-    PLUS          shift, and go to state 157
-    MINUS         shift, and go to state 158
-    LPAREN        shift, and go to state 129
-
-    term2     go to state 159
-    factor2   go to state 137
-    primary2  go to state 138
-
-
-State 130
-
-   92 DROIT: STRING_LITERAL •
-
-    $default  reduce using rule 92 (DROIT)
-
-
-State 131
-
-   57 condition: IF LPAREN COND • RPAREN LBRACE $@1 instruction_section RBRACE elsebloc
-   76 COND: COND • OR AND_EXPR
-
-    OR      shift, and go to state 160
-    RPAREN  shift, and go to state 161
-
-
-State 132
-
-   77 COND: AND_EXPR •
-   78 AND_EXPR: AND_EXPR • AND NOT_EXPR
-
-    AND  shift, and go to state 162
-
-    $default  reduce using rule 77 (COND)
-
-
-State 133
-
-   79 AND_EXPR: NOT_EXPR •
-
-    $default  reduce using rule 79 (AND_EXPR)
-
-
-State 134
-
-   81 NOT_EXPR: comparison_expr •
-
-    $default  reduce using rule 81 (NOT_EXPR)
-
-
-State 135
-
-   88 comparison_expr: DROIT • OP_COMP term1
-   90                | DROIT • OP_COMP GAUCHE
-
-    EQ   shift, and go to state 163
-    NEQ  shift, and go to state 164
-    GEQ  shift, and go to state 165
-    LT   shift, and go to state 166
-    LEQ  shift, and go to state 167
-    GT   shift, and go to state 168
-
-    OP_COMP  go to state 169
-
-
-State 136
-
-   82 comparison_expr: term2 • GT term1
-   83                | term2 • LT term1
-   84                | term2 • EQ term1
-   85                | term2 • GEQ term1
-   86                | term2 • LEQ term1
-   87                | term2 • NEQ term1
-   89                | term2 • OP_COMP GAUCHE
-  132 term2: term2 • PLUS factor2
-  133      | term2 • MINUS factor2
-
-    EQ     shift, and go to state 170
-    NEQ    shift, and go to state 171
-    GEQ    shift, and go to state 172
-    LT     shift, and go to state 173
-    LEQ    shift, and go to state 174
-    GT     shift, and go to state 175
-    PLUS   shift, and go to state 176
-    MINUS  shift, and go to state 177
-
-    OP_COMP  go to state 178
-
-
-State 137
-
-  131 term2: factor2 •
-  135 factor2: factor2 • MULTIPLY primary2
-  136        | factor2 • DIVIDE primary2
-
-    MULTIPLY  shift, and go to state 179
-    DIVIDE    shift, and go to state 180
-
-    $default  reduce using rule 131 (term2)
-
-
-State 138
-
-  134 factor2: primary2 •
-
-    $default  reduce using rule 134 (factor2)
-
-
-State 139
-
-   61 assignment_int: MDROIT • EQUALS term
-   64               | MDROIT • EQUALS EXPRESSION_CHAR
-
-    EQUALS  shift, and go to state 181
-
-
-State 140
-
-   62 assignment_int: TAB • EQUALS term
-   63               | TAB • EQUALS EXPRESSION_CHAR
-
-    EQUALS  shift, and go to state 182
-
-
-State 141
-
-   67 loop: FOR LPAREN assignment_int • COLON term3 $@3 COLON term4 $@4 RPAREN LBRACE instruction_section RBRACE
-
-    COLON  shift, and go to state 183
-
-
-State 142
-
-   68 io_statement: READ LPAREN IDENTIFIER • RPAREN
-   69             | READ LPAREN IDENTIFIER • LBRACKET termtab RBRACKET RPAREN
-
-    RPAREN    shift, and go to state 184
-    LBRACKET  shift, and go to state 185
-
-
-State 143
-
-   36 TAB: IDENTIFIER • LBRACKET termtab RBRACKET
-   73 io_expr: IDENTIFIER •
-
-    LBRACKET  shift, and go to state 115
-
-    $default  reduce using rule 73 (io_expr)
-
-
-State 144
-
-   74 io_expr: STRING_LITERAL •
-
-    $default  reduce using rule 74 (io_expr)
-
-
-State 145
-
-   75 io_expr: TAB •
-
-    $default  reduce using rule 75 (io_expr)
-
-
-State 146
-
-   70 io_statement: WRITE LPAREN io_expr_list • RPAREN
-
-    RPAREN  shift, and go to state 186
-
-
-State 147
-
-   71 io_expr_list: io_expr •
-   72             | io_expr • COMMA io_expr_list
-
-    COMMA  shift, and go to state 187
-
-    $default  reduce using rule 71 (io_expr_list)
-
-
-State 148
-
-   36 TAB: IDENTIFIER LBRACKET termtab • RBRACKET
-   38 termtab: termtab • PLUS factortab
-   39        | termtab • MINUS factortab
-
-    PLUS      shift, and go to state 46
-    MINUS     shift, and go to state 47
-    RBRACKET  shift, and go to state 188
-
-
-State 149
-
-   54 EXPRESSION_CHAR: CHARACTERE •
-
-    $default  reduce using rule 54 (EXPRESSION_CHAR)
-
-
-State 150
-
-   55 EXPRESSION_CHAR: STRING_LITERAL •
-
-    $default  reduce using rule 55 (EXPRESSION_CHAR)
-
-
-State 151
-
-   34 assignment: MDROIT EQUALS EXPRESSION_CHAR •
-
-    $default  reduce using rule 34 (assignment)
-
-
-State 152
-
-   31 assignment: MDROIT EQUALS term •
-  102 term: term • PLUS factor
-  103     | term • MINUS factor
-
-    PLUS   shift, and go to state 57
-    MINUS  shift, and go to state 58
-
-    $default  reduce using rule 31 (assignment)
-
-
-State 153
-
-   33 assignment: TAB EQUALS EXPRESSION_CHAR •
-
-    $default  reduce using rule 33 (assignment)
-
-
-State 154
-
-   32 assignment: TAB EQUALS term •
-  102 term: term • PLUS factor
-  103     | term • MINUS factor
-
-    PLUS   shift, and go to state 57
-    MINUS  shift, and go to state 58
-
-    $default  reduce using rule 32 (assignment)
-
-
-State 155
-
-  145 primary2: IDENTIFIER LBRACKET • termtab RBRACKET
-
-    IDENTIFIER      shift, and go to state 24
-    INT_NUMBER      shift, and go to state 25
-    FLOAT_NUMBER    shift, and go to state 26
-    CHARACTERE      shift, and go to state 27
-    LPAREN          shift, and go to state 28
-    STRING_LITERAL  shift, and go to state 29
-
-    termtab     go to state 189
-    factortab   go to state 31
-    primarytab  go to state 32
-
-
-State 156
-
-   80 NOT_EXPR: NOT NOT_EXPR •
-
-    $default  reduce using rule 80 (NOT_EXPR)
-
-
-State 157
-
-  140 primary2: LPAREN PLUS • INT_NUMBER RPAREN
-  142         | LPAREN PLUS • FLOAT_NUMBER RPAREN
-
-    INT_NUMBER    shift, and go to state 190
-    FLOAT_NUMBER  shift, and go to state 191
-
-
-State 158
-
-  141 primary2: LPAREN MINUS • INT_NUMBER RPAREN
-  143         | LPAREN MINUS • FLOAT_NUMBER RPAREN
-
-    INT_NUMBER    shift, and go to state 192
-    FLOAT_NUMBER  shift, and go to state 193
-
-
-State 159
-
-  132 term2: term2 • PLUS factor2
-  133      | term2 • MINUS factor2
-  144 primary2: LPAREN term2 • RPAREN
-
-    PLUS    shift, and go to state 176
-    MINUS   shift, and go to state 177
-    RPAREN  shift, and go to state 194
-
-
-State 160
-
-   76 COND: COND OR • AND_EXPR
-
-    IDENTIFIER      shift, and go to state 124
-    INT_NUMBER      shift, and go to state 125
-    FLOAT_NUMBER    shift, and go to state 126
-    CHARACTERE      shift, and go to state 127
-    NOT             shift, and go to state 128
-    LPAREN          shift, and go to state 129
-    STRING_LITERAL  shift, and go to state 130
-
-    AND_EXPR         go to state 195
-    NOT_EXPR         go to state 133
-    comparison_expr  go to state 134
-    DROIT            go to state 135
-    term2            go to state 136
-    factor2          go to state 137
-    primary2         go to state 138
-
-
-State 161
-
-   57 condition: IF LPAREN COND RPAREN • LBRACE $@1 instruction_section RBRACE elsebloc
-
-    LBRACE  shift, and go to state 196
-
-
-State 162
-
-   78 AND_EXPR: AND_EXPR AND • NOT_EXPR
-
-    IDENTIFIER      shift, and go to state 124
-    INT_NUMBER      shift, and go to state 125
-    FLOAT_NUMBER    shift, and go to state 126
-    CHARACTERE      shift, and go to state 127
-    NOT             shift, and go to state 128
-    LPAREN          shift, and go to state 129
-    STRING_LITERAL  shift, and go to state 130
-
-    NOT_EXPR         go to state 197
-    comparison_expr  go to state 134
-    DROIT            go to state 135
-    term2            go to state 136
-    factor2          go to state 137
-    primary2         go to state 138
-
-
-State 163
-
-   99 OP_COMP: EQ •
-
-    $default  reduce using rule 99 (OP_COMP)
-
-
-State 164
-
-  100 OP_COMP: NEQ •
-
-    $default  reduce using rule 100 (OP_COMP)
-
-
-State 165
-
-   97 OP_COMP: GEQ •
-
-    $default  reduce using rule 97 (OP_COMP)
-
-
-State 166
-
-   96 OP_COMP: LT •
-
-    $default  reduce using rule 96 (OP_COMP)
-
-
-State 167
-
-   98 OP_COMP: LEQ •
-
-    $default  reduce using rule 98 (OP_COMP)
-
-
-State 168
-
-   95 OP_COMP: GT •
-
-    $default  reduce using rule 95 (OP_COMP)
-
-
-State 169
-
-   88 comparison_expr: DROIT OP_COMP • term1
-   90                | DROIT OP_COMP • GAUCHE
-
-    IDENTIFIER      shift, and go to state 198
-    INT_NUMBER      shift, and go to state 199
-    FLOAT_NUMBER    shift, and go to state 200
-    CHARACTERE      shift, and go to state 201
-    LPAREN          shift, and go to state 202
-    STRING_LITERAL  shift, and go to state 203
-
-    GAUCHE    go to state 204
-    term1     go to state 205
-    factor1   go to state 206
-    primary1  go to state 207
-
-
-State 170
-
-   84 comparison_expr: term2 EQ • term1
-   99 OP_COMP: EQ •
-
-    IDENTIFIER    shift, and go to state 198
-    INT_NUMBER    shift, and go to state 199
-    FLOAT_NUMBER  shift, and go to state 200
-    LPAREN        shift, and go to state 202
-
-    $default  reduce using rule 99 (OP_COMP)
-
-    term1     go to state 208
-    factor1   go to state 206
-    primary1  go to state 207
-
-
-State 171
-
-   87 comparison_expr: term2 NEQ • term1
-  100 OP_COMP: NEQ •
-
-    IDENTIFIER    shift, and go to state 198
-    INT_NUMBER    shift, and go to state 199
-    FLOAT_NUMBER  shift, and go to state 200
-    LPAREN        shift, and go to state 202
-
-    $default  reduce using rule 100 (OP_COMP)
-
-    term1     go to state 209
-    factor1   go to state 206
-    primary1  go to state 207
-
-
-State 172
-
-   85 comparison_expr: term2 GEQ • term1
-   97 OP_COMP: GEQ •
-
-    IDENTIFIER    shift, and go to state 198
-    INT_NUMBER    shift, and go to state 199
-    FLOAT_NUMBER  shift, and go to state 200
-    LPAREN        shift, and go to state 202
-
-    $default  reduce using rule 97 (OP_COMP)
-
-    term1     go to state 210
-    factor1   go to state 206
-    primary1  go to state 207
-
-
-State 173
-
-   83 comparison_expr: term2 LT • term1
-   96 OP_COMP: LT •
-
-    IDENTIFIER    shift, and go to state 198
-    INT_NUMBER    shift, and go to state 199
-    FLOAT_NUMBER  shift, and go to state 200
-    LPAREN        shift, and go to state 202
-
-    $default  reduce using rule 96 (OP_COMP)
-
-    term1     go to state 211
-    factor1   go to state 206
-    primary1  go to state 207
-
-
-State 174
-
-   86 comparison_expr: term2 LEQ • term1
-   98 OP_COMP: LEQ •
-
-    IDENTIFIER    shift, and go to state 198
-    INT_NUMBER    shift, and go to state 199
-    FLOAT_NUMBER  shift, and go to state 200
-    LPAREN        shift, and go to state 202
-
-    $default  reduce using rule 98 (OP_COMP)
-
-    term1     go to state 212
-    factor1   go to state 206
-    primary1  go to state 207
-
-
-State 175
-
-   82 comparison_expr: term2 GT • term1
-   95 OP_COMP: GT •
-
-    IDENTIFIER    shift, and go to state 198
-    INT_NUMBER    shift, and go to state 199
-    FLOAT_NUMBER  shift, and go to state 200
-    LPAREN        shift, and go to state 202
-
-    $default  reduce using rule 95 (OP_COMP)
-
-    term1     go to state 213
-    factor1   go to state 206
-    primary1  go to state 207
-
-
-State 176
-
-  132 term2: term2 PLUS • factor2
-
-    IDENTIFIER    shift, and go to state 124
-    INT_NUMBER    shift, and go to state 125
-    FLOAT_NUMBER  shift, and go to state 126
-    LPAREN        shift, and go to state 129
-
-    factor2   go to state 214
-    primary2  go to state 138
-
-
-State 177
-
-  133 term2: term2 MINUS • factor2
-
-    IDENTIFIER    shift, and go to state 124
-    INT_NUMBER    shift, and go to state 125
-    FLOAT_NUMBER  shift, and go to state 126
-    LPAREN        shift, and go to state 129
-
-    factor2   go to state 215
-    primary2  go to state 138
-
-
-State 178
-
-   89 comparison_expr: term2 OP_COMP • GAUCHE
-
-    CHARACTERE      shift, and go to state 201
-    STRING_LITERAL  shift, and go to state 203
-
-    GAUCHE  go to state 216
-
-
-State 179
-
-  135 factor2: factor2 MULTIPLY • primary2
-
-    IDENTIFIER    shift, and go to state 124
-    INT_NUMBER    shift, and go to state 125
-    FLOAT_NUMBER  shift, and go to state 126
-    LPAREN        shift, and go to state 129
-
-    primary2  go to state 217
-
-
-State 180
-
-  136 factor2: factor2 DIVIDE • primary2
-
-    IDENTIFIER    shift, and go to state 124
-    INT_NUMBER    shift, and go to state 125
-    FLOAT_NUMBER  shift, and go to state 126
-    LPAREN        shift, and go to state 129
-
-    primary2  go to state 218
-
-
-State 181
-
-   61 assignment_int: MDROIT EQUALS • term
-   64               | MDROIT EQUALS • EXPRESSION_CHAR
-
-    IDENTIFIER      shift, and go to state 35
-    INT_NUMBER      shift, and go to state 36
-    FLOAT_NUMBER    shift, and go to state 37
-    CHARACTERE      shift, and go to state 149
-    LPAREN          shift, and go to state 38
-    STRING_LITERAL  shift, and go to state 150
-
-    EXPRESSION_CHAR  go to state 219
-    term             go to state 220
-    factor           go to state 40
-    primary          go to state 41
-
-
-State 182
-
-   62 assignment_int: TAB EQUALS • term
-   63               | TAB EQUALS • EXPRESSION_CHAR
-
-    IDENTIFIER      shift, and go to state 35
-    INT_NUMBER      shift, and go to state 36
-    FLOAT_NUMBER    shift, and go to state 37
-    CHARACTERE      shift, and go to state 149
-    LPAREN          shift, and go to state 38
-    STRING_LITERAL  shift, and go to state 150
-
-    EXPRESSION_CHAR  go to state 221
-    term             go to state 222
-    factor           go to state 40
-    primary          go to state 41
-
-
-State 183
-
-   67 loop: FOR LPAREN assignment_int COLON • term3 $@3 COLON term4 $@4 RPAREN LBRACE instruction_section RBRACE
-
-    IDENTIFIER      shift, and go to state 223
-    INT_NUMBER      shift, and go to state 224
-    FLOAT_NUMBER    shift, and go to state 225
-    CHARACTERE      shift, and go to state 226
-    LPAREN          shift, and go to state 227
-    STRING_LITERAL  shift, and go to state 228
-
-    term3     go to state 229
-    factor3   go to state 230
-    primary3  go to state 231
-
-
-State 184
-
-   68 io_statement: READ LPAREN IDENTIFIER RPAREN •
-
-    $default  reduce using rule 68 (io_statement)
-
-
-State 185
-
-   69 io_statement: READ LPAREN IDENTIFIER LBRACKET • termtab RBRACKET RPAREN
-
-    IDENTIFIER      shift, and go to state 24
-    INT_NUMBER      shift, and go to state 25
-    FLOAT_NUMBER    shift, and go to state 26
-    CHARACTERE      shift, and go to state 27
-    LPAREN          shift, and go to state 28
-    STRING_LITERAL  shift, and go to state 29
-
-    termtab     go to state 232
-    factortab   go to state 31
-    primarytab  go to state 32
-
-
-State 186
-
-   70 io_statement: WRITE LPAREN io_expr_list RPAREN •
-
-    $default  reduce using rule 70 (io_statement)
-
-
-State 187
-
-   72 io_expr_list: io_expr COMMA • io_expr_list
-
-    IDENTIFIER      shift, and go to state 143
-    STRING_LITERAL  shift, and go to state 144
-
-    TAB           go to state 145
-    io_expr_list  go to state 233
-    io_expr       go to state 147
-
-
-State 188
-
-   36 TAB: IDENTIFIER LBRACKET termtab RBRACKET •
-
-    $default  reduce using rule 36 (TAB)
-
-
-State 189
-
-   38 termtab: termtab • PLUS factortab
-   39        | termtab • MINUS factortab
-  145 primary2: IDENTIFIER LBRACKET termtab • RBRACKET
-
-    PLUS      shift, and go to state 46
-    MINUS     shift, and go to state 47
-    RBRACKET  shift, and go to state 234
-
-
-State 190
-
-  140 primary2: LPAREN PLUS INT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 235
-
-
-State 191
-
-  142 primary2: LPAREN PLUS FLOAT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 236
-
-
-State 192
-
-  141 primary2: LPAREN MINUS INT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 237
-
-
-State 193
-
-  143 primary2: LPAREN MINUS FLOAT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 238
-
-
-State 194
-
-  144 primary2: LPAREN term2 RPAREN •
-
-    $default  reduce using rule 144 (primary2)
-
-
-State 195
-
-   76 COND: COND OR AND_EXPR •
-   78 AND_EXPR: AND_EXPR • AND NOT_EXPR
-
-    AND  shift, and go to state 162
-
-    $default  reduce using rule 76 (COND)
-
-
-State 196
-
-   57 condition: IF LPAREN COND RPAREN LBRACE • $@1 instruction_section RBRACE elsebloc
-
-    $default  reduce using rule 56 ($@1)
-
-    $@1  go to state 239
-
-
-State 197
-
-   78 AND_EXPR: AND_EXPR AND NOT_EXPR •
-
-    $default  reduce using rule 78 (AND_EXPR)
-
-
-State 198
-
-  122 primary1: IDENTIFIER •
-  130         | IDENTIFIER • LBRACKET termtab RBRACKET
-
-    LBRACKET  shift, and go to state 240
-
-    $default  reduce using rule 122 (primary1)
-
-
-State 199
-
-  123 primary1: INT_NUMBER •
-
-    $default  reduce using rule 123 (primary1)
-
-
-State 200
-
-  124 primary1: FLOAT_NUMBER •
-
-    $default  reduce using rule 124 (primary1)
-
-
-State 201
-
-   93 GAUCHE: CHARACTERE •
-
-    $default  reduce using rule 93 (GAUCHE)
-
-
-State 202
-
-  125 primary1: LPAREN • PLUS INT_NUMBER RPAREN
-  126         | LPAREN • MINUS INT_NUMBER RPAREN
-  127         | LPAREN • PLUS FLOAT_NUMBER RPAREN
-  128         | LPAREN • MINUS FLOAT_NUMBER RPAREN
-  129         | LPAREN • term1 RPAREN
-
-    IDENTIFIER    shift, and go to state 198
-    INT_NUMBER    shift, and go to state 199
-    FLOAT_NUMBER  shift, and go to state 200
-    PLUS          shift, and go to state 241
-    MINUS         shift, and go to state 242
-    LPAREN        shift, and go to state 202
-
-    term1     go to state 243
-    factor1   go to state 206
-    primary1  go to state 207
-
-
-State 203
-
-   94 GAUCHE: STRING_LITERAL •
-
-    $default  reduce using rule 94 (GAUCHE)
-
-
-State 204
-
-   90 comparison_expr: DROIT OP_COMP GAUCHE •
-
-    $default  reduce using rule 90 (comparison_expr)
-
-
-State 205
-
-   88 comparison_expr: DROIT OP_COMP term1 •
-  117 term1: term1 • PLUS factor1
-  118      | term1 • MINUS factor1
-
-    PLUS   shift, and go to state 244
-    MINUS  shift, and go to state 245
-
-    $default  reduce using rule 88 (comparison_expr)
-
-
-State 206
-
-  116 term1: factor1 •
-  120 factor1: factor1 • MULTIPLY primary1
-  121        | factor1 • DIVIDE primary1
-
-    MULTIPLY  shift, and go to state 246
-    DIVIDE    shift, and go to state 247
-
-    $default  reduce using rule 116 (term1)
-
-
-State 207
-
-  119 factor1: primary1 •
-
-    $default  reduce using rule 119 (factor1)
-
-
-State 208
-
-   84 comparison_expr: term2 EQ term1 •
-  117 term1: term1 • PLUS factor1
-  118      | term1 • MINUS factor1
-
-    PLUS   shift, and go to state 244
-    MINUS  shift, and go to state 245
-
-    $default  reduce using rule 84 (comparison_expr)
-
-
-State 209
-
-   87 comparison_expr: term2 NEQ term1 •
-  117 term1: term1 • PLUS factor1
-  118      | term1 • MINUS factor1
-
-    PLUS   shift, and go to state 244
-    MINUS  shift, and go to state 245
-
-    $default  reduce using rule 87 (comparison_expr)
-
-
-State 210
-
-   85 comparison_expr: term2 GEQ term1 •
-  117 term1: term1 • PLUS factor1
-  118      | term1 • MINUS factor1
-
-    PLUS   shift, and go to state 244
-    MINUS  shift, and go to state 245
-
-    $default  reduce using rule 85 (comparison_expr)
-
-
-State 211
-
-   83 comparison_expr: term2 LT term1 •
-  117 term1: term1 • PLUS factor1
-  118      | term1 • MINUS factor1
-
-    PLUS   shift, and go to state 244
-    MINUS  shift, and go to state 245
-
-    $default  reduce using rule 83 (comparison_expr)
-
-
-State 212
-
-   86 comparison_expr: term2 LEQ term1 •
-  117 term1: term1 • PLUS factor1
-  118      | term1 • MINUS factor1
-
-    PLUS   shift, and go to state 244
-    MINUS  shift, and go to state 245
-
-    $default  reduce using rule 86 (comparison_expr)
-
-
-State 213
-
-   82 comparison_expr: term2 GT term1 •
-  117 term1: term1 • PLUS factor1
-  118      | term1 • MINUS factor1
-
-    PLUS   shift, and go to state 244
-    MINUS  shift, and go to state 245
-
-    $default  reduce using rule 82 (comparison_expr)
-
-
-State 214
-
-  132 term2: term2 PLUS factor2 •
-  135 factor2: factor2 • MULTIPLY primary2
-  136        | factor2 • DIVIDE primary2
-
-    MULTIPLY  shift, and go to state 179
-    DIVIDE    shift, and go to state 180
-
-    $default  reduce using rule 132 (term2)
-
-
 State 215
 
-  133 term2: term2 MINUS factor2 •
-  135 factor2: factor2 • MULTIPLY primary2
-  136        | factor2 • DIVIDE primary2
+   42 termtab: termtab • PLUS factortab
+   43        | termtab • MINUS factortab
+  151 primary2: IDENTIFIER LBRACKET termtab • RBRACKET
 
-    MULTIPLY  shift, and go to state 179
-    DIVIDE    shift, and go to state 180
-
-    $default  reduce using rule 133 (term2)
+    PLUS      shift, and go to state 55
+    MINUS     shift, and go to state 56
+    RBRACKET  shift, and go to state 264
 
 
 State 216
 
-   89 comparison_expr: term2 OP_COMP GAUCHE •
+  146 primary2: LPAREN • PLUS INT_NUMBER RPAREN
+  147         | LPAREN • MINUS INT_NUMBER RPAREN
+  148         | LPAREN • PLUS FLOAT_NUMBER RPAREN
+  149         | LPAREN • MINUS FLOAT_NUMBER RPAREN
+  150         | LPAREN • term2 RPAREN
 
-    $default  reduce using rule 89 (comparison_expr)
+    IDENTIFIER    shift, and go to state 142
+    INT_NUMBER    shift, and go to state 143
+    FLOAT_NUMBER  shift, and go to state 144
+    PLUS          shift, and go to state 180
+    MINUS         shift, and go to state 181
+    LPAREN        shift, and go to state 216
+
+    term2     go to state 265
+    factor2   go to state 155
+    primary2  go to state 156
 
 
 State 217
 
-  135 factor2: factor2 MULTIPLY primary2 •
+   87 NOT_EXPR: LPAREN comparison_expr • RPAREN
 
-    $default  reduce using rule 135 (factor2)
+    RPAREN  shift, and go to state 223
 
 
 State 218
 
-  136 factor2: factor2 DIVIDE primary2 •
+  146 primary2: LPAREN PLUS INT_NUMBER • RPAREN
 
-    $default  reduce using rule 136 (factor2)
+    RPAREN  shift, and go to state 266
 
 
 State 219
 
-   64 assignment_int: MDROIT EQUALS EXPRESSION_CHAR •
+  148 primary2: LPAREN PLUS FLOAT_NUMBER • RPAREN
 
-    $default  reduce using rule 64 (assignment_int)
+    RPAREN  shift, and go to state 267
 
 
 State 220
 
-   61 assignment_int: MDROIT EQUALS term •
-  102 term: term • PLUS factor
-  103     | term • MINUS factor
+  147 primary2: LPAREN MINUS INT_NUMBER • RPAREN
 
-    PLUS   shift, and go to state 57
-    MINUS  shift, and go to state 58
-
-    $default  reduce using rule 61 (assignment_int)
+    RPAREN  shift, and go to state 268
 
 
 State 221
 
-   63 assignment_int: TAB EQUALS EXPRESSION_CHAR •
+  149 primary2: LPAREN MINUS FLOAT_NUMBER • RPAREN
 
-    $default  reduce using rule 63 (assignment_int)
+    RPAREN  shift, and go to state 269
 
 
 State 222
 
-   62 assignment_int: TAB EQUALS term •
-  102 term: term • PLUS factor
-  103     | term • MINUS factor
+   84 AND_EXPR: LPAREN COND RPAREN •
 
-    PLUS   shift, and go to state 57
-    MINUS  shift, and go to state 58
-
-    $default  reduce using rule 62 (assignment_int)
+    $default  reduce using rule 84 (AND_EXPR)
 
 
 State 223
 
-  169 primary3: IDENTIFIER •
-  177         | IDENTIFIER • LBRACKET termtab RBRACKET
+   87 NOT_EXPR: LPAREN comparison_expr RPAREN •
 
-    LBRACKET  shift, and go to state 248
-
-    $default  reduce using rule 169 (primary3)
+    $default  reduce using rule 87 (NOT_EXPR)
 
 
 State 224
 
-  170 primary3: INT_NUMBER •
+  150 primary2: LPAREN term2 RPAREN •
 
-    $default  reduce using rule 170 (primary3)
+    $default  reduce using rule 150 (primary2)
 
 
 State 225
 
-  171 primary3: FLOAT_NUMBER •
+   80 COND: COND OR AND_EXPR •
+   82 AND_EXPR: AND_EXPR • AND NOT_EXPR
 
-    $default  reduce using rule 171 (primary3)
+    AND  shift, and go to state 187
+
+    $default  reduce using rule 80 (COND)
 
 
 State 226
 
-  179 primary3: CHARACTERE •
+   61 condition: IF LPAREN COND RPAREN LBRACE • $@1 instruction_section RBRACE elsebloc
 
-    $default  reduce using rule 179 (primary3)
+    $default  reduce using rule 60 ($@1)
+
+    $@1  go to state 270
 
 
 State 227
 
-  172 primary3: LPAREN • PLUS INT_NUMBER RPAREN
-  173         | LPAREN • MINUS INT_NUMBER RPAREN
-  174         | LPAREN • PLUS FLOAT_NUMBER RPAREN
-  175         | LPAREN • MINUS FLOAT_NUMBER RPAREN
-  176         | LPAREN • term3 RPAREN
+   82 AND_EXPR: AND_EXPR AND NOT_EXPR •
 
-    IDENTIFIER      shift, and go to state 223
-    INT_NUMBER      shift, and go to state 224
-    FLOAT_NUMBER    shift, and go to state 225
-    CHARACTERE      shift, and go to state 226
-    PLUS            shift, and go to state 249
-    MINUS           shift, and go to state 250
-    LPAREN          shift, and go to state 227
-    STRING_LITERAL  shift, and go to state 228
-
-    term3     go to state 251
-    factor3   go to state 230
-    primary3  go to state 231
+    $default  reduce using rule 82 (AND_EXPR)
 
 
 State 228
 
-  178 primary3: STRING_LITERAL •
+  128 primary1: IDENTIFIER •
+  136         | IDENTIFIER • LBRACKET termtab RBRACKET
 
-    $default  reduce using rule 178 (primary3)
-
-
-State 229
-
-   67 loop: FOR LPAREN assignment_int COLON term3 • $@3 COLON term4 $@4 RPAREN LBRACE instruction_section RBRACE
-  164 term3: term3 • PLUS factor3
-  165      | term3 • MINUS factor3
-
-    PLUS   shift, and go to state 252
-    MINUS  shift, and go to state 253
-
-    $default  reduce using rule 65 ($@3)
-
-    $@3  go to state 254
-
-
-State 230
-
-  163 term3: factor3 •
-  167 factor3: factor3 • MULTIPLY primary3
-  168        | factor3 • DIVIDE primary3
-
-    MULTIPLY  shift, and go to state 255
-    DIVIDE    shift, and go to state 256
-
-    $default  reduce using rule 163 (term3)
-
-
-State 231
-
-  166 factor3: primary3 •
-
-    $default  reduce using rule 166 (factor3)
-
-
-State 232
-
-   38 termtab: termtab • PLUS factortab
-   39        | termtab • MINUS factortab
-   69 io_statement: READ LPAREN IDENTIFIER LBRACKET termtab • RBRACKET RPAREN
-
-    PLUS      shift, and go to state 46
-    MINUS     shift, and go to state 47
-    RBRACKET  shift, and go to state 257
-
-
-State 233
-
-   72 io_expr_list: io_expr COMMA io_expr_list •
-
-    $default  reduce using rule 72 (io_expr_list)
-
-
-State 234
-
-  145 primary2: IDENTIFIER LBRACKET termtab RBRACKET •
-
-    $default  reduce using rule 145 (primary2)
-
-
-State 235
-
-  140 primary2: LPAREN PLUS INT_NUMBER RPAREN •
-
-    $default  reduce using rule 140 (primary2)
-
-
-State 236
-
-  142 primary2: LPAREN PLUS FLOAT_NUMBER RPAREN •
-
-    $default  reduce using rule 142 (primary2)
-
-
-State 237
-
-  141 primary2: LPAREN MINUS INT_NUMBER RPAREN •
-
-    $default  reduce using rule 141 (primary2)
-
-
-State 238
-
-  143 primary2: LPAREN MINUS FLOAT_NUMBER RPAREN •
-
-    $default  reduce using rule 143 (primary2)
-
-
-State 239
-
-   57 condition: IF LPAREN COND RPAREN LBRACE $@1 • instruction_section RBRACE elsebloc
-
-    IF          shift, and go to state 98
-    FOR         shift, and go to state 99
-    READ        shift, and go to state 100
-    WRITE       shift, and go to state 101
-    IDENTIFIER  shift, and go to state 102
-
-    $default  reduce using rule 15 (instruction_section)
-
-    instruction_section  go to state 258
-    statement            go to state 104
-    assignment           go to state 105
-    MDROIT               go to state 106
-    TAB                  go to state 107
-    condition            go to state 108
-    loop                 go to state 109
-    io_statement         go to state 110
-
-
-State 240
-
-  130 primary1: IDENTIFIER LBRACKET • termtab RBRACKET
-
-    IDENTIFIER      shift, and go to state 24
-    INT_NUMBER      shift, and go to state 25
-    FLOAT_NUMBER    shift, and go to state 26
-    CHARACTERE      shift, and go to state 27
-    LPAREN          shift, and go to state 28
-    STRING_LITERAL  shift, and go to state 29
-
-    termtab     go to state 259
-    factortab   go to state 31
-    primarytab  go to state 32
-
-
-State 241
-
-  125 primary1: LPAREN PLUS • INT_NUMBER RPAREN
-  127         | LPAREN PLUS • FLOAT_NUMBER RPAREN
-
-    INT_NUMBER    shift, and go to state 260
-    FLOAT_NUMBER  shift, and go to state 261
-
-
-State 242
-
-  126 primary1: LPAREN MINUS • INT_NUMBER RPAREN
-  128         | LPAREN MINUS • FLOAT_NUMBER RPAREN
-
-    INT_NUMBER    shift, and go to state 262
-    FLOAT_NUMBER  shift, and go to state 263
-
-
-State 243
-
-  117 term1: term1 • PLUS factor1
-  118      | term1 • MINUS factor1
-  129 primary1: LPAREN term1 • RPAREN
-
-    PLUS    shift, and go to state 244
-    MINUS   shift, and go to state 245
-    RPAREN  shift, and go to state 264
-
-
-State 244
-
-  117 term1: term1 PLUS • factor1
-
-    IDENTIFIER    shift, and go to state 198
-    INT_NUMBER    shift, and go to state 199
-    FLOAT_NUMBER  shift, and go to state 200
-    LPAREN        shift, and go to state 202
-
-    factor1   go to state 265
-    primary1  go to state 207
-
-
-State 245
-
-  118 term1: term1 MINUS • factor1
-
-    IDENTIFIER    shift, and go to state 198
-    INT_NUMBER    shift, and go to state 199
-    FLOAT_NUMBER  shift, and go to state 200
-    LPAREN        shift, and go to state 202
-
-    factor1   go to state 266
-    primary1  go to state 207
-
-
-State 246
-
-  120 factor1: factor1 MULTIPLY • primary1
-
-    IDENTIFIER    shift, and go to state 198
-    INT_NUMBER    shift, and go to state 199
-    FLOAT_NUMBER  shift, and go to state 200
-    LPAREN        shift, and go to state 202
-
-    primary1  go to state 267
-
-
-State 247
-
-  121 factor1: factor1 DIVIDE • primary1
-
-    IDENTIFIER    shift, and go to state 198
-    INT_NUMBER    shift, and go to state 199
-    FLOAT_NUMBER  shift, and go to state 200
-    LPAREN        shift, and go to state 202
-
-    primary1  go to state 268
-
-
-State 248
-
-  177 primary3: IDENTIFIER LBRACKET • termtab RBRACKET
-
-    IDENTIFIER      shift, and go to state 24
-    INT_NUMBER      shift, and go to state 25
-    FLOAT_NUMBER    shift, and go to state 26
-    CHARACTERE      shift, and go to state 27
-    LPAREN          shift, and go to state 28
-    STRING_LITERAL  shift, and go to state 29
-
-    termtab     go to state 269
-    factortab   go to state 31
-    primarytab  go to state 32
-
-
-State 249
-
-  172 primary3: LPAREN PLUS • INT_NUMBER RPAREN
-  174         | LPAREN PLUS • FLOAT_NUMBER RPAREN
-
-    INT_NUMBER    shift, and go to state 270
-    FLOAT_NUMBER  shift, and go to state 271
-
-
-State 250
-
-  173 primary3: LPAREN MINUS • INT_NUMBER RPAREN
-  175         | LPAREN MINUS • FLOAT_NUMBER RPAREN
-
-    INT_NUMBER    shift, and go to state 272
-    FLOAT_NUMBER  shift, and go to state 273
-
-
-State 251
-
-  164 term3: term3 • PLUS factor3
-  165      | term3 • MINUS factor3
-  176 primary3: LPAREN term3 • RPAREN
-
-    PLUS    shift, and go to state 252
-    MINUS   shift, and go to state 253
-    RPAREN  shift, and go to state 274
-
-
-State 252
-
-  164 term3: term3 PLUS • factor3
-
-    IDENTIFIER      shift, and go to state 223
-    INT_NUMBER      shift, and go to state 224
-    FLOAT_NUMBER    shift, and go to state 225
-    CHARACTERE      shift, and go to state 226
-    LPAREN          shift, and go to state 227
-    STRING_LITERAL  shift, and go to state 228
-
-    factor3   go to state 275
-    primary3  go to state 231
-
-
-State 253
-
-  165 term3: term3 MINUS • factor3
-
-    IDENTIFIER      shift, and go to state 223
-    INT_NUMBER      shift, and go to state 224
-    FLOAT_NUMBER    shift, and go to state 225
-    CHARACTERE      shift, and go to state 226
-    LPAREN          shift, and go to state 227
-    STRING_LITERAL  shift, and go to state 228
-
-    factor3   go to state 276
-    primary3  go to state 231
-
-
-State 254
-
-   67 loop: FOR LPAREN assignment_int COLON term3 $@3 • COLON term4 $@4 RPAREN LBRACE instruction_section RBRACE
-
-    COLON  shift, and go to state 277
-
-
-State 255
-
-  167 factor3: factor3 MULTIPLY • primary3
-
-    IDENTIFIER      shift, and go to state 223
-    INT_NUMBER      shift, and go to state 224
-    FLOAT_NUMBER    shift, and go to state 225
-    CHARACTERE      shift, and go to state 226
-    LPAREN          shift, and go to state 227
-    STRING_LITERAL  shift, and go to state 228
-
-    primary3  go to state 278
-
-
-State 256
-
-  168 factor3: factor3 DIVIDE • primary3
-
-    IDENTIFIER      shift, and go to state 223
-    INT_NUMBER      shift, and go to state 224
-    FLOAT_NUMBER    shift, and go to state 225
-    CHARACTERE      shift, and go to state 226
-    LPAREN          shift, and go to state 227
-    STRING_LITERAL  shift, and go to state 228
-
-    primary3  go to state 279
-
-
-State 257
-
-   69 io_statement: READ LPAREN IDENTIFIER LBRACKET termtab RBRACKET • RPAREN
-
-    RPAREN  shift, and go to state 280
-
-
-State 258
-
-   57 condition: IF LPAREN COND RPAREN LBRACE $@1 instruction_section • RBRACE elsebloc
-
-    RBRACE  shift, and go to state 281
-
-
-State 259
-
-   38 termtab: termtab • PLUS factortab
-   39        | termtab • MINUS factortab
-  130 primary1: IDENTIFIER LBRACKET termtab • RBRACKET
-
-    PLUS      shift, and go to state 46
-    MINUS     shift, and go to state 47
-    RBRACKET  shift, and go to state 282
-
-
-State 260
-
-  125 primary1: LPAREN PLUS INT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 283
-
-
-State 261
-
-  127 primary1: LPAREN PLUS FLOAT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 284
-
-
-State 262
-
-  126 primary1: LPAREN MINUS INT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 285
-
-
-State 263
-
-  128 primary1: LPAREN MINUS FLOAT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 286
-
-
-State 264
-
-  129 primary1: LPAREN term1 RPAREN •
-
-    $default  reduce using rule 129 (primary1)
-
-
-State 265
-
-  117 term1: term1 PLUS factor1 •
-  120 factor1: factor1 • MULTIPLY primary1
-  121        | factor1 • DIVIDE primary1
-
-    MULTIPLY  shift, and go to state 246
-    DIVIDE    shift, and go to state 247
-
-    $default  reduce using rule 117 (term1)
-
-
-State 266
-
-  118 term1: term1 MINUS factor1 •
-  120 factor1: factor1 • MULTIPLY primary1
-  121        | factor1 • DIVIDE primary1
-
-    MULTIPLY  shift, and go to state 246
-    DIVIDE    shift, and go to state 247
-
-    $default  reduce using rule 118 (term1)
-
-
-State 267
-
-  120 factor1: factor1 MULTIPLY primary1 •
-
-    $default  reduce using rule 120 (factor1)
-
-
-State 268
-
-  121 factor1: factor1 DIVIDE primary1 •
-
-    $default  reduce using rule 121 (factor1)
-
-
-State 269
-
-   38 termtab: termtab • PLUS factortab
-   39        | termtab • MINUS factortab
-  177 primary3: IDENTIFIER LBRACKET termtab • RBRACKET
-
-    PLUS      shift, and go to state 46
-    MINUS     shift, and go to state 47
-    RBRACKET  shift, and go to state 287
-
-
-State 270
-
-  172 primary3: LPAREN PLUS INT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 288
-
-
-State 271
-
-  174 primary3: LPAREN PLUS FLOAT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 289
-
-
-State 272
-
-  173 primary3: LPAREN MINUS INT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 290
-
-
-State 273
-
-  175 primary3: LPAREN MINUS FLOAT_NUMBER • RPAREN
-
-    RPAREN  shift, and go to state 291
-
-
-State 274
-
-  176 primary3: LPAREN term3 RPAREN •
-
-    $default  reduce using rule 176 (primary3)
-
-
-State 275
-
-  164 term3: term3 PLUS factor3 •
-  167 factor3: factor3 • MULTIPLY primary3
-  168        | factor3 • DIVIDE primary3
-
-    MULTIPLY  shift, and go to state 255
-    DIVIDE    shift, and go to state 256
-
-    $default  reduce using rule 164 (term3)
-
-
-State 276
-
-  165 term3: term3 MINUS factor3 •
-  167 factor3: factor3 • MULTIPLY primary3
-  168        | factor3 • DIVIDE primary3
-
-    MULTIPLY  shift, and go to state 255
-    DIVIDE    shift, and go to state 256
-
-    $default  reduce using rule 165 (term3)
-
-
-State 277
-
-   67 loop: FOR LPAREN assignment_int COLON term3 $@3 COLON • term4 $@4 RPAREN LBRACE instruction_section RBRACE
-
-    IDENTIFIER      shift, and go to state 292
-    INT_NUMBER      shift, and go to state 293
-    FLOAT_NUMBER    shift, and go to state 294
-    CHARACTERE      shift, and go to state 295
-    LPAREN          shift, and go to state 296
-    STRING_LITERAL  shift, and go to state 297
-
-    term4     go to state 298
-    factor4   go to state 299
-    primary4  go to state 300
-
-
-State 278
-
-  167 factor3: factor3 MULTIPLY primary3 •
-
-    $default  reduce using rule 167 (factor3)
-
-
-State 279
-
-  168 factor3: factor3 DIVIDE primary3 •
-
-    $default  reduce using rule 168 (factor3)
-
-
-State 280
-
-   69 io_statement: READ LPAREN IDENTIFIER LBRACKET termtab RBRACKET RPAREN •
-
-    $default  reduce using rule 69 (io_statement)
-
-
-State 281
-
-   57 condition: IF LPAREN COND RPAREN LBRACE $@1 instruction_section RBRACE • elsebloc
-
-    ELSE  shift, and go to state 301
-
-    $default  reduce using rule 60 (elsebloc)
-
-    elsebloc  go to state 302
-
-
-State 282
-
-  130 primary1: IDENTIFIER LBRACKET termtab RBRACKET •
-
-    $default  reduce using rule 130 (primary1)
-
-
-State 283
-
-  125 primary1: LPAREN PLUS INT_NUMBER RPAREN •
-
-    $default  reduce using rule 125 (primary1)
-
-
-State 284
-
-  127 primary1: LPAREN PLUS FLOAT_NUMBER RPAREN •
-
-    $default  reduce using rule 127 (primary1)
-
-
-State 285
-
-  126 primary1: LPAREN MINUS INT_NUMBER RPAREN •
-
-    $default  reduce using rule 126 (primary1)
-
-
-State 286
-
-  128 primary1: LPAREN MINUS FLOAT_NUMBER RPAREN •
+    LBRACKET  shift, and go to state 271
 
     $default  reduce using rule 128 (primary1)
 
 
-State 287
+State 229
 
-  177 primary3: IDENTIFIER LBRACKET termtab RBRACKET •
+  129 primary1: INT_NUMBER •
 
-    $default  reduce using rule 177 (primary3)
-
-
-State 288
-
-  172 primary3: LPAREN PLUS INT_NUMBER RPAREN •
-
-    $default  reduce using rule 172 (primary3)
+    $default  reduce using rule 129 (primary1)
 
 
-State 289
+State 230
 
-  174 primary3: LPAREN PLUS FLOAT_NUMBER RPAREN •
+  130 primary1: FLOAT_NUMBER •
 
-    $default  reduce using rule 174 (primary3)
-
-
-State 290
-
-  173 primary3: LPAREN MINUS INT_NUMBER RPAREN •
-
-    $default  reduce using rule 173 (primary3)
+    $default  reduce using rule 130 (primary1)
 
 
-State 291
+State 231
 
-  175 primary3: LPAREN MINUS FLOAT_NUMBER RPAREN •
+   99 GAUCHE: CHARACTERE •
+
+    $default  reduce using rule 99 (GAUCHE)
+
+
+State 232
+
+  131 primary1: LPAREN • PLUS INT_NUMBER RPAREN
+  132         | LPAREN • MINUS INT_NUMBER RPAREN
+  133         | LPAREN • PLUS FLOAT_NUMBER RPAREN
+  134         | LPAREN • MINUS FLOAT_NUMBER RPAREN
+  135         | LPAREN • term1 RPAREN
+
+    IDENTIFIER    shift, and go to state 228
+    INT_NUMBER    shift, and go to state 229
+    FLOAT_NUMBER  shift, and go to state 230
+    PLUS          shift, and go to state 272
+    MINUS         shift, and go to state 273
+    LPAREN        shift, and go to state 232
+
+    term1     go to state 274
+    factor1   go to state 236
+    primary1  go to state 237
+
+
+State 233
+
+  100 GAUCHE: STRING_LITERAL •
+
+    $default  reduce using rule 100 (GAUCHE)
+
+
+State 234
+
+   96 comparison_expr: DROIT OP_COMP GAUCHE •
+
+    $default  reduce using rule 96 (comparison_expr)
+
+
+State 235
+
+   94 comparison_expr: DROIT OP_COMP term1 •
+  123 term1: term1 • PLUS factor1
+  124      | term1 • MINUS factor1
+
+    PLUS   shift, and go to state 275
+    MINUS  shift, and go to state 276
+
+    $default  reduce using rule 94 (comparison_expr)
+
+
+State 236
+
+  122 term1: factor1 •
+  126 factor1: factor1 • MULTIPLY primary1
+  127        | factor1 • DIVIDE primary1
+
+    MULTIPLY  shift, and go to state 277
+    DIVIDE    shift, and go to state 278
+
+    $default  reduce using rule 122 (term1)
+
+
+State 237
+
+  125 factor1: primary1 •
+
+    $default  reduce using rule 125 (factor1)
+
+
+State 238
+
+   90 comparison_expr: term2 EQ term1 •
+  123 term1: term1 • PLUS factor1
+  124      | term1 • MINUS factor1
+
+    PLUS   shift, and go to state 275
+    MINUS  shift, and go to state 276
+
+    $default  reduce using rule 90 (comparison_expr)
+
+
+State 239
+
+   93 comparison_expr: term2 NEQ term1 •
+  123 term1: term1 • PLUS factor1
+  124      | term1 • MINUS factor1
+
+    PLUS   shift, and go to state 275
+    MINUS  shift, and go to state 276
+
+    $default  reduce using rule 93 (comparison_expr)
+
+
+State 240
+
+   91 comparison_expr: term2 GEQ term1 •
+  123 term1: term1 • PLUS factor1
+  124      | term1 • MINUS factor1
+
+    PLUS   shift, and go to state 275
+    MINUS  shift, and go to state 276
+
+    $default  reduce using rule 91 (comparison_expr)
+
+
+State 241
+
+   89 comparison_expr: term2 LT term1 •
+  123 term1: term1 • PLUS factor1
+  124      | term1 • MINUS factor1
+
+    PLUS   shift, and go to state 275
+    MINUS  shift, and go to state 276
+
+    $default  reduce using rule 89 (comparison_expr)
+
+
+State 242
+
+   92 comparison_expr: term2 LEQ term1 •
+  123 term1: term1 • PLUS factor1
+  124      | term1 • MINUS factor1
+
+    PLUS   shift, and go to state 275
+    MINUS  shift, and go to state 276
+
+    $default  reduce using rule 92 (comparison_expr)
+
+
+State 243
+
+   88 comparison_expr: term2 GT term1 •
+  123 term1: term1 • PLUS factor1
+  124      | term1 • MINUS factor1
+
+    PLUS   shift, and go to state 275
+    MINUS  shift, and go to state 276
+
+    $default  reduce using rule 88 (comparison_expr)
+
+
+State 244
+
+  138 term2: term2 PLUS factor2 •
+  141 factor2: factor2 • MULTIPLY primary2
+  142        | factor2 • DIVIDE primary2
+
+    MULTIPLY  shift, and go to state 204
+    DIVIDE    shift, and go to state 205
+
+    $default  reduce using rule 138 (term2)
+
+
+State 245
+
+  139 term2: term2 MINUS factor2 •
+  141 factor2: factor2 • MULTIPLY primary2
+  142        | factor2 • DIVIDE primary2
+
+    MULTIPLY  shift, and go to state 204
+    DIVIDE    shift, and go to state 205
+
+    $default  reduce using rule 139 (term2)
+
+
+State 246
+
+   95 comparison_expr: term2 OP_COMP GAUCHE •
+
+    $default  reduce using rule 95 (comparison_expr)
+
+
+State 247
+
+  141 factor2: factor2 MULTIPLY primary2 •
+
+    $default  reduce using rule 141 (factor2)
+
+
+State 248
+
+  142 factor2: factor2 DIVIDE primary2 •
+
+    $default  reduce using rule 142 (factor2)
+
+
+State 249
+
+   68 assignment_int: MDROIT EQUALS EXPRESSION_CHAR •
+
+    $default  reduce using rule 68 (assignment_int)
+
+
+State 250
+
+   65 assignment_int: MDROIT EQUALS term •
+  108 term: term • PLUS factor
+  109     | term • MINUS factor
+
+    PLUS   shift, and go to state 66
+    MINUS  shift, and go to state 67
+
+    $default  reduce using rule 65 (assignment_int)
+
+
+State 251
+
+   67 assignment_int: TAB EQUALS EXPRESSION_CHAR •
+
+    $default  reduce using rule 67 (assignment_int)
+
+
+State 252
+
+   66 assignment_int: TAB EQUALS term •
+  108 term: term • PLUS factor
+  109     | term • MINUS factor
+
+    PLUS   shift, and go to state 66
+    MINUS  shift, and go to state 67
+
+    $default  reduce using rule 66 (assignment_int)
+
+
+State 253
+
+  175 primary3: IDENTIFIER •
+  183         | IDENTIFIER • LBRACKET termtab RBRACKET
+
+    LBRACKET  shift, and go to state 279
 
     $default  reduce using rule 175 (primary3)
 
 
+State 254
+
+  176 primary3: INT_NUMBER •
+
+    $default  reduce using rule 176 (primary3)
+
+
+State 255
+
+  177 primary3: FLOAT_NUMBER •
+
+    $default  reduce using rule 177 (primary3)
+
+
+State 256
+
+  185 primary3: CHARACTERE •
+
+    $default  reduce using rule 185 (primary3)
+
+
+State 257
+
+  178 primary3: LPAREN • PLUS INT_NUMBER RPAREN
+  179         | LPAREN • MINUS INT_NUMBER RPAREN
+  180         | LPAREN • PLUS FLOAT_NUMBER RPAREN
+  181         | LPAREN • MINUS FLOAT_NUMBER RPAREN
+  182         | LPAREN • term3 RPAREN
+
+    IDENTIFIER      shift, and go to state 253
+    INT_NUMBER      shift, and go to state 254
+    FLOAT_NUMBER    shift, and go to state 255
+    CHARACTERE      shift, and go to state 256
+    PLUS            shift, and go to state 280
+    MINUS           shift, and go to state 281
+    LPAREN          shift, and go to state 257
+    STRING_LITERAL  shift, and go to state 258
+
+    term3     go to state 282
+    factor3   go to state 260
+    primary3  go to state 261
+
+
+State 258
+
+  184 primary3: STRING_LITERAL •
+
+    $default  reduce using rule 184 (primary3)
+
+
+State 259
+
+   71 loop: FOR LPAREN assignment_int COLON term3 • $@3 COLON term4 $@4 RPAREN LBRACE instruction_section RBRACE
+  170 term3: term3 • PLUS factor3
+  171      | term3 • MINUS factor3
+
+    PLUS   shift, and go to state 283
+    MINUS  shift, and go to state 284
+
+    $default  reduce using rule 69 ($@3)
+
+    $@3  go to state 285
+
+
+State 260
+
+  169 term3: factor3 •
+  173 factor3: factor3 • MULTIPLY primary3
+  174        | factor3 • DIVIDE primary3
+
+    MULTIPLY  shift, and go to state 286
+    DIVIDE    shift, and go to state 287
+
+    $default  reduce using rule 169 (term3)
+
+
+State 261
+
+  172 factor3: primary3 •
+
+    $default  reduce using rule 172 (factor3)
+
+
+State 262
+
+   42 termtab: termtab • PLUS factortab
+   43        | termtab • MINUS factortab
+   73 io_statement: READ LPAREN IDENTIFIER LBRACKET termtab • RBRACKET RPAREN
+
+    PLUS      shift, and go to state 55
+    MINUS     shift, and go to state 56
+    RBRACKET  shift, and go to state 288
+
+
+State 263
+
+   76 io_expr_list: io_expr COMMA io_expr_list •
+
+    $default  reduce using rule 76 (io_expr_list)
+
+
+State 264
+
+  151 primary2: IDENTIFIER LBRACKET termtab RBRACKET •
+
+    $default  reduce using rule 151 (primary2)
+
+
+State 265
+
+  138 term2: term2 • PLUS factor2
+  139      | term2 • MINUS factor2
+  150 primary2: LPAREN term2 • RPAREN
+
+    PLUS    shift, and go to state 201
+    MINUS   shift, and go to state 202
+    RPAREN  shift, and go to state 224
+
+
+State 266
+
+  146 primary2: LPAREN PLUS INT_NUMBER RPAREN •
+
+    $default  reduce using rule 146 (primary2)
+
+
+State 267
+
+  148 primary2: LPAREN PLUS FLOAT_NUMBER RPAREN •
+
+    $default  reduce using rule 148 (primary2)
+
+
+State 268
+
+  147 primary2: LPAREN MINUS INT_NUMBER RPAREN •
+
+    $default  reduce using rule 147 (primary2)
+
+
+State 269
+
+  149 primary2: LPAREN MINUS FLOAT_NUMBER RPAREN •
+
+    $default  reduce using rule 149 (primary2)
+
+
+State 270
+
+   61 condition: IF LPAREN COND RPAREN LBRACE $@1 • instruction_section RBRACE elsebloc
+
+    IF          shift, and go to state 96
+    FOR         shift, and go to state 97
+    READ        shift, and go to state 98
+    WRITE       shift, and go to state 99
+    IDENTIFIER  shift, and go to state 100
+
+    instruction_section  go to state 289
+    statement            go to state 103
+    assignment           go to state 104
+    MDROIT               go to state 105
+    TAB                  go to state 106
+    condition            go to state 107
+    loop                 go to state 108
+    io_statement         go to state 109
+
+
+State 271
+
+  136 primary1: IDENTIFIER LBRACKET • termtab RBRACKET
+
+    IDENTIFIER      shift, and go to state 30
+    INT_NUMBER      shift, and go to state 31
+    FLOAT_NUMBER    shift, and go to state 32
+    CHARACTERE      shift, and go to state 33
+    LPAREN          shift, and go to state 34
+    STRING_LITERAL  shift, and go to state 35
+
+    termtab     go to state 290
+    factortab   go to state 37
+    primarytab  go to state 38
+
+
+State 272
+
+  131 primary1: LPAREN PLUS • INT_NUMBER RPAREN
+  133         | LPAREN PLUS • FLOAT_NUMBER RPAREN
+
+    INT_NUMBER    shift, and go to state 291
+    FLOAT_NUMBER  shift, and go to state 292
+
+
+State 273
+
+  132 primary1: LPAREN MINUS • INT_NUMBER RPAREN
+  134         | LPAREN MINUS • FLOAT_NUMBER RPAREN
+
+    INT_NUMBER    shift, and go to state 293
+    FLOAT_NUMBER  shift, and go to state 294
+
+
+State 274
+
+  123 term1: term1 • PLUS factor1
+  124      | term1 • MINUS factor1
+  135 primary1: LPAREN term1 • RPAREN
+
+    PLUS    shift, and go to state 275
+    MINUS   shift, and go to state 276
+    RPAREN  shift, and go to state 295
+
+
+State 275
+
+  123 term1: term1 PLUS • factor1
+
+    IDENTIFIER    shift, and go to state 228
+    INT_NUMBER    shift, and go to state 229
+    FLOAT_NUMBER  shift, and go to state 230
+    LPAREN        shift, and go to state 232
+
+    factor1   go to state 296
+    primary1  go to state 237
+
+
+State 276
+
+  124 term1: term1 MINUS • factor1
+
+    IDENTIFIER    shift, and go to state 228
+    INT_NUMBER    shift, and go to state 229
+    FLOAT_NUMBER  shift, and go to state 230
+    LPAREN        shift, and go to state 232
+
+    factor1   go to state 297
+    primary1  go to state 237
+
+
+State 277
+
+  126 factor1: factor1 MULTIPLY • primary1
+
+    IDENTIFIER    shift, and go to state 228
+    INT_NUMBER    shift, and go to state 229
+    FLOAT_NUMBER  shift, and go to state 230
+    LPAREN        shift, and go to state 232
+
+    primary1  go to state 298
+
+
+State 278
+
+  127 factor1: factor1 DIVIDE • primary1
+
+    IDENTIFIER    shift, and go to state 228
+    INT_NUMBER    shift, and go to state 229
+    FLOAT_NUMBER  shift, and go to state 230
+    LPAREN        shift, and go to state 232
+
+    primary1  go to state 299
+
+
+State 279
+
+  183 primary3: IDENTIFIER LBRACKET • termtab RBRACKET
+
+    IDENTIFIER      shift, and go to state 30
+    INT_NUMBER      shift, and go to state 31
+    FLOAT_NUMBER    shift, and go to state 32
+    CHARACTERE      shift, and go to state 33
+    LPAREN          shift, and go to state 34
+    STRING_LITERAL  shift, and go to state 35
+
+    termtab     go to state 300
+    factortab   go to state 37
+    primarytab  go to state 38
+
+
+State 280
+
+  178 primary3: LPAREN PLUS • INT_NUMBER RPAREN
+  180         | LPAREN PLUS • FLOAT_NUMBER RPAREN
+
+    INT_NUMBER    shift, and go to state 301
+    FLOAT_NUMBER  shift, and go to state 302
+
+
+State 281
+
+  179 primary3: LPAREN MINUS • INT_NUMBER RPAREN
+  181         | LPAREN MINUS • FLOAT_NUMBER RPAREN
+
+    INT_NUMBER    shift, and go to state 303
+    FLOAT_NUMBER  shift, and go to state 304
+
+
+State 282
+
+  170 term3: term3 • PLUS factor3
+  171      | term3 • MINUS factor3
+  182 primary3: LPAREN term3 • RPAREN
+
+    PLUS    shift, and go to state 283
+    MINUS   shift, and go to state 284
+    RPAREN  shift, and go to state 305
+
+
+State 283
+
+  170 term3: term3 PLUS • factor3
+
+    IDENTIFIER      shift, and go to state 253
+    INT_NUMBER      shift, and go to state 254
+    FLOAT_NUMBER    shift, and go to state 255
+    CHARACTERE      shift, and go to state 256
+    LPAREN          shift, and go to state 257
+    STRING_LITERAL  shift, and go to state 258
+
+    factor3   go to state 306
+    primary3  go to state 261
+
+
+State 284
+
+  171 term3: term3 MINUS • factor3
+
+    IDENTIFIER      shift, and go to state 253
+    INT_NUMBER      shift, and go to state 254
+    FLOAT_NUMBER    shift, and go to state 255
+    CHARACTERE      shift, and go to state 256
+    LPAREN          shift, and go to state 257
+    STRING_LITERAL  shift, and go to state 258
+
+    factor3   go to state 307
+    primary3  go to state 261
+
+
+State 285
+
+   71 loop: FOR LPAREN assignment_int COLON term3 $@3 • COLON term4 $@4 RPAREN LBRACE instruction_section RBRACE
+
+    COLON  shift, and go to state 308
+
+
+State 286
+
+  173 factor3: factor3 MULTIPLY • primary3
+
+    IDENTIFIER      shift, and go to state 253
+    INT_NUMBER      shift, and go to state 254
+    FLOAT_NUMBER    shift, and go to state 255
+    CHARACTERE      shift, and go to state 256
+    LPAREN          shift, and go to state 257
+    STRING_LITERAL  shift, and go to state 258
+
+    primary3  go to state 309
+
+
+State 287
+
+  174 factor3: factor3 DIVIDE • primary3
+
+    IDENTIFIER      shift, and go to state 253
+    INT_NUMBER      shift, and go to state 254
+    FLOAT_NUMBER    shift, and go to state 255
+    CHARACTERE      shift, and go to state 256
+    LPAREN          shift, and go to state 257
+    STRING_LITERAL  shift, and go to state 258
+
+    primary3  go to state 310
+
+
+State 288
+
+   73 io_statement: READ LPAREN IDENTIFIER LBRACKET termtab RBRACKET • RPAREN
+
+    RPAREN  shift, and go to state 311
+
+
+State 289
+
+   61 condition: IF LPAREN COND RPAREN LBRACE $@1 instruction_section • RBRACE elsebloc
+
+    RBRACE  shift, and go to state 312
+
+
+State 290
+
+   42 termtab: termtab • PLUS factortab
+   43        | termtab • MINUS factortab
+  136 primary1: IDENTIFIER LBRACKET termtab • RBRACKET
+
+    PLUS      shift, and go to state 55
+    MINUS     shift, and go to state 56
+    RBRACKET  shift, and go to state 313
+
+
+State 291
+
+  131 primary1: LPAREN PLUS INT_NUMBER • RPAREN
+
+    RPAREN  shift, and go to state 314
+
+
 State 292
 
-  152 primary4: IDENTIFIER •
-  160         | IDENTIFIER • LBRACKET termtab RBRACKET
+  133 primary1: LPAREN PLUS FLOAT_NUMBER • RPAREN
 
-    LBRACKET  shift, and go to state 303
-
-    $default  reduce using rule 152 (primary4)
+    RPAREN  shift, and go to state 315
 
 
 State 293
 
-  153 primary4: INT_NUMBER •
+  132 primary1: LPAREN MINUS INT_NUMBER • RPAREN
 
-    $default  reduce using rule 153 (primary4)
+    RPAREN  shift, and go to state 316
 
 
 State 294
 
-  154 primary4: FLOAT_NUMBER •
+  134 primary1: LPAREN MINUS FLOAT_NUMBER • RPAREN
 
-    $default  reduce using rule 154 (primary4)
+    RPAREN  shift, and go to state 317
 
 
 State 295
 
-  162 primary4: CHARACTERE •
+  135 primary1: LPAREN term1 RPAREN •
 
-    $default  reduce using rule 162 (primary4)
+    $default  reduce using rule 135 (primary1)
 
 
 State 296
 
-  155 primary4: LPAREN • PLUS INT_NUMBER RPAREN
-  156         | LPAREN • MINUS INT_NUMBER RPAREN
-  157         | LPAREN • PLUS FLOAT_NUMBER RPAREN
-  158         | LPAREN • MINUS FLOAT_NUMBER RPAREN
-  159         | LPAREN • term4 RPAREN
+  123 term1: term1 PLUS factor1 •
+  126 factor1: factor1 • MULTIPLY primary1
+  127        | factor1 • DIVIDE primary1
 
-    IDENTIFIER      shift, and go to state 292
-    INT_NUMBER      shift, and go to state 293
-    FLOAT_NUMBER    shift, and go to state 294
-    CHARACTERE      shift, and go to state 295
-    PLUS            shift, and go to state 304
-    MINUS           shift, and go to state 305
-    LPAREN          shift, and go to state 296
-    STRING_LITERAL  shift, and go to state 297
+    MULTIPLY  shift, and go to state 277
+    DIVIDE    shift, and go to state 278
 
-    term4     go to state 306
-    factor4   go to state 299
-    primary4  go to state 300
+    $default  reduce using rule 123 (term1)
 
 
 State 297
 
-  161 primary4: STRING_LITERAL •
+  124 term1: term1 MINUS factor1 •
+  126 factor1: factor1 • MULTIPLY primary1
+  127        | factor1 • DIVIDE primary1
 
-    $default  reduce using rule 161 (primary4)
+    MULTIPLY  shift, and go to state 277
+    DIVIDE    shift, and go to state 278
+
+    $default  reduce using rule 124 (term1)
 
 
 State 298
 
-   67 loop: FOR LPAREN assignment_int COLON term3 $@3 COLON term4 • $@4 RPAREN LBRACE instruction_section RBRACE
-  147 term4: term4 • PLUS factor4
-  148      | term4 • MINUS factor4
+  126 factor1: factor1 MULTIPLY primary1 •
 
-    PLUS   shift, and go to state 307
-    MINUS  shift, and go to state 308
-
-    $default  reduce using rule 66 ($@4)
-
-    $@4  go to state 309
+    $default  reduce using rule 126 (factor1)
 
 
 State 299
 
-  146 term4: factor4 •
-  150 factor4: factor4 • MULTIPLY primary4
-  151        | factor4 • DIVIDE primary4
+  127 factor1: factor1 DIVIDE primary1 •
 
-    MULTIPLY  shift, and go to state 310
-    DIVIDE    shift, and go to state 311
-
-    $default  reduce using rule 146 (term4)
+    $default  reduce using rule 127 (factor1)
 
 
 State 300
 
-  149 factor4: primary4 •
+   42 termtab: termtab • PLUS factortab
+   43        | termtab • MINUS factortab
+  183 primary3: IDENTIFIER LBRACKET termtab • RBRACKET
 
-    $default  reduce using rule 149 (factor4)
+    PLUS      shift, and go to state 55
+    MINUS     shift, and go to state 56
+    RBRACKET  shift, and go to state 318
 
 
 State 301
 
-   59 elsebloc: ELSE • LBRACE $@2 instruction_section RBRACE
+  178 primary3: LPAREN PLUS INT_NUMBER • RPAREN
 
-    LBRACE  shift, and go to state 312
+    RPAREN  shift, and go to state 319
 
 
 State 302
 
-   57 condition: IF LPAREN COND RPAREN LBRACE $@1 instruction_section RBRACE elsebloc •
+  180 primary3: LPAREN PLUS FLOAT_NUMBER • RPAREN
 
-    $default  reduce using rule 57 (condition)
+    RPAREN  shift, and go to state 320
 
 
 State 303
 
-  160 primary4: IDENTIFIER LBRACKET • termtab RBRACKET
-
-    IDENTIFIER      shift, and go to state 24
-    INT_NUMBER      shift, and go to state 25
-    FLOAT_NUMBER    shift, and go to state 26
-    CHARACTERE      shift, and go to state 27
-    LPAREN          shift, and go to state 28
-    STRING_LITERAL  shift, and go to state 29
-
-    termtab     go to state 313
-    factortab   go to state 31
-    primarytab  go to state 32
-
-
-State 304
-
-  155 primary4: LPAREN PLUS • INT_NUMBER RPAREN
-  157         | LPAREN PLUS • FLOAT_NUMBER RPAREN
-
-    INT_NUMBER    shift, and go to state 314
-    FLOAT_NUMBER  shift, and go to state 315
-
-
-State 305
-
-  156 primary4: LPAREN MINUS • INT_NUMBER RPAREN
-  158         | LPAREN MINUS • FLOAT_NUMBER RPAREN
-
-    INT_NUMBER    shift, and go to state 316
-    FLOAT_NUMBER  shift, and go to state 317
-
-
-State 306
-
-  147 term4: term4 • PLUS factor4
-  148      | term4 • MINUS factor4
-  159 primary4: LPAREN term4 • RPAREN
-
-    PLUS    shift, and go to state 307
-    MINUS   shift, and go to state 308
-    RPAREN  shift, and go to state 318
-
-
-State 307
-
-  147 term4: term4 PLUS • factor4
-
-    IDENTIFIER      shift, and go to state 292
-    INT_NUMBER      shift, and go to state 293
-    FLOAT_NUMBER    shift, and go to state 294
-    CHARACTERE      shift, and go to state 295
-    LPAREN          shift, and go to state 296
-    STRING_LITERAL  shift, and go to state 297
-
-    factor4   go to state 319
-    primary4  go to state 300
-
-
-State 308
-
-  148 term4: term4 MINUS • factor4
-
-    IDENTIFIER      shift, and go to state 292
-    INT_NUMBER      shift, and go to state 293
-    FLOAT_NUMBER    shift, and go to state 294
-    CHARACTERE      shift, and go to state 295
-    LPAREN          shift, and go to state 296
-    STRING_LITERAL  shift, and go to state 297
-
-    factor4   go to state 320
-    primary4  go to state 300
-
-
-State 309
-
-   67 loop: FOR LPAREN assignment_int COLON term3 $@3 COLON term4 $@4 • RPAREN LBRACE instruction_section RBRACE
+  179 primary3: LPAREN MINUS INT_NUMBER • RPAREN
 
     RPAREN  shift, and go to state 321
 
 
+State 304
+
+  181 primary3: LPAREN MINUS FLOAT_NUMBER • RPAREN
+
+    RPAREN  shift, and go to state 322
+
+
+State 305
+
+  182 primary3: LPAREN term3 RPAREN •
+
+    $default  reduce using rule 182 (primary3)
+
+
+State 306
+
+  170 term3: term3 PLUS factor3 •
+  173 factor3: factor3 • MULTIPLY primary3
+  174        | factor3 • DIVIDE primary3
+
+    MULTIPLY  shift, and go to state 286
+    DIVIDE    shift, and go to state 287
+
+    $default  reduce using rule 170 (term3)
+
+
+State 307
+
+  171 term3: term3 MINUS factor3 •
+  173 factor3: factor3 • MULTIPLY primary3
+  174        | factor3 • DIVIDE primary3
+
+    MULTIPLY  shift, and go to state 286
+    DIVIDE    shift, and go to state 287
+
+    $default  reduce using rule 171 (term3)
+
+
+State 308
+
+   71 loop: FOR LPAREN assignment_int COLON term3 $@3 COLON • term4 $@4 RPAREN LBRACE instruction_section RBRACE
+
+    IDENTIFIER      shift, and go to state 323
+    INT_NUMBER      shift, and go to state 324
+    FLOAT_NUMBER    shift, and go to state 325
+    CHARACTERE      shift, and go to state 326
+    LPAREN          shift, and go to state 327
+    STRING_LITERAL  shift, and go to state 328
+
+    term4     go to state 329
+    factor4   go to state 330
+    primary4  go to state 331
+
+
+State 309
+
+  173 factor3: factor3 MULTIPLY primary3 •
+
+    $default  reduce using rule 173 (factor3)
+
+
 State 310
 
-  150 factor4: factor4 MULTIPLY • primary4
+  174 factor3: factor3 DIVIDE primary3 •
 
-    IDENTIFIER      shift, and go to state 292
-    INT_NUMBER      shift, and go to state 293
-    FLOAT_NUMBER    shift, and go to state 294
-    CHARACTERE      shift, and go to state 295
-    LPAREN          shift, and go to state 296
-    STRING_LITERAL  shift, and go to state 297
-
-    primary4  go to state 322
+    $default  reduce using rule 174 (factor3)
 
 
 State 311
 
-  151 factor4: factor4 DIVIDE • primary4
+   73 io_statement: READ LPAREN IDENTIFIER LBRACKET termtab RBRACKET RPAREN •
 
-    IDENTIFIER      shift, and go to state 292
-    INT_NUMBER      shift, and go to state 293
-    FLOAT_NUMBER    shift, and go to state 294
-    CHARACTERE      shift, and go to state 295
-    LPAREN          shift, and go to state 296
-    STRING_LITERAL  shift, and go to state 297
-
-    primary4  go to state 323
+    $default  reduce using rule 73 (io_statement)
 
 
 State 312
 
-   59 elsebloc: ELSE LBRACE • $@2 instruction_section RBRACE
+   61 condition: IF LPAREN COND RPAREN LBRACE $@1 instruction_section RBRACE • elsebloc
 
-    $default  reduce using rule 58 ($@2)
+    ELSE  shift, and go to state 332
 
-    $@2  go to state 324
+    $default  reduce using rule 64 (elsebloc)
+
+    elsebloc  go to state 333
 
 
 State 313
 
-   38 termtab: termtab • PLUS factortab
-   39        | termtab • MINUS factortab
-  160 primary4: IDENTIFIER LBRACKET termtab • RBRACKET
+  136 primary1: IDENTIFIER LBRACKET termtab RBRACKET •
 
-    PLUS      shift, and go to state 46
-    MINUS     shift, and go to state 47
-    RBRACKET  shift, and go to state 325
+    $default  reduce using rule 136 (primary1)
 
 
 State 314
 
-  155 primary4: LPAREN PLUS INT_NUMBER • RPAREN
+  131 primary1: LPAREN PLUS INT_NUMBER RPAREN •
 
-    RPAREN  shift, and go to state 326
+    $default  reduce using rule 131 (primary1)
 
 
 State 315
 
-  157 primary4: LPAREN PLUS FLOAT_NUMBER • RPAREN
+  133 primary1: LPAREN PLUS FLOAT_NUMBER RPAREN •
 
-    RPAREN  shift, and go to state 327
+    $default  reduce using rule 133 (primary1)
 
 
 State 316
 
-  156 primary4: LPAREN MINUS INT_NUMBER • RPAREN
+  132 primary1: LPAREN MINUS INT_NUMBER RPAREN •
 
-    RPAREN  shift, and go to state 328
+    $default  reduce using rule 132 (primary1)
 
 
 State 317
 
-  158 primary4: LPAREN MINUS FLOAT_NUMBER • RPAREN
+  134 primary1: LPAREN MINUS FLOAT_NUMBER RPAREN •
 
-    RPAREN  shift, and go to state 329
+    $default  reduce using rule 134 (primary1)
 
 
 State 318
 
-  159 primary4: LPAREN term4 RPAREN •
+  183 primary3: IDENTIFIER LBRACKET termtab RBRACKET •
 
-    $default  reduce using rule 159 (primary4)
+    $default  reduce using rule 183 (primary3)
 
 
 State 319
 
-  147 term4: term4 PLUS factor4 •
-  150 factor4: factor4 • MULTIPLY primary4
-  151        | factor4 • DIVIDE primary4
+  178 primary3: LPAREN PLUS INT_NUMBER RPAREN •
 
-    MULTIPLY  shift, and go to state 310
-    DIVIDE    shift, and go to state 311
-
-    $default  reduce using rule 147 (term4)
+    $default  reduce using rule 178 (primary3)
 
 
 State 320
 
-  148 term4: term4 MINUS factor4 •
-  150 factor4: factor4 • MULTIPLY primary4
-  151        | factor4 • DIVIDE primary4
+  180 primary3: LPAREN PLUS FLOAT_NUMBER RPAREN •
 
-    MULTIPLY  shift, and go to state 310
-    DIVIDE    shift, and go to state 311
-
-    $default  reduce using rule 148 (term4)
+    $default  reduce using rule 180 (primary3)
 
 
 State 321
 
-   67 loop: FOR LPAREN assignment_int COLON term3 $@3 COLON term4 $@4 RPAREN • LBRACE instruction_section RBRACE
+  179 primary3: LPAREN MINUS INT_NUMBER RPAREN •
 
-    LBRACE  shift, and go to state 330
+    $default  reduce using rule 179 (primary3)
 
 
 State 322
 
-  150 factor4: factor4 MULTIPLY primary4 •
+  181 primary3: LPAREN MINUS FLOAT_NUMBER RPAREN •
 
-    $default  reduce using rule 150 (factor4)
+    $default  reduce using rule 181 (primary3)
 
 
 State 323
 
-  151 factor4: factor4 DIVIDE primary4 •
+  158 primary4: IDENTIFIER •
+  166         | IDENTIFIER • LBRACKET termtab RBRACKET
 
-    $default  reduce using rule 151 (factor4)
+    LBRACKET  shift, and go to state 334
+
+    $default  reduce using rule 158 (primary4)
 
 
 State 324
 
-   59 elsebloc: ELSE LBRACE $@2 • instruction_section RBRACE
+  159 primary4: INT_NUMBER •
 
-    IF          shift, and go to state 98
-    FOR         shift, and go to state 99
-    READ        shift, and go to state 100
-    WRITE       shift, and go to state 101
-    IDENTIFIER  shift, and go to state 102
-
-    $default  reduce using rule 15 (instruction_section)
-
-    instruction_section  go to state 331
-    statement            go to state 104
-    assignment           go to state 105
-    MDROIT               go to state 106
-    TAB                  go to state 107
-    condition            go to state 108
-    loop                 go to state 109
-    io_statement         go to state 110
+    $default  reduce using rule 159 (primary4)
 
 
 State 325
 
-  160 primary4: IDENTIFIER LBRACKET termtab RBRACKET •
+  160 primary4: FLOAT_NUMBER •
 
     $default  reduce using rule 160 (primary4)
 
 
 State 326
 
-  155 primary4: LPAREN PLUS INT_NUMBER RPAREN •
+  168 primary4: CHARACTERE •
 
-    $default  reduce using rule 155 (primary4)
+    $default  reduce using rule 168 (primary4)
 
 
 State 327
 
-  157 primary4: LPAREN PLUS FLOAT_NUMBER RPAREN •
+  161 primary4: LPAREN • PLUS INT_NUMBER RPAREN
+  162         | LPAREN • MINUS INT_NUMBER RPAREN
+  163         | LPAREN • PLUS FLOAT_NUMBER RPAREN
+  164         | LPAREN • MINUS FLOAT_NUMBER RPAREN
+  165         | LPAREN • term4 RPAREN
 
-    $default  reduce using rule 157 (primary4)
+    IDENTIFIER      shift, and go to state 323
+    INT_NUMBER      shift, and go to state 324
+    FLOAT_NUMBER    shift, and go to state 325
+    CHARACTERE      shift, and go to state 326
+    PLUS            shift, and go to state 335
+    MINUS           shift, and go to state 336
+    LPAREN          shift, and go to state 327
+    STRING_LITERAL  shift, and go to state 328
+
+    term4     go to state 337
+    factor4   go to state 330
+    primary4  go to state 331
 
 
 State 328
 
-  156 primary4: LPAREN MINUS INT_NUMBER RPAREN •
+  167 primary4: STRING_LITERAL •
 
-    $default  reduce using rule 156 (primary4)
+    $default  reduce using rule 167 (primary4)
 
 
 State 329
 
-  158 primary4: LPAREN MINUS FLOAT_NUMBER RPAREN •
+   71 loop: FOR LPAREN assignment_int COLON term3 $@3 COLON term4 • $@4 RPAREN LBRACE instruction_section RBRACE
+  153 term4: term4 • PLUS factor4
+  154      | term4 • MINUS factor4
 
-    $default  reduce using rule 158 (primary4)
+    PLUS   shift, and go to state 338
+    MINUS  shift, and go to state 339
+
+    $default  reduce using rule 70 ($@4)
+
+    $@4  go to state 340
 
 
 State 330
 
-   67 loop: FOR LPAREN assignment_int COLON term3 $@3 COLON term4 $@4 RPAREN LBRACE • instruction_section RBRACE
+  152 term4: factor4 •
+  156 factor4: factor4 • MULTIPLY primary4
+  157        | factor4 • DIVIDE primary4
 
-    IF          shift, and go to state 98
-    FOR         shift, and go to state 99
-    READ        shift, and go to state 100
-    WRITE       shift, and go to state 101
-    IDENTIFIER  shift, and go to state 102
+    MULTIPLY  shift, and go to state 341
+    DIVIDE    shift, and go to state 342
 
-    $default  reduce using rule 15 (instruction_section)
-
-    instruction_section  go to state 332
-    statement            go to state 104
-    assignment           go to state 105
-    MDROIT               go to state 106
-    TAB                  go to state 107
-    condition            go to state 108
-    loop                 go to state 109
-    io_statement         go to state 110
+    $default  reduce using rule 152 (term4)
 
 
 State 331
 
-   59 elsebloc: ELSE LBRACE $@2 instruction_section • RBRACE
+  155 factor4: primary4 •
 
-    RBRACE  shift, and go to state 333
+    $default  reduce using rule 155 (factor4)
 
 
 State 332
 
-   67 loop: FOR LPAREN assignment_int COLON term3 $@3 COLON term4 $@4 RPAREN LBRACE instruction_section • RBRACE
+   63 elsebloc: ELSE • LBRACE $@2 instruction_section RBRACE
 
-    RBRACE  shift, and go to state 334
+    LBRACE  shift, and go to state 343
 
 
 State 333
 
-   59 elsebloc: ELSE LBRACE $@2 instruction_section RBRACE •
+   61 condition: IF LPAREN COND RPAREN LBRACE $@1 instruction_section RBRACE elsebloc •
 
-    $default  reduce using rule 59 (elsebloc)
+    $default  reduce using rule 61 (condition)
 
 
 State 334
 
-   67 loop: FOR LPAREN assignment_int COLON term3 $@3 COLON term4 $@4 RPAREN LBRACE instruction_section RBRACE •
+  166 primary4: IDENTIFIER LBRACKET • termtab RBRACKET
 
-    $default  reduce using rule 67 (loop)
+    IDENTIFIER      shift, and go to state 30
+    INT_NUMBER      shift, and go to state 31
+    FLOAT_NUMBER    shift, and go to state 32
+    CHARACTERE      shift, and go to state 33
+    LPAREN          shift, and go to state 34
+    STRING_LITERAL  shift, and go to state 35
+
+    termtab     go to state 344
+    factortab   go to state 37
+    primarytab  go to state 38
+
+
+State 335
+
+  161 primary4: LPAREN PLUS • INT_NUMBER RPAREN
+  163         | LPAREN PLUS • FLOAT_NUMBER RPAREN
+
+    INT_NUMBER    shift, and go to state 345
+    FLOAT_NUMBER  shift, and go to state 346
+
+
+State 336
+
+  162 primary4: LPAREN MINUS • INT_NUMBER RPAREN
+  164         | LPAREN MINUS • FLOAT_NUMBER RPAREN
+
+    INT_NUMBER    shift, and go to state 347
+    FLOAT_NUMBER  shift, and go to state 348
+
+
+State 337
+
+  153 term4: term4 • PLUS factor4
+  154      | term4 • MINUS factor4
+  165 primary4: LPAREN term4 • RPAREN
+
+    PLUS    shift, and go to state 338
+    MINUS   shift, and go to state 339
+    RPAREN  shift, and go to state 349
+
+
+State 338
+
+  153 term4: term4 PLUS • factor4
+
+    IDENTIFIER      shift, and go to state 323
+    INT_NUMBER      shift, and go to state 324
+    FLOAT_NUMBER    shift, and go to state 325
+    CHARACTERE      shift, and go to state 326
+    LPAREN          shift, and go to state 327
+    STRING_LITERAL  shift, and go to state 328
+
+    factor4   go to state 350
+    primary4  go to state 331
+
+
+State 339
+
+  154 term4: term4 MINUS • factor4
+
+    IDENTIFIER      shift, and go to state 323
+    INT_NUMBER      shift, and go to state 324
+    FLOAT_NUMBER    shift, and go to state 325
+    CHARACTERE      shift, and go to state 326
+    LPAREN          shift, and go to state 327
+    STRING_LITERAL  shift, and go to state 328
+
+    factor4   go to state 351
+    primary4  go to state 331
+
+
+State 340
+
+   71 loop: FOR LPAREN assignment_int COLON term3 $@3 COLON term4 $@4 • RPAREN LBRACE instruction_section RBRACE
+
+    RPAREN  shift, and go to state 352
+
+
+State 341
+
+  156 factor4: factor4 MULTIPLY • primary4
+
+    IDENTIFIER      shift, and go to state 323
+    INT_NUMBER      shift, and go to state 324
+    FLOAT_NUMBER    shift, and go to state 325
+    CHARACTERE      shift, and go to state 326
+    LPAREN          shift, and go to state 327
+    STRING_LITERAL  shift, and go to state 328
+
+    primary4  go to state 353
+
+
+State 342
+
+  157 factor4: factor4 DIVIDE • primary4
+
+    IDENTIFIER      shift, and go to state 323
+    INT_NUMBER      shift, and go to state 324
+    FLOAT_NUMBER    shift, and go to state 325
+    CHARACTERE      shift, and go to state 326
+    LPAREN          shift, and go to state 327
+    STRING_LITERAL  shift, and go to state 328
+
+    primary4  go to state 354
+
+
+State 343
+
+   63 elsebloc: ELSE LBRACE • $@2 instruction_section RBRACE
+
+    $default  reduce using rule 62 ($@2)
+
+    $@2  go to state 355
+
+
+State 344
+
+   42 termtab: termtab • PLUS factortab
+   43        | termtab • MINUS factortab
+  166 primary4: IDENTIFIER LBRACKET termtab • RBRACKET
+
+    PLUS      shift, and go to state 55
+    MINUS     shift, and go to state 56
+    RBRACKET  shift, and go to state 356
+
+
+State 345
+
+  161 primary4: LPAREN PLUS INT_NUMBER • RPAREN
+
+    RPAREN  shift, and go to state 357
+
+
+State 346
+
+  163 primary4: LPAREN PLUS FLOAT_NUMBER • RPAREN
+
+    RPAREN  shift, and go to state 358
+
+
+State 347
+
+  162 primary4: LPAREN MINUS INT_NUMBER • RPAREN
+
+    RPAREN  shift, and go to state 359
+
+
+State 348
+
+  164 primary4: LPAREN MINUS FLOAT_NUMBER • RPAREN
+
+    RPAREN  shift, and go to state 360
+
+
+State 349
+
+  165 primary4: LPAREN term4 RPAREN •
+
+    $default  reduce using rule 165 (primary4)
+
+
+State 350
+
+  153 term4: term4 PLUS factor4 •
+  156 factor4: factor4 • MULTIPLY primary4
+  157        | factor4 • DIVIDE primary4
+
+    MULTIPLY  shift, and go to state 341
+    DIVIDE    shift, and go to state 342
+
+    $default  reduce using rule 153 (term4)
+
+
+State 351
+
+  154 term4: term4 MINUS factor4 •
+  156 factor4: factor4 • MULTIPLY primary4
+  157        | factor4 • DIVIDE primary4
+
+    MULTIPLY  shift, and go to state 341
+    DIVIDE    shift, and go to state 342
+
+    $default  reduce using rule 154 (term4)
+
+
+State 352
+
+   71 loop: FOR LPAREN assignment_int COLON term3 $@3 COLON term4 $@4 RPAREN • LBRACE instruction_section RBRACE
+
+    LBRACE  shift, and go to state 361
+
+
+State 353
+
+  156 factor4: factor4 MULTIPLY primary4 •
+
+    $default  reduce using rule 156 (factor4)
+
+
+State 354
+
+  157 factor4: factor4 DIVIDE primary4 •
+
+    $default  reduce using rule 157 (factor4)
+
+
+State 355
+
+   63 elsebloc: ELSE LBRACE $@2 • instruction_section RBRACE
+
+    IF          shift, and go to state 96
+    FOR         shift, and go to state 97
+    READ        shift, and go to state 98
+    WRITE       shift, and go to state 99
+    IDENTIFIER  shift, and go to state 100
+
+    instruction_section  go to state 362
+    statement            go to state 103
+    assignment           go to state 104
+    MDROIT               go to state 105
+    TAB                  go to state 106
+    condition            go to state 107
+    loop                 go to state 108
+    io_statement         go to state 109
+
+
+State 356
+
+  166 primary4: IDENTIFIER LBRACKET termtab RBRACKET •
+
+    $default  reduce using rule 166 (primary4)
+
+
+State 357
+
+  161 primary4: LPAREN PLUS INT_NUMBER RPAREN •
+
+    $default  reduce using rule 161 (primary4)
+
+
+State 358
+
+  163 primary4: LPAREN PLUS FLOAT_NUMBER RPAREN •
+
+    $default  reduce using rule 163 (primary4)
+
+
+State 359
+
+  162 primary4: LPAREN MINUS INT_NUMBER RPAREN •
+
+    $default  reduce using rule 162 (primary4)
+
+
+State 360
+
+  164 primary4: LPAREN MINUS FLOAT_NUMBER RPAREN •
+
+    $default  reduce using rule 164 (primary4)
+
+
+State 361
+
+   71 loop: FOR LPAREN assignment_int COLON term3 $@3 COLON term4 $@4 RPAREN LBRACE • instruction_section RBRACE
+
+    IF          shift, and go to state 96
+    FOR         shift, and go to state 97
+    READ        shift, and go to state 98
+    WRITE       shift, and go to state 99
+    IDENTIFIER  shift, and go to state 100
+
+    instruction_section  go to state 363
+    statement            go to state 103
+    assignment           go to state 104
+    MDROIT               go to state 105
+    TAB                  go to state 106
+    condition            go to state 107
+    loop                 go to state 108
+    io_statement         go to state 109
+
+
+State 362
+
+   63 elsebloc: ELSE LBRACE $@2 instruction_section • RBRACE
+
+    RBRACE  shift, and go to state 364
+
+
+State 363
+
+   71 loop: FOR LPAREN assignment_int COLON term3 $@3 COLON term4 $@4 RPAREN LBRACE instruction_section • RBRACE
+
+    RBRACE  shift, and go to state 365
+
+
+State 364
+
+   63 elsebloc: ELSE LBRACE $@2 instruction_section RBRACE •
+
+    $default  reduce using rule 63 (elsebloc)
+
+
+State 365
+
+   71 loop: FOR LPAREN assignment_int COLON term3 $@3 COLON term4 $@4 RPAREN LBRACE instruction_section RBRACE •
+
+    $default  reduce using rule 71 (loop)
