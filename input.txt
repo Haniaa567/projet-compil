@@ -8,7 +8,8 @@ DECLARATION {
     INTEGER NUM4[9],NUM5[8-TEST];  
     INTEGER NUM2[10];   
     FLOAT NUM3 ;      
-    CHAR CAR ;    
+    CHAR CAR ;   
+    INTEGER INt[10]; 
     INTEGER Tab[10];
 }
 INSTRUCTION {

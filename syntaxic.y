@@ -100,6 +100,28 @@ program:
     VAR_GLOBAL LBRACE global_var_section RBRACE
     DECLARATION LBRACE declaration_section RBRACE
     INSTRUCTION LBRACE instruction_section RBRACE
+    | VAR_GLOBAL LBRACE  RBRACE
+    DECLARATION LBRACE  RBRACE
+    INSTRUCTION LBRACE  RBRACE
+    |VAR_GLOBAL LBRACE  RBRACE
+    DECLARATION LBRACE  RBRACE
+    INSTRUCTION LBRACE instruction_section RBRACE
+    |VAR_GLOBAL LBRACE  RBRACE
+    DECLARATION LBRACE declaration_section RBRACE
+    INSTRUCTION LBRACE  RBRACE
+    |VAR_GLOBAL LBRACE  RBRACE
+    DECLARATION LBRACE declaration_section RBRACE
+    INSTRUCTION LBRACE instruction_section RBRACE
+    |VAR_GLOBAL LBRACE global_var_section RBRACE
+    DECLARATION LBRACE  RBRACE
+    INSTRUCTION LBRACE  RBRACE
+    |VAR_GLOBAL LBRACE global_var_section RBRACE
+    DECLARATION LBRACE  RBRACE
+    INSTRUCTION LBRACE instruction_section RBRACE
+    |VAR_GLOBAL LBRACE global_var_section RBRACE
+    DECLARATION LBRACE declaration_section RBRACE
+    INSTRUCTION LBRACE  RBRACE
+    
 ;
 
 // Define valid types for variables
@@ -114,7 +136,7 @@ global_var_section:
     declaration SEMICOLON
     | declaration SEMICOLON global_var_section
     |declaration {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d apres declaration",nb_ligne,colPrd);exit(0);}
-    |
+    
 
 ;
 
@@ -123,14 +145,14 @@ declaration_section:
     declaration SEMICOLON
     | declaration SEMICOLON global_var_section
     |declaration {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d apres declaration",nb_ligne,colPrd);exit(0);}
-    |
+    
 ;
 
 // Section for instructions (converted to right-recursive)
 instruction_section:
     statement
     | statement instruction_section
-    |
+    
 ;
 
 // Rule for different types of declarations

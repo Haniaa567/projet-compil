@@ -66,7 +66,7 @@ WRITE            { rechercher(yytext,"mot cle","","",1); printf("WRITE\n"); colP
                    if (atoi(yytext) > -32768 && atoi(yytext) < 32767) {
                        printf("INT_NUMBER: %s\n", yytext);
                    } else {
-                       printf("Erreur Lexicale à la ligne %d à la colonne %d : l'entier n'est pas supporté\n", nb_ligne, col);
+                       printf("Erreur Lexicale à la ligne %d à la colonne %d : l'entier n'est pas supporté\n", nb_ligne, col);exit(0);
                    }
                    colPrd=col;col += strlen(yytext);
                    return INT_NUMBER; }
@@ -77,7 +77,7 @@ WRITE            { rechercher(yytext,"mot cle","","",1); printf("WRITE\n"); colP
                    colPrd=col;col += strlen(yytext); 
                    return FLOAT_NUMBER; }
 {CHARACTERE}     { yylval.string = strdup(yytext); rechercher(yytext,"CONSTANT","CHAR",yytext,0); printf("CHARACTERE: %s\n", yytext); colPrd=col;col += strlen(yytext); return CHARACTERE; }
-{IDENTIFIER}     { yylval.string = strdup(yytext); rechercher(yytext,"IDF","","",0); colPrd=col;col += strlen(yytext); if (yyleng < 9) { printf("IDENTIFIER: %s\n", yytext); return IDENTIFIER; } else { printf("Erreur Lexicale à la ligne %d à la colonne %d : IDF trop long\n", nb_ligne, col); } }
+{IDENTIFIER}     { yylval.string = strdup(yytext); rechercher(yytext,"IDF","","",0); colPrd=col;col += strlen(yytext); if (yyleng < 9) { printf("IDENTIFIER: %s\n", yytext); return IDENTIFIER; } else { printf("Erreur Lexicale à la ligne %d à la colonne %d : IDF trop long\n", nb_ligne, col);exit(0); } }
 {STRING_LITERAL} {yylval.string = strdup(yytext); rechercher(yytext,"CONSTANT","STRING",yytext,0); printf("STRING: %s\n", yytext); colPrd=col;col += strlen(yytext); return STRING_LITERAL; }
 "%%"[^\n]*         { /* Ignorer les commentaires */ colPrd=col;col += strlen(yytext); }
 

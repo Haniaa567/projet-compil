@@ -1022,7 +1022,7 @@ YY_RULE_SETUP
                    if (atoi(yytext) > -32768 && atoi(yytext) < 32767) {
                        printf("INT_NUMBER: %s\n", yytext);
                    } else {
-                       printf("Erreur Lexicale à la ligne %d à la colonne %d : l'entier n'est pas supporté\n", nb_ligne, col);
+                       printf("Erreur Lexicale à la ligne %d à la colonne %d : l'entier n'est pas supporté\n", nb_ligne, col);exit(0);
                    }
                    colPrd=col;col += strlen(yytext);
                    return INT_NUMBER; }
@@ -1044,7 +1044,7 @@ YY_RULE_SETUP
 case 39:
 YY_RULE_SETUP
 #line 80 "lexical.l"
-{ yylval.string = strdup(yytext); rechercher(yytext,"IDF","","",0); colPrd=col;col += strlen(yytext); if (yyleng < 9) { printf("IDENTIFIER: %s\n", yytext); return IDENTIFIER; } else { printf("Erreur Lexicale à la ligne %d à la colonne %d : IDF trop long\n", nb_ligne, col); } }
+{ yylval.string = strdup(yytext); rechercher(yytext,"IDF","","",0); colPrd=col;col += strlen(yytext); if (yyleng < 9) { printf("IDENTIFIER: %s\n", yytext); return IDENTIFIER; } else { printf("Erreur Lexicale à la ligne %d à la colonne %d : IDF trop long\n", nb_ligne, col);exit(0); } }
 	YY_BREAK
 case 40:
 /* rule 40 can match eol */
