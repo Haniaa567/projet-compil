@@ -29,7 +29,7 @@ if errorlevel 1 (
 )
 
 :: echo ---- Details conflis ----
-:: %BISON% -Wcounterexamples %YACC_FILE%
+ %BISON% -Wcounterexamples %YACC_FILE%
 
 
 echo ---- Compilation avec Flex ----
