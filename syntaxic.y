@@ -205,8 +205,7 @@ variable_list:
         }
         } 
     | IDENTIFIER COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
-    | IDENTIFIER LBRACKET INT_NUMBER RBRACKET COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);modifierCode("IDF TAB",saveIdf[j].idfTab);j++;} 
-    | IDENTIFIER LBRACKET LPAREN PLUS INT_NUMBER RPAREN RBRACKET COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);modifierCode("IDF TAB",saveIdf[j].idfTab);j++;} 
+
 ;
 
 
@@ -288,45 +287,7 @@ MDROIT:
     }
 ; 
 TAB:
-    IDENTIFIER LBRACKET INT_NUMBER RBRACKET   {if(verifdeclaration($1)==0 )
-                    {printf("Erreur semantique a la ligne %d colonne %d :Tableau %s non declare\n",nb_ligne,col,$1); exit(0);}
-                    else if(strcmp(getCode($1),"IDF")==0){
-                        printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' est n'est pas un tableau.\n",nb_ligne,col, $1);
-                         exit(0);
-                        strcpy(typeG, getType($1));
-                            }
-                            else{
-                        strcpy(typeG, getType($1));
-
-                    } 
-                      
-                        strcpy(mDroit,$1);
-                        temp=newtemp();
-                        strcpy(temp,$1);
-                        strcpy(tmp,$1);
-                        strcat(tmp,"[");
-                        sprintf(buffer2,"%d",atoi($3));
-                        strcat(tmp,buffer2);
-                        strcat(tmp,"]");
-                    
-                       
-                    }      
-                           
- 
-    | IDENTIFIER LBRACKET LPAREN PLUS INT_NUMBER RPAREN RBRACKET {
-                if(verifdeclaration($1)==0 )
-                  {printf("Erreur semantique a la ligne %d colonne %d :Tableau %s non declare\n",nb_ligne,col,$1);
-                   exit(0);}
-                  else if(strcmp(getCode($1),"IDF")==0){
-                        printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' est n'est pas un tableau.\n",nb_ligne,col, $1);
-                         exit(0);
-                        strcpy(typeG, getType($1));
-                            }
-                            else{
-                        strcpy(typeG, getType($1));
-
-                    }  
-    }
+   
     |IDENTIFIER LBRACKET termtab RBRACKET   {
                     if(verifdeclaration($1)==0 )
                     {printf("Erreur semantique a la ligne %d colonne %d :Tableau %s non declare\n",nb_ligne,col,$1);
@@ -457,9 +418,12 @@ primarytab:
         if (verifdeclaration($1) == 0) {
             printf("Erreur sémantique la ligne %d colonne %d : La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, $1); exit(0);
         }else {strcpy(typeD,getType($1));
-                             if(strcmp(typeG,typeD)!=0) {printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
-                                                         printf("tentative d'affecter %s a un %s\n",typeD,typeG); exit(0);
+                             if(strcmp("CHAR",typeD)==0 || strcmp("STRING",typeD)==0  ) {printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
+                                                         printf("l'indice de tableau ne peut pas etre CHARACTERS\n",typeD,typeG); exit(0);
                                                         }
+                            else if (strcmp("FLOAT",typeD)==0)
+                            {printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
+                                                         printf("l'indice de tableau ne peut pas etre FLOAT\n",typeD,typeG); exit(0);}
                                 strcpy(valIdf,getVal($1));
                                  if(strcmp(valIdf,"") == 0){printf("erreur semantique a la ligne %d colonne %d : variable %s non initialisee\n",nb_ligne,col,$1); exit(0);}
                                  else
@@ -477,6 +441,8 @@ primarytab:
                   
     }
     | FLOAT_NUMBER{
+        printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
+        printf("l'indice de tableau ne peut pas etre FLOAT\n",typeD,typeG); exit(0);
                    $$=atof($1); 
                    strcpy(buffer1,$1);
                    empiler(&pile3,buffer1);
@@ -488,6 +454,8 @@ primarytab:
         
     }
     |LPAREN MINUS INT_NUMBER RPAREN{
+        printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
+        printf("l'indice de tableau ne peut pas etre NEGATIVE\n",typeD,typeG); exit(0);
                 strcpy(saveStr,$3);
                 strcat(strcpy(saveS,"-"),saveStr);
                 $$=atoi(saveS);
@@ -495,31 +463,66 @@ primarytab:
                 empiler(&pile3,buffer1);
             
     }
-    | LPAREN PLUS FLOAT_NUMBER RPAREN {$$=atof($3);
+    | LPAREN PLUS FLOAT_NUMBER RPAREN {
+                                   printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
+                                                         printf("l'indice de tableau ne peut pas etre FLOAT\n",typeD,typeG); exit(0); 
+                                    $$=atof($3);
                                       strcpy(buffer1,$3);
                                       empiler(&pile3,buffer1);
                                       
                    }
     | LPAREN MINUS FLOAT_NUMBER RPAREN {
+        printf("Erreur semantique a la ligne %d:type incompatible 1\n",nb_ligne);
+                                                         printf("l'indice de tableau ne peut pas etre FLOAT\n",typeD,typeG); exit(0);
                                            strcat(strcpy(saveS,"-"),$3);
                                            $$=atof(saveS);
                                            strcpy(buffer1, saveS);
                                            empiler(&pile3,buffer1);
                                        
     }
-    | LPAREN term RPAREN {$$=$2;}
-    |IDENTIFIER LBRACKET INT_NUMBER RBRACKET {
-                                     strcpy(tmp,$1);
-                                    strcat(tmp,"[");
-                                    sprintf(buffer1,"%d",atoi($3));
-                                    strcat(tmp,buffer1);
-                                    strcat(tmp,"]");
-                                    strcpy(saveStrq,tmp);
-                                    strcpy(buffer1,tmp);
-                                    empiler(&pile3,buffer1);
-                                 
+    | LPAREN termtab RPAREN {$$=$2;}
+    |IDENTIFIER LBRACKET termtab RBRACKET {
+         if(verifdeclaration($1)==0 )
+                    {printf("Erreur semantique a la ligne %d colonne %d :Tableau %s non declare\n",nb_ligne,col,$1);
+                     exit(0);}
+                    else if(strcmp(getCode($1),"IDF")==0){
+                        printf("Erreur semantique la ligne %d colonne %d: La variable '%s' est n'est pas un tableau.\n",nb_ligne,col, $1);
+                         exit(0);
+                            }
+                            else{
+                        if(strcmp(getType($1),"INTEGER")!=0){
+                            printf("Erreur semantique la ligne %d colonne %d: L'indice du tableau doit etre un entier (pas un nombre reel)\n",nb_ligne,col);
+                         exit(0);
+                        }
+
+                    }  
+                    // Vérifier si le nombre a une partie fractionnelle
+                    if (fmod(valind, 1.0) != 0.0) {
+                        printf("Erreur semantique la ligne %d colonne %d: Le tableau '%s' est n'est pas un entier.\n",nb_ligne,col, $1);
+                         exit(0);
+                    }
+                    
+                    // Vérifier que le nombre est un entier positif
+                    if ($3 < 0) {
+                        printf("Erreur semantique la ligne %d colonne %d : L'indice du tableau doit être un entier positif\n",nb_ligne,col);
+                         exit(0);
+                    }
+                    
+        /*
+                        strcpy(tmp,$1);
+                        strcat(tmp,"[");
+                        sprintf(buffer1,"%d",atoi($3));
+                        strcat(tmp,buffer1);
+                        strcat(tmp,"]");
+                        strcpy(saveStrq,tmp);
+                        strcpy(buffer1,tmp);
+                        empiler(&pile3,buffer1); */   
                 }
-;
+        |CHARACTERE {printf("Erreur semantique a la ligne %d colonne %d :type incompatible\n",nb_ligne,col);
+                                 printf("l'indice ne peut pas etre CHAR\n"); exit(0);} 
+        |STRING_LITERAL{printf("Erreur semantique a la ligne %d colonne %d :type incompatible\n",nb_ligne,col);
+                                 printf("l'indice ne peut pas etre STRING\n"); exit(0);} 
+;       
 
 EXPRESSION_CHAR: CHARACTERE {if(strcmp(typeG,"CHAR")!=0)   
                                 {printf("Erreur semantique a la ligne %d colonne %d :type incompatible\n",nb_ligne,col);
