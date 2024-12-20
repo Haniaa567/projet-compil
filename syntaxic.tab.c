@@ -1544,25 +1544,25 @@ yyreduce:
 
   case 26: /* statement: assignment  */
 #line 215 "syntaxic.y"
-                {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d (':' apres chaque instruction)",nb_ligne,colPrd);exit(0);}
+                {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d (';' apres chaque instruction)",nb_ligne,colPrd);exit(0);}
 #line 1549 "syntaxic.tab.c"
     break;
 
   case 27: /* statement: condition  */
 #line 216 "syntaxic.y"
-                {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d (':' apres chaque instruction)",nb_ligne,colPrd);exit(0);}
+                {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d (';' apres chaque instruction)",nb_ligne,colPrd);exit(0);}
 #line 1555 "syntaxic.tab.c"
     break;
 
   case 28: /* statement: loop  */
 #line 217 "syntaxic.y"
-           {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d (':' apres chaque instruction)",nb_ligne,colPrd);exit(0);}
+           {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d (';' apres chaque instruction)",nb_ligne,colPrd);exit(0);}
 #line 1561 "syntaxic.tab.c"
     break;
 
   case 29: /* statement: io_statement  */
 #line 218 "syntaxic.y"
-                   {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d (':' apres chaque instruction)",nb_ligne,colPrd);exit(0);}
+                   {printf("erreur syntaxic: il manque ';' dans la linge %d colonne %d (';' apres chaque instruction)",nb_ligne,colPrd);exit(0);}
 #line 1567 "syntaxic.tab.c"
     break;
 
