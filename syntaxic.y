@@ -1316,6 +1316,7 @@ primary2:
         if (verifdeclaration($1) == 0) {
             printf("Erreur sémantique la ligne %d colonne %d: La variable '%s' n'est pas déclarée avant son utilisation.\n",nb_ligne,col, $1); exit(0);
         }else {strcpy(typeG,getType($1));
+                                strcpy(valIdf,getVal($1));
                                   $$=atof(valIdf);
                                   strcpy(buffer1,$1);
                                   empiler(&pile3,buffer1);
@@ -1473,7 +1474,8 @@ primary4:
                 if(strcmp(typeD,"CHAR")==0){printf("Erreur semantique a la ligne %d colonne %d :type incompatible parametre de boucle ne doit pas etre CHAR\n",nb_ligne,col);exit(0);}
                 else if(strcmp(typeD,"INTEGER")!=0){
                     printf("Erreur semantique a la ligne %d colonne %d :type incompatible parametre de boucle doit etre INTEGER et pas FLOAT\n",nb_ligne,col);exit(0);
-                }
+                }                
+                                 strcpy(valIdf,getVal($1));
                                   strcpy(brnsup,$1);
                                   $$=atof(valIdf);
                                   strcpy(buffer1,$1);
@@ -1660,7 +1662,8 @@ primary3:
                 if(strcmp(typeG,"CHAR")==0 ){printf("Erreur semantique a la ligne %d colonne %d :type incompatible parametre de boucle ne doit pas etre CHAR\n",nb_ligne,col);exit(0);}
                 else if(strcmp(typeG,"INTEGER")!=0){
                     printf("Erreur semantique a la ligne %d colonne %d :type incompatible parametre de boucle doit INTEGER pas FLOAT\n",nb_ligne,col);exit(0);
-                }
+                } 
+                                  strcpy(valIdf,getVal($1));
                                   $$=atof(valIdf);
                                   strcpy(buffer1,$1);
                                   empiler(&pile3,buffer1);
