@@ -13,7 +13,6 @@ DECLARATION {
     INTEGER Tab[10];
 }
 INSTRUCTION {
-  HII
     Tab[0]=2;
     ABC=2*8+(16+2-13);
     CAR='a';
