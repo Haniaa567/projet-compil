@@ -3852,7 +3852,7 @@ int yywrap() {
 // Function to handle errors during parsing
 
 void yyerror(const char *s) {
-    fprintf(stderr, "Error: %s at line %d, column %d\n", s, nb_ligne, col);
+    printf("Erreur syntaxique: ligne %d colonne %d\n",  nb_ligne, colPrd);
     exit(0);
 }
 

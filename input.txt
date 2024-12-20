@@ -9,10 +9,11 @@ DECLARATION {
     INTEGER NUM2[10];   
     FLOAT NUM3 ;      
     CHAR CAR ;   
-    INTEGER INt[10]; 
+    INTEGER HII,INt[10]; 
     INTEGER Tab[10];
 }
 INSTRUCTION {
+  HII
     Tab[0]=2;
     ABC=2*8+(16+2-13);
     CAR='a';
