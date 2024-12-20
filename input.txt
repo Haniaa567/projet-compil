@@ -15,7 +15,6 @@ INSTRUCTION {
     Tab[0]=2;
     ABC=2*8+(16+2-13);
     CAR='a';
-    NUM2[1]=NUM2[1+1];
     NUM[2]='o';
     NUM[ABC]='h'; 
     NUM3=2.3;
@@ -27,6 +26,10 @@ INSTRUCTION {
       FOR(NUM2[1]=1:ABC:NUM2[1+1])
       {
         ABC=ABC+1;
+      };
+      IF(5/ABC>3)
+      {
+        NUM3=2.3;
       };
       
 }

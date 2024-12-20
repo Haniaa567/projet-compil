@@ -577,6 +577,7 @@ assignment_int:
             //sprintf(saveStr, "%d", (int)$3); 
             createQuad("=", saveStrq, "",mDroit);
             empiler(&pile4,mDroit);
+            insererVal(mDroit, saveStr);
         
         }
     }

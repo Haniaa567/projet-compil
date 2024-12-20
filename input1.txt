@@ -52,6 +52,6 @@ INSTRUCTION {
 
     %% Parcourir le tableau et afficher chaque élément
     FOR (I = 0 : 2 : 1) {
-        WRITE("Element Tab[", i, "] = ", Tab[i], ".");
+        WRITE("Element Tab[", I, "] = ", Tab[I], ".");
     };
 }

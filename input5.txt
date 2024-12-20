@@ -1,0 +1,38 @@
+VAR_GLOBAL {
+    INTEGER START, END, I, J,D;
+}
+
+DECLARATION {
+    INTEGER IS_PRIME;
+}
+
+INSTRUCTION {
+    WRITE("Donner le début de la plage :");
+    READ(START);
+    WRITE("Donner la fin de la plage :");
+    READ(END);
+    D=10;
+    %% Vérification de la validité de l'entrée
+    IF (START > END) {
+        WRITE("Erreur : Le début de la plage doit être inférieur à la fin.");
+    };
+    %% Vérification des nombres premiers dans la plage
+    FOR (I = START : END : 1) {
+        IF (I < 2) {
+            WRITE(I, " n'est pas un nombre premier.");
+        } ELSE {
+            IS_PRIME = 1;
+            FOR (J = 2 : I-1 : 1) {
+                IF (I / D == 0) {
+                    IS_PRIME = 0;
+                };
+            };
+
+            IF (IS_PRIME == 1) {
+                WRITE(I, " est un nombre premier.");
+            } ELSE {
+                WRITE(I, " n'est pas un nombre premier.");
+            };
+        };
+    };
+}

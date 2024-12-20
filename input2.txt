@@ -1,0 +1,24 @@
+VAR_GLOBAL {
+    INTEGER N, RESULT;
+}
+
+DECLARATION {
+    INTEGER FACT;  %% Variable pour stocker la factorielle
+    INTEGER I;
+}
+
+INSTRUCTION {
+    WRITE("Donner un entier N pour calculer sa factorielle :");
+    READ(N);
+    
+    %% Vérification que N est positif
+    IF (N < 0) {
+        WRITE("Erreur : N doit être un entier positif.");
+    }ELSE{
+        FACT = 1;  %% Initialiser la factorielle à 1
+        FOR (I = 1 : N : 1) {   %% Calcul de la factorielle avec une boucle FOR
+            FACT = FACT * I;
+        };
+    };
+    WRITE("La factorielle de ", N, " est : ", FACT, ".");
+}

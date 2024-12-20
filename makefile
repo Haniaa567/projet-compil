@@ -1,4 +1,4 @@
-CC=gcc
+CC=gcc-14
 CFLAGS=-Wall
 
 monProgramme: syntaxic.tab.o lex.yy.o TableSymbole.o quadruplet.o
