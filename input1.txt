@@ -1,0 +1,57 @@
+VAR_GLOBAL {
+    INTEGER A, B, C, SUM;
+    INTEGER Tab[3];
+}
+
+DECLARATION {
+    INTEGER ABS_VAL;
+    INTEGER I; %% Variable pour parcourir le tableau
+}
+
+INSTRUCTION {
+    %% Lire les trois nombres
+    WRITE("Donner la valeur de A :");
+    READ(A);
+    WRITE("Donner la valeur de B :");
+    READ(B);
+    WRITE("Donner la valeur de C :");
+    READ(C);
+
+    %% Calculer la somme
+    SUM = A + B + C;
+    WRITE("La somme de A, B, et C est :", SUM, ".");
+
+    %% Vérifier si A est négatif, afficher sa valeur absolue
+    IF (A < 0) {
+        ABS_VAL = (-1)*A;
+        WRITE("La valeur absolue de A est :", ABS_VAL, ".");
+    } ELSE {
+        ABS_VAL = A;
+    };
+
+    %% Vérifier si B est négatif, afficher sa valeur absolue
+    IF (B < 0) {
+        ABS_VAL = (-1)*B;
+        WRITE("La valeur absolue de B est :", ABS_VAL, ".");
+    } ELSE {
+        ABS_VAL = B;
+    };
+
+    %% Vérifier si C est négatif, afficher sa valeur absolue
+    IF (C < 0) {
+        ABS_VAL = (-1)*C;
+        WRITE("La valeur absolue de C est :", ABS_VAL, ".");
+    } ELSE {
+        ABS_VAL = C;
+    };
+
+    %% Placer A, B, et C dans un tableau
+    Tab[0] = A;
+    Tab[1] = B;
+    Tab[2] = C;
+
+    %% Parcourir le tableau et afficher chaque élément
+    FOR (I = 0 : 2 : 1) {
+        WRITE("Element Tab[", i, "] = ", Tab[i], ".");
+    };
+}
