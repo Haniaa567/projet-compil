@@ -716,7 +716,7 @@ NOT_EXPR:
 comparison_expr:
     term2 GT term1
     {
-         char* temp=newtemp();
+        temp=newtemp();
          sprintf(temp,"T%d",cpttemp);
          cpttemp++;
          valDepile = depiler(&pile3); 
@@ -727,7 +727,7 @@ comparison_expr:
         empiler(&pile3,temp);
     }
     | term2 LT term1{
-        char* temp=newtemp();
+        temp=newtemp();
         sprintf(temp,"T%d",cpttemp);
          cpttemp++;
          valDepile = depiler(&pile3); 
@@ -738,7 +738,7 @@ comparison_expr:
         empiler(&pile3,temp);
     }
     |term2 EQ term1{
-        char* temp=newtemp();
+        temp=newtemp();
         sprintf(temp,"T%d",cpttemp);
          cpttemp++;
          valDepile = depiler(&pile3); 
@@ -749,7 +749,7 @@ comparison_expr:
         empiler(&pile3,temp);
     }
     |term2 GEQ term1{
-       char* temp=newtemp();
+       temp=newtemp();
        sprintf(temp,"T%d",cpttemp);
          cpttemp++;
          valDepile = depiler(&pile3); 
@@ -760,7 +760,7 @@ comparison_expr:
         empiler(&pile3,temp);
     }
     |term2 LEQ term1{
-        char* temp=newtemp();
+        temp=newtemp();
         sprintf(temp,"T%d",cpttemp);
          cpttemp++;
          valDepile = depiler(&pile3); 
@@ -771,7 +771,7 @@ comparison_expr:
         empiler(&pile3,temp);
     }
     |term2 NEQ term1{
-        char* temp=newtemp();
+        temp=newtemp();
         sprintf(temp,"T%d",cpttemp);
          cpttemp++;
          valDepile = depiler(&pile3); 
@@ -801,10 +801,33 @@ comparison_expr:
             printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
             printf("on ne peut pas comparer %s avec %s\n",typeG,typeD); exit(0);
         }
-                         }       
+        else{
+            temp=newtemp();
+            sprintf(temp,"T%d",cpttemp);
+            cpttemp++;
+            valDepile = depiler(&pile3); 
+            strcpy(buffer2, valDepile); 
+            valDepile = depiler(&pile3); 
+            strcpy(buffer1, valDepile);
+            createQuadA(nb_op,buffer1,buffer2,temp);
+            empiler(&pile3,temp);
+        }
+        
+    }       
     | term2 OP_COMP GAUCHE {if(strcmp(typeD,typeG)!=0){
             printf("Erreur semantique a la ligne %d colonne %d :type incompatible \n",nb_ligne,col);
             printf("on ne peut pas comparer %s avec %s\n",typeG,typeD); exit(0);
+        }
+        else{
+            temp=newtemp();
+            sprintf(temp,"T%d",cpttemp);
+            cpttemp++;
+            valDepile = depiler(&pile3); 
+            strcpy(buffer2, valDepile); 
+            valDepile = depiler(&pile3); 
+            strcpy(buffer1, valDepile);
+            createQuadA(nb_op,buffer1,buffer2,temp);
+            empiler(&pile3,temp);
         }
                             }
     | DROIT OP_COMP GAUCHE{
@@ -813,10 +836,14 @@ comparison_expr:
             printf("on ne peut pas comparer %s avec %s\n",typeG,typeD); exit(0);
         }
         else{
-            char* temp=newtemp();
+            temp=newtemp();
             sprintf(temp,"T%d",cpttemp);
             cpttemp++;
-            createQuadA(nb_op,$1,$3,temp);
+            valDepile = depiler(&pile3); 
+            strcpy(buffer2, valDepile); 
+            valDepile = depiler(&pile3); 
+            strcpy(buffer1, valDepile);
+            createQuadA(nb_op,buffer1,buffer2,temp);
             empiler(&pile3,temp);
         }
     }
@@ -825,12 +852,20 @@ comparison_expr:
 ; 
 
 DROIT:
-    CHARACTERE{strcpy(typeG,"CHAR");}
-    |STRING_LITERAL{strcpy(typeG,"STRING");}
+    CHARACTERE{strcpy(typeG,"CHAR");
+    empiler(&pile3,$1);
+    }
+    |STRING_LITERAL{strcpy(typeG,"STRING");
+    empiler(&pile3,$1);
+    }
 ;    
 GAUCHE:
-   CHARACTERE{strcpy(typeD,"CHAR");}
-    |STRING_LITERAL{strcpy(typeD,"STRING");}
+   CHARACTERE{strcpy(typeD,"CHAR");
+   empiler(&pile3,$1);
+   }
+    |STRING_LITERAL{strcpy(typeD,"STRING");
+    empiler(&pile3,$1);
+    }
 ;   
 OP_COMP:
     GT  {nb_op=6;}      // Greater than
