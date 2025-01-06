@@ -216,6 +216,12 @@ variable_list:
         } 
     | IDENTIFIER COMMA variable_list  {strcpy(saveIdf[j].idfTab,$1);j++;} 
     | IDENTIFIER LBRACKET termtab RBRACKET COMMA variable_list
+     {strcpy(saveIdf[j].idfTab,$1);modifierCode("IDF TAB",saveIdf[j].idfTab);j++;
+
+        sprintf(buffer1, "T%d", cpttemp-1);
+        createQuad("BOUNDS", "0", buffer1,"");
+        createQuad("ADEC",$1,"","");
+        } 
 
 ;
 
